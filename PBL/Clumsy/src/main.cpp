@@ -1,11 +1,12 @@
 #include <assimp/Importer.hpp>
 #include <assimp/aabb.h>
-#include <glad/glad.h>
-#include <glfw3.h>
+#include "RenderEngine/Window.h"
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 int main() {
+	Clumsy::Window window(SCR_WIDTH, SCR_HEIGHT);
+
 	return 0;
 }
