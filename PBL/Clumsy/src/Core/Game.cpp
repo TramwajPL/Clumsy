@@ -1,16 +1,14 @@
 #include "Game.h"
-
-#include "KeyCodes.h"
 #include <iostream>
 
 namespace Clumsy {
 	//Input* Input::s_Instance = nullptr;
 
-	void Game::input()
+	void Game::ProcessInput(const Input& input)
 	{
-		if (m_Input->getKeytest(Input::KEY_UP))
+		/*if (m_Input->GetKeyDown(Input::KEY_UP))
 		{
 			std::cout << "WE PRESSED UP!";
-		}
+		}*/
 	}
 }

@@ -56,5 +56,8 @@
     <ClInclude Include="src\Core\KeyCodes.h">
       <Filter>Pliki źródłowe\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\Vector2f.h">
+      <Filter>Pliki źródłowe\Core</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -50,7 +50,7 @@ namespace Clumsy {
 
 			if (glfwWindowShouldClose(window))
 				stop();
-			game.input();
+			//game.input();
 
 			render(window);
 		}

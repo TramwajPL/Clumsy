@@ -350,9 +350,9 @@ namespace Clumsy {
 			 */
 			 /*@{*/
 
-			 KEY_BRIGHTNESSDOWN = 275,
-			 KEY_BRIGHTNESSUP = 276,
-			 KEY_DISPLAYSWITCH = 277, /**< display mirroring/dual display
+			KEY_BRIGHTNESSDOWN = 275,
+			KEY_BRIGHTNESSUP = 276,
+			KEY_DISPLAYSWITCH = 277, /**< display mirroring/dual display
 			 switch, video mode switch */
 			KEY_KBDILLUMTOGGLE = 278,
 			KEY_KBDILLUMDOWN = 279,
@@ -369,7 +369,7 @@ namespace Clumsy {
 		Input();
 
 		inline bool GetKey(int keyCode)            const { return m_inputs[keyCode]; }
-		bool GetKeyDown(int keyCode)        const { return m_downKeys[keyCode]; }
+		inline bool GetKeyDown(int keyCode)        const { return m_downKeys[keyCode]; }
 		inline bool GetKeyUp(int keyCode)          const { return m_upKeys[keyCode]; }
 		inline bool GetMouse(int keyCode)          const { return m_mouseInput[keyCode]; }
 		inline bool GetMouseDown(int keyCode)      const { return m_downMouse[keyCode]; }
@@ -384,11 +384,7 @@ namespace Clumsy {
 		inline void SetMouseX(int value) { m_mouseX = value; }
 		inline void SetMouseY(int value) { m_mouseY = value; }
 
-		bool getKeytest(int keyCode)
-		{
-			return GetKeyDown(keyCode);
-		}
-
+	
 	private:
 		bool m_inputs[NUM_KEYS];
 		bool m_downKeys[NUM_KEYS];

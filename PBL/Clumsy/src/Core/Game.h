@@ -6,10 +6,9 @@ namespace Clumsy {
 	class Game
 	{
 	public:
-		void input();
+		void ProcessInput(const Input& input);
 		//void Update();
 		//void Render();
 	private:
-		Input* m_Input;
 	};
 }
