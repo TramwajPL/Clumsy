@@ -1,5 +1,5 @@
-#include <assimp/Importer.hpp>
-#include <assimp/aabb.h>
+#include <assimp/Importer.hpp>// przenieœæ do innej klasy
+#include <assimp/aabb.h> //przenieœæ do innej klasy
 #include "RenderEngine/Window.h"
 
 const unsigned int SCR_WIDTH = 800;

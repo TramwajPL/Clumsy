@@ -20,10 +20,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
+    <ClCompile Include="src\Core\Game.cpp" />
+    <ClCompile Include="src\Core\Time.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\RenderEngine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\Game.h" />
+    <ClInclude Include="src\Core\Input.h" />
+    <ClInclude Include="src\Core\KeyCodes.h" />
+    <ClInclude Include="src\Core\Time.h" />
     <ClInclude Include="src\RenderEngine\Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
