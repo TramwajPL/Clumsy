@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 namespace Clumsy {
 	class RenderUtil {

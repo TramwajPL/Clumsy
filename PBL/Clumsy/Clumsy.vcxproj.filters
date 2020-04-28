@@ -45,7 +45,13 @@
     <ClCompile Include="src\RenderEngine\RenderEngine.cpp">
       <Filter>Pliki źródłowe\RenderEngine</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderEngine\Vertex.cpp">
+    <ClCompile Include="src\RenderEngine\Mesh.cpp">
+      <Filter>Pliki źródłowe\RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderEngine\Model.cpp">
+      <Filter>Pliki źródłowe\RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderEngine\Shader.cpp">
       <Filter>Pliki źródłowe\RenderEngine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,7 +80,13 @@
     <ClInclude Include="src\RenderEngine\RenderEngine.h">
       <Filter>Pliki źródłowe\RenderEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\RenderEngine\Vertex.h">
+    <ClInclude Include="src\RenderEngine\Mesh.h">
+      <Filter>Pliki źródłowe\RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\Model.h">
+      <Filter>Pliki źródłowe\RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\Shader.h">
       <Filter>Pliki źródłowe\RenderEngine</Filter>
     </ClInclude>
   </ItemGroup>
