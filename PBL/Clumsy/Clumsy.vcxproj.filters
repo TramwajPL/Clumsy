@@ -39,6 +39,15 @@
     <ClCompile Include="src\Core\Input.cpp">
       <Filter>Pliki źródłowe\Core</Filter>
     </ClCompile>
+    <ClCompile Include="RenderUtil.cpp">
+      <Filter>Pliki źródłowe\RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderEngine\RenderEngine.cpp">
+      <Filter>Pliki źródłowe\RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderEngine\Vertex.cpp">
+      <Filter>Pliki źródłowe\RenderEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\RenderEngine\Window.h">
@@ -58,6 +67,15 @@
     </ClInclude>
     <ClInclude Include="src\Core\Vector2f.h">
       <Filter>Pliki źródłowe\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderUtil.h">
+      <Filter>Pliki źródłowe\RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\RenderEngine.h">
+      <Filter>Pliki źródłowe\RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\Vertex.h">
+      <Filter>Pliki źródłowe\RenderEngine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

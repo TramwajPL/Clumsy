@@ -20,18 +20,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
+    <ClCompile Include="RenderUtil.cpp" />
     <ClCompile Include="src\Core\Game.cpp" />
     <ClCompile Include="src\Core\Input.cpp" />
     <ClCompile Include="src\Core\Time.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\RenderEngine\RenderEngine.cpp" />
+    <ClCompile Include="src\RenderEngine\Vertex.cpp" />
     <ClCompile Include="src\RenderEngine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="RenderUtil.h" />
     <ClInclude Include="src\Core\Game.h" />
     <ClInclude Include="src\Core\Input.h" />
     <ClInclude Include="src\Core\KeyCodes.h" />
     <ClInclude Include="src\Core\Time.h" />
     <ClInclude Include="src\Core\Vector2f.h" />
+    <ClInclude Include="src\RenderEngine\RenderEngine.h" />
+    <ClInclude Include="src\RenderEngine\Vertex.h" />
     <ClInclude Include="src\RenderEngine\Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

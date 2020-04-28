@@ -15,9 +15,14 @@ namespace Clumsy {
 
 	Window::Window(int width, int height)
 	{
+		m_IsCloseRequested = false;
 		Init(width, height);
 	}
-	Window::~Window(){}
+
+	Window::~Window()
+	{
+		glfwTerminate();
+	}
 
 	void Window::render(GLFWwindow* window)
 	{
@@ -27,33 +32,6 @@ namespace Clumsy {
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-	}
-	void Window::stop()
-	{
-		if (!isRunning)
-			return;
-		isRunning = false;
-	}
-
-	void Window::run(GLFWwindow* window)
-	{
-		bool isRender = false;
-		isRunning = true;
-		while (isRunning)
-		{
-			isRender = true;
-			// per-frame time logic
-			// --------------------
-			float currentFrame = glfwGetTime();
-			deltaTime = currentFrame - lastFrame;
-			lastFrame = currentFrame;
-
-			if (glfwWindowShouldClose(window))
-				stop();
-			//game.input();
-
-			render(window);
-		}
 	}
 
 	void Window::Init(int width, int height) {
@@ -82,16 +60,6 @@ namespace Clumsy {
 			//return -1;
 		}
 
-		//// render loop
-		//while (!glfwWindowShouldClose(window))
-		//{
-		//	render(window);
-		//}
-		if (isRunning)
-			return;
-		run(window);
-
-		// glfw: terminate, clearing all previously allocated GLFW resources.
-		glfwTerminate();
+		m_GLFWWindow = window;
 	}
 }
