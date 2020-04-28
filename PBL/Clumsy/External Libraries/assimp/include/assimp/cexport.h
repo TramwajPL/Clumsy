@@ -3,7 +3,7 @@
 Open Asset Import Library (assimp)
 ---------------------------------------------------------------------------
 
-Copyright (c) 2006-2020, assimp team
+Copyright (c) 2006-2011, assimp team
 
 All rights reserved.
 
@@ -42,18 +42,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /** @file  cexport.h
 *  @brief Defines the C-API for the Assimp export interface
 */
-#pragma once
 #ifndef AI_EXPORT_H_INC
 #define AI_EXPORT_H_INC
 
-#ifdef __GNUC__
-#   pragma GCC system_header
-#endif
-
 #ifndef ASSIMP_BUILD_NO_EXPORT
 
-// Public ASSIMP data structures
-#include <assimp/types.h>
+#include "types.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -89,9 +83,10 @@ struct aiExportFormatDesc
  */
 ASSIMP_API size_t aiGetExportFormatCount(void);
 
+
 // --------------------------------------------------------------------------------
 /** Returns a description of the nth export file format. Use #aiGetExportFormatCount()
- * to learn how many export formats are supported. The description must be released by
+ * to learn how many export formats are supported. The description must be released by 
  * calling aiReleaseExportFormatDescription afterwards.
  * @param pIndex Index of the export format to retrieve information for. Valid range is
  *    0 to #aiGetExportFormatCount()
@@ -100,7 +95,7 @@ ASSIMP_API size_t aiGetExportFormatCount(void);
 ASSIMP_API const C_STRUCT aiExportFormatDesc* aiGetExportFormatDescription( size_t pIndex);
 
 // --------------------------------------------------------------------------------
-/** Release a description of the nth export file format. Must be returned by
+/** Release a description of the nth export file format. Must be returned by 
 * aiGetExportFormatDescription
 * @param desc Pointer to the description
 */
@@ -189,6 +184,7 @@ ASSIMP_API aiReturn aiExportSceneEx( const C_STRUCT aiScene* pScene,
     C_STRUCT aiFileIO* pIO,
     unsigned int pPreprocessing );
 
+
 // --------------------------------------------------------------------------------
 /** Describes a blob of exported scene data. Use #aiExportSceneToBlob() to create a blob containing an
 * exported scene. The memory referred by this structure is owned by Assimp.
@@ -247,8 +243,8 @@ private:
 * @param pPreprocessing Please see the documentation for #aiExportScene
 * @return the exported data or NULL in case of error
 */
-ASSIMP_API const C_STRUCT aiExportDataBlob* aiExportSceneToBlob( const C_STRUCT aiScene* pScene, const char* pFormatId,
-    unsigned int pPreprocessing );
+ASSIMP_API const C_STRUCT aiExportDataBlob* aiExportSceneToBlob( const C_STRUCT aiScene* pScene, const char* pFormatId,  unsigned int pPreprocessing );
+
 
 // --------------------------------------------------------------------------------
 /** Releases the memory associated with the given exported data. Use this function to free a data blob
@@ -263,3 +259,4 @@ ASSIMP_API void aiReleaseExportBlob( const C_STRUCT aiExportDataBlob* pData );
 
 #endif // ASSIMP_BUILD_NO_EXPORT
 #endif // AI_EXPORT_H_INC
+
