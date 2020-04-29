@@ -90,10 +90,9 @@ namespace Clumsy{
 		return pos2;
 	}
 
-	inline glm::vec3 Transform::GetTransformedPos() const
+	glm::vec3 Transform::GetTransformedPos()
 	{
-		glm::vec3 newVector;
-		glm::vec4 pos = glm::vec4(newVector.x, newVector.y, newVector.z, 1.0f);
+		glm::vec4 pos = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
 		pos = GetTransformation() * pos;
 		glm::vec3 pos2 = glm::vec3(pos.x, pos.y, pos.z);
 		return pos2;
