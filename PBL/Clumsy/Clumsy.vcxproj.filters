@@ -19,6 +19,9 @@
     <Filter Include="Pliki źródłowe\Core">
       <UniqueIdentifier>{7b8ae956-4e56-40c1-bef9-9efba762a059}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\PhysicsEngine">
+      <UniqueIdentifier>{ee5af8db-6bd3-4ac3-9c5d-35150fa90804}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -54,6 +57,27 @@
     <ClCompile Include="src\RenderEngine\Shader.cpp">
       <Filter>Pliki źródłowe\RenderEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\Transform.cpp">
+      <Filter>Pliki źródłowe\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsEngine\Aabb.cpp">
+      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsEngine\BoundingSphere.cpp">
+      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsEngine\Collider.cpp">
+      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsEngine\PhysicsEngine.cpp">
+      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsEngine\PhysicsObject.cpp">
+      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsEngine\Plane.cpp">
+      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\RenderEngine\Window.h">
@@ -88,6 +112,33 @@
     </ClInclude>
     <ClInclude Include="src\RenderEngine\Shader.h">
       <Filter>Pliki źródłowe\RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Transform.h">
+      <Filter>Pliki źródłowe\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsEngine\Aabb.h">
+      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsEngine\BoundingSphere.h">
+      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsEngine\Collider.h">
+      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsEngine\IntersectData.h">
+      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsEngine\PhysicsEngine.h">
+      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsEngine\PhysicsObject.h">
+      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsEngine\Plane.h">
+      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsEngine\ReferenceCounter.h">
+      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

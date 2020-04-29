@@ -30,9 +30,14 @@ namespace Clumsy {
 		isRunning = true;
 
 		long lastTime = Clumsy::GetTime();
+		double unprocessedTime = 0;
 
 		while (isRunning) 
 		{
+			long startTime = Clumsy::GetTime();
+			long passedTime = startTime - lastTime;
+
+			unprocessedTime += passedTime;
 			if (m_Window->IsCloseRequested()) {
 				Stop();
 			}
