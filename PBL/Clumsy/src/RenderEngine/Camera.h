@@ -1,7 +1,5 @@
 #pragma once
-#include "../Core/Transform.h" // to jest tak na razie tylko (bo potem on dodaje tutaj klasê CameraComponent, 
-								//która sie przyda ale potrzeba do tego klasy EntityComponent i tam bd zainkludowany Transform
-								// Kamera potem bêdzie u¿ywana ( z forward declaration) w Entity ( a entity w game)
+#include "../Core/Transform.h" 
 
 namespace Clumsy {
 
@@ -10,11 +8,8 @@ namespace Clumsy {
 	{
 	public:
 
-		//jak tutaj transformacja jest przekazywana to kamera nie musi byæ pod³aczona pod obiekt gry, to dzia³a troche jak Transform w unity no nie
-		//  tylko ¿e on kamerê takto uzywa dopiero w Entity przekazuje j¹ jako arg do renderowania i tam robi tez ten input, który wgl torche 
-		//nie wiem jak on go wgl u¿ywa 
-		Camera(const glm::mat4 projection, Transform* transform) : 
-			m_Projection(projection), 
+		Camera(const glm::mat4 projection, Transform* transform) :
+			m_Projection(projection),
 			m_Transform(transform) {}
 
 		Transform* GetTransform() { return m_Transform; }
@@ -29,6 +24,32 @@ namespace Clumsy {
 		glm::mat4 m_Projection;
 		Transform* m_Transform;
 	};
-}
 
-// tu bd ta 2 klasa CameraComponent
+
+	//CameraComponents are an easy way to use a camera as a component
+	//on a game object.
+	class CameraComponent //: public EntityComponent
+	{
+	public:
+		//The camera's transform is initialized to 0 (null) because
+		//at construction, this isn't attached to a game object,
+		//and therefore doesn't have access to a valid transform.
+		CameraComponent(const glm::mat4& projection) :
+			m_camera(projection, 0) {}
+
+		//virtual void AddToEngine(CoreEngine* engine) const;
+
+		//inline Matrix4f GetViewProjection() const { return m_camera.GetViewProjection(); }
+
+		inline void SetProjection(const glm::mat4& projection) { m_camera.SetProjection(projection); }
+		//virtual void SetParent(Entity* parent);
+
+		////// CONTROLLER
+
+
+
+
+	private:
+		Camera m_camera; //The camera that's being used like a component.
+	};
+}

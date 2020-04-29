@@ -33,6 +33,7 @@
     <ClCompile Include="src\PhysicsEngine\PhysicsObject.cpp" />
     <ClCompile Include="src\PhysicsEngine\Plane.cpp" />
     <ClCompile Include="src\RenderEngine\Camera.cpp" />
+    <ClCompile Include="src\RenderEngine\CameraController.cpp" />
     <ClCompile Include="src\RenderEngine\Mesh.cpp" />
     <ClCompile Include="src\RenderEngine\Model.cpp" />
     <ClCompile Include="src\RenderEngine\RenderEngine.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="src\Core\Input.h" />
     <ClInclude Include="src\Core\KeyCodes.h" />
     <ClInclude Include="src\Core\Time.h" />
+    <ClInclude Include="src\Core\Timestep.h" />
     <ClInclude Include="src\Core\Transform.h" />
     <ClInclude Include="src\Core\Vector2f.h" />
     <ClInclude Include="src\PhysicsEngine\Aabb.h" />
@@ -56,6 +58,7 @@
     <ClInclude Include="src\PhysicsEngine\Plane.h" />
     <ClInclude Include="src\PhysicsEngine\ReferenceCounter.h" />
     <ClInclude Include="src\RenderEngine\Camera.h" />
+    <ClInclude Include="src\RenderEngine\CameraController.h" />
     <ClInclude Include="src\RenderEngine\Mesh.h" />
     <ClInclude Include="src\RenderEngine\Model.h" />
     <ClInclude Include="src\RenderEngine\RenderEngine.h" />
