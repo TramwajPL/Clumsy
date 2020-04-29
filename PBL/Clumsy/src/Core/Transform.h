@@ -23,22 +23,21 @@ namespace Clumsy {
 		void LookAt(const glm::vec3& point, const glm::vec3& up);
 
 		inline glm::vec3* GetPos() { return &m_pos; }
-		inline const glm::vec3& GetPos()       const { return m_pos; }
+		inline const glm::vec3& GetPos() const { return m_pos; }
 		inline glm::quat* GetRot() { return &m_rot; }
-		inline const glm::quat& GetRot()     const { return m_rot; }
-		inline float GetScale()               const { return m_scale; }
-		inline glm::vec3 GetTransformedPos(glm::vec3 newVector)   const;
-		glm::quat GetTransformedRot()        const;
+		inline const glm::quat& GetRot() const { return m_rot; }
+		inline float GetScale() const { return m_scale; }
+		inline glm::vec3 GetTransformedPos(glm::vec3 newVector) const;
+		glm::vec3 GetTransformedPos();
+		glm::quat GetTransformedRot() const;
 
 		inline void SetPos(const glm::vec3& pos) { m_pos = pos; }
 		inline void SetRot(const glm::quat& rot) { m_rot = rot; }
 		inline void SetScale(float scale) { m_scale = scale; }
 		inline void SetParent(Transform* parent) { m_parent = parent; }
 
-		glm::vec3 GetTransformedPos() ;
-
 		glm::mat4 SetRotation();
-	protected:
+
 	private:
 		const glm::mat4& GetParentMatrix() const;
 

@@ -13,11 +13,12 @@ namespace Clumsy {
 		//jak tutaj transformacja jest przekazywana to kamera nie musi byæ pod³aczona pod obiekt gry, to dzia³a troche jak Transform w unity no nie
 		//  tylko ¿e on kamerê takto uzywa dopiero w Entity przekazuje j¹ jako arg do renderowania i tam robi tez ten input, który wgl torche 
 		//nie wiem jak on go wgl u¿ywa 
-		Camera(const glm::mat4 projection, Transform* transform) : m_Projection(projection), m_Transform(transform) {}
+		Camera(const glm::mat4 projection, Transform* transform) : 
+			m_Projection(projection), 
+			m_Transform(transform) {}
 
 		Transform* GetTransform() { return m_Transform; }
-		//nwm po co mu ta 2 funkcja w sumie moze to potem wyjdzie to na razie ja komentujê 
-		//inline const Transform& GetTransform() const { return *m_Transform; }
+		inline const Transform& GetTransform() const { return *m_Transform; }
 
 		glm::mat4 GetViewProjection() const;
 
