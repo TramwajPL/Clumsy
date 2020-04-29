@@ -22,6 +22,9 @@
     <Filter Include="Pliki źródłowe\PhysicsEngine">
       <UniqueIdentifier>{ee5af8db-6bd3-4ac3-9c5d-35150fa90804}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\Shaders">
+      <UniqueIdentifier>{cfafc301-cd20-4c58-84e9-d0710142122f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -146,5 +149,13 @@
     <ClInclude Include="src\RenderEngine\Camera.h">
       <Filter>Pliki źródłowe\RenderEngine</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Shaders\model_loadingVS.glsl">
+      <Filter>Pliki źródłowe\Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\model_loadingFS.glsl">
+      <Filter>Pliki źródłowe\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

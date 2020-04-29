@@ -1,4 +1,9 @@
 #pragma once
+
+#include "assimp/Importer.hpp"
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
+
 #include "Mesh.h"
 #include <string>
 #include <vector>
@@ -12,7 +17,7 @@ namespace Clumsy {
         std::string directory;
         bool gammaCorrection;
 
-        Model(std::string const& path, bool gamma);
+        Model(std::string const& path, bool gamma = false);
         void Draw(Shader shader);
         void loadModel(std::string const& path);
         void processNode(aiNode* node, const aiScene* scene);

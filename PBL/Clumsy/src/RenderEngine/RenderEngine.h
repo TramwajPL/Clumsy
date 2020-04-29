@@ -4,6 +4,7 @@
 #include "../../RenderUtil.h"
 #include "../Core/Time.h"
 
+
 namespace Clumsy {
 
 	class RenderEngine {

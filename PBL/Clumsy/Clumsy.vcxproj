@@ -62,6 +62,10 @@
     <ClInclude Include="src\RenderEngine\Shader.h" />
     <ClInclude Include="src\RenderEngine\Window.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Shaders\model_loadingFS.glsl" />
+    <None Include="src\Shaders\model_loadingVS.glsl" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{8FE2792F-9D2D-4D35-9045-392CF66BF00F}</ProjectGuid>

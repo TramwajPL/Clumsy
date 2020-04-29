@@ -56,7 +56,7 @@ namespace Clumsy {
         return textureID;
     }
 
-    Model::Model(string const& path, bool gamma = false)
+    Model::Model(string const& path, bool gamma)
         : gammaCorrection(gamma)
     {
         loadModel(path);
