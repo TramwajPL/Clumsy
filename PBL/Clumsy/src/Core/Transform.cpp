@@ -90,6 +90,15 @@ namespace Clumsy{
 		return pos2;
 	}
 
+	inline glm::vec3 Transform::GetTransformedPos() const
+	{
+		glm::vec3 newVector;
+		glm::vec4 pos = glm::vec4(newVector.x, newVector.y, newVector.z, 1.0f);
+		pos = GetTransformation() * pos;
+		glm::vec3 pos2 = glm::vec3(pos.x, pos.y, pos.z);
+		return pos2;
+	}
+
 	glm::quat Transform::GetTransformedRot() const
 	{
 		glm::quat parentRot = glm::quat(0, 0, 0, 1);
@@ -100,5 +109,15 @@ namespace Clumsy{
 		}
 
 		return parentRot * m_rot;
+	}
+
+	glm::mat4 Transform::SetRotation()
+	{
+		glm::mat4 rotationMatrix = glm::mat4(1.0f);
+		rotationMatrix = glm::rotate(rotationMatrix, m_rot.x, glm::vec3(0.0f, 1.0f, 0.0f));
+		rotationMatrix = glm::rotate(rotationMatrix, m_rot.y, glm::vec3(1.0f, 0.0f, 0.0f));
+		rotationMatrix = glm::rotate(rotationMatrix, m_rot.z, glm::vec3(0.0f, 0.0f, 1.0f));
+
+		return rotationMatrix;
 	}
 }

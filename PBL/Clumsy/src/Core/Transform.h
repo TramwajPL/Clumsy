@@ -34,6 +34,10 @@ namespace Clumsy {
 		inline void SetRot(const glm::quat& rot) { m_rot = rot; }
 		inline void SetScale(float scale) { m_scale = scale; }
 		inline void SetParent(Transform* parent) { m_parent = parent; }
+
+		inline glm::vec3 GetTransformedPos() const;
+
+		glm::mat4 SetRotation();
 	protected:
 	private:
 		const glm::mat4& GetParentMatrix() const;
