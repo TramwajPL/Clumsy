@@ -1,4 +1,6 @@
 #pragma once
+
+#include "../Core/Timestep.h"
 #include "../Core/Transform.h" 
 
 namespace Clumsy {
@@ -20,6 +22,8 @@ namespace Clumsy {
 		inline void SetProjection(const glm::mat4& projection) { m_Projection = projection; }
 		inline void SetTransform(Transform* transform) { m_Transform = transform; }
 
+		void RecalculateViewMatrix();
+
 	private:
 		glm::mat4 m_Projection;
 		Transform* m_Transform;
@@ -35,21 +39,31 @@ namespace Clumsy {
 		//at construction, this isn't attached to a game object,
 		//and therefore doesn't have access to a valid transform.
 		CameraComponent(const glm::mat4& projection) :
-			m_camera(projection, 0) {}
+			m_Camera(projection, 0),
+			m_AspectRatio(1280.0f / 720.0f) {}
 
 		//virtual void AddToEngine(CoreEngine* engine) const;
 
 		//inline Matrix4f GetViewProjection() const { return m_camera.GetViewProjection(); }
 
-		inline void SetProjection(const glm::mat4& projection) { m_camera.SetProjection(projection); }
+		inline void SetProjection(const glm::mat4& projection) { m_Camera.SetProjection(projection); }
 		//virtual void SetParent(Entity* parent);
 
 		////// CONTROLLER
 
+		void OnUpdate(Timestep ts);
+		void OnEvent(Event& e);
 
+		Camera& GetCamera() { return m_Camera; }
+		const Camera& GetCamera() const { return m_Camera; }
 
+		float GetZoomLevel() { return m_ZoomLevel; }
+		void SetZoomLevel(float level) { m_ZoomLevel = level; }
 
 	private:
-		Camera m_camera; //The camera that's being used like a component.
+		Camera m_Camera; //The camera that's being used like a component.
+
+		float m_AspectRatio;
+		float m_ZoomLevel = 1.0f;
 	};
 }
