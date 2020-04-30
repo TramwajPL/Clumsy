@@ -84,6 +84,9 @@
     <ClCompile Include="src\RenderEngine\Camera.cpp">
       <Filter>Pliki źródłowe\RenderEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\GameObject.cpp">
+      <Filter>Pliki źródłowe\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\RenderEngine\Window.h">
@@ -150,6 +153,12 @@
       <Filter>Pliki źródłowe\RenderEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Timestep.h">
+      <Filter>Pliki źródłowe\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\GameObject.h">
+      <Filter>Pliki źródłowe\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\EntityComponent.h">
       <Filter>Pliki źródłowe\Core</Filter>
     </ClInclude>
   </ItemGroup>

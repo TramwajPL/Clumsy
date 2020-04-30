@@ -22,6 +22,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="RenderUtil.cpp" />
     <ClCompile Include="src\Core\Game.cpp" />
+    <ClCompile Include="src\Core\GameObject.cpp" />
     <ClCompile Include="src\Core\Input.cpp" />
     <ClCompile Include="src\Core\Time.cpp" />
     <ClCompile Include="src\Core\Transform.cpp" />
@@ -41,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderUtil.h" />
+    <ClInclude Include="src\Core\EntityComponent.h" />
     <ClInclude Include="src\Core\Game.h" />
+    <ClInclude Include="src\Core\GameObject.h" />
     <ClInclude Include="src\Core\Input.h" />
     <ClInclude Include="src\Core\KeyCodes.h" />
     <ClInclude Include="src\Core\Time.h" />

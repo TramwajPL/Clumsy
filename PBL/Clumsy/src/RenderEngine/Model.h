@@ -17,6 +17,7 @@ namespace Clumsy {
         std::string directory;
         bool gammaCorrection;
 
+		Model() {};
         Model(std::string const& path, bool gamma = false);
         void Draw(Shader shader);
         void loadModel(std::string const& path);
