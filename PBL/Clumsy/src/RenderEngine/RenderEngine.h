@@ -21,5 +21,6 @@ namespace Clumsy {
 		Window* m_Window;
 		bool isRunning;
 		RenderUtil renderUtil;
+		float m_LastFrameTime = 0.0f;
 	};
 }

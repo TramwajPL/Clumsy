@@ -4,6 +4,7 @@
 
 #include "Camera.h"
 #include "../Core/Input.h"
+#include <glfw3.h>
 
 
 namespace Clumsy {
@@ -23,33 +24,35 @@ namespace Clumsy {
 	void Camera::RecalculateViewMatrix()
 	{
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Transform->GetPos()) *
-			glm::rotate(glm::mat4(1.0f), glm::radians(m_Transform->GetRot()), glm::vec3(0, 0, 1)); //for the z axis
+			glm::rotate(glm::mat4(1.0f), glm::radians(0.0f), glm::vec3(0, 0, 1)); //for the z axis
 
-		m_ViewMatrix = glm::inverse(transform);
-		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
+		glm::mat4 m_ViewMatrix = glm::inverse(transform);
+		m_Projection = m_Projection * m_ViewMatrix;
 	}
 
 	void CameraComponent::OnUpdate(Timestep ts)
 	{
-		if (Input::IsKeyPressed(CLUM_KEY_A))
+		/*if (Input::IsKeyPressed(GLFW_KEY_A))
 			m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
-		else if (Input::IsKeyPressed(CLUM_KEY_D))
+		else if (Input::IsKeyPressed(GLFW_KEY_D))
 			m_CameraPosition.x += m_CameraTranslationSpeed * ts;
 
-		if (Input::IsKeyPressed(CLUM_KEY_W))
+		if (Input::IsKeyPressed(GLFW_KEY_W))
 			m_CameraPosition.y += m_CameraTranslationSpeed * ts;
-		else if (Input::IsKeyPressed(CLUM_KEY_S))
-			m_CameraPosition.y -= m_CameraTranslationSpeed * ts;
+		else if (Input::IsKeyPressed(GLFW_KEY_S))
+			m_CameraPosition.y -= m_CameraTranslationSpeed * ts;*/
 
-		if (m_Rotation) {
-			if (Input::IsKeyPressed(CLUM_KEY_Q))
+		/*if (m_Rotation) {
+			if (Input::IsKeyPressed(GLFW_KEY_Q))
 				m_CameraRotation += m_CameraRotationSpeed * ts;
-			else if (Input::IsKeyPressed(CLUM_KEY_E))
+			else if (Input::IsKeyPressed(GLFW_KEY_E))
 				m_CameraRotation -= m_CameraRotationSpeed * ts;
 
 			m_Camera.SetRotation(m_CameraRotation);
-		}
+		}*/
 
-		m_Camera.SetPosition(m_CameraPosition);
+		m_Camera.GetTransform()->SetPos(m_CameraPosition);
+		m_Camera.RecalculateViewMatrix();
+		//m_Camera.SetPosition(m_CameraPosition);
 	}
 }

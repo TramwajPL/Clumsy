@@ -22,7 +22,7 @@ namespace Clumsy {
 		void Rotate(const glm::quat& rotation);
 		void LookAt(const glm::vec3& point, const glm::vec3& up);
 
-		inline glm::vec3* GetPos() { return &m_pos; }
+		inline glm::vec3 GetPos() { return m_pos; }
 		inline const glm::vec3& GetPos() const { return m_pos; }
 		inline glm::quat* GetRot() { return &m_rot; }
 		inline const glm::quat& GetRot() const { return m_rot; }

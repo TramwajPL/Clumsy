@@ -4,6 +4,7 @@
 
 #include "RenderEngine.h"
 #include "Model.h"
+#include "Camera.h"
 
 namespace Clumsy {
 
@@ -34,10 +35,11 @@ namespace Clumsy {
 	{
 		isRunning = true;
 
-
 		// settings
 		const unsigned int SCR_WIDTH = 800;
 		const unsigned int SCR_HEIGHT = 600;
+
+		CameraComponent camera(glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f));
 
 		long lastTime = Clumsy::GetTime();
 		double unprocessedTime = 0;
@@ -45,9 +47,9 @@ namespace Clumsy {
 		Model m1("E:/Rzeczy/FTiMS/sem6/PBL/ClumsyDisaster/PBL/Clumsy/src/models/capsule.obj");
 
 
-        glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-        glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-        glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+        //glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+        //glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+        //glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
         // render loop
         // -----------
         while (!glfwWindowShouldClose(m_GLFWWindow))
@@ -57,9 +59,16 @@ namespace Clumsy {
 
             ourShader.use();
 
-            // view/projection transformations
+			float time = (float)glfwGetTime();
+			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
+
+			camera.OnUpdate(timestep);
+
+            // view/projection transformations			
             glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-            glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+            glm::mat4 view = glm::lookAt(camera.GetCamera().GetTransform()->GetPos(), 
+				camera.GetCamera().GetTransform()->GetPos() + glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
             ourShader.setMat4("projection", projection);
             ourShader.setMat4("view", view);
 

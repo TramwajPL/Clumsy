@@ -2,6 +2,7 @@
 
 #include "../Core/Timestep.h"
 #include "../Core/Transform.h" 
+#include "../Core/Input.h"
 
 namespace Clumsy {
 
@@ -39,7 +40,7 @@ namespace Clumsy {
 		//at construction, this isn't attached to a game object,
 		//and therefore doesn't have access to a valid transform.
 		CameraComponent(const glm::mat4& projection) :
-			m_Camera(projection, 0),
+			m_Camera(projection, new Transform()),
 			m_AspectRatio(1280.0f / 720.0f) {}
 
 		//virtual void AddToEngine(CoreEngine* engine) const;
@@ -52,7 +53,7 @@ namespace Clumsy {
 		////// CONTROLLER
 
 		void OnUpdate(Timestep ts);
-		void OnEvent(Event& e);
+		//void OnEvent(Event& e);
 
 		Camera& GetCamera() { return m_Camera; }
 		const Camera& GetCamera() const { return m_Camera; }
@@ -65,5 +66,9 @@ namespace Clumsy {
 
 		float m_AspectRatio;
 		float m_ZoomLevel = 1.0f;
+
+		glm::vec3 m_CameraPosition = { 0.0f, 0.0f, 0.0f };
+		float m_CameraTranslationSpeed = 1.0f;
+
 	};
 }

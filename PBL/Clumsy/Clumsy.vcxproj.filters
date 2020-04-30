@@ -84,9 +84,6 @@
     <ClCompile Include="src\RenderEngine\Camera.cpp">
       <Filter>Pliki źródłowe\RenderEngine</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderEngine\CameraController.cpp">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\RenderEngine\Window.h">
@@ -150,9 +147,6 @@
       <Filter>Pliki źródłowe\PhysicsEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\RenderEngine\Camera.h">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RenderEngine\CameraController.h">
       <Filter>Pliki źródłowe\RenderEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Timestep.h">
