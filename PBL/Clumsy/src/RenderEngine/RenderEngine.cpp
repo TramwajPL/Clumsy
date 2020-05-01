@@ -49,20 +49,22 @@ namespace Clumsy {
 		Model m1("../Clumsy/src/models/capsule.obj");
 
 
-		glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
+		glm::vec3 pos = glm::vec3(0.0f, 0.3f, -1.8f);
 		glm::quat rot = glm::quat(0.0f, 0.0f, 0.0f, 1.0f);
-		float scale = 0.2f;
+		float scale = 0.1f;
 		Transform transform(pos, rot, scale);
+		Transform transform2(pos + glm::vec3(0.2f, 0.2f, 0.0f), rot, scale);
 
 		GameObject gameObject(transform);
+		GameObject gameObject2(transform2);
 
 		EntityComponent componentCapsuleModel(&m1);
 
 		gameObject.AddComponent(&componentCapsuleModel);
-
+		gameObject2.AddComponent(&componentCapsuleModel);
+		
 		componentCapsuleModel.SetParent(gameObject);
-
-
+		componentCapsuleModel.SetParent(gameObject2);
 
 
 		//glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
@@ -92,10 +94,22 @@ namespace Clumsy {
 
 			// render the loaded model
 			glm::mat4 model = glm::mat4(1.0f);
-			model = glm::translate(model, glm::vec3(0.0f, 0.3f, -1.8f)); // translate it down so it's at the center of the scene
-			model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
+			//model = glm::translate(model, glm::vec3(0.0f, 0.3f, -1.8f)); // translate it down so it's at the center of the scene
+			//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
+			model = gameObject.TranslateModelMatrix(model);
+			model = gameObject.ScaleModelMatrix(model);
+
 			ourShader.setMat4("model", model);
 			gameObject.GetModelComponent()->GetModel().Draw(ourShader);
+
+
+			glm::mat4 model1 = glm::mat4(1.0f);
+
+			model1 = gameObject2.TranslateModelMatrix(model1);
+			model1 = gameObject2.ScaleModelMatrix(model1);
+
+			ourShader.setMat4("model", model1);
+			gameObject2.GetModelComponent()->GetModel().Draw(ourShader);
 
 
 			glfwSwapBuffers(m_GLFWWindow);

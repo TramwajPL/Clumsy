@@ -4,6 +4,7 @@
 //#include "../RenderEngine/Model.h"
 #include <vector>
 
+
 namespace Clumsy {
 	class EntityComponent;
 
@@ -24,9 +25,15 @@ namespace Clumsy {
 		EntityComponent* GetModelComponent() {
 			return m_Components[0];
 		}
+
+		glm::mat4 TranslateModelMatrix(glm::mat4 modelMatrix);
+		glm::mat4 ScaleModelMatrix(glm::mat4 modelMatrix);
+
+	
 	private:
 		Transform m_Transform; 
 		std::vector<EntityComponent*> m_Components;
+
 	};
 
 }
