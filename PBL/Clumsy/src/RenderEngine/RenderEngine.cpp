@@ -157,4 +157,6 @@ namespace Clumsy {
 		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_F) == GLFW_PRESS)
 			m_Camera->ProcessKeyboard(BACKWARD, deltaTime);
 	}
+
+	
 }

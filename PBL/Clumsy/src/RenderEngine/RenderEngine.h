@@ -15,6 +15,8 @@ namespace Clumsy {
 		void Start();
 		void Stop();
 		void processInput(float deltaTime);
+		//void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+		Camera GetCamera() { return *m_Camera; }
 		
 	private:
 		void Run();
