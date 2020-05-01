@@ -13,7 +13,7 @@ using namespace Clumsy;
 int main() {
 	Window window(SCR_WIDTH, SCR_HEIGHT);
 	GLFWwindow* glfwWindow = window.GetGLFWWindow();
-	RenderEngine renderEngine(glfwWindow, window);
+	RenderEngine renderEngine(glfwWindow, window, new Camera(glm::vec3(0.0f, 0.0f, 3.0f)));
 	renderEngine.Start();
 	window.~Window();
 	return 0;

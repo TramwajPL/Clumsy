@@ -4,15 +4,16 @@
 
 #include "RenderEngine.h"
 #include "Model.h"
-#include "Camera.h"
 #include "../Core/GameObject.h"
 #include "../Core/EntityComponent.h"
+#include "../Core/Timestep.h"
 
 namespace Clumsy {
 
-	RenderEngine::RenderEngine(GLFWwindow* window, Window& window2) :
+	RenderEngine::RenderEngine(GLFWwindow* window, Window& window2, Camera* camera) :
 		m_Window(&window2),
-		m_GLFWWindow(window)
+		m_GLFWWindow(window),
+		m_Camera(camera)
 	{
 		isRunning = false;
 	}
@@ -41,7 +42,6 @@ namespace Clumsy {
 		const unsigned int SCR_WIDTH = 800;
 		const unsigned int SCR_HEIGHT = 600;
 
-		CameraComponent camera(glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f));
 
 		long lastTime = Clumsy::GetTime();
 		double unprocessedTime = 0;
@@ -83,13 +83,18 @@ namespace Clumsy {
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			camera.OnUpdate(timestep);
 
-			// view/projection transformations			
-			glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-			glm::mat4 view = glm::lookAt(camera.GetCamera().GetTransform()->GetPos(),
-			camera.GetCamera().GetTransform()->GetPos() + glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+			//camera.OnUpdate(timestep);
+
+			processInput(timestep.GetSeconds());
+		
+			// pass projection matrix to shader (note that in this case it could change every frame)
+			glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 			ourShader.setMat4("projection", projection);
+
+			// camera/view transformation
+			glm::mat4 view = m_Camera->GetViewMatrix();
 			ourShader.setMat4("view", view);
 
 			// render the loaded model
@@ -132,5 +137,24 @@ namespace Clumsy {
 	void RenderEngine::CleanUp()
 	{
 		m_Window->~Window();
+	}
+
+	void RenderEngine::processInput(float deltaTime)
+	{
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+			glfwSetWindowShouldClose(m_GLFWWindow, true);
+
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_W) == GLFW_PRESS)
+			m_Camera->ProcessKeyboard(UP, deltaTime);
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_S) == GLFW_PRESS)
+			m_Camera->ProcessKeyboard(DOWN, deltaTime);
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_A) == GLFW_PRESS)
+			m_Camera->ProcessKeyboard(LEFT, deltaTime);
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_D) == GLFW_PRESS)
+			m_Camera->ProcessKeyboard(RIGHT, deltaTime);
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_R) == GLFW_PRESS)
+			m_Camera->ProcessKeyboard(FORWARD, deltaTime);
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_F) == GLFW_PRESS)
+			m_Camera->ProcessKeyboard(BACKWARD, deltaTime);
 	}
 }
