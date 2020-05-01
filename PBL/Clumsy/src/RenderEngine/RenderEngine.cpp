@@ -48,7 +48,6 @@ namespace Clumsy {
 		Shader ourShader("../Clumsy/src/Shaders/model_loadingVS.glsl", "../Clumsy/src/Shaders/model_loadingFS.glsl");
 		Model m1("../Clumsy/src/models/capsule.obj");
 
-
 		glm::vec3 pos = glm::vec3(0.0f, 0.3f, -1.8f);
 		glm::quat rot = glm::quat(0.0f, 0.0f, 0.0f, 1.0f);
 		float scale = 0.1f;
@@ -83,7 +82,7 @@ namespace Clumsy {
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			camera.OnUpdate(timestep);
+			camera.OnUpdate(m_Window->GetInput(),timestep);
 
 			// view/projection transformations			
 			glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);

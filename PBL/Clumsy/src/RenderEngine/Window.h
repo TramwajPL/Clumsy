@@ -16,10 +16,13 @@ namespace Clumsy {
 		bool IsCloseRequested() const { return m_IsCloseRequested; };
 		void SetIsCloseRequested(bool value) { m_IsCloseRequested = value; }
 		GLFWwindow* GetGLFWWindow() { return m_GLFWWindow; }
+
+		Input* GetInput() { return m_Input; }
 	private:
 		bool isRunning = false;
 		bool m_IsCloseRequested;
 		Game game;
 		GLFWwindow* m_GLFWWindow;
+		Input* m_Input;
 	};
 }

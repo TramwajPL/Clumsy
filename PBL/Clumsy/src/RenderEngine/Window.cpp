@@ -13,10 +13,11 @@ namespace Clumsy {
 	}
 	static bool s_GLFWInitialized = false;
 
-	Window::Window(int width, int height)
+	Window::Window(int width, int height) 
 	{
 		m_IsCloseRequested = false;
 		Init(width, height);
+		m_Input = new Input();
 	}
 
 	Window::~Window()

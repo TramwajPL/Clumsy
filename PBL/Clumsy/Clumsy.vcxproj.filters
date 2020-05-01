@@ -25,6 +25,9 @@
     <Filter Include="Pliki źródłowe\Shaders">
       <UniqueIdentifier>{cfafc301-cd20-4c58-84e9-d0710142122f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\Components">
+      <UniqueIdentifier>{ea73374c-6413-4b32-9a2c-078fe65beb78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -86,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="src\Core\GameObject.cpp">
       <Filter>Pliki źródłowe\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Components\Move.cpp">
+      <Filter>Pliki źródłowe\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="src\Core\EntityComponent.h">
       <Filter>Pliki źródłowe\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Components\Move.h">
+      <Filter>Pliki źródłowe\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -98,7 +98,7 @@ namespace Clumsy{
 		return pos2;
 	}
 
-	glm::quat Transform::GetTransformedRot() const
+	glm::quat Transform::GetTransformedRot() 
 	{
 		glm::quat parentRot = glm::quat(0, 0, 0, 1);
 
@@ -110,7 +110,7 @@ namespace Clumsy{
 		return parentRot * m_rot;
 	}
 
-	glm::mat4 Transform::SetRotation()
+	glm::mat4 Transform::ToRotationMatrix()
 	{
 		glm::mat4 rotationMatrix = glm::mat4(1.0f);
 		rotationMatrix = glm::rotate(rotationMatrix, m_rot.x, glm::vec3(0.0f, 1.0f, 0.0f));

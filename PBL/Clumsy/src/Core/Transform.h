@@ -24,19 +24,19 @@ namespace Clumsy {
 
 		inline glm::vec3 GetPos() { return m_pos; }
 		inline const glm::vec3& GetPos() const { return m_pos; }
-		inline glm::quat* GetRot() { return &m_rot; }
+		glm::quat* GetRot() { return &m_rot; }
 		inline const glm::quat& GetRot() const { return m_rot; }
 		inline float GetScale() const { return m_scale; }
 		inline glm::vec3 GetTransformedPos(glm::vec3 newVector) const;
 		glm::vec3 GetTransformedPos();
-		glm::quat GetTransformedRot() const;
+		glm::quat GetTransformedRot();
 
 		inline void SetPos(const glm::vec3& pos) { m_pos = pos; }
 		inline void SetRot(const glm::quat& rot) { m_rot = rot; }
 		inline void SetScale(float scale) { m_scale = scale; }
 		inline void SetParent(Transform* parent) { m_parent = parent; }
 
-		glm::mat4 SetRotation();
+		glm::mat4 ToRotationMatrix();
 
 	private:
 		const glm::mat4& GetParentMatrix() const;

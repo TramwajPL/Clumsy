@@ -25,6 +25,11 @@ namespace Clumsy {
 			return m_Parent.GetTransform();
 		}
 
+		virtual void AddToEngine(RenderEngine* engine) const { }
+
+		Transform GetTransform() { return m_Parent.GetTransform(); }
+		//inline const Transform GetTransform() const { return m_Parent.GetTransform(); }
+		virtual void ProcessInput(const Input& input, float delta) {}
 	private:
 		GameObject m_Parent; 
 		Model* model;
