@@ -2,13 +2,15 @@
 
 // FOR APPLICATION
 
-
+#include "Core/Game.h"
+#include "Core/CoreEngine.h"
 
 /////////////////
  
 
 // RENDERING
 
+#include "RenderEngine/Camera.h"
 #include "RenderEngine/RenderEngine.h"
 
 /////////////////
