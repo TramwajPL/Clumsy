@@ -8,9 +8,7 @@
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-using namespace Clumsy;
-
-Camera* camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Clumsy::Camera* camera = new Clumsy::Camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
@@ -19,9 +17,9 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 
 int main() 
 {
-	Window window(SCR_WIDTH, SCR_HEIGHT);
+	Clumsy::Window window(SCR_WIDTH, SCR_HEIGHT);
 	GLFWwindow* glfwWindow = window.GetGLFWWindow();
-	RenderEngine renderEngine(glfwWindow, window, camera);
+	Clumsy::RenderEngine renderEngine(glfwWindow, window, camera);
 	glfwSetScrollCallback(glfwWindow, scroll_callback);
 	renderEngine.Start();
 	window.~Window();
