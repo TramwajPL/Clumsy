@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Transform.h"
+#include "../pch.h"
 
 namespace Clumsy {
 	class EntityComponent;
