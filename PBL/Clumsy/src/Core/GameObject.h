@@ -17,22 +17,21 @@ namespace Clumsy {
 		
 		Transform GetTransform();
 
-		void AddComponent(EntityComponent* component) {
-			m_Components.push_back(component);
-			//component->SetParent(*this);
-		}
+		void AddComponent(EntityComponent* component);
 
-		EntityComponent* GetModelComponent() {
-			return m_Components[0];
-		}
+		EntityComponent* GetModelComponent();
 
 		glm::mat4 TranslateModelMatrix(glm::mat4 modelMatrix);
 		glm::mat4 ScaleModelMatrix(glm::mat4 modelMatrix);
+
+		void AddChild(GameObject* child);
+		std::vector<GameObject*> GetAllChildren();
 
 	
 	private:
 		Transform m_Transform; 
 		std::vector<EntityComponent*> m_Components;
+		std::vector<GameObject*> m_Children;
 
 	};
 

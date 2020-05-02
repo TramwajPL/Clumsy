@@ -11,4 +11,8 @@ namespace Clumsy {
 			std::cout << "WE PRESSED UP!";
 		}*/
 	}
+	void Game::AddToScene(GameObject* child)
+	{
+		m_Root.AddChild(child);
+	}
 }
