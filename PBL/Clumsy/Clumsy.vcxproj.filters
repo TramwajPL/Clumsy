@@ -45,9 +45,6 @@
     <ClCompile Include="src\Core\Input.cpp">
       <Filter>Pliki źródłowe\Core</Filter>
     </ClCompile>
-    <ClCompile Include="RenderUtil.cpp">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClCompile>
     <ClCompile Include="src\RenderEngine\RenderEngine.cpp">
       <Filter>Pliki źródłowe\RenderEngine</Filter>
     </ClCompile>
@@ -81,11 +78,11 @@
     <ClCompile Include="src\PhysicsEngine\Plane.cpp">
       <Filter>Pliki źródłowe\PhysicsEngine</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderEngine\Camera.cpp">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClCompile>
     <ClCompile Include="src\Core\GameObject.cpp">
       <Filter>Pliki źródłowe\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderEngine\RenderUtil.cpp">
+      <Filter>Pliki źródłowe\RenderEngine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -106,9 +103,6 @@
     </ClInclude>
     <ClInclude Include="src\Core\Vector2f.h">
       <Filter>Pliki źródłowe\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderUtil.h">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\RenderEngine\RenderEngine.h">
       <Filter>Pliki źródłowe\RenderEngine</Filter>
@@ -160,6 +154,15 @@
     </ClInclude>
     <ClInclude Include="src\Core\EntityComponent.h">
       <Filter>Pliki źródłowe\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\RenderUtil.h">
+      <Filter>Pliki źródłowe\RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Clumsy.h">
+      <Filter>Pliki źródłowe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pch.h">
+      <Filter>Pliki źródłowe</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

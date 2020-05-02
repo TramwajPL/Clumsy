@@ -1,12 +1,14 @@
+
+#include "../pch.h"
 #include <glm/glm.hpp>
 #include <glm\ext\matrix_clip_space.hpp>
 #include <glm\ext\matrix_transform.hpp>
 
-#include "RenderEngine.h"
 #include "Model.h"
+#include "RenderEngine.h"
+#include "../Core/Timestep.h"
 #include "../Core/GameObject.h"
 #include "../Core/EntityComponent.h"
-#include "../Core/Timestep.h"
 
 namespace Clumsy {
 

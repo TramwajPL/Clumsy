@@ -1,5 +1,6 @@
+
+#include "../pch.h"
 #include "Time.h"
-#include <time.h>
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(WIN64)
 #define OS_WINDOWS

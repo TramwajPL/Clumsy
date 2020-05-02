@@ -1,15 +1,14 @@
 #pragma once
+
 #include "GameObject.h"
 #include "../RenderEngine/Model.h"
 
 namespace Clumsy {
-	//class Model;
 
 	class EntityComponent {
 	
 	public:
 		EntityComponent(Model* model) : model(model) {}
-		EntityComponent(){}
 		~EntityComponent() {}
 
 		void SetParent(GameObject parent) 

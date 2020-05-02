@@ -1,5 +1,7 @@
+
+#include "../pch.h"
+
 #include "Window.h"
-#include <iostream>
 #include "../Core/Time.h"
 
 

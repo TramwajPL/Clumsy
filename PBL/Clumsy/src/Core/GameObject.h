@@ -1,9 +1,6 @@
 #pragma once
-#include "Transform.h"
-//#include "EntityComponent.h"
-//#include "../RenderEngine/Model.h"
-#include <vector>
 
+#include "Transform.h"
 
 namespace Clumsy {
 	class EntityComponent;

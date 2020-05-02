@@ -1,9 +1,9 @@
 #pragma once
+
 #include "Window.h"
-#include "RenderUtil.h"
-#include "../../RenderUtil.h"
-#include "../Core/Time.h"
 #include "Camera.h"
+#include "RenderUtil.h"
+#include "../Core/Time.h"
 #include "../Core/Timestep.h"
 
 
