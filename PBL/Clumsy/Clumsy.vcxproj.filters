@@ -25,6 +25,9 @@
     <Filter Include="Pliki źródłowe\Shaders">
       <UniqueIdentifier>{cfafc301-cd20-4c58-84e9-d0710142122f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\Components">
+      <UniqueIdentifier>{3e46f915-ab67-4f08-bb2f-a543bf141faf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="src\Core\CoreEngine.h">
       <Filter>Pliki źródłowe\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Components\RenderModelComponent.h">
+      <Filter>Pliki źródłowe\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

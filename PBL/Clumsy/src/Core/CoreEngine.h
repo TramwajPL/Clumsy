@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../RenderEngine/RenderEngine.h"
+#include "Game.h"
 
 namespace Clumsy
 {

@@ -5,6 +5,7 @@
 #include "RenderUtil.h"
 #include "../Core/Time.h"
 #include "../Core/Timestep.h"
+#include "../Core/GameObject.h"
 
 
 namespace Clumsy {
@@ -16,10 +17,10 @@ namespace Clumsy {
 		void Stop();
 		void processInput(float deltaTime);
 		Camera GetCamera() { return *m_Camera; }
+		void Render(GameObject& object);
 		
 	private:
 		void Run();
-		void Render();
 		void CleanUp();
 		GLFWwindow* m_GLFWWindow;
 		Window* m_Window;

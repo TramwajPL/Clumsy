@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 #include <glfw3.h>
 
-#include "../Core/Game.h"
+//#include "../Core/Game.h"
 
 namespace Clumsy {
 
@@ -21,7 +21,7 @@ namespace Clumsy {
 	private:
 		bool isRunning = false;
 		bool m_IsCloseRequested;
-		Game game;
+		//Game game;
 		GLFWwindow* m_GLFWWindow;
 	};
 }

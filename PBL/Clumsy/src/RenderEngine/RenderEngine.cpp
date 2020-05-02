@@ -129,11 +129,14 @@ namespace Clumsy {
 		CleanUp();
 	}
 
-	void RenderEngine::Render()
+	void RenderEngine::Render(GameObject& object)
 	{
 		renderUtil.ClearScreen();
 		renderUtil.InitGraphics();
 		m_Window->SetIsCloseRequested(true);
+
+		//object->RenderAll();  <--- tutaj ma sie renderowac
+		//TODO: renderowanie po drzewie calym
 	}
 
 	void RenderEngine::CleanUp()

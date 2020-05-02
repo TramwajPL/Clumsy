@@ -3,6 +3,7 @@
 #include <glm/gtx/string_cast.hpp>
 #include <iostream>
 
+#include "EntityComponent.h"
 
 namespace Clumsy {
 
@@ -21,6 +22,7 @@ namespace Clumsy {
 	void GameObject::AddComponent(EntityComponent* component)
 	{
 		m_Components.push_back(component);
+		
 	}
 
 	//Getting model component (probably for now)
@@ -46,11 +48,28 @@ namespace Clumsy {
 	void GameObject::AddChild(GameObject* child)
 	{
 		m_Children.push_back(child);
+		child->GetTransform().SetParent(&m_Transform);
 	}
 
 	std::vector<GameObject*> GameObject::GetAllChildren()
 	{
 		return m_Children;
+	}
+
+	void GameObject::Render()
+	{
+		for (int i = 0; i < m_Components.size(); i++) {
+			m_Components[i]->Render();
+		}
+	}
+
+	void GameObject::RenderAll()
+	{
+		Render();
+
+		for (int i = 0; i < m_Children.size(); i++) {
+			m_Children[i]->RenderAll();
+		}
 	}
 
 

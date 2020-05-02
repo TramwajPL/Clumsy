@@ -12,6 +12,12 @@ namespace Clumsy {
 			std::cout << "WE PRESSED UP!";
 		}*/
 	}
+	
+	void Game::Render(RenderEngine* renderingEngine)
+	{
+		//renderingEngine->Render(); //TODO
+	}
+
 	void Game::AddToScene(GameObject* child)
 	{
 		m_Root.AddChild(child);

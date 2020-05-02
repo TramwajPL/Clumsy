@@ -4,9 +4,11 @@
 
 #include "Transform.h"
 #include "../pch.h"
+//#include "EntityComponent.h"
 
 namespace Clumsy {
 	class EntityComponent;
+
 
 	class GameObject {
 	public:
@@ -26,6 +28,11 @@ namespace Clumsy {
 
 		void AddChild(GameObject* child);
 		std::vector<GameObject*> GetAllChildren();
+
+
+		//These guys may need some arguments
+		void Render(); //probably can be private
+		void RenderAll();  
 
 	
 	private:
