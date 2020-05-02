@@ -87,6 +87,9 @@
     <ClCompile Include="src\Core\CoreEngine.cpp">
       <Filter>Pliki źródłowe\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\MousePicker.cpp">
+      <Filter>Pliki źródłowe\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\RenderEngine\Window.h">
@@ -168,6 +171,9 @@
       <Filter>Pliki źródłowe</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\CoreEngine.h">
+      <Filter>Pliki źródłowe\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\MousePicker.h">
       <Filter>Pliki źródłowe\Core</Filter>
     </ClInclude>
   </ItemGroup>
