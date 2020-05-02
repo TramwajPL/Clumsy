@@ -84,6 +84,9 @@
     <ClCompile Include="src\RenderEngine\RenderUtil.cpp">
       <Filter>Pliki źródłowe\RenderEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\CoreEngine.cpp">
+      <Filter>Pliki źródłowe\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\RenderEngine\Window.h">
@@ -163,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="src\pch.h">
       <Filter>Pliki źródłowe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\CoreEngine.h">
+      <Filter>Pliki źródłowe\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

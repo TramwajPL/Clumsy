@@ -16,11 +16,17 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 
 int main() 
 {
-	Clumsy::Window window(SCR_WIDTH, SCR_HEIGHT);
-	GLFWwindow* glfwWindow = window.GetGLFWWindow();
-	Clumsy::RenderEngine renderEngine(glfwWindow, window, camera);
+	Clumsy::Window* window = new Clumsy::Window(SCR_WIDTH, SCR_HEIGHT);
+	GLFWwindow* glfwWindow = window->GetGLFWWindow();
+
+	Clumsy::RenderEngine* renderEngine = new Clumsy::RenderEngine(glfwWindow, window, camera);
 	glfwSetScrollCallback(glfwWindow, scroll_callback);
-	renderEngine.Start();
-	window.~Window();
+
+	Clumsy::Game* game = new Clumsy::Game();
+
+	Clumsy::CoreEngine coreEngine(60.0f, window, renderEngine, game);
+
+	renderEngine->Start();
+	window->~Window();
 	return 0;
 }

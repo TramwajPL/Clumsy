@@ -12,8 +12,8 @@
 
 namespace Clumsy {
 
-	RenderEngine::RenderEngine(GLFWwindow* window, Window& window2, Camera* camera) :
-		m_Window(&window2),
+	RenderEngine::RenderEngine(GLFWwindow* window, Window* window2, Camera* camera) :
+		m_Window(window2),
 		m_GLFWWindow(window),
 		m_Camera(camera)
 	{
