@@ -22,7 +22,7 @@ namespace Clumsy {
 	void GameObject::AddComponent(EntityComponent* component)
 	{
 		m_Components.push_back(component);
-		
+		component->SetParent(*this);
 	}
 
 	//Getting model component (probably for now)
@@ -56,19 +56,19 @@ namespace Clumsy {
 		return m_Children;
 	}
 
-	void GameObject::Render()
+	void GameObject::Render(Shader& shader)
 	{
 		for (int i = 0; i < m_Components.size(); i++) {
-			m_Components[i]->Render();
+			m_Components[i]->Render(&shader);
 		}
 	}
 
-	void GameObject::RenderAll()
+	void GameObject::RenderAll(Shader& shader)
 	{
-		Render();
+		Render(shader);
 
 		for (int i = 0; i < m_Children.size(); i++) {
-			m_Children[i]->RenderAll();
+			m_Children[i]->RenderAll(shader);
 		}
 	}
 

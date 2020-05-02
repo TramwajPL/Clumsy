@@ -8,7 +8,7 @@
 
 namespace Clumsy {
 	class EntityComponent;
-
+	class Shader;
 
 	class GameObject {
 	public:
@@ -31,8 +31,8 @@ namespace Clumsy {
 
 
 		//These guys may need some arguments
-		void Render(); //probably can be private
-		void RenderAll();  
+		void Render(Shader& shader); //probably can be private
+		void RenderAll(Shader& shader);  
 
 	
 	private:

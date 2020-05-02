@@ -9,7 +9,7 @@
 
 
 namespace Clumsy {
-
+	//class Shader;
 	class RenderEngine {
 	public:
 		RenderEngine(GLFWwindow* window, Window* window2, Camera* camera);
@@ -28,5 +28,7 @@ namespace Clumsy {
 		RenderUtil renderUtil;
 		float m_LastFrameTime = 0.0f;
 		Camera* m_Camera;
+
+		//Shader shader; // <-- probably will be needed
 	};
 }
