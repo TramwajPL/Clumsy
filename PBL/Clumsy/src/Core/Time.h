@@ -2,7 +2,5 @@
 
 namespace Clumsy
 {
-
 	double GetTime();
-
 }

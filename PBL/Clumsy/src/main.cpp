@@ -1,9 +1,8 @@
-#include <assimp/Importer.hpp>// przenieœæ do innej klasy
-#include <assimp/aabb.h> //przenieœæ do innej klasy
-#include "RenderEngine/Window.h"
-#include "RenderEngine/RenderEngine.h"
+
 #define STB_IMAGE_IMPLEMENTATION 
 #include <stb_image.h>
+
+#include "Clumsy.h"
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;

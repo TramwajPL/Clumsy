@@ -1,5 +1,6 @@
+
+#include "../pch.h"
 #include "Game.h"
-#include <iostream>
 
 namespace Clumsy {
 	//Input* Input::s_Instance = nullptr;

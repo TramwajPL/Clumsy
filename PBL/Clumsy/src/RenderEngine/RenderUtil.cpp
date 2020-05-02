@@ -1,5 +1,9 @@
+
+#include "../pch.h"
+
+#include <glad/glad.h>
+
 #include "RenderUtil.h"
-#include "glad/glad.h"
 
 namespace Clumsy {
 

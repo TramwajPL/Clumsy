@@ -78,9 +78,6 @@
     <ClCompile Include="src\PhysicsEngine\Plane.cpp">
       <Filter>Pliki źródłowe\PhysicsEngine</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderEngine\Camera.cpp">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClCompile>
     <ClCompile Include="src\Core\GameObject.cpp">
       <Filter>Pliki źródłowe\Core</Filter>
     </ClCompile>
@@ -160,6 +157,12 @@
     </ClInclude>
     <ClInclude Include="src\RenderEngine\RenderUtil.h">
       <Filter>Pliki źródłowe\RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Clumsy.h">
+      <Filter>Pliki źródłowe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pch.h">
+      <Filter>Pliki źródłowe</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

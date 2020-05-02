@@ -1,6 +1,8 @@
 #pragma once
+
 #include <glad/glad.h>
 #include <glfw3.h>
+
 #include "../Core/Game.h"
 
 namespace Clumsy {

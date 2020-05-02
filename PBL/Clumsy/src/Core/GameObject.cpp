@@ -1,7 +1,8 @@
+
+#include "../pch.h"
 #include "GameObject.h"
 
-#include <glm/gtx/string_cast.hpp>
-#include <iostream>
+//#include <glm/gtx/string_cast.hpp>
 
 
 namespace Clumsy {

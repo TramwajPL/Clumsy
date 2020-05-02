@@ -1,9 +1,10 @@
-#include "glad/glad.h"
+
+#include "../pch.h"
+
+#include <glad/glad.h>
 #include <glm/glm.hpp>
+
 #include "Shader.h"
-#include <iostream>
-#include <fstream>
-#include <sstream>
 
 namespace Clumsy {
 

@@ -1,3 +1,5 @@
+
+#include "../pch.h"
 #include "BoundingSphere.h"
 
 namespace Clumsy

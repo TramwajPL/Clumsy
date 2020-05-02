@@ -1,9 +1,8 @@
 #pragma once
 
 #include "IntersectData.h"
-#include <glm/glm.hpp>
-
 #include "ReferenceCounter.h"
+#include <glm/glm.hpp>
 
 namespace Clumsy
 {

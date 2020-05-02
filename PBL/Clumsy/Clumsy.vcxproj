@@ -32,7 +32,6 @@
     <ClCompile Include="src\PhysicsEngine\PhysicsEngine.cpp" />
     <ClCompile Include="src\PhysicsEngine\PhysicsObject.cpp" />
     <ClCompile Include="src\PhysicsEngine\Plane.cpp" />
-    <ClCompile Include="src\RenderEngine\Camera.cpp" />
     <ClCompile Include="src\RenderEngine\Mesh.cpp" />
     <ClCompile Include="src\RenderEngine\Model.cpp" />
     <ClCompile Include="src\RenderEngine\RenderEngine.cpp" />
@@ -41,6 +40,7 @@
     <ClCompile Include="src\RenderEngine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Clumsy.h" />
     <ClInclude Include="src\Core\EntityComponent.h" />
     <ClInclude Include="src\Core\Game.h" />
     <ClInclude Include="src\Core\GameObject.h" />
@@ -50,6 +50,7 @@
     <ClInclude Include="src\Core\Timestep.h" />
     <ClInclude Include="src\Core\Transform.h" />
     <ClInclude Include="src\Core\Vector2f.h" />
+    <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\PhysicsEngine\Aabb.h" />
     <ClInclude Include="src\PhysicsEngine\BoundingSphere.h" />
     <ClInclude Include="src\PhysicsEngine\Collider.h" />

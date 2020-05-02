@@ -1,7 +1,7 @@
 #pragma once
 
-#include "BoundingSphere.h"
 #include <glm/glm.hpp>
+#include "BoundingSphere.h"
 
 namespace Clumsy
 {
