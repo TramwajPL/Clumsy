@@ -4,12 +4,21 @@
 #define STB_IMAGE_IMPLEMENTATION 
 #include <stb_image.h>
 
+#include <glm/glm.hpp>
+#include <glm\ext\matrix_clip_space.hpp>
+
 #include "Clumsy.h"
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-Clumsy::Camera* camera = new Clumsy::Camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Clumsy::Camera* camera = new Clumsy::Camera(glm::vec3(0.0f, -5.0f, 3.0f));
+
+Clumsy::Window* window = new Clumsy::Window(SCR_WIDTH, SCR_HEIGHT);
+
+glm::mat4 projectionMP = glm::perspective(glm::radians(camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+
+Clumsy::MousePicker mp(camera, window, projectionMP);
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
@@ -24,12 +33,15 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		//getting cursor position
 		glfwGetCursorPos(window, &xpos, &ypos);
 		std::cout << "Cursor Position at " << xpos << " : " << ypos << std::endl;
+		mp.Update();
+
+		std::cout << "RAY: " << mp.GetCurrentRay().x << " , " << mp.GetCurrentRay().y << " , " << mp.GetCurrentRay().z << std::endl;
+
 	}
 }
 
 int main() 
 {
-	Clumsy::Window* window = new Clumsy::Window(SCR_WIDTH, SCR_HEIGHT);
 	GLFWwindow* glfwWindow = window->GetGLFWWindow();
 
 	Clumsy::RenderEngine* renderEngine = new Clumsy::RenderEngine(glfwWindow, window, camera);

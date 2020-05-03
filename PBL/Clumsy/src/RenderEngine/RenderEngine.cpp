@@ -8,6 +8,7 @@
 #include "RenderEngine.h"
 #include "../Core/Timestep.h"
 #include "../Core/GameObject.h"
+#include "../Core/MousePicker.h"
 #include "../Core/EntityComponent.h"
 
 namespace Clumsy {
@@ -44,7 +45,6 @@ namespace Clumsy {
 		const unsigned int SCR_WIDTH = 800;
 		const unsigned int SCR_HEIGHT = 600;
 
-
 		long lastTime = Clumsy::GetTime();
 		double unprocessedTime = 0;
 		Shader ourShader("../Clumsy/src/Shaders/model_loadingVS.glsl", "../Clumsy/src/Shaders/model_loadingFS.glsl");
@@ -68,7 +68,6 @@ namespace Clumsy {
 		componentCapsuleModel.SetParent(gameObject);
 		componentCapsuleModel.SetParent(gameObject2);
 
-
 		//glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 		//glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 		//glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -90,6 +89,9 @@ namespace Clumsy {
 			//camera.OnUpdate(timestep);
 
 			processInput(timestep.GetSeconds());
+			/*mp.Update();
+			
+			std::cout << "RAY: " << mp.GetCurrentRay().x << " , " << mp.GetCurrentRay().y << " , " << mp.GetCurrentRay().z << std::endl;*/
 		
 			// pass projection matrix to shader (note that in this case it could change every frame)
 			glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
