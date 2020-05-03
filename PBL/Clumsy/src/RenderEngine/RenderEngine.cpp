@@ -20,14 +20,8 @@ namespace Clumsy {
 	{
 		isRunning = false;
 		m_Shader = new Shader("../Clumsy/src/Shaders/model_loadingVS.glsl", "../Clumsy/src/Shaders/model_loadingFS.glsl");
-		
-
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
 
 		glEnable(GL_DEPTH_TEST);
-
-
 
 	}
 
@@ -163,15 +157,14 @@ namespace Clumsy {
 		//renderUtil.ClearScreen();
 		//renderUtil.InitGraphics();
 		//m_Window->SetIsCloseRequested(true);
-
 		// pass projection matrix to shader (note that in this case it could change every frame)
+
 		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)800 / (float)600, 0.1f, 100.0f);
 		m_Shader->setMat4("projection", projection);
 
 		// camera/view transformation
 		glm::mat4 view = m_Camera->GetViewMatrix();
 		m_Shader->setMat4("view", view);
-
 
 		object.RenderAll(*m_Shader);//  <--- tutaj ma sie renderowac
 		//TODO: renderowanie po drzewie calym

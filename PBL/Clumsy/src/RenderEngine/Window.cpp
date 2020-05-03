@@ -26,15 +26,15 @@ namespace Clumsy {
 		glfwTerminate();
 	}
 
-	void Window::render(GLFWwindow* window)
-	{
-		// render
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+	//void Window::render(GLFWwindow* window)
+	//{
+	//	// render
+	//	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	//	glClear(GL_COLOR_BUFFER_BIT);
 
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-	}
+	//	glfwSwapBuffers(window);
+	//	glfwPollEvents();
+	//}
 
 	void Window::Init(int width, int height) {
 		glfwInit();

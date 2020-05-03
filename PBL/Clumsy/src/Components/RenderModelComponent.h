@@ -17,7 +17,7 @@ namespace Clumsy {
 			shader.setMat4("model", model);
 			m_Model.Draw(shader);
 			//TODO: renderowanie modelu
-			std::cout << "renderowanko" << std::endl;
+			//std::cout << "renderowanko" << std::endl;
 
 		}
 	private:

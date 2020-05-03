@@ -29,7 +29,7 @@ namespace Clumsy {
 		float m_LastFrameTime = 0.0f;
 		Camera* m_Camera;
 		Shader* m_Shader;
-
+		
 		//Shader shader; // <-- probably will be needed
 	};
 }
