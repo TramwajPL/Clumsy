@@ -15,7 +15,9 @@ namespace Clumsy {
 	}
 	static bool s_GLFWInitialized = false;
 
-	Window::Window(int width, int height)
+	Window::Window(int width, int height) :
+		m_Width(width),
+		m_Height(height)
 	{
 		m_IsCloseRequested = false;
 		Init(width, height);

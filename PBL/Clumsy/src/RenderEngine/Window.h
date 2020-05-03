@@ -18,7 +18,13 @@ namespace Clumsy {
 		bool IsCloseRequested() const { return m_IsCloseRequested; };
 		void SetIsCloseRequested(bool value) { m_IsCloseRequested = value; }
 		GLFWwindow* GetGLFWWindow() { return m_GLFWWindow; }
+
+		int GetWidth() { return m_Width; }
+		int GetHeight() { return m_Height; }
+
 	private:
+		int m_Width;
+		int m_Height;
 		bool isRunning = false;
 		bool m_IsCloseRequested;
 		Game game;
