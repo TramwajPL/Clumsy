@@ -53,22 +53,22 @@ namespace Clumsy {
 		Model m1("../Clumsy/src/models/capsule.obj");
 
 
-		glm::vec3 pos = glm::vec3(0.0f, 0.3f, -1.8f);
+		glm::vec3 pos = glm::vec3(0.0f, 0.0f, -2.0f);
 		glm::quat rot = glm::quat(0.0f, 0.0f, 0.0f, 1.0f);
 		float scale = 0.1f;
 		Transform transform(pos, rot, scale);
 		Transform transform2(pos + glm::vec3(0.2f, 0.2f, 0.0f), rot, scale);
 
 		GameObject gameObject(transform);
-		GameObject gameObject2(transform2);
+		//GameObject gameObject2(transform2);
 
 		EntityComponent componentCapsuleModel(&m1);
 
 		gameObject.AddComponent(&componentCapsuleModel);
-		gameObject2.AddComponent(&componentCapsuleModel);
+		//gameObject2.AddComponent(&componentCapsuleModel);
 		
 		componentCapsuleModel.SetParent(gameObject);
-		componentCapsuleModel.SetParent(gameObject2);
+		//componentCapsuleModel.SetParent(gameObject2);
 
 
 		//glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
@@ -117,11 +117,11 @@ namespace Clumsy {
 
 			glm::mat4 model1 = glm::mat4(1.0f);
 
-			model1 = gameObject2.TranslateModelMatrix(model1);
-			model1 = gameObject2.ScaleModelMatrix(model1);
+			//model1 = gameObject2.TranslateModelMatrix(model1);
+			//model1 = gameObject2.ScaleModelMatrix(model1);
 
 			ourShader.setMat4("model", model1);
-			gameObject2.GetModelComponent()->GetModel().Draw(ourShader);
+			//gameObject2.GetModelComponent()->GetModel().Draw(ourShader);
 
 
 			glfwSwapBuffers(m_GLFWWindow);

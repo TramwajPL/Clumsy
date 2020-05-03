@@ -20,8 +20,8 @@ glm::mat4 projectionMP = glm::perspective(glm::radians(camera->GetZoom()), (floa
 
 Clumsy::MousePicker mp(camera, window, projectionMP);
 
-glm::vec3 v1 = glm::vec3(0.0f, 0.3f, -1.8f) - glm::vec3(1.0f);
-glm::vec3 v2 = glm::vec3(0.0f, 0.3f, -1.8f) + glm::vec3(1.0f);
+glm::vec3 v1 = glm::vec3(0.0f, 0.0f, -2.0f) - glm::vec3(1.0f, 1.0f, 1.0f);
+glm::vec3 v2 = glm::vec3(0.0f, 0.0f, -2.0f) + glm::vec3(1.0f, 1.0f, 1.0f);
 
 Clumsy::Aabb a1(v1, v2);
 
