@@ -11,6 +11,8 @@
 #include "../Core/MousePicker.h"
 #include "../Core/EntityComponent.h"
 
+#include "../PhysicsEngine/Aabb.h"
+
 namespace Clumsy {
 
 	RenderEngine::RenderEngine(GLFWwindow* window, Window* window2, Camera* camera) :
@@ -67,6 +69,7 @@ namespace Clumsy {
 		
 		componentCapsuleModel.SetParent(gameObject);
 		componentCapsuleModel.SetParent(gameObject2);
+
 
 		//glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 		//glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);

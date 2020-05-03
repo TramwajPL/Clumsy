@@ -20,6 +20,11 @@ glm::mat4 projectionMP = glm::perspective(glm::radians(camera->GetZoom()), (floa
 
 Clumsy::MousePicker mp(camera, window, projectionMP);
 
+glm::vec3 v1 = glm::vec3(0.0f, 0.3f, -1.8f) - glm::vec3(1.0f);
+glm::vec3 v2 = glm::vec3(0.0f, 0.3f, -1.8f) + glm::vec3(1.0f);
+
+Clumsy::Aabb a1(v1, v2);
+
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	camera->ProcessMouseScroll(yoffset);
@@ -37,6 +42,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 
 		std::cout << "RAY: " << mp.GetCurrentRay().x << " , " << mp.GetCurrentRay().y << " , " << mp.GetCurrentRay().z << std::endl;
 
+		std::cout << mp.CheckCollision(a1) << std::endl;
 	}
 }
 

@@ -43,4 +43,37 @@ namespace Clumsy
 		float y = (2.0f * mouseY) / m_Window->GetHeight() - 1;
 		return glm::vec2(x, -y);
 	}
+
+	float MousePicker::CheckCollision(Aabb aabb)
+	{
+		float t1 = (aabb.GetMinExtends().x - m_Camera->GetPosition().x) / m_CurrentRay.x;
+		float t2 = (aabb.GetMaxExtends().x - m_Camera->GetPosition().x) / m_CurrentRay.x;
+		float t3 = (aabb.GetMinExtends().y - m_Camera->GetPosition().y) / m_CurrentRay.y;
+		float t4 = (aabb.GetMaxExtends().y - m_Camera->GetPosition().y) / m_CurrentRay.y;
+		float t5 = (aabb.GetMinExtends().z - m_Camera->GetPosition().z) / m_CurrentRay.z;
+		float t6 = (aabb.GetMaxExtends().z - m_Camera->GetPosition().z) / m_CurrentRay.z;
+
+		float tmin = glm::max(glm::max(glm::min(t1, t2), glm::min(t3, t4)), glm::min(t5, t6));
+		float tmax = glm::min(glm::min(glm::max(t1, t2), glm::max(t3, t4)), glm::max(t5, t6));
+
+		if (tmax < 0.0f) 
+		{
+			std::cout << "Collider behind camera" << std::endl;
+			return -1.0f;
+		}
+
+		if (tmin > tmax) 
+		{
+			std::cout << "No collision" << std::endl;
+			return -1.0f;
+		}
+
+		if (tmin < 0.0f) 
+		{
+			std::cout << "Collision detected" << std::endl;
+			return tmax;
+		}
+		std::cout << "Collision detected" << std::endl;
+		return tmin;
+	}
 }

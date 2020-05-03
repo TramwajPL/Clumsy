@@ -4,6 +4,7 @@
 
 #include "../RenderEngine/Window.h"
 #include "../RenderEngine/Camera.h"
+#include "../PhysicsEngine/Aabb.h"
 
 namespace Clumsy
 {
@@ -22,6 +23,8 @@ namespace Clumsy
 		glm::vec3 ToWorldCoords(glm::vec4 eyeCoords);
 		glm::vec4 ToEyeCoords(glm::vec4 clipCoords);
 		glm::vec2 GetNormalisedDeviceCoordinates(float mouseX, float mouseY);
+
+		float CheckCollision(Aabb aabb);
 
 	private:
 		glm::vec3 m_CurrentRay;
