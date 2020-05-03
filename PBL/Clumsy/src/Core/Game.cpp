@@ -15,7 +15,7 @@ namespace Clumsy {
 	
 	void Game::Render(RenderEngine* renderingEngine)
 	{
-		//renderingEngine->Render(); //TODO
+		renderingEngine->Render(m_Root); //TODO
 	}
 
 	void Game::AddToScene(GameObject* child)

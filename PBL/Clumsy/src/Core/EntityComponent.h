@@ -9,6 +9,7 @@ namespace Clumsy {
 	
 	public:
 		EntityComponent(Model* model) : model(model) {}
+		EntityComponent() {}
 		~EntityComponent() {}
 
 		void SetParent(GameObject parent) 
@@ -24,7 +25,7 @@ namespace Clumsy {
 			return m_Parent.GetTransform();
 		}
 
-		virtual void Render(Shader* shader) {}
+		virtual void Render(Shader& shader) {}
 
 	private:
 		GameObject m_Parent; 

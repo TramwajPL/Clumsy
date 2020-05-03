@@ -19,10 +19,11 @@ namespace Clumsy {
 
 
 	//Adding component to game object
-	void GameObject::AddComponent(EntityComponent* component)
+	GameObject* GameObject::AddComponent(EntityComponent* component)
 	{
 		m_Components.push_back(component);
 		component->SetParent(*this);
+		return this;
 	}
 
 	//Getting model component (probably for now)
@@ -59,7 +60,7 @@ namespace Clumsy {
 	void GameObject::Render(Shader& shader)
 	{
 		for (int i = 0; i < m_Components.size(); i++) {
-			m_Components[i]->Render(&shader);
+			m_Components[i]->Render(shader);
 		}
 	}
 

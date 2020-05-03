@@ -19,14 +19,14 @@ namespace Clumsy {
 		
 		Transform GetTransform();
 
-		void AddComponent(EntityComponent* component);
+		GameObject* AddComponent(EntityComponent* component);
+		void AddChild(GameObject* child);
 
 		EntityComponent* GetModelComponent();
 
 		glm::mat4 TranslateModelMatrix(glm::mat4 modelMatrix);
 		glm::mat4 ScaleModelMatrix(glm::mat4 modelMatrix);
 
-		void AddChild(GameObject* child);
 		std::vector<GameObject*> GetAllChildren();
 
 

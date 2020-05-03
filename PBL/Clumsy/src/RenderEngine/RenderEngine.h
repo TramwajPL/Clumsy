@@ -17,7 +17,7 @@ namespace Clumsy {
 		void Stop();
 		void processInput(float deltaTime);
 		Camera GetCamera() { return *m_Camera; }
-		void Render(GameObject& object);
+		void Render(GameObject object);
 		
 	private:
 		void Run();

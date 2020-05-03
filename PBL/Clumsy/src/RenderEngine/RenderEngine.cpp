@@ -9,8 +9,23 @@
 #include "../Core/Timestep.h"
 #include "../Core/GameObject.h"
 #include "../Core/EntityComponent.h"
+#include "../Core/Game.h"
+#include "../Components/RenderModelComponent.h"
 
 namespace Clumsy {
+	class TestGame : public Game {
+	public:
+		virtual void Init() {
+			glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
+			glm::quat rot = glm::quat(0.0f, 0.0f, 0.0f, 1.0f);
+			float scale = 1.0f;
+			Transform transform(pos, rot, scale);
+
+			Model m1("../Clumsy/src/models/capsule.obj");
+
+			AddToScene((new GameObject(transform))->AddComponent(new RenderModelComponent(m1)));
+		}
+	};
 
 	RenderEngine::RenderEngine(GLFWwindow* window, Window* window2, Camera* camera) :
 		m_Window(window2),
@@ -41,12 +56,13 @@ namespace Clumsy {
 		isRunning = true;
 
 		// settings
-		const unsigned int SCR_WIDTH = 800;
-		const unsigned int SCR_HEIGHT = 600;
+		/*const unsigned int SCR_WIDTH = 800;
+		const unsigned int SCR_HEIGHT = 600;*/
 
 
 		long lastTime = Clumsy::GetTime();
 		double unprocessedTime = 0;
+	/*	
 		Shader ourShader("../Clumsy/src/Shaders/model_loadingVS.glsl", "../Clumsy/src/Shaders/model_loadingFS.glsl");
 		Model m1("../Clumsy/src/models/capsule.obj");
 
@@ -66,7 +82,7 @@ namespace Clumsy {
 		gameObject2.AddComponent(&componentCapsuleModel);
 		
 		componentCapsuleModel.SetParent(gameObject);
-		componentCapsuleModel.SetParent(gameObject2);
+		componentCapsuleModel.SetParent(gameObject2);*/
 
 
 		//glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
@@ -79,7 +95,7 @@ namespace Clumsy {
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			ourShader.use();
+			//ourShader.use();
 
 			float time = (float)glfwGetTime();
 			Timestep timestep = time - m_LastFrameTime;
@@ -92,31 +108,38 @@ namespace Clumsy {
 			processInput(timestep.GetSeconds());
 		
 			// pass projection matrix to shader (note that in this case it could change every frame)
-			glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-			ourShader.setMat4("projection", projection);
+			//glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+			//ourShader.setMat4("projection", projection);
 
-			// camera/view transformation
-			glm::mat4 view = m_Camera->GetViewMatrix();
-			ourShader.setMat4("view", view);
+			//// camera/view transformation
+			//glm::mat4 view = m_Camera->GetViewMatrix();
+			//ourShader.setMat4("view", view);
 
-			// render the loaded model
-			glm::mat4 model = glm::mat4(1.0f);
-			//model = glm::translate(model, glm::vec3(0.0f, 0.3f, -1.8f)); // translate it down so it's at the center of the scene
-			//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
-			model = gameObject.TranslateModelMatrix(model);
-			model = gameObject.ScaleModelMatrix(model);
+			//// render the loaded model
+			//glm::mat4 model = glm::mat4(1.0f);
+			////model = glm::translate(model, glm::vec3(0.0f, 0.3f, -1.8f)); // translate it down so it's at the center of the scene
+			////model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
+			//model = gameObject.TranslateModelMatrix(model);
+			//model = gameObject.ScaleModelMatrix(model);
 
-			ourShader.setMat4("model", model);
-			gameObject.GetModelComponent()->GetModel().Draw(ourShader);
+			//ourShader.setMat4("model", model);
+			//gameObject.GetModelComponent()->GetModel().Draw(ourShader);
 
 
-			glm::mat4 model1 = glm::mat4(1.0f);
+			//glm::mat4 model1 = glm::mat4(1.0f);
 
-			model1 = gameObject2.TranslateModelMatrix(model1);
-			model1 = gameObject2.ScaleModelMatrix(model1);
+			//model1 = gameObject2.TranslateModelMatrix(model1);
+			//model1 = gameObject2.ScaleModelMatrix(model1);
 
-			ourShader.setMat4("model", model1);
-			gameObject2.GetModelComponent()->GetModel().Draw(ourShader);
+			//ourShader.setMat4("model", model1);
+			//gameObject2.GetModelComponent()->GetModel().Draw(ourShader);
+
+
+			//////////////////////////////////////////////////////////////////////////////////////
+			//TESTING GAME TREE
+			TestGame game;
+			game.Init();
+			Render(game.getRoot());
 
 
 			glfwSwapBuffers(m_GLFWWindow);
@@ -129,13 +152,28 @@ namespace Clumsy {
 		CleanUp();
 	}
 
-	void RenderEngine::Render(GameObject& object)
+	void RenderEngine::Render(GameObject object)
 	{
-		renderUtil.ClearScreen();
-		renderUtil.InitGraphics();
-		m_Window->SetIsCloseRequested(true);
+		//renderUtil.ClearScreen();
+		//renderUtil.InitGraphics();
+		//m_Window->SetIsCloseRequested(true);
 
-		//object->RenderAll();  <--- tutaj ma sie renderowac
+		const unsigned int SCR_WIDTH = 800;
+		const unsigned int SCR_HEIGHT = 600;
+
+
+		Shader ourShader("../Clumsy/src/Shaders/model_loadingVS.glsl", "../Clumsy/src/Shaders/model_loadingFS.glsl");
+
+		// pass projection matrix to shader (note that in this case it could change every frame)
+		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		ourShader.setMat4("projection", projection);
+
+		// camera/view transformation
+		glm::mat4 view = m_Camera->GetViewMatrix();
+		ourShader.setMat4("view", view);
+
+
+		object.RenderAll(ourShader);//  <--- tutaj ma sie renderowac
 		//TODO: renderowanie po drzewie calym
 	}
 
@@ -163,5 +201,6 @@ namespace Clumsy {
 			m_Camera->ProcessKeyboard(BACKWARD, deltaTime);
 	}
 
+	
 	
 }

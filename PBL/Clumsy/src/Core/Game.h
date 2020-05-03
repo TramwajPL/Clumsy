@@ -18,6 +18,10 @@ namespace Clumsy {
 		//void Update();
 		//void Render();
 		void AddToScene(GameObject* child);
+
+		GameObject getRoot() {
+			return m_Root;
+		}
 	private:
 		GameObject m_Root;
 	};
