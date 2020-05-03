@@ -8,7 +8,7 @@ namespace Clumsy {
 	class EntityComponent {
 	
 	public:
-		EntityComponent(Model* model) : model(model) {}
+		//EntityComponent(Model* model) : model(model) {}
 		EntityComponent() {}
 		~EntityComponent() {}
 
@@ -17,9 +17,9 @@ namespace Clumsy {
 			m_Parent = parent;
 		}
 
-		Model GetModel() {
-			return *model;
-		}
+		//Model GetModel() {
+		//	return *model;
+		//}
 
 		Transform GetParentTransform() {
 			return m_Parent.GetTransform();
@@ -29,6 +29,6 @@ namespace Clumsy {
 
 	private:
 		GameObject m_Parent; 
-		Model* model;
+		//Model* model;
 	};
 }

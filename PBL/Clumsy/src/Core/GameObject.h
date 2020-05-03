@@ -22,10 +22,10 @@ namespace Clumsy {
 		GameObject* AddComponent(EntityComponent* component);
 		void AddChild(GameObject* child);
 
-		EntityComponent* GetModelComponent();
+		//EntityComponent* GetModelComponent();
 
-		glm::mat4 TranslateModelMatrix(glm::mat4 modelMatrix);
-		glm::mat4 ScaleModelMatrix(glm::mat4 modelMatrix);
+		//glm::mat4 TranslateModelMatrix(glm::mat4 modelMatrix);
+		//glm::mat4 ScaleModelMatrix(glm::mat4 modelMatrix);
 
 		std::vector<GameObject*> GetAllChildren();
 

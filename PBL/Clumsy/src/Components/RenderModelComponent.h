@@ -13,7 +13,7 @@ namespace Clumsy {
 			shader.use();
 			glm::mat4 model = glm::mat4(1.0f);
 			model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-			model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+			model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
 			shader.setMat4("model", model);
 			m_Model.Draw(shader);
 			//TODO: renderowanie modelu

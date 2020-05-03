@@ -26,25 +26,25 @@ namespace Clumsy {
 		return this;
 	}
 
-	//Getting model component (probably for now)
-	EntityComponent* GameObject::GetModelComponent()
-	{
-		return m_Components[0];
-	}
+	////Getting model component (probably for now)
+	//EntityComponent* GameObject::GetModelComponent()
+	//{
+	//	return m_Components[0];
+	//}
 
-	//Used to render model at certain position
-	glm::mat4 Clumsy::GameObject::TranslateModelMatrix(glm::mat4 modelMatrix)
-	{
-		return glm::translate(modelMatrix, this->GetTransform().GetPos());
-		//std::cout << "modelMatrix: " << glm::to_string(modelMatrix) << std::endl;
-	}
+	////Used to render model at certain position
+	//glm::mat4 Clumsy::GameObject::TranslateModelMatrix(glm::mat4 modelMatrix)
+	//{
+	//	return glm::translate(modelMatrix, this->GetTransform().GetPos());
+	//	//std::cout << "modelMatrix: " << glm::to_string(modelMatrix) << std::endl;
+	//}
 
-	//Used to render model in certain scale
-	glm::mat4 Clumsy::GameObject::ScaleModelMatrix(glm::mat4 modelMatrix)
-	{
-		return glm::scale(modelMatrix, glm::vec3(this->GetTransform().GetScale()));
-		//std::cout << "Skala: " << this->GetTransform().GetScale();
-	}
+	////Used to render model in certain scale
+	//glm::mat4 Clumsy::GameObject::ScaleModelMatrix(glm::mat4 modelMatrix)
+	//{
+	//	return glm::scale(modelMatrix, glm::vec3(this->GetTransform().GetScale()));
+	//	//std::cout << "Skala: " << this->GetTransform().GetScale();
+	//}
 
 	void GameObject::AddChild(GameObject* child)
 	{
