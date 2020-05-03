@@ -13,7 +13,11 @@ namespace Clumsy
 			m_FrameTime(1.0f/frameRate),
 			m_Window(window),
 			m_RenderEngine(renderEngine),
-			m_Game(game) {}
+			m_Game(game) 
+		{
+			m_Game->Init();
+		
+		}
 
 		void Start();
 		void Stop();

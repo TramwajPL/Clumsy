@@ -7,7 +7,7 @@ namespace Clumsy
 {
 	void CoreEngine::Start()
 	{
-		if (m_IsRunning)
+	/*	if (m_IsRunning)
 		{
 			return;
 		}
@@ -18,8 +18,28 @@ namespace Clumsy
 
 		while (m_IsRunning)
 		{
+			m_Game->Render(m_RenderEngine);
 
+			glfwSwapBuffers(m_Window->GetGLFWWindow());
+			glfwPollEvents();
+		}*/
+		///////////////////
+		m_IsRunning = true;
+
+
+		while (!glfwWindowShouldClose(m_Window->GetGLFWWindow()))
+		{
+			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT);
+			
+			m_Game->Render(m_RenderEngine);
+
+			glfwSwapBuffers(m_Window->GetGLFWWindow());
+			glfwPollEvents();
 		}
+
+		glfwTerminate();
+
 	}
 
 	void CoreEngine::Stop()

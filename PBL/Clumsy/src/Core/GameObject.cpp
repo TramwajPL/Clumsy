@@ -62,6 +62,7 @@ namespace Clumsy {
 		for (int i = 0; i < m_Components.size(); i++) {
 			m_Components[i]->Render(shader);
 		}
+
 	}
 
 	void GameObject::RenderAll(Shader& shader)
@@ -71,6 +72,7 @@ namespace Clumsy {
 		for (int i = 0; i < m_Children.size(); i++) {
 			m_Children[i]->RenderAll(shader);
 		}
+
 	}
 
 

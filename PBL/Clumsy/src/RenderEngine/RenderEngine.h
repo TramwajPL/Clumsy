@@ -6,7 +6,7 @@
 #include "../Core/Time.h"
 #include "../Core/Timestep.h"
 #include "../Core/GameObject.h"
-
+#include "Shader.h"
 
 namespace Clumsy {
 	//class Shader;
@@ -28,6 +28,7 @@ namespace Clumsy {
 		RenderUtil renderUtil;
 		float m_LastFrameTime = 0.0f;
 		Camera* m_Camera;
+		Shader* m_Shader;
 
 		//Shader shader; // <-- probably will be needed
 	};

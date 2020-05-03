@@ -5,13 +5,16 @@
 #include "Core/Game.h"
 #include "Core/CoreEngine.h"
 
+
 /////////////////
  
-
+//COMPONENTS
+#include "Components/RenderModelComponent.h"
 // RENDERING
 
 #include "RenderEngine/Camera.h"
 #include "RenderEngine/RenderEngine.h"
+#include "RenderEngine/Model.h"
 
 /////////////////
 

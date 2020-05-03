@@ -24,15 +24,25 @@ namespace Clumsy {
 			Model m1("../Clumsy/src/models/capsule.obj");
 
 			AddToScene((new GameObject(transform))->AddComponent(new RenderModelComponent(m1)));
+
+			std::cout << "Init gierki" << std::endl;
 		}
 	};
 
 	RenderEngine::RenderEngine(GLFWwindow* window, Window* window2, Camera* camera) :
-		m_Window(window2),
-		m_GLFWWindow(window),
-		m_Camera(camera)
+		m_Window(window2), m_GLFWWindow(window), m_Camera(camera)
 	{
 		isRunning = false;
+		m_Shader = new Shader("../Clumsy/src/Shaders/model_loadingVS.glsl", "../Clumsy/src/Shaders/model_loadingFS.glsl");
+		
+
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		glEnable(GL_DEPTH_TEST);
+
+
+
 	}
 
 	void RenderEngine::Start()
@@ -90,6 +100,14 @@ namespace Clumsy {
 		//glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 		// render loop
 		// -----------
+		const unsigned int SCR_WIDTH = 800;
+		const unsigned int SCR_HEIGHT = 600;
+
+		Shader ourShader("../Clumsy/src/Shaders/model_loadingVS.glsl", "../Clumsy/src/Shaders/model_loadingFS.glsl");
+
+		TestGame game;
+		game.Init();
+
 		while (!glfwWindowShouldClose(m_GLFWWindow))
 		{
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -137,10 +155,10 @@ namespace Clumsy {
 
 			//////////////////////////////////////////////////////////////////////////////////////
 			//TESTING GAME TREE
-			TestGame game;
-			game.Init();
-			Render(game.getRoot());
-
+	
+			//std::cout << game.getRoot().GetAllChildren().size() << std::endl;
+			//Render(game.getRoot());
+			game.Render(this);
 
 			glfwSwapBuffers(m_GLFWWindow);
 			glfwPollEvents();
@@ -158,23 +176,19 @@ namespace Clumsy {
 		//renderUtil.InitGraphics();
 		//m_Window->SetIsCloseRequested(true);
 
-		const unsigned int SCR_WIDTH = 800;
-		const unsigned int SCR_HEIGHT = 600;
-
-
-		Shader ourShader("../Clumsy/src/Shaders/model_loadingVS.glsl", "../Clumsy/src/Shaders/model_loadingFS.glsl");
-
 		// pass projection matrix to shader (note that in this case it could change every frame)
-		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-		ourShader.setMat4("projection", projection);
+		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)800 / (float)600, 0.1f, 100.0f);
+		m_Shader->setMat4("projection", projection);
 
 		// camera/view transformation
 		glm::mat4 view = m_Camera->GetViewMatrix();
-		ourShader.setMat4("view", view);
+		m_Shader->setMat4("view", view);
 
 
-		object.RenderAll(ourShader);//  <--- tutaj ma sie renderowac
+		object.RenderAll(*m_Shader);//  <--- tutaj ma sie renderowac
 		//TODO: renderowanie po drzewie calym
+
+
 	}
 
 	void RenderEngine::CleanUp()
