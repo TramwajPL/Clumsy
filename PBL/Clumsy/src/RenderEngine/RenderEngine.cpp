@@ -158,6 +158,11 @@ namespace Clumsy {
 		//renderUtil.InitGraphics();
 		//m_Window->SetIsCloseRequested(true);
 		// pass projection matrix to shader (note that in this case it could change every frame)
+		float time = (float)glfwGetTime();
+		Timestep timestep = time - m_LastFrameTime;
+		m_LastFrameTime = time;
+
+		processInput(timestep.GetSeconds());
 
 		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)800 / (float)600, 0.1f, 100.0f);
 		m_Shader->setMat4("projection", projection);
