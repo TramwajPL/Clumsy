@@ -24,6 +24,7 @@
     <ClCompile Include="src\Core\Game.cpp" />
     <ClCompile Include="src\Core\GameObject.cpp" />
     <ClCompile Include="src\Core\Input.cpp" />
+    <ClCompile Include="src\Core\Parser.cpp" />
     <ClCompile Include="src\Core\Time.cpp" />
     <ClCompile Include="src\Core\Transform.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -49,6 +50,7 @@
     <ClInclude Include="src\Core\GameObject.h" />
     <ClInclude Include="src\Core\Input.h" />
     <ClInclude Include="src\Core\KeyCodes.h" />
+    <ClInclude Include="src\Core\Parser.h" />
     <ClInclude Include="src\Core\Time.h" />
     <ClInclude Include="src\Core\Timestep.h" />
     <ClInclude Include="src\Core\Transform.h" />

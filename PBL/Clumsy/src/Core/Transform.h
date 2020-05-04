@@ -32,7 +32,14 @@ namespace Clumsy {
 		glm::quat GetTransformedRot() const;
 
 		inline void SetPos(const glm::vec3& pos) { m_pos = pos; }
+		inline void SetPosX(const float x) { m_pos.x = x; }
+		inline void SetPosY(const float y) { m_pos.y = y; }
+		inline void SetPosZ(const float z) { m_pos.z = z; }
 		inline void SetRot(const glm::quat& rot) { m_rot = rot; }
+		inline void SetRotX(const float x) { m_rot.x = x; }
+		inline void SetRotY(const float y) { m_rot.y = y; }
+		inline void SetRotZ(const float z) { m_rot.z = z; }
+		inline void SetRotW(const float w) { m_rot.z = w; }
 		inline void SetScale(float scale) { m_scale = scale; }
 		inline void SetParent(Transform* parent) { m_parent = parent; }
 
