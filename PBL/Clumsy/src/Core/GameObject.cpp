@@ -49,7 +49,7 @@ namespace Clumsy {
 	void GameObject::AddChild(GameObject* child)
 	{
 		m_Children.push_back(child);
-		child->GetTransform().SetParent(&m_Transform);
+		//child->GetTransform().SetParent(&m_Transform);
 	}
 
 	std::vector<GameObject*> GameObject::GetAllChildren()

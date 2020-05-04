@@ -12,12 +12,16 @@ public:
 	virtual void Init() {
 		glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::quat rot = glm::quat(0.0f, 0.0f, 0.0f, 1.0f);
-		float scale = 1.0f;
+		float scale = 0.2f;
 		Clumsy::Transform transform(pos, rot, scale);
+
+		Clumsy::Transform transform2(pos + 0.5f, rot, 0.1f);
 
 		Clumsy::Model m1("../Clumsy/src/models/capsule.obj");
 
-		AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1)));
+		AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
+
+		AddToScene((new Clumsy::GameObject(transform2))->AddComponent(new Clumsy::RenderModelComponent(m1, transform2)));
 
 		std::cout << "Init gierki" << std::endl;
 	}
@@ -48,6 +52,7 @@ int main()
 	
 	Clumsy::CoreEngine coreEngine(60.0f, window, renderEngine, &game);
 
+	std::cout << game.getRoot().GetAllChildren().size() << std::endl;
 	coreEngine.Start();
 	//renderEngine->Start();
 	window->~Window();
