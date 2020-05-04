@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "EntityComponent.h"
+#include "../RenderEngine/RenderEngine.h"
 
 namespace Clumsy {
 
@@ -57,20 +58,20 @@ namespace Clumsy {
 		return m_Children;
 	}
 
-	void GameObject::Render(Shader& shader)
+	void GameObject::Render(Shader& shader, RenderEngine& renderEngine)
 	{
 		for (int i = 0; i < m_Components.size(); i++) {
-			m_Components[i]->Render(shader);
+			m_Components[i]->Render(shader,  renderEngine);
 		}
 
 	}
 
-	void GameObject::RenderAll(Shader& shader)
+	void GameObject::RenderAll(Shader& shader, RenderEngine& renderEngine)
 	{
-		Render(shader);
+		Render(shader, renderEngine);
 
 		for (int i = 0; i < m_Children.size(); i++) {
-			m_Children[i]->RenderAll(shader);
+			m_Children[i]->RenderAll(shader, renderEngine);
 		}
 
 	}

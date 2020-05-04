@@ -1,7 +1,8 @@
 #pragma once
 
 #include "GameObject.h"
-#include "../RenderEngine/Model.h"
+//#include "../RenderEngine/Model.h"
+//#include "../RenderEngine/RenderEngine.h"
 
 namespace Clumsy {
 
@@ -25,7 +26,7 @@ namespace Clumsy {
 			return m_Parent.GetTransform();
 		}
 
-		virtual void Render(Shader& shader) {}
+		virtual void Render(Shader& shader, RenderEngine& renderEngine) {}
 
 	private:
 		GameObject m_Parent; 

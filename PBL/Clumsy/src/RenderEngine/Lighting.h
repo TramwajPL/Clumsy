@@ -5,6 +5,7 @@
 namespace Clumsy {
 
 	class CoreEngine;
+
 	class BaseLight : public EntityComponent
 	{
 	public:
