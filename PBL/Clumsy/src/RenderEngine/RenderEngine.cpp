@@ -19,7 +19,8 @@ namespace Clumsy {
 		m_Window(window2), m_GLFWWindow(window), m_Camera(camera)
 	{
 		isRunning = false;
-		m_Shader = new Shader("../Clumsy/src/Shaders/model_loadingVS.glsl", "../Clumsy/src/Shaders/model_loadingFS.glsl");
+		//m_Shader = new Shader("../Clumsy/src/Shaders/model_loadingVS.glsl", "../Clumsy/src/Shaders/model_loadingFS.glsl");
+		m_Shader = new Shader("../Clumsy/src/Shaders/phongVS.glsl", "../Clumsy/src/Shaders/phongFS.glsl");
 
 		glEnable(GL_DEPTH_TEST);
 
@@ -168,10 +169,20 @@ namespace Clumsy {
 		m_Shader->setMat4("projection", projection);
 
 		// camera/view transformation
+		m_Shader->use();
 		glm::mat4 view = m_Camera->GetViewMatrix();
 		m_Shader->setMat4("view", view);
 
+		m_Shader->setVec3("baseColor", 1.0f, 1.0f, 1.0);
+		m_Shader->setVec3("ambientLight", 0.2f, 0.2f, 0.2f);
+		m_Shader->setDirectional("directionalLight", new DirectionalLight(glm::vec3(m_Camera->GetPosition()), glm::vec3(1, 1, 1), 0.4f));
+
 		object.RenderAll(*m_Shader);//  <--- tutaj ma sie renderowac
+
+		for (unsigned int i = 0; i < m_Lights.size(); i++)
+		{
+			m_ActiveLight = m_Lights[i];
+		}
 		//TODO: renderowanie po drzewie calym
 
 

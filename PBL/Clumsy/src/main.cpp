@@ -23,6 +23,9 @@ public:
 
 		AddToScene((new Clumsy::GameObject(transform2))->AddComponent(new Clumsy::RenderModelComponent(m1, transform2)));
 
+		/*AddToScene((new Clumsy::GameObject(glm::vec3(), glm::quat(glm::vec3(1, 0, 0), ToRadians(-45))))
+				->AddComponent(new DirectionalLight(glm::vec3(1,1,1), 0.4f, 10, 80.0f, 1.0f)));*/
+
 		std::cout << "Init gierki" << std::endl;
 	}
 };

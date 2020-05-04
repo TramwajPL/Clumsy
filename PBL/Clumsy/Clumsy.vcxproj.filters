@@ -90,6 +90,9 @@
     <ClCompile Include="src\Core\CoreEngine.cpp">
       <Filter>Pliki źródłowe\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\RenderEngine\Lightingcpp.cpp">
+      <Filter>Pliki źródłowe\RenderEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\RenderEngine\Window.h">
@@ -176,12 +179,21 @@
     <ClInclude Include="src\Components\RenderModelComponent.h">
       <Filter>Pliki źródłowe\Components</Filter>
     </ClInclude>
+    <ClInclude Include="src\RenderEngine\Lighting.h">
+      <Filter>Pliki źródłowe\RenderEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">
       <Filter>Pliki źródłowe\Shaders</Filter>
     </None>
     <None Include="src\Shaders\model_loadingFS.glsl">
+      <Filter>Pliki źródłowe\Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\phongVS.glsl">
+      <Filter>Pliki źródłowe\Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\phongFS.glsl">
       <Filter>Pliki źródłowe\Shaders</Filter>
     </None>
   </ItemGroup>

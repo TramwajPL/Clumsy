@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 
 #include "Shader.h"
+#include "Lighting.h"
 
 namespace Clumsy {
 
@@ -112,4 +113,25 @@ namespace Clumsy {
         glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
     }
 
+	void Shader::setVec3(const std::string& name, const glm::vec3& value) const
+	{
+		glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, &value[0]);
+	}
+	void Shader::setVec3(const std::string& name, float x, float y, float z) const
+	{
+		glUniform3f(glGetUniformLocation(ID, name.c_str()), x, y, z);
+	}
+
+	//void Shader::setBase(const std::string& uniformName, BaseLight baseLight) const
+	//{
+	//	setVec3(uniformName + ".color", baseLight.GetColor());
+	//	setFloat(uniformName + ".intensity", baseLight.GetIntensity());
+	//}
+
+	void Shader::setDirectional(const std::string& uniformName, DirectionalLight* directionalLight) const
+	{
+		setVec3(uniformName + ".direction", directionalLight->GetDirection());
+		setVec3(uniformName + ".base.color", directionalLight->GetColor());
+		setFloat(uniformName + ".base.intensity", directionalLight->GetIntensity());
+	}
 }
