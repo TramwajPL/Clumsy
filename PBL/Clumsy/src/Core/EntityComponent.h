@@ -25,7 +25,9 @@ namespace Clumsy {
 			return m_Parent.GetTransform();
 		}
 
+
 		virtual void Render(Shader& shader) {}
+		virtual void Update() {}
 
 	private:
 		GameObject m_Parent; 

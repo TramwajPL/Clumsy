@@ -19,9 +19,49 @@ public:
 
 		Clumsy::Model m1("../Clumsy/src/models/capsule.obj");
 
-		AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
+		//	AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
 
-		AddToScene((new Clumsy::GameObject(transform2))->AddComponent(new Clumsy::RenderModelComponent(m1, transform2)));
+		//	AddToScene((new Clumsy::GameObject(transform2))->AddComponent(new Clumsy::RenderModelComponent(m1, transform2))
+		//		->AddComponent(new Clumsy::PhysicsObjectComponent(new Clumsy::PhysicsObject(new Clumsy::BoundingSphere(transform2.GetPos(), 1.0f)))));
+
+
+
+		Clumsy::PhysicsEngine physicsEngine;
+		
+		Clumsy::GameObject* object1 = new Clumsy::GameObject(transform);
+		Clumsy::GameObject* object2 = new Clumsy::GameObject(transform2);
+
+		physicsEngine.AddObject(Clumsy::PhysicsObject(
+			new Clumsy::BoundingSphere(object1->GetTransform().GetPos(), 0.1f)));
+
+		physicsEngine.AddObject(Clumsy::PhysicsObject(
+			new Clumsy::BoundingSphere(object2->GetTransform().GetPos(), 0.1f)));
+		
+
+		Clumsy::PhysicsEngineComponent* physicsEngineComponent
+			= new Clumsy::PhysicsEngineComponent(physicsEngine);
+
+		//float increment = 0.0f;
+
+
+			//transform.SetPos(transform.GetPos() + increment);
+			//transform.SetScale(transform.GetScale() +increment);
+		
+
+		AddToScene((object1)
+			->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
+		AddToScene((object2)
+			->AddComponent(new Clumsy::RenderModelComponent(m1, transform2)));
+		//increment += 0.2f;
+	//}
+	for (unsigned int i = 0; i < physicsEngineComponent->GetPhysicsEngine().GetNumObjects(); i++)
+	{
+		object1->AddComponent(new Clumsy::PhysicsObjectComponent(&physicsEngineComponent->GetPhysicsEngine().GetObject(i)));
+		object2->AddComponent(new Clumsy::PhysicsObjectComponent(&physicsEngineComponent->GetPhysicsEngine().GetObject(i)));
+	}
+
+		AddToScene((new Clumsy::GameObject())
+			->AddComponent(physicsEngineComponent));
 
 		std::cout << "Init gierki" << std::endl;
 	}
@@ -47,12 +87,16 @@ int main()
 	Clumsy::RenderEngine* renderEngine = new Clumsy::RenderEngine(glfwWindow, window, camera);
 	glfwSetScrollCallback(glfwWindow, scroll_callback);
 
+	Clumsy::PhysicsEngine* physicsEngine = new Clumsy::PhysicsEngine();
+
 	//Clumsy::Game* game = new Clumsy::Game();
 	TestGame game;
 	
-	Clumsy::CoreEngine coreEngine(60.0f, window, renderEngine, &game);
+	Clumsy::CoreEngine coreEngine(60.0f, window, renderEngine, &game, physicsEngine);
 
 	std::cout << game.getRoot().GetAllChildren().size() << std::endl;
+	
+	//std::cout << game.getRoot().GetAllChildren()[1]->GetComponents().size() << std::endl;
 	coreEngine.Start();
 	//renderEngine->Start();
 	window->~Window();

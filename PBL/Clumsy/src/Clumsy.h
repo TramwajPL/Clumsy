@@ -10,6 +10,8 @@
  
 //COMPONENTS
 #include "Components/RenderModelComponent.h"
+#include "Components/PhysicsObjectComponent.h"
+#include "Components/PhysicsEngineComponent.h"
 // RENDERING
 
 #include "RenderEngine/Camera.h"

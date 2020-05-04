@@ -15,7 +15,12 @@ namespace Clumsy {
 	
 	void Game::Render(RenderEngine* renderingEngine)
 	{
-		renderingEngine->Render(m_Root); //TODO
+		renderingEngine->Render(m_Root); 
+	}
+
+	void Game::Update()
+	{
+		m_Root.UpdateAll();
 	}
 
 	void Game::AddToScene(GameObject* child)

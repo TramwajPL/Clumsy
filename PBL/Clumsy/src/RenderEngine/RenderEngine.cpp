@@ -171,8 +171,7 @@ namespace Clumsy {
 		glm::mat4 view = m_Camera->GetViewMatrix();
 		m_Shader->setMat4("view", view);
 
-		object.RenderAll(*m_Shader);//  <--- tutaj ma sie renderowac
-		//TODO: renderowanie po drzewie calym
+		object.RenderAll(*m_Shader);
 
 
 	}

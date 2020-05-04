@@ -52,6 +52,11 @@ namespace Clumsy {
 		//child->GetTransform().SetParent(&m_Transform);
 	}
 
+	std::vector<EntityComponent*> GameObject::GetComponents()
+	{
+		return m_Components;
+	}
+
 	std::vector<GameObject*> GameObject::GetAllChildren()
 	{
 		return m_Children;
@@ -73,6 +78,23 @@ namespace Clumsy {
 			m_Children[i]->RenderAll(shader);
 		}
 
+	}
+
+	void GameObject::Update()
+	{
+		for (int i = 0; i < m_Components.size(); i++) {
+			m_Components[i]->Update();
+		}
+	}
+
+	void GameObject::UpdateAll()
+	{
+		Update();
+		
+		for (int i = 0; i < m_Children.size(); i++) {
+			m_Children[i]->UpdateAll();
+		}
+		//Some code
 	}
 
 

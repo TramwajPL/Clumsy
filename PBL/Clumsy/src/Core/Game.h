@@ -15,6 +15,7 @@ namespace Clumsy {
 		virtual void Init() {} //Uzywamy do dodania obiektow w grze wlasciwej juz (w main.cpp)
 
 		void Render(RenderEngine* renderingEngine);
+		void Update();
 		//void Update();
 		//void Render();
 		void AddToScene(GameObject* child);
