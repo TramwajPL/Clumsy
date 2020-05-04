@@ -175,7 +175,7 @@ namespace Clumsy {
 
 		m_Shader->setVec3("baseColor", 1.0f, 1.0f, 1.0);
 		m_Shader->setVec3("ambientLight", 0.2f, 0.2f, 0.2f);
-		m_Shader->setDirectional("directionalLight", new DirectionalLight(glm::vec3(m_Camera->GetPosition()), glm::vec3(1, 1, 1), 0.4f));
+		m_Shader->setDirectional("directionalLight", new DirectionalLight(glm::vec3(1.0,1.0,1.0), glm::vec3(1, 1, 1), 0.8f));
 
 		object.RenderAll(*m_Shader);//  <--- tutaj ma sie renderowac
 
