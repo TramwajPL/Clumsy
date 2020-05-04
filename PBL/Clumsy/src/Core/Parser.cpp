@@ -1,4 +1,5 @@
 #include "Parser.h"
+#include "Game.h"
 #include "../Components/RenderModelComponent.h"
 #include "../pch.h"
 
@@ -32,12 +33,12 @@ namespace Clumsy {
             if (prefab["propertyPath"].as<std::string>() == "m_LocalRotation.w") {
                 transform.SetRotW(prefab["value"].as<float>());
             }
-            GameObject gameobject(transform);
             if (prefab["propertyPath"].as<std::string>() == "m_Name") {
                 Model m1(path + prefab["value"].as<std::string>());
 
-                gameobject.AddComponent(new RenderModelComponent(m1, transform));
+                //Game::AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
             }
+            
 
         }
     }

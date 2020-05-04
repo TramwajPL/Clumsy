@@ -4,6 +4,7 @@
 
 #include "Core/Game.h"
 #include "Core/CoreEngine.h"
+#include "Core/Parser.h"
 
 
 /////////////////

@@ -23,6 +23,8 @@ public:
 
 		AddToScene((new Clumsy::GameObject(transform2))->AddComponent(new Clumsy::RenderModelComponent(m1, transform2)));
 
+		Clumsy::Parser::SceneParser("../Clumsy/src/SampleScene.unity");
+
 		std::cout << "Init gierki" << std::endl;
 	}
 };
