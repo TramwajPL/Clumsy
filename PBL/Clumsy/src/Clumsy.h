@@ -10,11 +10,15 @@
  
 //COMPONENTS
 #include "Components/RenderModelComponent.h"
+
+////////////////
+
 // RENDERING
 
 #include "RenderEngine/Camera.h"
 #include "RenderEngine/RenderEngine.h"
 #include "RenderEngine/Model.h"
+#include "RenderEngine/Lighting.h"
 
 /////////////////
 

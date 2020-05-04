@@ -7,8 +7,11 @@
 
 
 
-class TestGame : public Clumsy::Game {
+class TestGame : public Clumsy::Game 
+{
 public:
+
+
 	virtual void Init() {
 		glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::quat rot = glm::quat(0.0f, 0.0f, 0.0f, 1.0f);
@@ -19,12 +22,11 @@ public:
 
 		Clumsy::Model m1("../Clumsy/src/models/capsule.obj");
 
+
 		AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
 
 		AddToScene((new Clumsy::GameObject(transform2))->AddComponent(new Clumsy::RenderModelComponent(m1, transform2)));
 
-		/*AddToScene((new Clumsy::GameObject(glm::vec3(), glm::quat(glm::vec3(1, 0, 0), ToRadians(-45))))
-				->AddComponent(new DirectionalLight(glm::vec3(1,1,1), 0.4f, 10, 80.0f, 1.0f)));*/
 
 		std::cout << "Init gierki" << std::endl;
 	}
@@ -52,8 +54,16 @@ int main()
 
 	//Clumsy::Game* game = new Clumsy::Game();
 	TestGame game;
-	
+
+	Clumsy::DirectionalLight* dl = new Clumsy::DirectionalLight(glm::vec3(1.0, 1.0, 1.0), glm::vec3(1, 1, 1), 0.8f);
+
+	game.AddToScene((new Clumsy::GameObject(Clumsy::Transform()))
+		->AddComponent(dl));
+
 	Clumsy::CoreEngine coreEngine(60.0f, window, renderEngine, &game);
+
+	dl->AddToEngine(new Clumsy::CoreEngine(coreEngine));
+
 
 	std::cout << game.getRoot().GetAllChildren().size() << std::endl;
 	coreEngine.Start();
