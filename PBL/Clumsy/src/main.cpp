@@ -1,6 +1,7 @@
 
 #define STB_IMAGE_IMPLEMENTATION 
 #include <stb_image.h>
+#include "glm/gtx/string_cast.hpp"
 
 #include "Clumsy.h"
 //#include "../src/Core/Game.h"
@@ -9,6 +10,24 @@
 
 class TestGame : public Clumsy::Game {
 public:
+	TestGame(GLFWwindow* window) : m_GLFWWindow(window) {
+	
+	};
+	
+	virtual void Move() {
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_LEFT) == GLFW_PRESS)
+		{
+			//object1->SetTranfsorm(Clumsy::Transform transform())
+			//object1.GetTransform().GetPos().x -= 2.0f;
+			//object1->SetTranfsorm();//-= glm::vec3(-2.0f, 0.0f, 0.0f);
+			//object1->GetTransform().SetPos(object1->GetTransform().GetPos() - glm::vec3(-2.0f, 0.0f, 0.0f));
+			
+			std::cout << "lewo" << std::endl;
+			//std::cout << glm::to_string(object1->GetTransform().GetPos()) << std::endl;
+			//object.GetTransform().GetPos() -= 2.0f;
+		}
+	}
+	
 	virtual void Init() {
 		glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::quat rot = glm::quat(0.0f, 0.0f, 0.0f, 1.0f);
@@ -24,8 +43,6 @@ public:
 		//	AddToScene((new Clumsy::GameObject(transform2))->AddComponent(new Clumsy::RenderModelComponent(m1, transform2))
 		//		->AddComponent(new Clumsy::PhysicsObjectComponent(new Clumsy::PhysicsObject(new Clumsy::BoundingSphere(transform2.GetPos(), 1.0f)))));
 
-
-
 		Clumsy::PhysicsEngine physicsEngine;
 		
 		Clumsy::GameObject* object1 = new Clumsy::GameObject(transform);
@@ -33,27 +50,22 @@ public:
 
 		physicsEngine.AddObject(Clumsy::PhysicsObject(
 			new Clumsy::BoundingSphere(object1->GetTransform().GetPos(), 0.1f)));
-
 		physicsEngine.AddObject(Clumsy::PhysicsObject(
 			new Clumsy::BoundingSphere(object2->GetTransform().GetPos(), 0.1f)));
 		
-
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent(physicsEngine);
 
-		//float increment = 0.0f;
-
-
-			//transform.SetPos(transform.GetPos() + increment);
-			//transform.SetScale(transform.GetScale() +increment);
+		//if (glfwGetKey(m_GLFWWindow, GLFW_KEY_LEFT) == GLFW_PRESS)
+		//{
+		//	object1->GetTransform().SetPos(object1->GetTransform().GetPos() - 2.0f);
+		//	std::cout << "lewo" << std::endl;
+		//	//object.GetTransform().GetPos() -= 2.0f;
+		//}
 		
+		AddToScene((object1)->AddComponent(new Clumsy::RenderModelComponent(m1, object1->GetTransform())));
+		AddToScene((object2)->AddComponent(new Clumsy::RenderModelComponent(m1, object2->GetTransform())));
 
-		AddToScene((object1)
-			->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
-		AddToScene((object2)
-			->AddComponent(new Clumsy::RenderModelComponent(m1, transform2)));
-		//increment += 0.2f;
-	//}
 	for (unsigned int i = 0; i < physicsEngineComponent->GetPhysicsEngine().GetNumObjects(); i++)
 	{
 		object1->AddComponent(new Clumsy::PhysicsObjectComponent(&physicsEngineComponent->GetPhysicsEngine().GetObject(i)));
@@ -65,6 +77,10 @@ public:
 
 		std::cout << "Init gierki" << std::endl;
 	}
+
+private:
+	GLFWwindow* m_GLFWWindow;
+	
 };
 
 
@@ -90,7 +106,7 @@ int main()
 	Clumsy::PhysicsEngine* physicsEngine = new Clumsy::PhysicsEngine();
 
 	//Clumsy::Game* game = new Clumsy::Game();
-	TestGame game;
+	TestGame game(glfwWindow);
 	
 	Clumsy::CoreEngine coreEngine(60.0f, window, renderEngine, &game, physicsEngine);
 

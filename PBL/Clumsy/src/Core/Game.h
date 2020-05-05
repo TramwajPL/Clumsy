@@ -13,7 +13,7 @@ namespace Clumsy {
 		void ProcessInput(const Input& input);
 
 		virtual void Init() {} //Uzywamy do dodania obiektow w grze wlasciwej juz (w main.cpp)
-
+		virtual void Move() {}
 		void Render(RenderEngine* renderingEngine);
 		void Update();
 		//void Update();

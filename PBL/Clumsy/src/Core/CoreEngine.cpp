@@ -31,11 +31,15 @@ namespace Clumsy
 		{
 			glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			m_Game->Move();
+
+			m_Game->Update();
 
 			m_Game->Render(m_RenderEngine);
 			//m_Game->getRoot().GetAllChildren();
 			//m_PhysicsEngine->AddObject(m_Game->getRoot().GetAllChildren()[1]->GetComponents()[1]);
-			m_Game->Update();
+
+
 
 			glfwSwapBuffers(m_Window->GetGLFWWindow());
 			glfwPollEvents();
@@ -49,4 +53,6 @@ namespace Clumsy
 	{
 		m_IsRunning = false;
 	}
+
+	
 }

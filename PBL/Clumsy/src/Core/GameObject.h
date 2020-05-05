@@ -18,6 +18,7 @@ namespace Clumsy {
 
 		
 		Transform GetTransform();
+		void SetTranfsorm();
 
 		GameObject* AddComponent(EntityComponent* component);
 		void AddChild(GameObject* child);
