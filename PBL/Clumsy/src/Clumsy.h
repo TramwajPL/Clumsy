@@ -12,6 +12,7 @@
 #include "Components/RenderModelComponent.h"
 #include "Components/PhysicsObjectComponent.h"
 #include "Components/PhysicsEngineComponent.h"
+#include "Components/MoveComponent.h"
 // RENDERING
 
 #include "RenderEngine/Camera.h"

@@ -33,7 +33,9 @@ namespace Clumsy
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			m_Game->Move();
 
+			m_Game->ProcessInput(m_Window->GetInput());
 			m_Game->Update();
+			
 
 			m_Game->Render(m_RenderEngine);
 			//m_Game->getRoot().GetAllChildren();

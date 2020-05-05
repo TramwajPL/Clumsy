@@ -75,6 +75,8 @@ namespace Clumsy {
 
 	}
 
+
+	
 	void GameObject::RenderAll(Shader& shader)
 	{
 		Render(shader);
@@ -100,6 +102,22 @@ namespace Clumsy {
 			m_Children[i]->UpdateAll();
 		}
 		//Some code
+	}
+
+	void GameObject::ProcessInput(int input)
+	{
+		for (int i = 0; i < m_Components.size(); i++) {
+			m_Components[i]->ProcessInput(input);
+		}
+	}
+
+	void GameObject::ProcessInputAll(int input)
+	{
+		ProcessInput(input);
+
+		for (int i = 0; i < m_Children.size(); i++) {
+			m_Children[i]->ProcessInputAll(input);
+		}
 	}
 
 

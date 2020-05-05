@@ -5,13 +5,13 @@
 namespace Clumsy {
 	//Input* Input::s_Instance = nullptr;
 
-	void Game::ProcessInput(const Input& input)
-	{
+	//void Game::ProcessInput(const Input& input)
+	//{
 		/*if (m_Input->GetKeyDown(Input::KEY_UP))
 		{
 			std::cout << "WE PRESSED UP!";
 		}*/
-	}
+	//}
 	
 	void Game::Render(RenderEngine* renderingEngine)
 	{
@@ -26,5 +26,9 @@ namespace Clumsy {
 	void Game::AddToScene(GameObject* child)
 	{
 		m_Root.AddChild(child);
+	}
+
+	void Game::ProcessInput(int input) {
+		m_Root.ProcessInputAll(input);
 	}
 }

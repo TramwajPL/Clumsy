@@ -64,4 +64,23 @@ namespace Clumsy {
 
 		m_GLFWWindow = window;
 	}
+	int Window::GetInput()
+	{
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_LEFT) == GLFW_PRESS)
+		{
+			return 1;
+		}
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		{
+			return 2;
+		}
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_UP) == GLFW_PRESS)
+		{
+			return 3;
+		}
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_DOWN) == GLFW_PRESS)
+		{
+			return 4;
+		} 
+	}
 }

@@ -4,6 +4,7 @@
 
 #include "Transform.h"
 #include "../pch.h"
+#include "Input.h"
 //#include "EntityComponent.h"
 
 namespace Clumsy {
@@ -39,6 +40,9 @@ namespace Clumsy {
 
 		void Update();
 		void UpdateAll();
+
+		void ProcessInput(int input);
+		void ProcessInputAll(int input);
 
 	
 	private:

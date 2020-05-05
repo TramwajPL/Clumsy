@@ -13,21 +13,7 @@ public:
 	TestGame(GLFWwindow* window) : m_GLFWWindow(window) {
 	
 	};
-	
-	virtual void Move() {
-		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_LEFT) == GLFW_PRESS)
-		{
-			//object1->SetTranfsorm(Clumsy::Transform transform())
-			//object1.GetTransform().GetPos().x -= 2.0f;
-			//object1->SetTranfsorm();//-= glm::vec3(-2.0f, 0.0f, 0.0f);
-			//object1->GetTransform().SetPos(object1->GetTransform().GetPos() - glm::vec3(-2.0f, 0.0f, 0.0f));
-			
-			std::cout << "lewo" << std::endl;
-			//std::cout << glm::to_string(object1->GetTransform().GetPos()) << std::endl;
-			//object.GetTransform().GetPos() -= 2.0f;
-		}
-	}
-	
+		
 	virtual void Init() {
 		glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::quat rot = glm::quat(0.0f, 0.0f, 0.0f, 1.0f);
@@ -36,12 +22,10 @@ public:
 
 		Clumsy::Transform transform2(pos + 0.5f, rot, 0.1f);
 
+		
 		Clumsy::Model m1("../Clumsy/src/models/capsule.obj");
 
 		//	AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
-
-		//	AddToScene((new Clumsy::GameObject(transform2))->AddComponent(new Clumsy::RenderModelComponent(m1, transform2))
-		//		->AddComponent(new Clumsy::PhysicsObjectComponent(new Clumsy::PhysicsObject(new Clumsy::BoundingSphere(transform2.GetPos(), 1.0f)))));
 
 		Clumsy::PhysicsEngine physicsEngine;
 		
@@ -55,16 +39,11 @@ public:
 		
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent(physicsEngine);
-
-		//if (glfwGetKey(m_GLFWWindow, GLFW_KEY_LEFT) == GLFW_PRESS)
-		//{
-		//	object1->GetTransform().SetPos(object1->GetTransform().GetPos() - 2.0f);
-		//	std::cout << "lewo" << std::endl;
-		//	//object.GetTransform().GetPos() -= 2.0f;
-		//}
 		
-		AddToScene((object1)->AddComponent(new Clumsy::RenderModelComponent(m1, object1->GetTransform())));
-		AddToScene((object2)->AddComponent(new Clumsy::RenderModelComponent(m1, object2->GetTransform())));
+		AddToScene((object1)->AddComponent(new Clumsy::RenderModelComponent(m1)));
+		AddToScene((object2)->AddComponent(new Clumsy::RenderModelComponent(m1)));
+
+		object1->AddComponent(new Clumsy::MoveComponent());
 
 	for (unsigned int i = 0; i < physicsEngineComponent->GetPhysicsEngine().GetNumObjects(); i++)
 	{

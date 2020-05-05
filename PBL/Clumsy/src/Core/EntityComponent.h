@@ -24,10 +24,14 @@ namespace Clumsy {
 		Transform GetParentTransform() {
 			return m_Parent.GetTransform();
 		}
+		void SetPosition(glm::vec3 vector) {
+			m_Parent.GetTransform().SetPos(m_Parent.GetTransform().GetPos() + vector);
+		}
 
 
 		virtual void Render(Shader& shader) {}
 		virtual void Update() {}
+		virtual void ProcessInput(int input) {}
 
 	private:
 		GameObject m_Parent; 
