@@ -22,6 +22,7 @@ namespace Clumsy {
 		GameObject getRoot() {
 			return m_Root;
 		}
+		void SceneParser();
 	private:
 		GameObject m_Root;
 	};
