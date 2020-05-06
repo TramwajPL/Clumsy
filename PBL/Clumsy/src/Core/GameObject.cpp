@@ -13,8 +13,8 @@ namespace Clumsy {
 
 	}
 
-	Transform* Clumsy::GameObject::GetTransform() {
-		return &m_Transform;
+	Transform Clumsy::GameObject::GetTransform() {
+		return m_Transform;
 	}
 
 	void GameObject::SetTranfsorm()
@@ -27,7 +27,7 @@ namespace Clumsy {
 	GameObject* GameObject::AddComponent(EntityComponent* component)
 	{
 		m_Components.push_back(component);
-		component->SetParent(this);
+		component->SetParent(*this);
 		return this;
 	}
 
@@ -54,7 +54,7 @@ namespace Clumsy {
 	void GameObject::AddChild(GameObject* child)
 	{
 		m_Children.push_back(child);
-		child->GetTransform()->SetParent(&m_Transform);
+		child->GetTransform().SetParent(&m_Transform);
 	}
 
 	std::vector<EntityComponent*> GameObject::GetComponents()

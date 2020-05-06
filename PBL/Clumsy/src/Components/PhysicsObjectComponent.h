@@ -11,7 +11,7 @@ namespace Clumsy {
 		~PhysicsObjectComponent() {}
 
 		virtual void Update() {
-			GetParentTransform()->SetPos(m_PhysicsObject->GetPosition());
+			GetParentTransform().SetPos(m_PhysicsObject->GetPosition());
 		}
 	
 	private:

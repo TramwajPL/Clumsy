@@ -23,13 +23,13 @@ namespace Clumsy {
 				//SetPosition(m_Transform.GetPos());
 				Move(glm::vec3(0.0f, 0.0f, 11.2f));
 				std::cout << "UP" << std::endl;
-				std::cout << glm::to_string(GetParentTransform()->GetPos()) << std::endl;
+				std::cout << glm::to_string(GetParentTransform().GetPos()) << std::endl;
 
 			}
 			if (input == 4) {
 				Move(glm::vec3(0.0f, 0.0f, 10.2f)); //probably backward
 				std::cout << "DOWN" << std::endl;
-				std::cout << glm::to_string(GetParentTransform()->GetPos()) << std::endl;
+				std::cout << glm::to_string(GetParentTransform().GetPos()) << std::endl;
 
 			}
 			if (input == 1) {
