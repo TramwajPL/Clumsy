@@ -31,9 +31,10 @@ namespace Clumsy {
 	}
 
     std::string path = "../Clumsy/src/models/";
+
     void Game::SceneParser()
     {
-		Model* m1 = new Model("../Clumsy/src/models/jazda.obj");
+		Model m1("../Clumsy/src/models/jazda.obj");
         std::vector<YAML::Node> nodes = YAML::LoadAllFromFile("Test.unity");
         for (int i = 0; i < nodes.size(); i++) {
             if (nodes[i]["PrefabInstance"]) {
@@ -69,6 +70,15 @@ namespace Clumsy {
 						transform->SetScale(0.0001f);
 						std::cout << glm::to_string(transform->GetPos()) << std::endl;
 						AddToScene((new GameObject(*transform))->AddComponent(new RenderModelComponent(m1, transform)));
+						transform.SetPosX(values[0]);
+						transform.SetPosY(values[1]);
+						transform.SetPosZ(values[2]);
+						transform.SetRotX(values[3]);
+						transform.SetRotY(values[4]);
+						transform.SetRotZ(values[5]);
+						transform.SetRotW(values[6]);
+						transform.SetScale(0.0001f);
+						AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
 					}
 				}
             }

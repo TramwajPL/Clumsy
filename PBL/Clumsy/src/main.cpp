@@ -28,14 +28,10 @@ public:
 		Clumsy::Transform transform2(pos + 0.5f, rot, 0.1f);
 
 	
-		Clumsy::Model* m1 = new Clumsy::Model("../Clumsy/src/models/capsule.obj");
+		Clumsy::Model m1("../Clumsy/src/models/capsule.obj");
 		Clumsy::Model* m2 = new Clumsy::Model("../Clumsy/src/models/jazda.obj");
 
 		//AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
-
-		
-		//Clumsy::Model* m1 = new Clumsy::Model("../Clumsy/src/models/capsule.obj");
-
 		//	AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
 
 		//Clumsy::PhysicsEngine physicsEngine;
@@ -46,7 +42,9 @@ public:
 		/*physicsEngine.AddObject(Clumsy::PhysicsObject(
 			new Clumsy::BoundingSphere(object1->GetTransform()->GetPos(), 0.1f)));
 		physicsEngine.AddObject(Clumsy::PhysicsObject(
-			new Clumsy::BoundingSphere(object2->GetTransform()->GetPos(), 0.1f)));
+			new Clumsy::BoundingSphere(object1->GetTransform().GetPos(), 0.1f)));
+		physicsEngine.AddObject(Clumsy::PhysicsObject(
+			new Clumsy::BoundingSphere(object2->GetTransform().GetPos(), 0.1f)));
 		
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent(physicsEngine);
@@ -67,6 +65,10 @@ public:
 
 		SceneParser();
 		std::cout << "Init gierki" << std::endl;
+		std::cout << glm::to_string(object1->GetTransform().GetPos()) << std::endl;
+		std::cout << glm::to_string(object2->GetTransform().GetPos()) << std::endl;
+
+
 	}
 
 private:

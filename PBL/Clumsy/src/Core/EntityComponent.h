@@ -12,7 +12,7 @@ namespace Clumsy {
 		EntityComponent() {}
 		~EntityComponent() {}
 
-		void SetParent(GameObject* parent) 
+		void SetParent(GameObject parent) 
 		{
 			m_Parent = parent;
 		}
@@ -27,8 +27,8 @@ namespace Clumsy {
 		//inline Transform* GetTransform() { return m_Parent->GetTransform(); }
 		//inline const Transform& GetTransform() const { return *m_Parent->GetTransform(); }
 
-		Transform* GetParentTransform() {
-			return m_Parent->GetTransform();
+		Transform GetParentTransform() {
+			return m_Parent.GetTransform();
 		}
 		
 		
@@ -42,7 +42,7 @@ namespace Clumsy {
 		virtual void ProcessInput(int input) {}
 
 	private:
-		GameObject* m_Parent; 
+		GameObject m_Parent; 
 		//Model* model;
 	};
 }
