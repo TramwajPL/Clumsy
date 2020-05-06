@@ -26,49 +26,46 @@ namespace Clumsy {
 	}
 
     std::string path = "../Clumsy/src/models/";
-    /*void Game::SceneParser()
+    void Game::SceneParser()
     {
-		std::vector<std::string> levels;
-        std::vector<YAML::Node> config = YAML::LoadAllFromFile("Test.unity");
-        for (int i = 0; i < config.size(); i++) {
-            if (config[i]["PrefabInstance"]) {
-                    Transform transform;
-					Model* m1;
-					if (config[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]["propertyPath"].as<std::string> == "m_Name") {
-						m1 = new Model(path + config[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]["value"].as<std::string>());
+		Model m1("../Clumsy/src/models/jazda.obj");
+        std::vector<YAML::Node> nodes = YAML::LoadAllFromFile("Test.unity");
+        for (int i = 0; i < nodes.size(); i++) {
+            if (nodes[i]["PrefabInstance"]) {
+				if (nodes[i]["PrefabInstance"]["m_Modification"]) {
+					if (nodes[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]) {
+						bool firstNode = true;
+						std::vector<float> values;
+						std::string k;
+						Transform transform;
+						for (YAML::iterator it = nodes[i]["PrefabInstance"]["m_Modification"]["m_Modifications"].begin(); it != nodes[i]["PrefabInstance"]["m_Modification"]["m_Modifications"].end(); ++it) {
+							if (firstNode) {
+								if (it->first.as<std::string>() == "value") {
+									firstNode = false;
+								}
+							}
+							else {
+								if (it->first.as<std::string>() == "value") {
+									values.push_back(it->second.as<float>());
+								}
+							}
+						}
+						values.pop_back();
+						values.pop_back();
+						values.pop_back();
+						values.pop_back();
+						transform.SetPosX(values[0]);
+						transform.SetPosY(values[1]);
+						transform.SetPosZ(values[2]);
+						transform.SetRotX(values[3]);
+						transform.SetRotY(values[4]);
+						transform.SetRotZ(values[5]);
+						transform.SetRotW(values[6]);
+						transform.SetScale(0.0001f);
+						AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
 					}
-
-					if (config[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]["propertyPath"].as<std::string> == "m_LocalPosition.x") {
-						transform.SetPosX(config[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]["value"].as<float>());
-					}
-
-					if (config[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]["propertyPath"].as<std::string> == "m_LocalPosition.y") {
-						transform.SetPosY(config[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]["value"].as<float>());
-					}
-
-					if (config[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]["propertyPath"].as<std::string> == "m_LocalPosition.z") {
-						transform.SetPosZ(config[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]["value"].as<float>());
-					}
-
-					if (config[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]["propertyPath"].as<std::string> == "m_LocalRotation.x") {
-						transform.SetRotX(config[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]["value"].as<float>());
-					}
-
-					if (config[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]["propertyPath"].as<std::string> == "m_LocalRotation.y") {
-						transform.SetRotY(config[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]["value"].as<float>());
-					}
-
-					if (config[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]["propertyPath"].as<std::string> == "m_LocalRotation.z") {
-						transform.SetRotZ(config[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]["value"].as<float>());
-					}
-
-					if (config[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]["propertyPath"].as<std::string> == "m_LocalRotation.w") {
-						transform.SetRotW(config[i]["PrefabInstance"]["m_Modification"]["m_Modifications"]["value"].as<float>());
-					}
-
-					AddToScene((new GameObject(transform))->AddComponent(new RenderModelComponent(*m1, transform)));
-
+				}
             }
         }
-    }*/
+    }
 }
