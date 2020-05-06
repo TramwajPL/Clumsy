@@ -170,9 +170,9 @@ namespace Clumsy {
 		// camera/view transformation
 		glm::mat4 view = m_Camera->GetViewMatrix();
 		m_Shader->setMat4("view", view);
-
-		object.RenderAll(*m_Shader);//  <--- tutaj ma sie renderowac
-		//TODO: renderowanie po drzewie calym
+		 
+		object.GetTransform();
+		object.RenderAll(*m_Shader);
 
 
 	}
@@ -199,8 +199,14 @@ namespace Clumsy {
 			m_Camera->ProcessKeyboard(FORWARD, deltaTime);
 		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_F) == GLFW_PRESS)
 			m_Camera->ProcessKeyboard(BACKWARD, deltaTime);
-	}
+		//if (glfwGetKey(m_GLFWWindow, GLFW_KEY_LEFT) == GLFW_PRESS)
+		//{
+		//	object.GetTransform().SetPos(object.GetTransform().GetPos() - 2.0f);
+		//	std::cout << "lewo" << std::endl;
+		//	//object.GetTransform().GetPos() -= 2.0f;
+		//}
 
-	
-	
+
+
+	}
 }

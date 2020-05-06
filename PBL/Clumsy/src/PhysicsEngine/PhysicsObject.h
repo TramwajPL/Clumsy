@@ -13,6 +13,11 @@ namespace Clumsy
 			m_OldPosition(collider->GetCenter()),
 			m_Velocity(velocity), 
 			m_Collider(collider) {}
+		
+		PhysicsObject(Collider* collider) :
+			m_Position(collider->GetCenter()),
+			m_OldPosition(collider->GetCenter()),
+			m_Collider(collider) {}
 
 		PhysicsObject(const PhysicsObject& other);
 		void operator=(PhysicsObject other);
