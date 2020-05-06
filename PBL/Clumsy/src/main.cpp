@@ -38,32 +38,32 @@ public:
 
 		//	AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
 
-		Clumsy::PhysicsEngine physicsEngine;
+		//Clumsy::PhysicsEngine physicsEngine;
 		
 		Clumsy::GameObject* object1 = new Clumsy::GameObject(transform);
 		Clumsy::GameObject* object2 = new Clumsy::GameObject(transform2);
 
-		physicsEngine.AddObject(Clumsy::PhysicsObject(
+		/*physicsEngine.AddObject(Clumsy::PhysicsObject(
 			new Clumsy::BoundingSphere(object1->GetTransform()->GetPos(), 0.1f)));
 		physicsEngine.AddObject(Clumsy::PhysicsObject(
 			new Clumsy::BoundingSphere(object2->GetTransform()->GetPos(), 0.1f)));
 		
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent(physicsEngine);
-		
-		object1->AddComponent(new Clumsy::MoveComponent());
+		*/
+		////object1->AddComponent(new Clumsy::MoveComponent());
 
 		AddToScene((object1)->AddComponent(new Clumsy::RenderModelComponent(m1, object1->GetTransform())));
 		AddToScene((object2)->AddComponent(new Clumsy::RenderModelComponent(m1, object2->GetTransform())));
 
-	for (unsigned int i = 0; i < physicsEngineComponent->GetPhysicsEngine().GetNumObjects(); i++)
+	/*for (unsigned int i = 0; i < physicsEngineComponent->GetPhysicsEngine().GetNumObjects(); i++)
 	{
 		object1->AddComponent(new Clumsy::PhysicsObjectComponent(&physicsEngineComponent->GetPhysicsEngine().GetObject(i)));
 		object2->AddComponent(new Clumsy::PhysicsObjectComponent(&physicsEngineComponent->GetPhysicsEngine().GetObject(i)));
-	}
+	}*/
 
-		AddToScene((new Clumsy::GameObject())
-			->AddComponent(physicsEngineComponent));
+		/*AddToScene((new Clumsy::GameObject())
+			->AddComponent(physicsEngineComponent));*/
 
 		SceneParser();
 		std::cout << "Init gierki" << std::endl;
