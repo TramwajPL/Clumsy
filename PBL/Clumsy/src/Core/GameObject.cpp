@@ -1,32 +1,125 @@
-
-#include "../pch.h"
 #include "GameObject.h"
 
-//#include <glm/gtx/string_cast.hpp>
+#include <glm/gtx/string_cast.hpp>
+#include <iostream>
 
+#include "EntityComponent.h"
 
 namespace Clumsy {
 
-	GameObject::GameObject(Transform transform) 
+	Clumsy::GameObject::GameObject(Transform transform) 
 		: m_Transform(transform)
 	{
 
 	}
 
-	Transform GameObject::GetTransform() {
+	Transform Clumsy::GameObject::GetTransform() {
 		return m_Transform;
 	}
 
-	glm::mat4 GameObject::TranslateModelMatrix(glm::mat4 modelMatrix)
+	void GameObject::SetTranfsorm()
 	{
-		return glm::translate(modelMatrix, this->GetTransform().GetPos());
-		//std::cout << "modelMatrix: " << glm::to_string(modelMatrix) << std::endl;
+		m_Transform.SetPos(m_Transform.GetPos() - glm::vec3(-2.0f, 0.0f, 0.0f));
 	}
 
-	glm::mat4 GameObject::ScaleModelMatrix(glm::mat4 modelMatrix)
+
+	//Adding component to game object
+	GameObject* GameObject::AddComponent(EntityComponent* component)
 	{
-		return glm::scale(modelMatrix, glm::vec3(this->GetTransform().GetScale()));
-		//std::cout << "Skala: " << this->GetTransform().GetScale();
+		m_Components.push_back(component);
+		component->SetParent(*this);
+		return this;
+	}
+
+	////Getting model component (probably for now)
+	//EntityComponent* GameObject::GetModelComponent()
+	//{
+	//	return m_Components[0];
+	//}
+
+	////Used to render model at certain position
+	//glm::mat4 Clumsy::GameObject::TranslateModelMatrix(glm::mat4 modelMatrix)
+	//{
+	//	return glm::translate(modelMatrix, this->GetTransform().GetPos());
+	//	//std::cout << "modelMatrix: " << glm::to_string(modelMatrix) << std::endl;
+	//}
+
+	////Used to render model in certain scale
+	//glm::mat4 Clumsy::GameObject::ScaleModelMatrix(glm::mat4 modelMatrix)
+	//{
+	//	return glm::scale(modelMatrix, glm::vec3(this->GetTransform().GetScale()));
+	//	//std::cout << "Skala: " << this->GetTransform().GetScale();
+	//}
+
+	void GameObject::AddChild(GameObject* child)
+	{
+		m_Children.push_back(child);
+		child->GetTransform().SetParent(&m_Transform);
+	}
+
+	std::vector<EntityComponent*> GameObject::GetComponents()
+	{
+		return m_Components;
+	}
+
+	std::vector<GameObject*> GameObject::GetAllChildren()
+	{
+		return m_Children;
+	}
+
+	void GameObject::Render(Shader& shader)
+	{
+		for (int i = 0; i < m_Components.size(); i++) {
+			m_Components[i]->Render(shader);
+		}
+
+	}
+
+
+	
+	void GameObject::RenderAll(Shader& shader)
+	{
+		Render(shader);
+
+		for (int i = 0; i < m_Children.size(); i++) {
+			m_Children[i]->RenderAll(shader);
+		}
+
+	}
+
+	void GameObject::Update()
+	{
+		for (int i = 0; i < m_Components.size(); i++) {
+			m_Components[i]->Update();
+		}
+	}
+
+	void GameObject::UpdateAll()
+	{
+		Update();
+		
+		for (int i = 0; i < m_Children.size(); i++) {
+			m_Children[i]->UpdateAll();
+		}
+		//Some code
+	}
+
+	void GameObject::ProcessInput(int input)
+	{
+		m_Transform.Update();
+
+		for (int i = 0; i < m_Components.size(); i++) {
+			m_Components[i]->ProcessInput(input);
+		}
+	}
+
+	void GameObject::ProcessInputAll(int input)
+	{
+		ProcessInput(input);
+
+		for (int i = 0; i < m_Children.size(); i++) {
+			m_Children[i]->ProcessInputAll(input);
+		}
 	}
 
 

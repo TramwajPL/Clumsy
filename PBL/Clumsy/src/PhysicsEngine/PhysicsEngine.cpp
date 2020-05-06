@@ -33,6 +33,7 @@ namespace Clumsy
 					glm::vec3 otherDirection = glm::reflect(direction, glm::normalize(m_Objects[i].GetVelocity()));
 					m_Objects[i].SetVelocity(glm::reflect(m_Objects[i].GetVelocity(), otherDirection));
 					m_Objects[j].SetVelocity(glm::reflect(m_Objects[j].GetVelocity(), direction));
+					std::cout << "collision" << std::endl;
 				}
 			}
 		}

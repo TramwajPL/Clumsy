@@ -28,15 +28,15 @@ namespace Clumsy {
 		glfwTerminate();
 	}
 
-	void Window::render(GLFWwindow* window)
-	{
-		// render
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+	//void Window::render(GLFWwindow* window)
+	//{
+	//	// render
+	//	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	//	glClear(GL_COLOR_BUFFER_BIT);
 
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-	}
+	//	glfwSwapBuffers(window);
+	//	glfwPollEvents();
+	//}
 
 	void Window::Init(int width, int height) {
 		glfwInit();
@@ -65,5 +65,24 @@ namespace Clumsy {
 		}
 
 		m_GLFWWindow = window;
+	}
+	int Window::GetInput()
+	{
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_LEFT) == GLFW_PRESS)
+		{
+			return 1;
+		}
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		{
+			return 2;
+		}
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_UP) == GLFW_PRESS)
+		{
+			return 3;
+		}
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_DOWN) == GLFW_PRESS)
+		{
+			return 4;
+		} 
 	}
 }

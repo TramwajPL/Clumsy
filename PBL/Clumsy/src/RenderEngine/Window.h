@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 #include <glfw3.h>
 
-#include "../Core/Game.h"
+//#include "../Core/Game.h"
 
 namespace Clumsy {
 
@@ -22,12 +22,13 @@ namespace Clumsy {
 		int GetWidth() { return m_Width; }
 		int GetHeight() { return m_Height; }
 
+		int GetInput();
 	private:
 		int m_Width;
 		int m_Height;
 		bool isRunning = false;
 		bool m_IsCloseRequested;
-		Game game;
+		//Game game;
 		GLFWwindow* m_GLFWWindow;
 	};
 }
