@@ -19,6 +19,7 @@ namespace Clumsy {
 		void SetIsCloseRequested(bool value) { m_IsCloseRequested = value; }
 		GLFWwindow* GetGLFWWindow() { return m_GLFWWindow; }
 
+
 		int GetWidth() { return m_Width; }
 		int GetHeight() { return m_Height; }
 
