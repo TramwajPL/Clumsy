@@ -23,7 +23,7 @@ public:
 		Clumsy::Transform transform2(pos + 0.5f, rot, 0.1f);
 
 		
-		Clumsy::Model m1("../Clumsy/src/models/capsule.obj");
+		Clumsy::Model* m1 = new Clumsy::Model("../Clumsy/src/models/capsule.obj");
 
 		//	AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
 
@@ -33,17 +33,17 @@ public:
 		Clumsy::GameObject* object2 = new Clumsy::GameObject(transform2);
 
 		physicsEngine.AddObject(Clumsy::PhysicsObject(
-			new Clumsy::BoundingSphere(object1->GetTransform().GetPos(), 0.1f)));
+			new Clumsy::BoundingSphere(object1->GetTransform()->GetPos(), 0.1f)));
 		physicsEngine.AddObject(Clumsy::PhysicsObject(
-			new Clumsy::BoundingSphere(object2->GetTransform().GetPos(), 0.1f)));
+			new Clumsy::BoundingSphere(object2->GetTransform()->GetPos(), 0.1f)));
 		
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent(physicsEngine);
 		
-		AddToScene((object1)->AddComponent(new Clumsy::RenderModelComponent(m1)));
-		AddToScene((object2)->AddComponent(new Clumsy::RenderModelComponent(m1)));
-
 		object1->AddComponent(new Clumsy::MoveComponent());
+
+		AddToScene((object1)->AddComponent(new Clumsy::RenderModelComponent(m1, object1->GetTransform())));
+		AddToScene((object2)->AddComponent(new Clumsy::RenderModelComponent(m1, object2->GetTransform())));
 
 	for (unsigned int i = 0; i < physicsEngineComponent->GetPhysicsEngine().GetNumObjects(); i++)
 	{

@@ -12,21 +12,29 @@ namespace Clumsy {
 		EntityComponent() {}
 		~EntityComponent() {}
 
-		void SetParent(GameObject parent) 
+		void SetParent(GameObject* parent) 
 		{
 			m_Parent = parent;
 		}
 
+		//GameObject GetParent() {
+		//	return m_Parent;
+		//}
+
 		//Model GetModel() {
 		//	return *model;
 		//}
+		//inline Transform* GetTransform() { return m_Parent->GetTransform(); }
+		//inline const Transform& GetTransform() const { return *m_Parent->GetTransform(); }
 
-		Transform GetParentTransform() {
-			return m_Parent.GetTransform();
+		Transform* GetParentTransform() {
+			return m_Parent->GetTransform();
 		}
-		void SetPosition(glm::vec3 vector) {
-			m_Parent.GetTransform().SetPos(m_Parent.GetTransform().GetPos() + vector);
-		}
+		
+		
+		//void SetPosition(glm::vec3 vector) {
+		//	m_Parent.GetTransform().SetPos(m_Parent.GetTransform().GetPos() + vector);
+		//}
 
 
 		virtual void Render(Shader& shader) {}
@@ -34,7 +42,7 @@ namespace Clumsy {
 		virtual void ProcessInput(int input) {}
 
 	private:
-		GameObject m_Parent; 
+		GameObject* m_Parent; 
 		//Model* model;
 	};
 }
