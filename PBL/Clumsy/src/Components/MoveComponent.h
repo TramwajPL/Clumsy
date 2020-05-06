@@ -10,7 +10,7 @@ namespace Clumsy {
 		}
 
 		void Move(glm::vec3 direction ) {
-			GetParentTransform()->SetPos(GetParentTransform()->GetPos() + direction);
+			//GetParentTransform()->GetPos().x += 1.0f;
 		}
 
 		virtual void ProcessInput(int input) {

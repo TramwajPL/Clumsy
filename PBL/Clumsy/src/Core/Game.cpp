@@ -33,7 +33,7 @@ namespace Clumsy {
     std::string path = "../Clumsy/src/models/";
     void Game::SceneParser()
     {
-		Model m1("../Clumsy/src/models/jazda.obj");
+		Model* m1 = new Model("../Clumsy/src/models/jazda.obj");
         std::vector<YAML::Node> nodes = YAML::LoadAllFromFile("Test.unity");
         for (int i = 0; i < nodes.size(); i++) {
             if (nodes[i]["PrefabInstance"]) {
@@ -67,13 +67,15 @@ namespace Clumsy {
 						transform.SetRotZ(values[5]);
 						transform.SetRotW(values[6]);
 						transform.SetScale(0.0001f);
-						AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
+						AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, &transform)));
 					}
 				}
             }
         }
     }
+
 	void Game::ProcessInput(int input) {
 		m_Root.ProcessInputAll(input);
 	}
+
 }
