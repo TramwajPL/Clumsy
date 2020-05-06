@@ -76,6 +76,7 @@ namespace Clumsy {
 			m_Camera->ProcessKeyboard(FORWARD, deltaTime);
 		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_F) == GLFW_PRESS)
 			m_Camera->ProcessKeyboard(BACKWARD, deltaTime);
+
 		//if (glfwGetKey(m_GLFWWindow, GLFW_KEY_LEFT) == GLFW_PRESS)
 		//{
 		//	object.GetTransform().SetPos(object.GetTransform().GetPos() - 2.0f);

@@ -44,8 +44,10 @@ namespace Clumsy
 		return glm::vec2(x, -y);
 	}
 
-	float MousePicker::CheckCollision(Aabb aabb)
+	float MousePicker::CheckCollision(Collider collider)
 	{
+		Aabb& aabb = (Aabb&)collider;
+
 		float t1 = (aabb.GetMinExtends().x - m_Camera->GetPosition().x) / m_CurrentRay.x;
 		float t2 = (aabb.GetMaxExtends().x - m_Camera->GetPosition().x) / m_CurrentRay.x;
 		float t3 = (aabb.GetMinExtends().y - m_Camera->GetPosition().y) / m_CurrentRay.y;
@@ -75,5 +77,19 @@ namespace Clumsy
 		}
 		std::cout << "Collision detected" << std::endl;
 		return tmin;
+	}
+
+	GameObject* MousePicker::GetPickedObject(GameObject* map)
+	{
+		float checkCollisionResult;
+		for (int i = 0; i < map->GetAllChildren().size() ; i++)
+		{
+			PhysicsObjectComponent* phyObj = (PhysicsObjectComponent*)map->GetAllChildren()[i]->GetComponents()[1];
+			checkCollisionResult = CheckCollision(phyObj->getCollider());
+			if (checkCollisionResult != -1) {
+				return map->GetAllChildren()[i];
+			}
+		}
+		return NULL;
 	}
 }

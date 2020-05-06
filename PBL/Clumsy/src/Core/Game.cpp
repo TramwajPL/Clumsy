@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "../RenderEngine/Model.h"
 #include "../Components/RenderModelComponent.h"
+#include "../Components/PhysicsObjectComponent.h"
 
 namespace Clumsy {
 	//Input* Input::s_Instance = nullptr;
@@ -32,8 +33,10 @@ namespace Clumsy {
 
     std::string path = "../Clumsy/src/models/";
 
-    void Game::SceneParser()
+    void Game::SceneParser(/*PhysicsEngine* physicsEngine*/ GameObject* map)
     {
+		//GameObject* map = new GameObject();
+		AddToScene(map);
 		Model m1("../Clumsy/src/models/jazda.obj");
         std::vector<YAML::Node> nodes = YAML::LoadAllFromFile("Test.unity");
         for (int i = 0; i < nodes.size(); i++) {
@@ -55,7 +58,7 @@ namespace Clumsy {
 									values.push_back(it->second.as<float>());
 								}
 							}
-						}
+						} 
 						values.pop_back();
 						values.pop_back();
 						values.pop_back();
@@ -65,13 +68,17 @@ namespace Clumsy {
 						transform.SetPosX(values[0]);
 						transform.SetPosY(values[1]);
 						transform.SetPosZ(values[2]);
-						transform.SetRotX(values[3]);
-						transform.SetRotY(values[4]);
-						transform.SetRotZ(values[5]);
-						transform.SetRotW(values[6]);
+						transform.SetRotX(0.0f);//0
+						transform.SetRotY(0.7f);//0
+						transform.SetRotZ(0.7f);//0
+						transform.SetRotW(0.0f);//1
 						transform.SetScale(0.0001f);
-						AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
-
+						glm::vec3 min = glm::vec3(transform.GetPos() - glm::vec3(0.5f, 0.1f, 0.8f));
+						glm::vec3 max = glm::vec3(transform.GetPos() + glm::vec3(0.5f, 0.1f, 0.8f));
+						PhysicsObject* pO = new PhysicsObject(new Aabb(min, max));
+						//physicsEngine->AddObject(*pO);
+						map->AddChild((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform))
+							->AddComponent(new PhysicsObjectComponent(pO)));
 					}
 				}
             }

@@ -14,6 +14,9 @@ namespace Clumsy {
 			GetParentTransform().SetPos(m_PhysicsObject->GetPosition());
 		}
 	
+		Collider getCollider() {
+			return m_PhysicsObject->GetCollider();
+		}
 	private:
 		PhysicsObject* m_PhysicsObject;
 

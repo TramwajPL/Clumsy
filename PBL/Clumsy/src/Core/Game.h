@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "GameObject.h"
 #include "../RenderEngine/RenderEngine.h"
+#include "../PhysicsEngine/PhysicsEngine.h"
 
 namespace Clumsy {
 	//class RenderEngine;
@@ -24,7 +25,7 @@ namespace Clumsy {
 		GameObject getRoot() {
 			return m_Root;
 		}
-		void SceneParser();
+		void SceneParser(/*PhysicsEngine* physicsEngine*/GameObject* map);
 	private:
 		GameObject m_Root;
 	};

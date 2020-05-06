@@ -40,6 +40,7 @@ namespace Clumsy {
 		virtual void Render(Shader& shader) {}
 		virtual void Update() {}
 		virtual void ProcessInput(int input) {}
+		//virtual Collider GetCollider(){}
 
 	private:
 		GameObject m_Parent; 
