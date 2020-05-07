@@ -72,8 +72,6 @@ public:
 		std::cout << "Init gierki" << std::endl;
 		std::cout << glm::to_string(object1->GetTransform().GetPos()) << std::endl;
 		std::cout << glm::to_string(object2->GetTransform().GetPos()) << std::endl;
-
-
 	}
 
 private:
@@ -119,7 +117,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 
 		glm::vec3 vec3 = mp.GetPickedObject(&physicsEngine);
 		std::cout << glm::to_string(vec3) << std::endl;
-		object1->GetTransform().SetPos(vec3);
+		object1->SetPos(vec3);
 		std::cout << glm::to_string(object1->GetTransform().GetPos());
 	}
 }

@@ -11,11 +11,11 @@ namespace Clumsy {
 		}
 
 		virtual void Render(Shader& shader) {
-			Update();
 			shader.use();
 			glm::mat4 model = glm::mat4(1.0f);
 
-			model = glm::translate(model, m_Transform.GetPos());
+			model = glm::translate(model, GetParentTransform().GetPos());
+			//std::cout << "kupsko" << glm::to_string(m_Transform.GetPos()) << std::endl;
 			glm::vec3 vec;
 			vec.x = m_Transform.GetRot()->x;
 			vec.y = m_Transform.GetRot()->y;
@@ -28,7 +28,9 @@ namespace Clumsy {
 		}
 
 		virtual void Update() {
-			m_Transform = GetParentTransform();
+			glm::vec3 pos = GetParentTransform().GetPos();
+			std::cout << "kupsko" << glm::to_string(pos) << std::endl;
+			m_Transform.SetPos(pos);
 		}
 
 	private:
