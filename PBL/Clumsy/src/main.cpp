@@ -15,7 +15,7 @@ Clumsy::Transform transform;
 Clumsy::GameObject* object1;
 Clumsy::GameObject* map = new Clumsy::GameObject();
 Clumsy::PhysicsEngine physicsEngine;
-
+Clumsy::RenderModelComponent* rmc;
 class TestGame : public Clumsy::Game {
 public:
 	TestGame(GLFWwindow* window) : m_GLFWWindow(window) {
@@ -45,25 +45,31 @@ public:
 		Clumsy::GameObject* object2 = new Clumsy::GameObject(transform2);
 
 
-		physicsEngine.AddObject(Clumsy::PhysicsObject(
+		/*physicsEngine.AddObject(Clumsy::PhysicsObject(
 			new Clumsy::BoundingSphere(object1->GetTransform().GetPos(), 0.1f), &object1->GetTransform()));
 
 		physicsEngine.AddObject(Clumsy::PhysicsObject(
-			new Clumsy::BoundingSphere(object2->GetTransform().GetPos(), 0.1f), &object2->GetTransform()));
+			new Clumsy::BoundingSphere(object2->GetTransform().GetPos(), 0.1f), &object2->GetTransform()));*/
 		
+		Clumsy::PhysicsObject* ob1 = new Clumsy::PhysicsObject(
+			new Clumsy::BoundingSphere(object2->GetTransform().GetPos(), 0.1f), &object2->GetTransform());
+
+		physicsEngine.AddObject(*ob1);
+
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent(physicsEngine);
 		
-		object1->AddComponent(new Clumsy::MoveComponent());
-
-		AddToScene((object1)->AddComponent(new Clumsy::RenderModelComponent(m1, object1->GetTransform())));
+		//object1->AddComponent(new Clumsy::MoveComponent());
+		rmc = new  Clumsy::RenderModelComponent(m1, object1->GetTransform());
+		AddToScene((object1)->AddComponent(rmc));
 		AddToScene((object2)->AddComponent(new Clumsy::RenderModelComponent(m1, object2->GetTransform())));
 
-	for (unsigned int i = 0; i < physicsEngineComponent->GetPhysicsEngine().GetNumObjects(); i++)
+	/*for (unsigned int i = 0; i < physicsEngineComponent->GetPhysicsEngine().GetNumObjects(); i++)
 	{
 		object1->AddComponent(new Clumsy::PhysicsObjectComponent(&physicsEngineComponent->GetPhysicsEngine().GetObject(i)));
 		object2->AddComponent(new Clumsy::PhysicsObjectComponent(&physicsEngineComponent->GetPhysicsEngine().GetObject(i)));
-	}
+	}*/
+		object1->AddComponent(new Clumsy::PhysicsObjectComponent(ob1));
 
 		AddToScene((new Clumsy::GameObject())
 			->AddComponent(physicsEngineComponent));
@@ -118,7 +124,10 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		glm::vec3 vec3 = mp.GetPickedObject(&physicsEngine);
 		std::cout << glm::to_string(vec3) << std::endl;
 		object1->SetPos(vec3);
-		std::cout << glm::to_string(object1->GetTransform().GetPos());
+		rmc->m_Transform.SetPos(vec3);
+		std::cout << "trans " << glm::to_string(rmc->m_Transform.GetPos()) << std::endl;
+		std::cout << " zamieniony " << glm::to_string(object1->GetTransform().GetPos());
+		std::cout << " parent? " << object1->GetComponents().size() << std::endl;
 	}
 }
 
