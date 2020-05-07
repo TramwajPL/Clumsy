@@ -7,6 +7,8 @@
 #include "../PhysicsEngine/Aabb.h"
 #include "../Core/GameObject.h"
 #include "../Components/PhysicsObjectComponent.h"
+#include "../PhysicsEngine/PhysicsEngine.h"
+
 
 namespace Clumsy
 {
@@ -26,9 +28,9 @@ namespace Clumsy
 		glm::vec4 ToEyeCoords(glm::vec4 clipCoords);
 		glm::vec2 GetNormalisedDeviceCoordinates(float mouseX, float mouseY);
 
-		float CheckCollision(Collider collider);
+		float CheckCollision(const Collider* aabb);
 
-		GameObject* GetPickedObject(GameObject* map);
+		glm::vec3 GetPickedObject(PhysicsEngine* physicsEngine);
 
 	private:
 		glm::vec3 m_CurrentRay;

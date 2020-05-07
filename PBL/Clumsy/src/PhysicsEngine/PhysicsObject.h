@@ -2,21 +2,22 @@
 
 #include <glm/glm.hpp>
 #include "BoundingSphere.h"
+#include "../Core/Transform.h"
 
 namespace Clumsy
 {
 	class PhysicsObject
 	{
 	public:
-		PhysicsObject(Collider* collider, const glm::vec3& velocity) :
-			m_Position(collider->GetCenter()), 
-			m_OldPosition(collider->GetCenter()),
+		PhysicsObject(Collider* collider, const glm::vec3& velocity, Transform* transform) :
+			m_Position(transform->GetPos()), 
+			m_OldPosition(transform->GetPos()),
 			m_Velocity(velocity), 
 			m_Collider(collider) {}
 		
-		PhysicsObject(Collider* collider) :
-			m_Position(collider->GetCenter()),
-			m_OldPosition(collider->GetCenter()),
+		PhysicsObject(Collider* collider, Transform* transform) :
+			m_Position(transform->GetPos()),
+			m_OldPosition(transform->GetPos()),
 			m_Collider(collider) {}
 
 		PhysicsObject(const PhysicsObject& other);
@@ -25,7 +26,7 @@ namespace Clumsy
 
 		void Integrate(float delta);
 
-		inline const glm::vec3& GetPosition() const { return m_Position; }
+		inline  glm::vec3& GetPosition()  { return m_Position; }
 		inline const glm::vec3& GetVelocity() const { return m_Velocity; }
 
 		inline const Collider& GetCollider()

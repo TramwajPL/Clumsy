@@ -2,6 +2,7 @@
 #include "../pch.h"
 
 #include "MousePicker.h"
+#include "glm/gtx/string_cast.hpp"
 
 namespace Clumsy
 {
@@ -44,52 +45,57 @@ namespace Clumsy
 		return glm::vec2(x, -y);
 	}
 
-	float MousePicker::CheckCollision(Collider collider)
+	float MousePicker::CheckCollision(const Collider* aabb)
 	{
-		Aabb& aabb = (Aabb&)collider;
+		//Aabb& aabb = (Aabb&)collider;
+		//std::cout << glm::to_string(aabb->GetMinExtends()) << std::endl;
+		//std::cout << glm::to_string(aabb->GetMaxExtends()) << std::endl;
+		//std::cout <<  std::endl;
 
-		float t1 = (aabb.GetMinExtends().x - m_Camera->GetPosition().x) / m_CurrentRay.x;
-		float t2 = (aabb.GetMaxExtends().x - m_Camera->GetPosition().x) / m_CurrentRay.x;
-		float t3 = (aabb.GetMinExtends().y - m_Camera->GetPosition().y) / m_CurrentRay.y;
-		float t4 = (aabb.GetMaxExtends().y - m_Camera->GetPosition().y) / m_CurrentRay.y;
-		float t5 = (aabb.GetMinExtends().z - m_Camera->GetPosition().z) / m_CurrentRay.z;
-		float t6 = (aabb.GetMaxExtends().z - m_Camera->GetPosition().z) / m_CurrentRay.z;
+		float t1 = (aabb->GetMinExtends().x - m_Camera->GetPosition().x) / m_CurrentRay.x;
+		float t2 = (aabb->GetMaxExtends().x - m_Camera->GetPosition().x) / m_CurrentRay.x;
+		float t3 = (aabb->GetMinExtends().y - m_Camera->GetPosition().y) / m_CurrentRay.y;
+		float t4 = (aabb->GetMaxExtends().y - m_Camera->GetPosition().y) / m_CurrentRay.y;
+		float t5 = (aabb->GetMinExtends().z - m_Camera->GetPosition().z) / m_CurrentRay.z;
+		float t6 = (aabb->GetMaxExtends().z - m_Camera->GetPosition().z) / m_CurrentRay.z;
 
 		float tmin = glm::max(glm::max(glm::min(t1, t2), glm::min(t3, t4)), glm::min(t5, t6));
 		float tmax = glm::min(glm::min(glm::max(t1, t2), glm::max(t3, t4)), glm::max(t5, t6));
 
 		if (tmax < 0.0f) 
 		{
-			std::cout << "Collider behind camera" << std::endl;
+			//std::cout << "Collider behind camera" << std::endl;
+
 			return -1.0f;
 		}
 
 		if (tmin > tmax) 
 		{
-			std::cout << "No collision" << std::endl;
+			//std::cout << "No collision" << std::endl;
 			return -1.0f;
 		}
 
 		if (tmin < 0.0f) 
 		{
-			std::cout << "Collision detected" << std::endl;
+			//std::cout << "Collision detected" << std::endl;
 			return tmax;
 		}
-		std::cout << "Collision detected" << std::endl;
+		//std::cout << "Collision detected" << std::endl;
 		return tmin;
 	}
 
-	GameObject* MousePicker::GetPickedObject(GameObject* map)
+	glm::vec3 MousePicker::GetPickedObject(PhysicsEngine* physicsEngine)
 	{
 		float checkCollisionResult;
-		for (int i = 0; i < map->GetAllChildren().size() ; i++)
+		for (int i = 0; i < physicsEngine->GetNumObjects() ; i++)
 		{
-			PhysicsObjectComponent* phyObj = (PhysicsObjectComponent*)map->GetAllChildren()[i]->GetComponents()[1];
-			checkCollisionResult = CheckCollision(phyObj->getCollider());
+			checkCollisionResult = CheckCollision(&physicsEngine->GetObject(i).GetCollider());
 			if (checkCollisionResult != -1) {
-				return map->GetAllChildren()[i];
+				std::cout << i;
+				return physicsEngine->GetObject(i).GetPosition();
 			}
 		}
-		return NULL;
+
+		return glm::vec3(1.0f, 1.0f, 0.0f);
 	}
 }

@@ -33,7 +33,7 @@ namespace Clumsy {
 
     std::string path = "../Clumsy/src/models/";
 
-    void Game::SceneParser(/*PhysicsEngine* physicsEngine*/ GameObject* map)
+    void Game::SceneParser(PhysicsEngine* physicsEngine, GameObject* map)
     {
 		//GameObject* map = new GameObject();
 		AddToScene(map);
@@ -75,8 +75,8 @@ namespace Clumsy {
 						transform.SetScale(0.0001f);
 						glm::vec3 min = glm::vec3(transform.GetPos() - glm::vec3(0.5f, 0.1f, 0.8f));
 						glm::vec3 max = glm::vec3(transform.GetPos() + glm::vec3(0.5f, 0.1f, 0.8f));
-						PhysicsObject* pO = new PhysicsObject(new Aabb(min, max));
-						//physicsEngine->AddObject(*pO);
+						PhysicsObject* pO = new PhysicsObject(new Aabb(min, max), &transform);
+						physicsEngine->AddObject(*pO);
 						map->AddChild((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform))
 							->AddComponent(new PhysicsObjectComponent(pO)));
 					}

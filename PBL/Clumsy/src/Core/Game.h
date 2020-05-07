@@ -25,7 +25,7 @@ namespace Clumsy {
 		GameObject getRoot() {
 			return m_Root;
 		}
-		void SceneParser(/*PhysicsEngine* physicsEngine*/GameObject* map);
+		void SceneParser(PhysicsEngine* physicsEngine, GameObject* map);
 	private:
 		GameObject m_Root;
 	};

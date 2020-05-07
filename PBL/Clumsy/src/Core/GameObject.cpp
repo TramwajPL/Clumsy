@@ -17,12 +17,6 @@ namespace Clumsy {
 		return m_Transform;
 	}
 
-	void GameObject::SetTranfsorm()
-	{
-		m_Transform.SetPos(m_Transform.GetPos() - glm::vec3(-2.0f, 0.0f, 0.0f));
-	}
-
-
 	//Adding component to game object
 	GameObject* GameObject::AddComponent(EntityComponent* component)
 	{

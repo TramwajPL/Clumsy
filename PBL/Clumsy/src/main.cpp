@@ -11,8 +11,10 @@
 #include "Clumsy.h"
 //#include "../src/Core/Game.h"
 
-
+Clumsy::Transform transform;
+Clumsy::GameObject* object1;
 Clumsy::GameObject* map = new Clumsy::GameObject();
+Clumsy::PhysicsEngine physicsEngine;
 
 class TestGame : public Clumsy::Game {
 public:
@@ -29,26 +31,25 @@ public:
 		glm::vec3 pos3 = glm::vec3(0.0f, 1.0f, 0.0f);
 
 		float scale = 0.2f;
-		Clumsy::Transform transform(pos, rot, scale);
-		
+
+		transform.SetPos(pos);
+		transform.SetRot(rot);
+		transform.SetScale(scale); 
 		Clumsy::Transform transform2(pos + 0.5f, rot, 0.1f);
 
 	
 		Clumsy::Model m1("../Clumsy/src/models/capsule.obj");
 		Clumsy::Model* m2 = new Clumsy::Model("../Clumsy/src/models/jazda.obj");
-
 		
-		Clumsy::PhysicsEngine physicsEngine;
-		
-		Clumsy::GameObject* object1 = new Clumsy::GameObject(transform);
+		object1 = new Clumsy::GameObject(transform);
 		Clumsy::GameObject* object2 = new Clumsy::GameObject(transform2);
 
 
 		physicsEngine.AddObject(Clumsy::PhysicsObject(
-			new Clumsy::BoundingSphere(object1->GetTransform().GetPos(), 0.1f)));
+			new Clumsy::BoundingSphere(object1->GetTransform().GetPos(), 0.1f), &object1->GetTransform()));
 
 		physicsEngine.AddObject(Clumsy::PhysicsObject(
-			new Clumsy::BoundingSphere(object2->GetTransform().GetPos(), 0.1f)));
+			new Clumsy::BoundingSphere(object2->GetTransform().GetPos(), 0.1f), &object2->GetTransform()));
 		
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent(physicsEngine);
@@ -67,7 +68,7 @@ public:
 		AddToScene((new Clumsy::GameObject())
 			->AddComponent(physicsEngineComponent));
 
-		SceneParser(map);
+		SceneParser(&physicsEngine, map);
 		std::cout << "Init gierki" << std::endl;
 		std::cout << glm::to_string(object1->GetTransform().GetPos()) << std::endl;
 		std::cout << glm::to_string(object2->GetTransform().GetPos()) << std::endl;
@@ -116,7 +117,10 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 
 		std::cout << "RAY: " << mp.GetCurrentRay().x << " , " << mp.GetCurrentRay().y << " , " << mp.GetCurrentRay().z << std::endl;
 
-		std::cout << mp.GetPickedObject(map) << std::endl;
+		glm::vec3 vec3 = mp.GetPickedObject(&physicsEngine);
+		std::cout << glm::to_string(vec3) << std::endl;
+		object1->GetTransform().SetPos(vec3);
+		std::cout << glm::to_string(object1->GetTransform().GetPos());
 	}
 }
 

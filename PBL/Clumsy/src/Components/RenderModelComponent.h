@@ -11,6 +11,7 @@ namespace Clumsy {
 		}
 
 		virtual void Render(Shader& shader) {
+			Update();
 			shader.use();
 			glm::mat4 model = glm::mat4(1.0f);
 
@@ -24,9 +25,12 @@ namespace Clumsy {
 
 			shader.setMat4("model", model);
 			m_Model.Draw(shader);
-
-
 		}
+
+		virtual void Update() {
+			m_Transform = GetParentTransform();
+		}
+
 	private:
 		Model m_Model;
 		Transform m_Transform;
