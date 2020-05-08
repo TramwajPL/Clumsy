@@ -4,7 +4,6 @@
 
 namespace Clumsy
 {
-
 	IntersectData BoundingSphere::IntersectBoundingSphere(const BoundingSphere& other)
 	{
 		float radiusDistance = m_Radius + other.m_Radius;

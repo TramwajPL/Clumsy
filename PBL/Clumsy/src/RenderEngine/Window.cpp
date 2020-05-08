@@ -4,8 +4,8 @@
 #include "Window.h"
 #include "../Core/Time.h"
 
-
-namespace Clumsy {
+namespace Clumsy 
+{
 
 	void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	{
@@ -27,16 +27,6 @@ namespace Clumsy {
 	{
 		glfwTerminate();
 	}
-
-	//void Window::render(GLFWwindow* window)
-	//{
-	//	// render
-	//	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	//	glClear(GL_COLOR_BUFFER_BIT);
-
-	//	glfwSwapBuffers(window);
-	//	glfwPollEvents();
-	//}
 
 	void Window::Init(int width, int height) {
 		glfwInit();

@@ -1,8 +1,9 @@
 
 #include "../pch.h"
 
+#include <glm/gtx/string_cast.hpp>
+
 #include "MousePicker.h"
-#include "glm/gtx/string_cast.hpp"
 
 namespace Clumsy
 {
@@ -47,11 +48,6 @@ namespace Clumsy
 
 	float MousePicker::CheckCollision(const Collider* aabb)
 	{
-		//Aabb& aabb = (Aabb&)collider;
-		//std::cout << glm::to_string(aabb->GetMinExtends()) << std::endl;
-		//std::cout << glm::to_string(aabb->GetMaxExtends()) << std::endl;
-		//std::cout <<  std::endl;
-
 		float t1 = (aabb->GetMinExtends().x - m_Camera->GetPosition().x) / m_CurrentRay.x;
 		float t2 = (aabb->GetMaxExtends().x - m_Camera->GetPosition().x) / m_CurrentRay.x;
 		float t3 = (aabb->GetMinExtends().y - m_Camera->GetPosition().y) / m_CurrentRay.y;
@@ -95,7 +91,6 @@ namespace Clumsy
 				return physicsEngine->GetObject(i).GetPosition();
 			}
 		}
-
 		return glm::vec3(1.0f, 1.0f, 0.0f);
 	}
 }

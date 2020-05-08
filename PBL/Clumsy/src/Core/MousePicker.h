@@ -2,12 +2,12 @@
 
 #include <glm/glm.hpp>
 
+#include "../Core/GameObject.h"
+#include "../PhysicsEngine/Aabb.h"
 #include "../RenderEngine/Window.h"
 #include "../RenderEngine/Camera.h"
-#include "../PhysicsEngine/Aabb.h"
-#include "../Core/GameObject.h"
-#include "../Components/PhysicsObjectComponent.h"
 #include "../PhysicsEngine/PhysicsEngine.h"
+#include "../Components/PhysicsObjectComponent.h"
 
 
 namespace Clumsy

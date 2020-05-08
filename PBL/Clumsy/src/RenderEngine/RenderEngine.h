@@ -2,15 +2,17 @@
 
 #include "Window.h"
 #include "Camera.h"
+#include "Shader.h"
 #include "RenderUtil.h"
 #include "../Core/Time.h"
 #include "../Core/Timestep.h"
 #include "../Core/GameObject.h"
-#include "Shader.h"
 
-namespace Clumsy {
+namespace Clumsy 
+{
 	//class Shader;
-	class RenderEngine {
+	class RenderEngine 
+	{
 	public:
 		RenderEngine(GLFWwindow* window, Window* window2, Camera* camera);
 		//void Start();
@@ -29,7 +31,5 @@ namespace Clumsy {
 		float m_LastFrameTime = 0.0f;
 		Camera* m_Camera;
 		Shader* m_Shader;
-		
-		//Shader shader; // <-- probably will be needed
 	};
 }

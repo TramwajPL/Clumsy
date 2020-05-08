@@ -1,8 +1,9 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include "Collider.h"
+
 #include "Aabb.h"
+#include "Collider.h"
 #include "IntersectData.h"
 
 namespace Clumsy

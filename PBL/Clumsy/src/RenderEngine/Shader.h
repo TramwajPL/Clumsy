@@ -1,7 +1,7 @@
 #pragma once
 
-namespace Clumsy {
-
+namespace Clumsy 
+{
     class Shader
     {
     public:

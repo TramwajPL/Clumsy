@@ -1,22 +1,20 @@
-#include "GameObject.h"
 
-#include <glm/gtx/string_cast.hpp>
 #include <iostream>
+#include <glm/gtx/string_cast.hpp>
 
+#include "GameObject.h"
 #include "EntityComponent.h"
 
-namespace Clumsy {
-
+namespace Clumsy 
+{
 	Clumsy::GameObject::GameObject(Transform transform) 
-		: m_Transform(transform)
-	{
+		: m_Transform(transform) {}
 
+	Transform Clumsy::GameObject::GetTransform() 
+	{ 
+		return m_Transform; 
 	}
-
-	Transform Clumsy::GameObject::GetTransform() {
-		return m_Transform;
-	}
-
+	
 	//Adding component to game object
 	GameObject* GameObject::AddComponent(EntityComponent* component)
 	{
@@ -24,26 +22,6 @@ namespace Clumsy {
 		component->SetParent(*this);
 		return this;
 	}
-
-	////Getting model component (probably for now)
-	//EntityComponent* GameObject::GetModelComponent()
-	//{
-	//	return m_Components[0];
-	//}
-
-	////Used to render model at certain position
-	//glm::mat4 Clumsy::GameObject::TranslateModelMatrix(glm::mat4 modelMatrix)
-	//{
-	//	return glm::translate(modelMatrix, this->GetTransform().GetPos());
-	//	//std::cout << "modelMatrix: " << glm::to_string(modelMatrix) << std::endl;
-	//}
-
-	////Used to render model in certain scale
-	//glm::mat4 Clumsy::GameObject::ScaleModelMatrix(glm::mat4 modelMatrix)
-	//{
-	//	return glm::scale(modelMatrix, glm::vec3(this->GetTransform().GetScale()));
-	//	//std::cout << "Skala: " << this->GetTransform().GetScale();
-	//}
 
 	void GameObject::AddChild(GameObject* child)
 	{
@@ -63,19 +41,19 @@ namespace Clumsy {
 
 	void GameObject::Render(Shader& shader)
 	{
-		for (int i = 0; i < m_Components.size(); i++) {
+		for (int i = 0; i < m_Components.size(); i++) 
+		{
 			m_Components[i]->Render(shader);
 		}
 
 	}
-
-
 	
 	void GameObject::RenderAll(Shader& shader)
 	{
 		Render(shader);
 
-		for (int i = 0; i < m_Children.size(); i++) {
+		for (int i = 0; i < m_Children.size(); i++) 
+		{
 			m_Children[i]->RenderAll(shader);
 		}
 
@@ -83,7 +61,8 @@ namespace Clumsy {
 
 	void GameObject::Update()
 	{
-		for (int i = 0; i < m_Components.size(); i++) {
+		for (int i = 0; i < m_Components.size(); i++) 
+		{
 			m_Components[i]->Update();
 		}
 	}
@@ -92,17 +71,18 @@ namespace Clumsy {
 	{
 		Update();
 		
-		for (int i = 0; i < m_Children.size(); i++) {
+		for (int i = 0; i < m_Children.size(); i++) 
+		{
 			m_Children[i]->UpdateAll();
 		}
-		//Some code
 	}
 
 	void GameObject::ProcessInput(int input)
 	{
 		m_Transform.Update();
 
-		for (int i = 0; i < m_Components.size(); i++) {
+		for (int i = 0; i < m_Components.size(); i++) 
+		{
 			m_Components[i]->ProcessInput(input);
 		}
 	}
@@ -111,11 +91,9 @@ namespace Clumsy {
 	{
 		ProcessInput(input);
 
-		for (int i = 0; i < m_Children.size(); i++) {
+		for (int i = 0; i < m_Children.size(); i++) 
+		{
 			m_Children[i]->ProcessInputAll(input);
 		}
 	}
-
-
-
 }

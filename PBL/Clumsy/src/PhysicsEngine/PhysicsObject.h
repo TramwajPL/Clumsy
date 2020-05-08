@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+
 #include "BoundingSphere.h"
 #include "../Core/Transform.h"
 

@@ -11,8 +11,8 @@
 
 #include "Model.h"
 
-namespace Clumsy {
-
+namespace Clumsy 
+{
     unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma = false)
     {
         std::string filename = std::string(path);

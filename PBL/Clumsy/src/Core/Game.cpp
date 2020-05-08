@@ -1,21 +1,14 @@
 #include "../pch.h"
-#include "yaml.h"
+
+#include <yaml.h>
+
 #include "Game.h"
 #include "../RenderEngine/Model.h"
 #include "../Components/RenderModelComponent.h"
 #include "../Components/PhysicsObjectComponent.h"
 
-namespace Clumsy {
-	//Input* Input::s_Instance = nullptr;
-
-	//void Game::ProcessInput(const Input& input)
-	//{
-		/*if (m_Input->GetKeyDown(Input::KEY_UP))
-		{
-			std::cout << "WE PRESSED UP!";
-		}*/
-	//}
-	
+namespace Clumsy 
+{	
 	void Game::Render(RenderEngine* renderingEngine)
 	{
 		renderingEngine->Render(m_Root); 
@@ -35,7 +28,6 @@ namespace Clumsy {
 
     void Game::SceneParser(PhysicsEngine* physicsEngine, GameObject* map)
     {
-		//GameObject* map = new GameObject();
 		AddToScene(map);
 		Model m1("../Clumsy/res/models/jazda.obj");
         std::vector<YAML::Node> nodes = YAML::LoadAllFromFile("Test.unity");
@@ -64,7 +56,6 @@ namespace Clumsy {
 						values.pop_back();
 						values.pop_back();
 
-
 						transform.SetPosX(values[0]);
 						transform.SetPosY(values[1]);
 						transform.SetPosZ(values[2]);
@@ -85,7 +76,8 @@ namespace Clumsy {
         }
     }
 
-	void Game::ProcessInput(int input) {
+	void Game::ProcessInput(int input) 
+	{
 		m_Root.ProcessInputAll(input);
 	}
 
