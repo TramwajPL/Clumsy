@@ -37,7 +37,7 @@ namespace Clumsy {
     {
 		//GameObject* map = new GameObject();
 		AddToScene(map);
-		Model m1("../Clumsy/src/models/jazda.obj");
+		Model m1("../Clumsy/res/models/jazda.obj");
         std::vector<YAML::Node> nodes = YAML::LoadAllFromFile("Test.unity");
         for (int i = 0; i < nodes.size(); i++) {
             if (nodes[i]["PrefabInstance"]) {

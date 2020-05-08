@@ -1,4 +1,3 @@
-
 #include "../pch.h"
 #include <glm/glm.hpp>
 #include <glm\ext\matrix_clip_space.hpp>
@@ -22,7 +21,7 @@ namespace Clumsy {
 		m_Window(window2), m_GLFWWindow(window), m_Camera(camera)
 	{
 		isRunning = false;
-		m_Shader = new Shader("../Clumsy/src/Shaders/model_loadingVS.glsl", "../Clumsy/src/Shaders/model_loadingFS.glsl");
+		m_Shader = new Shader("../Clumsy/res/shaders/model_loadingVS.glsl", "../Clumsy/res/shaders/model_loadingFS.glsl");
 
 		glEnable(GL_DEPTH_TEST);
 
