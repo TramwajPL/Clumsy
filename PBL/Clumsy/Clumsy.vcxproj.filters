@@ -60,6 +60,9 @@
     <ClCompile Include="src\Core\Input.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Audio\AudioMaster.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -151,6 +154,9 @@
     <ClInclude Include="src\PhysicsEngine\IntersectData.h">
       <Filter>PhysicsEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\Audio\AudioMaster.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">
@@ -175,6 +181,9 @@
     </Filter>
     <Filter Include="RenderEngine">
       <UniqueIdentifier>{6dba8c51-a136-42d2-b6c6-f894eec34f54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{43956525-12f5-400a-b683-d7909ccdeed5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

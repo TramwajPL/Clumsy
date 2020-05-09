@@ -30,3 +30,9 @@
 #include "PhysicsEngine/PhysicsEngine.h"
 
 /////////////////
+
+// AUDIO
+
+#include "Audio/AudioMaster.h"
+
+//////////////////

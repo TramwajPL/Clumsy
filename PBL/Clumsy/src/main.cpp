@@ -117,7 +117,6 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		std::cout << " parent? " << object1->GetComponents().size() << std::endl;
 	}
 }
-
 int main() 
 {
 	GLFWwindow* glfwWindow = window->GetGLFWWindow();
@@ -135,8 +134,10 @@ int main()
 
 	std::cout << game.getRoot().GetAllChildren().size() << std::endl;
 	
-	coreEngine.Start();
+	//Clumsy::AudioMaster* am = new Clumsy::AudioMaster();
+	//am->Init();
 
+	coreEngine.Start();
 	window->~Window();
 	return 0;
 }
