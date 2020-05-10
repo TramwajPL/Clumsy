@@ -24,7 +24,9 @@ namespace Clumsy
 		isRunning = false;
 		//m_Shader = new Shader("../Clumsy/src/Shaders/model_loadingVS.glsl", "../Clumsy/src/Shaders/model_loadingFS.glsl");
 		m_Shader = new Shader("../Clumsy/src/Shaders/phongVS.glsl", "../Clumsy/src/Shaders/phongFS.glsl");
-		m_Shader = new Shader("../Clumsy/res/shaders/model_loadingVS.glsl", "../Clumsy/res/shaders/model_loadingFS.glsl");
+
+		//m_Shader = new Shader("../Clumsy/res/shaders/model_loadingVS.glsl", "../Clumsy/res/shaders/model_loadingFS.glsl");
+
 
 		glEnable(GL_DEPTH_TEST);
 	}
@@ -57,8 +59,9 @@ namespace Clumsy
 			//std::cout << m_Lights.size() << "hhhhhhhhhhhhhhh" << std::endl;
 			m_Shader->setDirectional("directionalLight", (DirectionalLight*)&GetActiveLight());
 		}
-			object.RenderAll(*m_Shader, *this);//  <--- tutaj ma sie renderowac
+			object.RenderAll(*m_Shader);//  <--- tutaj ma sie renderowac
 		//TODO: renderowanie po drzewie calym
+
 
 
 		 

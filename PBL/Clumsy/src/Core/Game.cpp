@@ -29,7 +29,7 @@ namespace Clumsy
     void Game::SceneParser(PhysicsEngine* physicsEngine, GameObject* map)
     {
 		AddToScene(map);
-		Model m1("../Clumsy/res/models/jazda.obj");
+		Model m1("../Clumsy/src/models/jazda.obj");
         std::vector<YAML::Node> nodes = YAML::LoadAllFromFile("Test.unity");
         for (int i = 0; i < nodes.size(); i++) {
             if (nodes[i]["PrefabInstance"]) {

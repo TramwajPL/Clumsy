@@ -9,8 +9,6 @@
 #include "../Core/GameObject.h"
 #include "Lighting.h"
 
-namespace Clumsy {
-	class RenderEngine {
 
 namespace Clumsy 
 {
@@ -40,5 +38,6 @@ namespace Clumsy
 		std::vector<const BaseLight*> m_Lights;
 		const BaseLight* m_ActiveLight;
 		//Shader shader; // <-- probably will be needed
+
 	};
 }

@@ -40,28 +40,19 @@ namespace Clumsy
 		return m_Children;
 	}
 
-	void GameObject::Render(Shader& shader, RenderEngine& renderEngine)
+	void GameObject::Render(Shader& shader)
 	{
-		for (int i = 0; i < m_Components.size(); i++) {
-			m_Components[i]->Render(shader,  renderEngine);
-		}
-
-	}
-
-	void GameObject::RenderAll(Shader& shader, RenderEngine& renderEngine)
-		for (int i = 0; i < m_Components.size(); i++) 
+		for (int i = 0; i < m_Components.size(); i++)
 		{
 			m_Components[i]->Render(shader);
 		}
 
 	}
-	
+
 	void GameObject::RenderAll(Shader& shader)
 	{
-		Render(shader, renderEngine);
+		Render(shader);
 
-		for (int i = 0; i < m_Children.size(); i++) {
-			m_Children[i]->RenderAll(shader, renderEngine);
 		for (int i = 0; i < m_Children.size(); i++) 
 		{
 			m_Children[i]->RenderAll(shader);

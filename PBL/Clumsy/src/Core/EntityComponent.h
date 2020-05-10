@@ -12,18 +12,6 @@ namespace Clumsy
 		EntityComponent() {}
 		~EntityComponent() {}
 
-		void SetParent(GameObject parent) 
-		{
-			m_Parent = parent;
-		}
-
-		//Model GetModel() {
-		//	return *model;
-		//}
-
-		Transform GetParentTransform() {
-			return m_Parent.GetTransform();
-		}
 
 		virtual void Render(Shader& shader, RenderEngine& renderEngine) {}
 		void SetParent(GameObject parent) { m_Parent = parent; }

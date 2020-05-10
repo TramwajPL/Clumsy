@@ -4,11 +4,11 @@
 #include <glm\ext\matrix_clip_space.hpp>
 #include <glm\ext\matrix_transform.hpp>
 
-namespace Clumsy {
 
-	class DirectionalLight;
+
 namespace Clumsy 
 {
+    class DirectionalLight;
     class Shader
     {
     public:

@@ -15,8 +15,8 @@ namespace Clumsy {
 			//delete constructor in EntityComponent.h
 		}
 
-		virtual void Render(Shader& shader, RenderEngine& renderEngine) 
 		virtual void Render(Shader& shader) 
+
 		{
 			shader.use();
 			glm::mat4 model = glm::mat4(1.0f);

@@ -9,23 +9,20 @@
 #include <glm/ext/matrix_clip_space.hpp>
 
 #include "Clumsy.h"
-
+//Clumsy::DirectionalLight* dl = new Clumsy::DirectionalLight(glm::vec3(1.0, 1.0, 1.0), glm::vec3(1, 1, 1), 0.8f);
 Clumsy::Transform transform;
 Clumsy::GameObject* object1;
 Clumsy::GameObject* map = new Clumsy::GameObject();
 Clumsy::PhysicsEngine physicsEngine;
 Clumsy::RenderModelComponent* rmc;
 
-class TestGame : public Clumsy::Game 
+class TestGame : public Clumsy::Game
 {
 public:
-
-
-	virtual void Init() {
-	TestGame(GLFWwindow* window) : 
+	TestGame(GLFWwindow* window) :
 		m_GLFWWindow(window) {}
-		
-	virtual void Init() 
+
+	virtual void Init()
 	{
 		glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::vec3 pos4 = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -38,25 +35,16 @@ public:
 
 		transform.SetPos(pos);
 		transform.SetRot(rot);
-		transform.SetScale(scale); 
+		transform.SetScale(scale);
 		Clumsy::Transform transform2(pos + 0.5f, rot, 0.1f);
 
+
 		Clumsy::Model m1("../Clumsy/src/models/capsule.obj");
+		Clumsy::Model* m2 = new Clumsy::Model("../Clumsy/src/models/jazda.obj");
 
-
-		AddToScene((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform)));
-
-		AddToScene((new Clumsy::GameObject(transform2))->AddComponent(new Clumsy::RenderModelComponent(m1, transform2)));
-
-
-=======
-	
-		Clumsy::Model m1("../Clumsy/res/models/capsule.obj");
-		Clumsy::Model* m2 = new Clumsy::Model("../Clumsy/res/models/jazda.obj");
-		
 		object1 = new Clumsy::GameObject(transform);
 		Clumsy::GameObject* object2 = new Clumsy::GameObject(transform2);
-		
+
 		Clumsy::PhysicsObject* ob1 = new Clumsy::PhysicsObject(
 			new Clumsy::BoundingSphere(object2->GetTransform().GetPos(), 0.1f), &object2->GetTransform());
 
@@ -64,25 +52,25 @@ public:
 
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent(physicsEngine);
-		
+
 		rmc = new  Clumsy::RenderModelComponent(m1, object1->GetTransform());
 		AddToScene((object1)->AddComponent(rmc));
 		AddToScene((object2)->AddComponent(new Clumsy::RenderModelComponent(m1, object2->GetTransform())));
 
 		object1->AddComponent(new Clumsy::PhysicsObjectComponent(ob1));
+		//object1->AddComponent(dl);
 
 		AddToScene((new Clumsy::GameObject())
 			->AddComponent(physicsEngineComponent));
 
 		SceneParser(&physicsEngine, map);
->>>>>>> development
 		std::cout << "Init gierki" << std::endl;
 		std::cout << glm::to_string(object1->GetTransform().GetPos()) << std::endl;
 		std::cout << glm::to_string(object2->GetTransform().GetPos()) << std::endl;
 	}
 
 private:
-	GLFWwindow* m_GLFWWindow;	
+	GLFWwindow* m_GLFWWindow;
 };
 
 
@@ -131,35 +119,30 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 	}
 }
 
-int main() 
+int main()
 {
 	GLFWwindow* glfwWindow = window->GetGLFWWindow();
 
 	Clumsy::RenderEngine* renderEngine = new Clumsy::RenderEngine(glfwWindow, window, camera);
 	glfwSetScrollCallback(glfwWindow, scroll_callback);
-	
+
 	glfwSetMouseButtonCallback(glfwWindow, mouse_button_callback);
 
-	//Clumsy::Game* game = new Clumsy::Game();
-	TestGame game;
-
-	Clumsy::DirectionalLight* dl = new Clumsy::DirectionalLight(glm::vec3(1.0, 1.0, 1.0), glm::vec3(1, 1, 1), 0.8f);
-
-	game.AddToScene((new Clumsy::GameObject(Clumsy::Transform()))
-		->AddComponent(dl));
-
-	Clumsy::CoreEngine coreEngine(60.0f, window, renderEngine, &game);
 	Clumsy::PhysicsEngine* physicsEngine = new Clumsy::PhysicsEngine();
 
 	TestGame game(glfwWindow);
+	
+	Clumsy::DirectionalLight* dl = new Clumsy::DirectionalLight(glm::vec3(0.5f, 1.0f, 1.0f), glm::vec3(1, 1, 1), 0.6f);
+
+	game.AddToScene((new Clumsy::GameObject(Clumsy::Transform()))
+		->AddComponent(dl));
 	
 	Clumsy::CoreEngine coreEngine(60.0f, window, renderEngine, &game, physicsEngine);
 
 	dl->AddToEngine(new Clumsy::CoreEngine(coreEngine));
 
-
 	std::cout << game.getRoot().GetAllChildren().size() << std::endl;
-	
+
 	coreEngine.Start();
 
 	window->~Window();
