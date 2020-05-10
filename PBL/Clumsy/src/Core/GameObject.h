@@ -1,17 +1,20 @@
 #pragma once
 
+#include "../pch.h"
+
 #include <vector>
 
+#include "Input.h"
 #include "Transform.h"
-#include "../pch.h"
-//#include "EntityComponent.h"
 
-namespace Clumsy {
+namespace Clumsy 
+{
 	class EntityComponent;
 	class Shader;
 	class RenderEngine;
 
-	class GameObject {
+	class GameObject 
+	{
 	public:
 		GameObject(Transform transform);
 		GameObject() {};
@@ -19,22 +22,26 @@ namespace Clumsy {
 
 		
 		Transform GetTransform();
+		void SetPos(glm::vec3 vect) { m_Transform.SetPos(vect); }
 
 		GameObject* AddComponent(EntityComponent* component);
 		void AddChild(GameObject* child);
 
-		//EntityComponent* GetModelComponent();
-
-		//glm::mat4 TranslateModelMatrix(glm::mat4 modelMatrix);
-		//glm::mat4 ScaleModelMatrix(glm::mat4 modelMatrix);
-
+		std::vector<EntityComponent*> GetComponents();
 		std::vector<GameObject*> GetAllChildren();
 
 
 		//These guys may need some arguments
 		void Render(Shader& shader, RenderEngine& renderEngine); //probably can be private
 		void RenderAll(Shader& shader, RenderEngine& renderEngine);
+		void Render(Shader& shader); //probably can be private
+		void RenderAll(Shader& shader);  
 
+		void Update();
+		void UpdateAll();
+
+		void ProcessInput(int input);
+		void ProcessInputAll(int input);
 	
 	private:
 		Transform m_Transform; 

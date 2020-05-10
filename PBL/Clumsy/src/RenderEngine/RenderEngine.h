@@ -2,6 +2,7 @@
 
 #include "Window.h"
 #include "Camera.h"
+#include "Shader.h"
 #include "RenderUtil.h"
 #include "../Core/Time.h"
 #include "../Core/Timestep.h"
@@ -10,6 +11,12 @@
 
 namespace Clumsy {
 	class RenderEngine {
+
+namespace Clumsy 
+{
+	//class Shader;
+	class RenderEngine 
+	{
 	public:
 		RenderEngine(GLFWwindow* window, Window* window2, Camera* camera);
 		//void Start();

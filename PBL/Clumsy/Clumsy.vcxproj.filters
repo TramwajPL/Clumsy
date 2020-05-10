@@ -1,183 +1,158 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Pliki źródłowe">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Pliki nagłówkowe">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Pliki zasobów">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Pliki źródłowe\RenderEngine">
-      <UniqueIdentifier>{7c61614f-a9a7-4fbe-85a9-0bbeffd793b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\Core">
-      <UniqueIdentifier>{7b8ae956-4e56-40c1-bef9-9efba762a059}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\PhysicsEngine">
-      <UniqueIdentifier>{ee5af8db-6bd3-4ac3-9c5d-35150fa90804}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\Shaders">
-      <UniqueIdentifier>{cfafc301-cd20-4c58-84e9-d0710142122f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\Components">
-      <UniqueIdentifier>{3e46f915-ab67-4f08-bb2f-a543bf141faf}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RenderEngine\Window.cpp">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="glad.c">
-      <Filter>Pliki zasobów</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\Time.cpp">
-      <Filter>Pliki źródłowe\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\Game.cpp">
-      <Filter>Pliki źródłowe\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\Input.cpp">
-      <Filter>Pliki źródłowe\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RenderEngine\RenderEngine.cpp">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RenderEngine\Mesh.cpp">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RenderEngine\Model.cpp">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RenderEngine\Shader.cpp">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\Transform.cpp">
-      <Filter>Pliki źródłowe\Core</Filter>
-    </ClCompile>
+    <ClCompile Include="glad.c" />
+    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PhysicsEngine\Aabb.cpp">
-      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+      <Filter>PhysicsEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\PhysicsEngine\BoundingSphere.cpp">
-      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+      <Filter>PhysicsEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\PhysicsEngine\Collider.cpp">
-      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsEngine\PhysicsEngine.cpp">
-      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsEngine\PhysicsObject.cpp">
-      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsEngine\Plane.cpp">
-      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\GameObject.cpp">
-      <Filter>Pliki źródłowe\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RenderEngine\RenderUtil.cpp">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
+      <Filter>PhysicsEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\CoreEngine.cpp">
-      <Filter>Pliki źródłowe\Core</Filter>
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Game.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\GameObject.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsEngine\PhysicsEngine.cpp">
+      <Filter>PhysicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsEngine\PhysicsObject.cpp">
+      <Filter>PhysicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsEngine\Plane.cpp">
+      <Filter>PhysicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Transform.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Time.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\MousePicker.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderEngine\Mesh.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderEngine\Model.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderEngine\RenderEngine.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderEngine\RenderUtil.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderEngine\Shader.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderEngine\Window.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Input.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="src\RenderEngine\Lightingcpp.cpp">
       <Filter>Pliki źródłowe\RenderEngine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\RenderEngine\Window.h">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Time.h">
-      <Filter>Pliki źródłowe\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Game.h">
-      <Filter>Pliki źródłowe\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Input.h">
-      <Filter>Pliki źródłowe\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\KeyCodes.h">
-      <Filter>Pliki źródłowe\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Vector2f.h">
-      <Filter>Pliki źródłowe\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RenderEngine\RenderEngine.h">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RenderEngine\Mesh.h">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RenderEngine\Model.h">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RenderEngine\Shader.h">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Transform.h">
-      <Filter>Pliki źródłowe\Core</Filter>
-    </ClInclude>
+    <ClInclude Include="src\Clumsy.h" />
+    <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\PhysicsEngine\Aabb.h">
-      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+      <Filter>PhysicsEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\PhysicsEngine\BoundingSphere.h">
-      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
+      <Filter>PhysicsEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\PhysicsEngine\Collider.h">
-      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsEngine\IntersectData.h">
-      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsEngine\PhysicsEngine.h">
-      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsEngine\PhysicsObject.h">
-      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsEngine\Plane.h">
-      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsEngine\ReferenceCounter.h">
-      <Filter>Pliki źródłowe\PhysicsEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RenderEngine\Camera.h">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Timestep.h">
-      <Filter>Pliki źródłowe\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\GameObject.h">
-      <Filter>Pliki źródłowe\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\EntityComponent.h">
-      <Filter>Pliki źródłowe\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RenderEngine\RenderUtil.h">
-      <Filter>Pliki źródłowe\RenderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Clumsy.h">
-      <Filter>Pliki źródłowe</Filter>
-    </ClInclude>
-    <ClInclude Include="src\pch.h">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>PhysicsEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\CoreEngine.h">
-      <Filter>Pliki źródłowe\Core</Filter>
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Components\MoveComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Components\PhysicsEngineComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Components\PhysicsObjectComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Game.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\GameObject.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsEngine\PhysicsEngine.h">
+      <Filter>PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsEngine\PhysicsObject.h">
+      <Filter>PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsEngine\Plane.h">
+      <Filter>PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsEngine\ReferenceCounter.h">
+      <Filter>PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Transform.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Timestep.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Time.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\KeyCodes.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\MousePicker.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\Camera.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\Mesh.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\Model.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\RenderEngine.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\RenderUtil.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\Shader.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\Window.h">
+      <Filter>RenderEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\Components\RenderModelComponent.h">
-      <Filter>Pliki źródłowe\Components</Filter>
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\EntityComponent.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Input.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsEngine\IntersectData.h">
+      <Filter>PhysicsEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\RenderEngine\Lighting.h">
       <Filter>Pliki źródłowe\RenderEngine</Filter>
@@ -185,10 +160,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">
-      <Filter>Pliki źródłowe\Shaders</Filter>
+      <Filter>Shaders</Filter>
     </None>
     <None Include="src\Shaders\model_loadingFS.glsl">
-      <Filter>Pliki źródłowe\Shaders</Filter>
+      <Filter>Shaders</Filter>
     </None>
     <None Include="src\Shaders\phongVS.glsl">
       <Filter>Pliki źródłowe\Shaders</Filter>
@@ -196,5 +171,22 @@
     <None Include="src\Shaders\phongFS.glsl">
       <Filter>Pliki źródłowe\Shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Components">
+      <UniqueIdentifier>{d92c7bc9-0dc7-4fe4-b357-9fa941481d52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PhysicsEngine">
+      <UniqueIdentifier>{1309e309-5fe9-4a2d-86ba-593e7d04bbfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{dbf9ed3b-6f0d-402f-8607-1f4dad315941}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{2c8b9e36-4300-43c0-996e-a2da4e0f8539}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEngine">
+      <UniqueIdentifier>{6dba8c51-a136-42d2-b6c6-f894eec34f54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

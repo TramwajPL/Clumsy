@@ -5,8 +5,8 @@
 
 #include "RenderUtil.h"
 
-namespace Clumsy {
-
+namespace Clumsy 
+{
 	void RenderUtil::ClearScreen()
 	{
 		glClear(GL_COLOR_BUFFER_BIT || GL_DEPTH_BUFFER_BIT);

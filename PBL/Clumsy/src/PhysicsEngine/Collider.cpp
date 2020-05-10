@@ -6,7 +6,6 @@
 
 namespace Clumsy
 {
-
 	IntersectData Collider::Intersect(const Collider& other) const
 	{
 		if (m_Type == TYPE_SPHERE && other.GetType() == TYPE_SPHERE)

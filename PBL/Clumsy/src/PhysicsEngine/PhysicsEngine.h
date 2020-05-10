@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+
 #include "PhysicsObject.h"
 
 namespace Clumsy
@@ -14,6 +15,15 @@ namespace Clumsy
 
 		void HandleCollisions();
 
+		int GetNumObjects()
+		{
+			return (unsigned int)m_Objects.size();
+		}
+
+		PhysicsObject& GetObject(int index)
+		{
+			return m_Objects[index];
+		}
 	private:
 		std::vector<PhysicsObject> m_Objects;
 	};

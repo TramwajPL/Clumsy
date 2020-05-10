@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+
 #include "Collider.h"
 #include "IntersectData.h"
 #include "BoundingSphere.h"

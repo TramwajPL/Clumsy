@@ -7,6 +7,8 @@
 namespace Clumsy {
 
 	class DirectionalLight;
+namespace Clumsy 
+{
     class Shader
     {
     public:

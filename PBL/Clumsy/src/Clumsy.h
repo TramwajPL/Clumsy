@@ -4,7 +4,8 @@
 
 #include "Core/Game.h"
 #include "Core/CoreEngine.h"
-
+#include "Core/MousePicker.h"
+#include "Core/Parser.h"
 
 /////////////////
  
@@ -13,6 +14,9 @@
 
 ////////////////
 
+#include "Components/PhysicsObjectComponent.h"
+#include "Components/PhysicsEngineComponent.h"
+#include "Components/MoveComponent.h"
 // RENDERING
 
 #include "RenderEngine/Camera.h"

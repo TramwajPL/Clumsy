@@ -1,10 +1,10 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include <glm\ext\matrix_transform.hpp>
+#include <glm/ext/matrix_transform.hpp>
 
-namespace Clumsy {
-
+namespace Clumsy 
+{
     enum Camera_Movement
     {
         FORWARD,
@@ -17,14 +17,15 @@ namespace Clumsy {
 
     // Default camera values
     const float YAW = -90.0f;
-    const float PITCH = 0.0f;
+    const float PITCH = -115.0f;
     const float SPEED = 2.5f;
     const float SENSITIVITY = 0.1f;
-    const float ZOOM = 45.0f;
+    const float ZOOM = 33.0f;
 
     class Camera
     {
     public:
+        
         // Constructor with vectors
         Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) :
             Front(glm::vec3(0.0f, 0.0f, -1.0f)),
@@ -57,6 +58,12 @@ namespace Clumsy {
         {
             return glm::lookAt(Position, Position + Front, Up);
         }
+
+        float getPicz() {
+            return Pitch;
+        }
+
+
 
         // Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
         void ProcessKeyboard(Camera_Movement direction, float deltaTime)
@@ -131,13 +138,16 @@ namespace Clumsy {
         glm::vec3 Up;
         glm::vec3 Right;
         glm::vec3 WorldUp;
+
         // Euler Angles
         float Yaw;
         float Pitch;
+        
         // Camera options
         float MovementSpeed;
         float MouseSensitivity;
         float Zoom;
+
 
         // Calculates the front vector from the Camera's (updated) Euler Angles
         void updateCameraVectors()
