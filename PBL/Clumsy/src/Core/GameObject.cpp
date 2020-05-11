@@ -4,6 +4,7 @@
 
 #include "GameObject.h"
 #include "EntityComponent.h"
+#include "../RenderEngine/RenderEngine.h"
 
 namespace Clumsy 
 {
@@ -41,13 +42,13 @@ namespace Clumsy
 
 	void GameObject::Render(Shader& shader)
 	{
-		for (int i = 0; i < m_Components.size(); i++) 
+		for (int i = 0; i < m_Components.size(); i++)
 		{
 			m_Components[i]->Render(shader);
 		}
 
 	}
-	
+
 	void GameObject::RenderAll(Shader& shader)
 	{
 		Render(shader);

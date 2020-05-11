@@ -16,6 +16,7 @@ namespace Clumsy {
 		}
 
 		virtual void Render(Shader& shader) 
+
 		{
 			shader.use();
 			glm::mat4 model = glm::mat4(1.0f);
@@ -29,6 +30,8 @@ namespace Clumsy {
 			model = glm::scale(model, glm::vec3(m_Transform.GetScale()));
 
 			shader.setMat4("model", model);
+
+
 			m_Model.Draw(shader);
 		}
 

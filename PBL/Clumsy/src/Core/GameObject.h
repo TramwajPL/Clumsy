@@ -11,6 +11,7 @@ namespace Clumsy
 {
 	class EntityComponent;
 	class Shader;
+	class RenderEngine;
 
 	class GameObject 
 	{
@@ -29,8 +30,10 @@ namespace Clumsy
 		std::vector<EntityComponent*> GetComponents();
 		std::vector<GameObject*> GetAllChildren();
 
+		//These guys may need some arguments
 		void Render(Shader& shader); //probably can be private
 		void RenderAll(Shader& shader);  
+
 
 		void Update();
 		void UpdateAll();
