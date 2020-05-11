@@ -63,6 +63,9 @@
     <ClCompile Include="src\Audio\AudioMaster.cpp">
       <Filter>Audio</Filter>
     </ClCompile>
+    <ClCompile Include="src\RenderEngine\Lighting.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -157,12 +160,21 @@
     <ClInclude Include="src\Audio\AudioMaster.h">
       <Filter>Audio</Filter>
     </ClInclude>
+    <ClInclude Include="src\RenderEngine\Lighting.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">
       <Filter>Shaders</Filter>
     </None>
     <None Include="src\Shaders\model_loadingFS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\phongFS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\phongVS.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

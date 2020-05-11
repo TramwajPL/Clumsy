@@ -121,7 +121,7 @@ int main()
 {
 	GLFWwindow* glfwWindow = window->GetGLFWWindow();
 
-	Clumsy::RenderEngine* renderEngine = new Clumsy::RenderEngine(glfwWindow, window, camera);
+	Clumsy::RenderEngine* renderEngine = new Clumsy::RenderEngine(glfwWindow, window, camera, new Clumsy::AudioMaster());
 	glfwSetScrollCallback(glfwWindow, scroll_callback);
 	
 	glfwSetMouseButtonCallback(glfwWindow, mouse_button_callback);

@@ -16,18 +16,18 @@
 
 namespace Clumsy 
 {
-	RenderEngine::RenderEngine(GLFWwindow* window, Window* window2, Camera* camera) :
+	RenderEngine::RenderEngine(GLFWwindow* window, Window* window2, Camera* camera, AudioMaster* am) :
 		m_Window(window2), 
 		m_GLFWWindow(window), 
-		m_Camera(camera)
+		m_Camera(camera),
+		m_Am(am)
 	{
 		isRunning = false;
 		//m_Shader = new Shader("../Clumsy/src/Shaders/model_loadingVS.glsl", "../Clumsy/src/Shaders/model_loadingFS.glsl");
 		m_Shader = new Shader("../Clumsy/src/Shaders/phongVS.glsl", "../Clumsy/src/Shaders/phongFS.glsl");
 
 		//m_Shader = new Shader("../Clumsy/res/shaders/model_loadingVS.glsl", "../Clumsy/res/shaders/model_loadingFS.glsl");
-
-
+		
 		glEnable(GL_DEPTH_TEST);
 	}
 
@@ -80,7 +80,10 @@ namespace Clumsy
 			glfwSetWindowShouldClose(m_GLFWWindow, true);
 
 		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_W) == GLFW_PRESS)
+		{
+			m_Am->PlaySound();
 			m_Camera->ProcessKeyboard(UP, deltaTime);
+		}
 		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_S) == GLFW_PRESS)
 			m_Camera->ProcessKeyboard(DOWN, deltaTime);
 		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_A) == GLFW_PRESS)

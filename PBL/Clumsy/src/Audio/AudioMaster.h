@@ -4,7 +4,7 @@
 #include <AL/alc.h>
 #include <AL/alut.h>
 
-#define NUM_BUFFERS 3
+#define NUM_BUFFERS 1
 
 namespace Clumsy
 {
@@ -12,15 +12,17 @@ namespace Clumsy
 	{
 	public:
 		AudioMaster();
-		static void Init();
-		static int LoadSound(std::string file);
-		static void SetListenerData();
-		static void CleanUp();
+		void Init();
+		void PlaySound();
+		void LoadSound(std::string file, int index);
+		void SetListenerData();
+		void CleanUp();
 
 	private:
-		static ALCdevice* m_Device;
-		static ALCcontext* m_Context;
-		static ALuint m_Buffers[NUM_BUFFERS];
-		static ALuint m_Source;
+		//static AudioMaster* m_Instance;
+		ALCdevice* m_Device;
+		ALCcontext* m_Context;
+		ALuint m_Buffers[NUM_BUFFERS];
+		ALuint m_Source;
 	};
 }
