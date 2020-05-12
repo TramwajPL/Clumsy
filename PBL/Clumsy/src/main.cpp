@@ -132,14 +132,14 @@ int main()
 
 	TestGame game(glfwWindow);
 	
-	Clumsy::DirectionalLight* dl = new Clumsy::DirectionalLight(glm::vec3(0.5f, 1.0f, 1.0f), glm::vec3(1, 1, 1), 0.6f);
+	//Clumsy::DirectionalLight* dl = new Clumsy::DirectionalLight(glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1, 1, 1), 0.6f);
 
-	game.AddToScene((new Clumsy::GameObject(Clumsy::Transform()))
-		->AddComponent(dl));
+	//game.AddToScene((new Clumsy::GameObject(Clumsy::Transform()))
+	//	->AddComponent(dl));
 	
 	Clumsy::CoreEngine coreEngine(60.0f, window, renderEngine, &game, physicsEngine);
 
-	dl->AddToEngine(new Clumsy::CoreEngine(coreEngine));
+	//dl->AddToEngine(new Clumsy::CoreEngine(coreEngine));
 
 	std::cout << game.getRoot().GetAllChildren().size() << std::endl;
 

@@ -77,6 +77,8 @@
     <ClInclude Include="src\RenderEngine\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\Shaders\lights_FS.glsl" />
+    <None Include="src\Shaders\lights_VS.glsl" />
     <None Include="src\Shaders\model_loadingFS.glsl" />
     <None Include="src\Shaders\model_loadingVS.glsl" />
     <None Include="src\Shaders\phongFS.glsl" />

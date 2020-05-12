@@ -23,8 +23,9 @@ namespace Clumsy
 	{
 		isRunning = false;
 		//m_Shader = new Shader("../Clumsy/src/Shaders/model_loadingVS.glsl", "../Clumsy/src/Shaders/model_loadingFS.glsl");
-		m_Shader = new Shader("../Clumsy/src/Shaders/phongVS.glsl", "../Clumsy/src/Shaders/phongFS.glsl");
+		//m_Shader = new Shader("../Clumsy/src/Shaders/phongVS.glsl", "../Clumsy/src/Shaders/phongFS.glsl");
 
+		m_Shader = new Shader("../Clumsy/src/Shaders/lights_VS.glsl", "../Clumsy/src/Shaders/lights_FS.glsl");
 		//m_Shader = new Shader("../Clumsy/res/shaders/model_loadingVS.glsl", "../Clumsy/res/shaders/model_loadingFS.glsl");
 
 
@@ -38,6 +39,13 @@ namespace Clumsy
 		Timestep timestep = time - m_LastFrameTime;
 		m_LastFrameTime = time;
 
+		glm::vec3 pointLightPositions[] = {
+				glm::vec3(0.7f,  0.2f,  2.0f),
+				glm::vec3(3.3f, 0.0f, 1.0f),
+				glm::vec3(-5.0f,  0.0f, 0.0f),
+				glm::vec3(0.0f,  0.0f, -3.0f)
+		};
+
 		processInput(timestep.GetSeconds());
 
 		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)800 / (float)600, 0.1f, 100.0f);
@@ -45,19 +53,75 @@ namespace Clumsy
 
 		// camera/view transformation
 		m_Shader->use();
+		m_Shader->setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+		m_Shader->setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+		m_Shader->setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+		m_Shader->setFloat("material.shininess", 32.0f);
+
 		glm::mat4 view = m_Camera->GetViewMatrix();
 		m_Shader->setMat4("view", view);
 
-		m_Shader->setVec3("baseColor", 1.0f, 1.0f, 1.0);
-		m_Shader->setVec3("ambientLight", 0.2f, 0.2f, 0.2f);
-		//m_Shader->setDirectional("directionalLight", new DirectionalLight(glm::vec3(1.0,1.0,1.0), glm::vec3(1, 1, 1), 0.8f));
+		m_Shader->use();
+		m_Shader->setVec3("viewPos", m_Camera->GetPosition());
+		m_Shader->setFloat("material.shininess", 32.0f);
 
+		//m_Shader->setVec3("baseColor", 1.0f, 1.0f, 1.0f);
+		//m_Shader->setVec3("ambientLight", 0.2f, 0.2f, 0.2f);
+		//m_Shader->setDirectional("directionalLight", new DirectionalLight(glm::vec3(1.0,1.0,1.0), glm::vec3(1, 1, 1), 0.8f));
+			  // directional light
+		m_Shader->setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
+		m_Shader->setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+		m_Shader->setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
+		m_Shader->setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+		// point light 1
+		m_Shader->setVec3("pointLights[0].position", pointLightPositions[0]);
+		m_Shader->setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
+		m_Shader->setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
+		m_Shader->setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
+		m_Shader->setFloat("pointLights[0].constant", 1.0f);
+		m_Shader->setFloat("pointLights[0].linear", 0.09);
+		m_Shader->setFloat("pointLights[0].quadratic", 0.032);
+		// point light 2
+		m_Shader->setVec3("pointLights[1].position", pointLightPositions[1]);
+		m_Shader->setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
+		m_Shader->setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
+		m_Shader->setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
+		m_Shader->setFloat("pointLights[1].constant", 1.0f);
+		m_Shader->setFloat("pointLights[1].linear", 0.09);
+		m_Shader->setFloat("pointLights[1].quadratic", 0.032);
+		// point light 3
+		m_Shader->setVec3("pointLights[2].position", pointLightPositions[2]);
+		m_Shader->setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
+		m_Shader->setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
+		m_Shader->setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
+		m_Shader->setFloat("pointLights[2].constant", 1.0f);
+		m_Shader->setFloat("pointLights[2].linear", 0.09);
+		m_Shader->setFloat("pointLights[2].quadratic", 0.032);
+		// point light 4
+		m_Shader->setVec3("pointLights[3].position", pointLightPositions[3]);
+		m_Shader->setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
+		m_Shader->setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
+		m_Shader->setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
+		m_Shader->setFloat("pointLights[3].constant", 1.0f);
+		m_Shader->setFloat("pointLights[3].linear", 0.09);
+		m_Shader->setFloat("pointLights[3].quadratic", 0.032);
+		// spotLight
+		m_Shader->setVec3("spotLight.position", m_Camera->GetPosition());
+		m_Shader->setVec3("spotLight.direction", m_Camera->GetFront());
+		m_Shader->setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
+		m_Shader->setVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
+		m_Shader->setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
+		m_Shader->setFloat("spotLight.constant", 1.0f);
+		m_Shader->setFloat("spotLight.linear", 0.09);
+		m_Shader->setFloat("spotLight.quadratic", 0.032);
+		m_Shader->setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+		m_Shader->setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
 
 		for (unsigned int i = 0; i < m_Lights.size(); i++)
 		{
 			m_ActiveLight = m_Lights[i];
 			//std::cout << m_Lights.size() << "hhhhhhhhhhhhhhh" << std::endl;
-			m_Shader->setDirectional("directionalLight", (DirectionalLight*)&GetActiveLight());
+			//m_Shader->setDirectional("directionalLight", (DirectionalLight*)&GetActiveLight());
 		}
 			object.RenderAll(*m_Shader);//  <--- tutaj ma sie renderowac
 		//TODO: renderowanie po drzewie calym
