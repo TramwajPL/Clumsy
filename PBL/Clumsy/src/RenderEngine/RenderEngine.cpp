@@ -40,10 +40,10 @@ namespace Clumsy
 		m_LastFrameTime = time;
 
 		glm::vec3 pointLightPositions[] = {
-				glm::vec3(0.7f,  0.2f,  2.0f),
-				glm::vec3(3.3f, 0.0f, 1.0f),
-				glm::vec3(-5.0f,  0.0f, 0.0f),
-				glm::vec3(0.0f,  0.0f, -3.0f)
+				glm::vec3(-1000.7f,  0.2f,  2.0f),
+				glm::vec3(-100.3f, 0.0f, 1.0f),
+				glm::vec3(-100.0f,  0.0f, 0.0f),
+				glm::vec3(0.0f,  2.0f, -0.0f)
 		};
 
 		processInput(timestep.GetSeconds());
@@ -53,10 +53,9 @@ namespace Clumsy
 
 		// camera/view transformation
 		m_Shader->use();
-		m_Shader->setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
-		m_Shader->setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
-		m_Shader->setVec3("material.specular", 0.5f, 0.5f, 0.5f);
-		m_Shader->setFloat("material.shininess", 32.0f);
+		
+		//m_Shader->setInt("material.diffuse", 0);
+	//	m_Shader->setInt("material.specular", 1);
 
 		glm::mat4 view = m_Camera->GetViewMatrix();
 		m_Shader->setMat4("view", view);
@@ -68,10 +67,11 @@ namespace Clumsy
 		//m_Shader->setVec3("baseColor", 1.0f, 1.0f, 1.0f);
 		//m_Shader->setVec3("ambientLight", 0.2f, 0.2f, 0.2f);
 		//m_Shader->setDirectional("directionalLight", new DirectionalLight(glm::vec3(1.0,1.0,1.0), glm::vec3(1, 1, 1), 0.8f));
-			  // directional light
-		m_Shader->setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
+			  
+		// directional light
+		m_Shader->setVec3("dirLight.direction", -1.0f, -1.0f, -1.0f);
 		m_Shader->setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
-		m_Shader->setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
+		m_Shader->setVec3("dirLight.diffuse", 0.9f, 0.9f, 0.9f);
 		m_Shader->setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
 		// point light 1
 		m_Shader->setVec3("pointLights[0].position", pointLightPositions[0]);
@@ -107,7 +107,7 @@ namespace Clumsy
 		m_Shader->setFloat("pointLights[3].quadratic", 0.032);
 		// spotLight
 		m_Shader->setVec3("spotLight.position", m_Camera->GetPosition());
-		m_Shader->setVec3("spotLight.direction", m_Camera->GetFront());
+		m_Shader->setVec3("spotLight.direction", -m_Camera->GetFront());
 		m_Shader->setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
 		m_Shader->setVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
 		m_Shader->setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
