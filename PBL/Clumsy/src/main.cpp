@@ -142,5 +142,6 @@ int main()
 	
 	coreEngine.Start();
 	window->~Window();
+	Clumsy::AudioMaster::GetInstance()->Drop();
 	return 0;
 }

@@ -10,6 +10,7 @@ namespace Clumsy
 		static AudioMaster* GetInstance();
 		void PlayAmbientMusic();
 		void PlayBell();
+		void Drop();
 
 	private:
 		AudioMaster();

@@ -22,6 +22,11 @@ namespace Clumsy
         m_SoundEngine->play2D("../Clumsy/src/Audio/bell.wav", false);
     }
 
+    void AudioMaster::Drop()
+    {
+        m_SoundEngine->drop();
+    }
+
     AudioMaster::AudioMaster()
     {
         m_SoundEngine = irrklang::createIrrKlangDevice();
