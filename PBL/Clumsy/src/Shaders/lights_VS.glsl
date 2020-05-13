@@ -22,8 +22,12 @@ void main()
 		bone_transform += bones[bone_ids[1]] * weights[1];
 		bone_transform += bones[bone_ids[2]] * weights[2];
 		bone_transform += bones[bone_ids[3]] * weights[3];
-			
+	mat4 mat0 = mat4(0.0);
+    if (bone_transform == mat0) {
+        vec4 boned_position = vec4(aPos, 1.0);
+    }
 	vec4 boned_position = bone_transform * vec4(aPos, 1.0); // transformed by bones
+    
 
     FragPos = vec3(model * boned_position);
     Normal = mat3(transpose(inverse(model))) * aNormal;  
