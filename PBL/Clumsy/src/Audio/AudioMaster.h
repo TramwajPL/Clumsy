@@ -1,28 +1,20 @@
 #pragma once
 
-#include <AL/al.h>
-#include <AL/alc.h>
-#include <AL/alut.h>
-
-#define NUM_BUFFERS 1
+#include <irrKlang.h>
 
 namespace Clumsy
 {
 	class AudioMaster
 	{
 	public:
-		AudioMaster();
-		void Init();
-		void PlaySound();
-		void LoadSound(std::string file, int index);
-		void SetListenerData();
-		void CleanUp();
+		static AudioMaster* GetInstance();
+		void PlayAmbientMusic();
+		void PlayBell();
 
 	private:
-		//static AudioMaster* m_Instance;
-		ALCdevice* m_Device;
-		ALCcontext* m_Context;
-		ALuint m_Buffers[NUM_BUFFERS];
-		ALuint m_Source;
+		AudioMaster();
+		static AudioMaster* m_Instance;
+		irrklang::ISoundEngine* m_SoundEngine;
 	};
+
 }

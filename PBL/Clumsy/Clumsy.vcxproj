@@ -170,13 +170,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/External Libraries/yaml-cpp/include;$(SolutionDir)/External Libraries/stb_image/include;$(SolutionDir)/External Libraries/GLM/include;$(SolutionDir)/External Libraries/GLAD/include;$(SolutionDir)/External Libraries/GLFW/include;$(SolutionDir)/External Libraries/assimp/include;$(SolutionDir)/External Libraries/AL/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/External Libraries/yaml-cpp/include;$(SolutionDir)/External Libraries/stb_image/include;$(SolutionDir)/External Libraries/GLM/include;$(SolutionDir)/External Libraries/GLAD/include;$(SolutionDir)/External Libraries/GLFW/include;$(SolutionDir)/External Libraries/assimp/include;$(SolutionDir)/External Libraries/irrklang/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)/External Libraries/yaml-cpp/lib;$(SolutionDir)/External Libraries/GLFW/lib;$(SolutionDir)/External Libraries/assimp/lib;$(SolutionDir)/External Libraries/AL/libs/Win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;glfw3.lib;yaml-cppd.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)/External Libraries/yaml-cpp/lib;$(SolutionDir)/External Libraries/GLFW/lib;$(SolutionDir)/External Libraries/assimp/lib;$(SolutionDir)/External Libraries/irrklang/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;glfw3.lib;yaml-cppd.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

@@ -16,6 +16,8 @@ Clumsy::GameObject* map = new Clumsy::GameObject();
 Clumsy::PhysicsEngine physicsEngine;
 Clumsy::RenderModelComponent* rmc;
 
+Clumsy::AudioMaster* Clumsy::AudioMaster::m_Instance = 0;
+
 class TestGame : public Clumsy::Game 
 {
 public:
@@ -66,6 +68,8 @@ public:
 		std::cout << "Init gierki" << std::endl;
 		std::cout << glm::to_string(object1->GetTransform().GetPos()) << std::endl;
 		std::cout << glm::to_string(object2->GetTransform().GetPos()) << std::endl;
+
+		Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
 	}
 
 private:
@@ -94,6 +98,8 @@ Clumsy::Aabb a1(v1, v2);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	camera->ProcessMouseScroll(yoffset);
+
+	Clumsy::AudioMaster::GetInstance()->PlayBell();
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
@@ -121,7 +127,7 @@ int main()
 {
 	GLFWwindow* glfwWindow = window->GetGLFWWindow();
 
-	Clumsy::RenderEngine* renderEngine = new Clumsy::RenderEngine(glfwWindow, window, camera, new Clumsy::AudioMaster());
+	Clumsy::RenderEngine* renderEngine = new Clumsy::RenderEngine(glfwWindow, window, camera);
 	glfwSetScrollCallback(glfwWindow, scroll_callback);
 	
 	glfwSetMouseButtonCallback(glfwWindow, mouse_button_callback);
@@ -134,9 +140,6 @@ int main()
 
 	std::cout << game.getRoot().GetAllChildren().size() << std::endl;
 	
-	//Clumsy::AudioMaster* am = new Clumsy::AudioMaster();
-	//am->Init();
-
 	coreEngine.Start();
 	window->~Window();
 	return 0;

@@ -7,7 +7,6 @@
 #include "../Core/Time.h"
 #include "../Core/Timestep.h"
 #include "../Core/GameObject.h"
-#include "../Audio/AudioMaster.h"
 #include "Lighting.h"
 
 
@@ -17,7 +16,7 @@ namespace Clumsy
 	class RenderEngine 
 	{
 	public:
-		RenderEngine(GLFWwindow* window, Window* window2, Camera* camera, AudioMaster* am);
+		RenderEngine(GLFWwindow* window, Window* window2, Camera* camera);
 		//void Start();
 		//void Stop();
 		void processInput(float deltaTime);
@@ -38,7 +37,6 @@ namespace Clumsy
 		Shader* m_Shader;
 		std::vector<const BaseLight*> m_Lights;
 		const BaseLight* m_ActiveLight;
-		AudioMaster* m_Am;
 		//Shader shader; // <-- probably will be needed
 
 	};
