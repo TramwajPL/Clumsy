@@ -29,7 +29,8 @@ namespace Clumsy
     void Game::SceneParser(PhysicsEngine* physicsEngine, GameObject* map)
     {
 		AddToScene(map);
-		Model m1("../Clumsy/src/models/jazda.obj");
+		Model* m3 = new Model();
+		m3->loadModel("../Clumsy/src/models/jazda.obj");
         std::vector<YAML::Node> nodes = YAML::LoadAllFromFile("Test.unity");
         for (int i = 0; i < nodes.size(); i++) {
             if (nodes[i]["PrefabInstance"]) {
@@ -68,7 +69,7 @@ namespace Clumsy
 						glm::vec3 max = glm::vec3(transform.GetPos() + glm::vec3(0.5f, 0.1f, 0.8f));
 						PhysicsObject* pO = new PhysicsObject(new Aabb(min, max), &transform);
 						physicsEngine->AddObject(*pO);
-						map->AddChild((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m1, transform))
+						map->AddChild((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m3, transform))
 							->AddComponent(new PhysicsObjectComponent(pO)));
 					}
 				}

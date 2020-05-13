@@ -10,7 +10,7 @@ namespace Clumsy {
 	class RenderModelComponent : public EntityComponent
 	{
 	public:
-		RenderModelComponent(Model model, Transform transform) : m_Model(model), m_Transform(transform) 
+		RenderModelComponent(Model* model, Transform transform) : m_Model(model), m_Transform(transform) 
 		{
 			//delete constructor in EntityComponent.h
 		}
@@ -32,7 +32,7 @@ namespace Clumsy {
 			shader.setMat4("model", model);
 
 
-			m_Model.Draw(shader);
+			m_Model->Draw(shader);
 		}
 
 		void SetTransform(Transform tr)
@@ -50,6 +50,6 @@ namespace Clumsy {
 		Transform m_Transform;
 
 	private:
-		Model m_Model;
+		Model* m_Model;
 	};
 }

@@ -9,85 +9,113 @@
 
 namespace Clumsy 
 {
-    Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
+    Mesh::Mesh(std::vector<Vertex> vertic, std::vector<GLuint> ind, std::vector<Texture> textur, std::vector<VertexBoneData> bone_id_weights)
     {
-        this->vertices = vertices;
-        this->indices = indices;
-        this->textures = textures;
-                
+        vertices = vertic;
+        indices = ind;
+        textures = textur;
+        bones_id_weights_for_each_vertex = bone_id_weights;
+
+        // Now that we have all the required data, set the vertex buffers and its attribute pointers.
         setupMesh();
     }
 
-    void Mesh::Draw(Shader shader)
+    void VertexBoneData::addBoneData(unsigned int bone_id, float weight)
     {
-        // bind appropriate textures
-        unsigned int diffuseNr = 1;
-        unsigned int specularNr = 1;
-        unsigned int normalNr = 1;
-        unsigned int heightNr = 1;
-        for (unsigned int i = 0; i < textures.size(); i++)
+        for (unsigned int i = 0; i < NUM_BONES_PER_VEREX; i++)
         {
-            glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
-            // retrieve texture number (the N in diffuse_textureN)
+            if (weights[i] == 0.0)
+            {
+                ids[i] = bone_id;
+                weights[i] = weight;
+                return;
+            }
+        }
+    }
+
+    void Mesh::Draw(unsigned int shaders_program)
+    {
+        int diffuse_nr = 1;
+        int specular_nr = 1;
+
+        for (int i = 0; i < textures.size(); i++)
+        {
+            glActiveTexture(GL_TEXTURE0 + i);
+
             std::string number;
             std::string name = textures[i].type;
             if (name == "texture_diffuse")
-                number = std::to_string(diffuseNr++);
+            {
+                number = std::to_string(diffuse_nr++);
+            }
             else if (name == "texture_specular")
-                number = std::to_string(specularNr++); // transfer unsigned int to stream
-            else if (name == "texture_normal")
-                number = std::to_string(normalNr++); // transfer unsigned int to stream
-            else if (name == "texture_height")
-                number = std::to_string(heightNr++); // transfer unsigned int to stream
+            {
+                number = std::to_string(specular_nr++);
+            }
 
-            // now set the sampler to the correct texture unit
-            glUniform1i(glGetUniformLocation(shader.ID, (name + number).c_str()), i);
-            // and finally bind the texture
             glBindTexture(GL_TEXTURE_2D, textures[i].id);
+            glUniform1i(glGetUniformLocation(shaders_program, ("material." + name + number).c_str()), i);
+
+            //cout << "added in shader : " << ("material." + name + number).c_str() << endl;
         }
 
-        // draw mesh
+        //glUniform1f(glGetUniformLocation(shaders_program, "material.shininess"), 32.0f);
+
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        //glLineWidth(2);
+        //Draw
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
 
-        // always good practice to set everything back to defaults once configured.
-        glActiveTexture(GL_TEXTURE0);
+        for (int i = 0; i < textures.size(); i++)
+        {
+            glActiveTexture(GL_TEXTURE0 + i);
+            glBindTexture(GL_TEXTURE_2D, 0);
+        }
     }
 
     void Mesh::setupMesh()
     {
-        // create buffers/arrays
+        //vertices data
+        glGenBuffers(1, &VBO_vertices);
+        glBindBuffer(GL_ARRAY_BUFFER, VBO_vertices);
+        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), &vertices[0], GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+        //bones data
+        glGenBuffers(1, &VBO_bones);
+        glBindBuffer(GL_ARRAY_BUFFER, VBO_bones);
+        glBufferData(GL_ARRAY_BUFFER, bones_id_weights_for_each_vertex.size() * sizeof(bones_id_weights_for_each_vertex[0]), &bones_id_weights_for_each_vertex[0], GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+        //numbers for sequence indices
+        glGenBuffers(1, &EBO_indices);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO_indices);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+        // create VAO and binding data from buffers to shaders
         glGenVertexArrays(1, &VAO);
-        glGenBuffers(1, &VBO);
-        glGenBuffers(1, &EBO);
-
         glBindVertexArray(VAO);
-        
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
-
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
-
-        // set the vertex attribute pointers
-        // vertex Positions
+        glBindBuffer(GL_ARRAY_BUFFER, VBO_vertices);
+        //vertex position
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-        // vertex normals
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
-        // vertex texture coords
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
+        glEnableVertexAttribArray(1); // offsetof(Vertex, normal) = returns the byte offset of that variable from the start of the struct
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Normal));
         glEnableVertexAttribArray(2);
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-        // vertex tangent
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, TexCoords));
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        //bones
+        glBindBuffer(GL_ARRAY_BUFFER, VBO_bones);
         glEnableVertexAttribArray(3);
-        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
-        // vertex bitangent
+        glVertexAttribIPointer(3, 4, GL_INT, sizeof(VertexBoneData), (GLvoid*)0); // for INT Ipointer
         glEnableVertexAttribArray(4);
-        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
-
+        glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(VertexBoneData), (GLvoid*)offsetof(VertexBoneData, weights));
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        //indices
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO_indices);
         glBindVertexArray(0);
     }
 }

@@ -16,7 +16,7 @@ Clumsy::GameObject* map = new Clumsy::GameObject();
 Clumsy::PhysicsEngine physicsEngine;
 Clumsy::RenderModelComponent* rmc;
 
-Clumsy::AudioMaster* Clumsy::AudioMaster::m_Instance = 0;
+//Clumsy::AudioMaster* Clumsy::AudioMaster::m_Instance = 0;
 
 class TestGame : public Clumsy::Game 
 {
@@ -33,7 +33,7 @@ public:
 		glm::vec3 pos2 = glm::vec3(1.0f, 0.0f, 0.0f);
 		glm::vec3 pos3 = glm::vec3(0.0f, 1.0f, 0.0f);
 
-		float scale = 0.2f;
+		float scale = 0.0001f;
 
 		transform.SetPos(pos);
 		transform.SetRot(rot);
@@ -41,8 +41,10 @@ public:
 		Clumsy::Transform transform2(pos + 0.5f, rot, 0.1f);
 
 	
-		Clumsy::Model m1("../Clumsy/res/models/capsule.obj");
-		Clumsy::Model* m2 = new Clumsy::Model("../Clumsy/res/models/jazda.obj");
+		Clumsy::Model* m1 = new Clumsy::Model();
+		m1->loadModel("../Clumsy/src/models/dae/only_spider_with_animations_export.dae");/*
+		Clumsy::Model* m2 = new Clumsy::Model();
+		m2->loadModel("../Clumsy/res/models/jazda.obj");*/
 		
 		object1 = new Clumsy::GameObject(transform);
 		Clumsy::GameObject* object2 = new Clumsy::GameObject(transform2);
@@ -69,7 +71,7 @@ public:
 		std::cout << glm::to_string(object1->GetTransform().GetPos()) << std::endl;
 		std::cout << glm::to_string(object2->GetTransform().GetPos()) << std::endl;
 
-		Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
+		//Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
 	}
 
 private:
@@ -99,7 +101,7 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	camera->ProcessMouseScroll(yoffset);
 
-	Clumsy::AudioMaster::GetInstance()->PlayBell();
+	//Clumsy::AudioMaster::GetInstance()->PlayBell();
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
@@ -142,6 +144,6 @@ int main()
 	
 	coreEngine.Start();
 	window->~Window();
-	Clumsy::AudioMaster::GetInstance()->Drop();
+	//Clumsy::AudioMaster::GetInstance()->Drop();
 	return 0;
 }
