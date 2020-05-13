@@ -39,7 +39,7 @@ public:
 		Clumsy::Transform transform2(pos + 0.5f, rot, 0.1f);
 
 
-		Clumsy::Model m1("../Clumsy/src/models/capsule.obj");
+		Clumsy::Model m1("../Clumsy/src/models/spiderDAE/dae/Only_Spider_with_Animations_Export.dae");
 		Clumsy::Model* m2 = new Clumsy::Model("../Clumsy/src/models/jazda.obj");
 
 		object1 = new Clumsy::GameObject(transform);

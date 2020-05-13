@@ -4,17 +4,20 @@
 #include <glad/glad.h> 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
+#include <algorithm>
 #include "Mesh.h"
 
 namespace Clumsy 
 {
-    Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
+    Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, 
+		std::vector<Texture> textures, std::vector<VertexBoneData> bones)
     {
         this->vertices = vertices;
         this->indices = indices;
         this->textures = textures;
-                
+		this->bones = bones;
+
+		
         setupMesh();
     }
 
@@ -57,10 +60,24 @@ namespace Clumsy
 
     void Mesh::setupMesh()
     {
+		if (bones.size() == 0)
+		{
+			VertexBoneData bonesTEST;
+			for (int i = 0; i < 1000; i++)
+			{
+				bonesTEST.IDs[i] = 0;
+				bonesTEST.Weights[i] = 0.0f;
+			}
+			bones.push_back(bonesTEST);
+			//std::fill(bones.begin(), bones.end(), VertexBoneData());
+			std::cout << "SIZE OF BONES LATER: " << bones.size() << '\n';
+		}
         // create buffers/arrays
         glGenVertexArrays(1, &VAO);
         glGenBuffers(1, &VBO);
         glGenBuffers(1, &EBO);
+        //glGenBuffers(1, &bonesBuffor);
+		
 
         glBindVertexArray(VAO);
         
@@ -71,6 +88,10 @@ namespace Clumsy
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
+		//glBindBuffer(GL_ARRAY_BUFFER, bonesBuffor);
+		
+		std::cout << "BONES SIZE LATER LATER: " << bones.size() << '\n';
+		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, bones.size() * sizeof(VertexBoneData), &bones[0], GL_STATIC_DRAW);
         // set the vertex attribute pointers
         // vertex Positions
         glEnableVertexAttribArray(0);
@@ -81,12 +102,19 @@ namespace Clumsy
         // vertex texture coords
         glEnableVertexAttribArray(2);
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-        // vertex tangent
-        glEnableVertexAttribArray(3);
-        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
-        // vertex bitangent
-        glEnableVertexAttribArray(4);
-        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
+		////bones
+		//glEnableVertexAttribArray(3);
+		//glVertexAttribIPointer(3, 4, GL_INT, sizeof(VertexBoneData), (const GLvoid*)0);
+		////weights
+		//glEnableVertexAttribArray(4);
+		//glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(VertexBoneData), (void*)offsetof(VertexBoneData, Weights));
+
+        //// vertex tangent
+        //glEnableVertexAttribArray(3);
+        //glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
+        //// vertex bitangent
+        //glEnableVertexAttribArray(4);
+        //glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
 
         glBindVertexArray(0);
     }

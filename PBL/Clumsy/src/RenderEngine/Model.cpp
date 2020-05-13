@@ -66,17 +66,33 @@ namespace Clumsy
             meshes[i].Draw(shader);
     }
 
+	inline glm::mat4 Model::aiMatrix4x4ToGlm(const aiMatrix4x4* from)
+	{
+		glm::mat4 to;
+
+
+		to[0][0] = (GLfloat)from->a1; to[0][1] = (GLfloat)from->b1;  to[0][2] = (GLfloat)from->c1; to[0][3] = (GLfloat)from->d1;
+		to[1][0] = (GLfloat)from->a2; to[1][1] = (GLfloat)from->b2;  to[1][2] = (GLfloat)from->c2; to[1][3] = (GLfloat)from->d2;
+		to[2][0] = (GLfloat)from->a3; to[2][1] = (GLfloat)from->b3;  to[2][2] = (GLfloat)from->c3; to[2][3] = (GLfloat)from->d3;
+		to[3][0] = (GLfloat)from->a4; to[3][1] = (GLfloat)from->b4;  to[3][2] = (GLfloat)from->c4; to[3][3] = (GLfloat)from->d4;
+
+		return to;
+	}
+
     void Model::loadModel(std::string const& path)
     {
         // read file via ASSIMP
         Assimp::Importer importer;
-        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals |
+			aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
         // check for errors
         if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
         {
             std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
             return;
         }
+		m_GlobalInverseTransform = aiMatrix4x4ToGlm(&scene->mRootNode->mTransformation);
+		glm::inverse(m_GlobalInverseTransform);
         // retrieve the directory path of the filepath
         directory = path.substr(0, path.find_last_of('/'));
 
@@ -109,7 +125,8 @@ namespace Clumsy
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
         std::vector<Texture> textures;
-
+		std::vector<VertexBoneData> bonesVertex;
+		
         // Walk through each of the mesh's vertices
         for (unsigned int i = 0; i < mesh->mNumVertices; i++)
         {
@@ -137,18 +154,54 @@ namespace Clumsy
             }
             else
                 vertex.TexCoords = glm::vec2(0.0f, 0.0f);
-            // tangent
-            vector.x = mesh->mTangents[i].x;
-            vector.y = mesh->mTangents[i].y;
-            vector.z = mesh->mTangents[i].z;
-            vertex.Tangent = vector;
-            // bitangent
-            vector.x = mesh->mBitangents[i].x;
-            vector.y = mesh->mBitangents[i].y;
-            vector.z = mesh->mBitangents[i].z;
-            vertex.Bitangent = vector;
+		
+			bonesVertex.resize(mesh->mNumVertices);
+			
+            //// tangent
+            //vector.x = mesh->mTangents[i].x;
+            //vector.y = mesh->mTangents[i].y;
+            //vector.z = mesh->mTangents[i].z;
+            //vertex.Tangent = vector;
+            //// bitangent
+            //vector.x = mesh->mBitangents[i].x;
+            //vector.y = mesh->mBitangents[i].y;
+            //vector.z = mesh->mBitangents[i].z;
+            //vertex.Bitangent = vector;
             vertices.push_back(vertex);
         }
+		for (int z = 0; z < vertices.size(); z++)
+		{
+			for (unsigned int k = 0; k < mesh->mNumBones; k++)
+			{
+				unsigned int BoneIndex = 0;
+				std::string BoneName(mesh->mBones[k]->mName.data);
+
+				if (m_BoneMapping.find(BoneName) == m_BoneMapping.end()) //je¿eli mapa zawiera ju¿ t¹ koœæ
+				{
+					BoneIndex = numBones;
+					numBones++;
+				}
+				else
+				{
+					BoneIndex = m_BoneMapping[BoneName];
+				}
+
+				m_BoneMapping[BoneName] = BoneIndex;
+				BoneOffset = aiMatrix4x4ToGlm(&mesh->mBones[k]->mOffsetMatrix);
+
+				for (unsigned int j = 0; j < mesh->mBones[k]->mNumWeights; j++)
+				{
+					unsigned int VertexID = vertices[z].ID;
+					//std::cout << "CO TO ZA GUNWO : " << vertices[z].ID << '\n';
+					//std::cout << "I: " << i << '\n';
+					float Weight = mesh->mBones[k]->mWeights[j].mWeight;
+					bonesVertex[VertexID].AddBoneData(BoneIndex, Weight);
+				}
+
+			}
+		}
+	
+		std::cout << "SIZE OF BONES:    " << bonesVertex.size() << '\n';
         // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
         for (unsigned int i = 0; i < mesh->mNumFaces; i++)
         {
@@ -180,7 +233,7 @@ namespace Clumsy
         textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
         // return a mesh object created from the extracted mesh data
-        return Mesh(vertices, indices, textures);
+        return Mesh(vertices, indices, textures, bonesVertex);
     }
 
     // checks all material textures of a given type and loads the textures if they're not loaded yet.
