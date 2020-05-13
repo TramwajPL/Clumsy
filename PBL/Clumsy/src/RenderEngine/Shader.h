@@ -25,6 +25,13 @@ namespace Clumsy
 		//void setBase(const std::string& uniformName,  BaseLight baseLight) const;
 		void setDirectional(const std::string& uniformName, DirectionalLight* directionalLight) const;
 
+        
+        void SetDirectionalLight(glm::vec3 direction, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular);
+       
+        void SetSpotLight(glm::vec3 position, glm::vec3 direction, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular);
+        
+        void SetPointLight(std::string number ,glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular);
+
     private:
         void checkCompileErrors(unsigned int shader, std::string type);
     };

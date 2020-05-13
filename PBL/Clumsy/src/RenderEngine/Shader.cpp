@@ -3,7 +3,7 @@
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
-
+#include <string> 
 #include "Shader.h"
 #include "Lighting.h"
 
@@ -134,4 +134,34 @@ namespace Clumsy
 		setVec3(uniformName + ".base.color", directionalLight->GetColor());
 		setFloat(uniformName + ".base.intensity", directionalLight->GetIntensity());
 	}
+    void Shader::SetDirectionalLight(glm::vec3 direction, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
+    {
+        setVec3("dirLight.direction", direction);
+        setVec3("dirLight.ambient", ambient);
+        setVec3("dirLight.diffuse", diffuse);
+        setVec3("dirLight.specular", specular);
+    }
+    void Shader::SetSpotLight(glm::vec3 position, glm::vec3 direction, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
+    {
+        setVec3("spotLight.position", position);
+        setVec3("spotLight.direction", direction);
+        setVec3("spotLight.ambient", ambient);
+        setVec3("spotLight.diffuse", diffuse);
+        setVec3("spotLight.specular", specular);
+        setFloat("spotLight.constant", 1.0f);
+        setFloat("spotLight.linear", 0.09);
+        setFloat("spotLight.quadratic", 0.032);
+        setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+        setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
+    }
+    void Shader::SetPointLight(std::string number, glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
+    {
+        setVec3("pointLights[" + number + "].position", position);
+        setVec3("pointLights[" + number + "].ambient", ambient);
+        setVec3("pointLights[" + number + "].diffuse", diffuse);
+        setVec3("pointLights[" + number + "].specular", specular);
+        setFloat("pointLights[" + number + "].constant", 1.0f);
+        setFloat("pointLights[" + number + "].linear", 0.09);
+        setFloat("pointLights[" + number + "].quadratic", 0.032);
+    }
 }
