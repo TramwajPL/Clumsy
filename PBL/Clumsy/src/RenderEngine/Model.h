@@ -27,13 +27,15 @@ namespace Clumsy
         void loadModel(const std::string& path);
         //void update();
         void Draw(Shader shader);
+        void Draw2(Shader shader);
         //void playSound();
         void showNodeName(aiNode* node);
 
         glm::mat4 aiToGlm(aiMatrix4x4 ai_matr);
         aiQuaternion nlerp(aiQuaternion a, aiQuaternion b, float blend); // super super n lerp =)
-		
+		bool hasBones = false;
     private:
+		
 		bool init = false;
 		float m_LastFrameTime = 0.0f;
 		Assimp::Importer import;

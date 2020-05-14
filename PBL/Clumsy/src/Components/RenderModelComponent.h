@@ -31,8 +31,11 @@ namespace Clumsy {
 
 			shader.setMat4("model", model);
 
-
-			m_Model->Draw(shader);
+			if (m_Model->hasBones) {
+				m_Model->Draw(shader);
+			}
+			else
+				m_Model->Draw2(shader);
 		}
 
 		void SetTransform(Transform tr)

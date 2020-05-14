@@ -97,7 +97,7 @@ namespace Clumsy
         float time = (float)glfwGetTime();
         Timestep timestep = time - m_LastFrameTime;
         m_LastFrameTime = time;
-        if (scene->mAnimations != NULL) {
+        if (hasBones) {
             boneTransform((double)m_LastFrameTime, transforms);
 
             for (unsigned int i = 0; i < transforms.size(); i++) // move all matrices for actual model position to shader
@@ -105,6 +105,16 @@ namespace Clumsy
                 glUniformMatrix4fv(m_bone_location[i], 1, GL_TRUE, (const GLfloat*)&transforms[i]);
             }
         }
+
+        for (int i = 0; i < meshes.size(); i++)
+        {
+            meshes[i].Draw(shader.ID);
+        }
+    }
+
+    void Model::Draw2(Shader shader)
+    {
+        std::vector<aiMatrix4x4> transforms;
 
         for (int i = 0; i < meshes.size(); i++)
         {
@@ -279,40 +289,46 @@ namespace Clumsy
         }
 
         // load bones
-        for (unsigned int i = 0; i < mesh->mNumBones; i++)
-        {
-            unsigned int bone_index = 0;
-            std::string bone_name(mesh->mBones[i]->mName.data);
-
-            std::cout << mesh->mBones[i]->mName.data << std::endl;
-
-            if (m_bone_mapping.find(bone_name) == m_bone_mapping.end()) 
+        if (mesh->HasBones()) {
+            std::cout << "elo" << std::endl;
+            hasBones = true;
+            for (unsigned int i = 0; i < mesh->mNumBones; i++)
             {
-                // Allocate an index for a new bone
-                bone_index = m_num_bones;
-                m_num_bones++;
-                BoneMatrix bi;
-                m_bone_matrices.push_back(bi);
-                m_bone_matrices[bone_index].offset_matrix = mesh->mBones[i]->mOffsetMatrix;
-                m_bone_mapping[bone_name] = bone_index;
+                unsigned int bone_index = 0;
+                std::string bone_name(mesh->mBones[i]->mName.data);
 
-                //cout << "bone_name: " << bone_name << "			 bone_index: " << bone_index << endl;
-            }
-            else
-            {
-                bone_index = m_bone_mapping[bone_name];
-            }
+                std::cout << mesh->mBones[i]->mName.data << std::endl;
 
-            for (unsigned int j = 0; j < mesh->mBones[i]->mNumWeights; j++)
-            {
-                unsigned int vertex_id = mesh->mBones[i]->mWeights[j].mVertexId;
-                float weight = mesh->mBones[i]->mWeights[j].mWeight;
-                bones_id_weights_for_each_vertex[vertex_id].addBoneData(bone_index, weight); 
+                if (m_bone_mapping.find(bone_name) == m_bone_mapping.end())
+                {
+                    // Allocate an index for a new bone
+                    bone_index = m_num_bones;
+                    m_num_bones++;
+                    BoneMatrix bi;
+                    m_bone_matrices.push_back(bi);
+                    m_bone_matrices[bone_index].offset_matrix = mesh->mBones[i]->mOffsetMatrix;
+                    m_bone_mapping[bone_name] = bone_index;
 
-                
-                //cout << " vertex_id: " << vertex_id << "	bone_index: " << bone_index << "		weight: " << weight << endl;
+                    //cout << "bone_name: " << bone_name << "			 bone_index: " << bone_index << endl;
+                }
+                else
+                {
+                    bone_index = m_bone_mapping[bone_name];
+                }
+
+                for (unsigned int j = 0; j < mesh->mBones[i]->mNumWeights; j++)
+                {
+                    unsigned int vertex_id = mesh->mBones[i]->mWeights[j].mVertexId;
+                    float weight = mesh->mBones[i]->mWeights[j].mWeight;
+                    bones_id_weights_for_each_vertex[vertex_id].addBoneData(bone_index, weight);
+
+
+                    //cout << " vertex_id: " << vertex_id << "	bone_index: " << bone_index << "		weight: " << weight << endl;
+                }
             }
         }
+        else
+            hasBones = false;
 
         return Mesh(vertices, indices, textures, bones_id_weights_for_each_vertex);
     }
