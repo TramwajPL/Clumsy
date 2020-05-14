@@ -10,7 +10,7 @@
 
 #include "Clumsy.h"
 
-Clumsy::Transform transform;
+
 Clumsy::GameObject* object1;
 Clumsy::GameObject* map = new Clumsy::GameObject();
 Clumsy::PhysicsEngine physicsEngine;
@@ -27,52 +27,46 @@ public:
 	virtual void Init() 
 	{
 		glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
-		glm::vec3 pos4 = glm::vec3(0.0f, 0.0f, 0.0f);
-		glm::quat rot = glm::quat(0.0f, 0.0f, 0.0f, 1.0f);
-		glm::quat rot2 = glm::angleAxis(glm::radians(90.f), glm::vec3(1.0f, 0.0f, 0.0f));
-		glm::quat rot3 = glm::angleAxis(glm::radians(180.f), glm::vec3(1.0f, 1.0f, 0.0f)); //dodane
-		glm::vec3 pos2 = glm::vec3(1.0f, 0.0f, 0.0f);
-		glm::vec3 pos3 = glm::vec3(0.0f, 1.0f, 0.0f);
+		glm::quat rotBoy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f)); 
 
 		float scale = 0.0001f;
 
-		transform.SetPos(pos);
-		transform.SetRot(rot3);
-		transform.SetScale(scale); 
-		Clumsy::Transform transform2(pos + 0.5f, rot3, 0.1f);
+		Clumsy::Transform boyTransform(pos + 0.5f, rotBoy, 0.1f);
+		Clumsy::Transform boyTransform2(pos, rotBoy, 0.1f);
 
 	
-		Clumsy::Model* m1 = new Clumsy::Model();
-		m1->loadModel("../Clumsy/src/models/Dwarf/dwarf.X");
-		//m1->loadModel("../Clumsy/src/models/man/model.dae");
-		/*
-		Clumsy::Model* m2 = new Clumsy::Model();
-		m2->loadModel("../Clumsy/res/models/jazda.obj");*/
+		Clumsy::Model* model = new Clumsy::Model();
+		//m1->loadModel("../Clumsy/src/models/Dwarf/dwarf.X");
+		model->loadModel("../Clumsy/src/models/man/model.dae");
 		
-		object1 = new Clumsy::GameObject(transform);
-		Clumsy::GameObject* object2 = new Clumsy::GameObject(transform2);
+		Clumsy::GameObject* boy = new Clumsy::GameObject(boyTransform);
+		Clumsy::GameObject* boy2 = new Clumsy::GameObject(boyTransform2);
 		
 		Clumsy::PhysicsObject* ob1 = new Clumsy::PhysicsObject(
-			new Clumsy::BoundingSphere(object2->GetTransform().GetPos(), 0.1f), &object2->GetTransform());
+			new Clumsy::BoundingSphere(boy->GetTransform().GetPos(), 0.1f), &boy->GetTransform());
+
+		Clumsy::PhysicsObject* ob2 = new Clumsy::PhysicsObject(
+			new Clumsy::BoundingSphere(boy2->GetTransform().GetPos(), 0.1f), &boy2->GetTransform());
 
 		physicsEngine.AddObject(*ob1);
+		physicsEngine.AddObject(*ob2);
 
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent(physicsEngine);
 		
-		rmc = new  Clumsy::RenderModelComponent(m1, object1->GetTransform());
-		AddToScene((object1)->AddComponent(rmc));
-		AddToScene((object2)->AddComponent(new Clumsy::RenderModelComponent(m1, object2->GetTransform())));
+		AddToScene((boy)->AddComponent(new Clumsy::RenderModelComponent(model, boy->GetTransform())));
+		AddToScene((boy2)->AddComponent(new Clumsy::RenderModelComponent(model, boy2->GetTransform())));
 
-		object1->AddComponent(new Clumsy::PhysicsObjectComponent(ob1));
+		boy->AddComponent(new Clumsy::PhysicsObjectComponent(ob1));
+		boy2->AddComponent(new Clumsy::PhysicsObjectComponent(ob2));
 
 		AddToScene((new Clumsy::GameObject())
 			->AddComponent(physicsEngineComponent));
 
-		//SceneParser(&physicsEngine, map);
+		SceneParser(&physicsEngine, map);
 		std::cout << "Init gierki" << std::endl;
-		std::cout << glm::to_string(object1->GetTransform().GetPos()) << std::endl;
-		std::cout << glm::to_string(object2->GetTransform().GetPos()) << std::endl;
+		std::cout <<"BOY 1 POSITION: " << glm::to_string(boy->GetTransform().GetPos()) << std::endl;
+		std::cout <<"BOY 2 POSITION: "<< glm::to_string(boy2->GetTransform().GetPos()) << std::endl;
 
 		//Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
 	}

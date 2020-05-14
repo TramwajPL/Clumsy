@@ -98,7 +98,7 @@ namespace Clumsy
         Timestep timestep = time - m_LastFrameTime;
         m_LastFrameTime = time;
         if (scene->mAnimations != NULL) {
-            boneTransform((double)m_LastFrameTime / 1000.0f, transforms);
+            boneTransform((double)m_LastFrameTime, transforms);
 
             for (unsigned int i = 0; i < transforms.size(); i++) // move all matrices for actual model position to shader
             {
