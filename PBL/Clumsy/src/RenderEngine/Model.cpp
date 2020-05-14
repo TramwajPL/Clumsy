@@ -90,7 +90,7 @@ namespace Clumsy
 			}
 			init = true;
 		}
-		
+        glUniform1i(glGetUniformLocation(shader.ID, "hasBones"), true);
 
         std::vector<aiMatrix4x4> transforms;
 
@@ -116,6 +116,7 @@ namespace Clumsy
     {
         std::vector<aiMatrix4x4> transforms;
 
+        glUniform1i(glGetUniformLocation(shader.ID, "hasBones"), false);
         for (int i = 0; i < meshes.size(); i++)
         {
             meshes[i].Draw(shader.ID);

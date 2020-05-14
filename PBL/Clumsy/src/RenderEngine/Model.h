@@ -37,6 +37,7 @@ namespace Clumsy
     private:
 		
 		bool init = false;
+		bool init2 = false;
 		float m_LastFrameTime = 0.0f;
 		Assimp::Importer import;
 		const aiScene* scene;

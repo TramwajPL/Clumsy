@@ -177,8 +177,12 @@
     <None Include="src\Shaders\phongVS.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="src\Shaders\lights_FS.glsl" />
-    <None Include="src\Shaders\lights_VS.glsl" />
+    <None Include="src\Shaders\lights_VS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\lights_FS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

@@ -36,6 +36,7 @@ namespace Clumsy {
 			}
 			else
 				m_Model->Draw2(shader);
+			
 		}
 
 		void SetTransform(Transform tr)

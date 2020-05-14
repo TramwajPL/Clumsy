@@ -12,6 +12,7 @@ out vec2 TexCoords;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
+uniform bool hasBones;
 
 const int MAX_BONES = 100;
 uniform mat4 bones[MAX_BONES];
@@ -29,13 +30,12 @@ void main()
     Normal = mat3(transpose(inverse(model))) * aNormal;  
     TexCoords = aTexCoords;
     
-	vec4 zero(0.001,0.001,0.001,0.001);
-	if(boned_position - zero < 0.001 && boned_position + zero > 0.001)
+	if(hasBones)
 	{
 		gl_Position = projection * view * model * boned_position;
 	}
-	else()
+	else
 	{
-		gl_Position = projection * view * model * boned_position;
+		gl_Position = projection * view * model * vec4(aPos, 1.0);
 	}
 }
