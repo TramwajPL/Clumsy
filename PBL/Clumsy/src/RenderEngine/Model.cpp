@@ -58,6 +58,7 @@ namespace Clumsy
     Model::Model()
     {
         scene = nullptr;
+		
     }
 
     Model::~Model()
@@ -65,12 +66,12 @@ namespace Clumsy
         import.FreeScene();
     }
 
-    void Model::initShaders(GLuint shader_program)
+    void Model::initShaders(Shader shader)
     {
         for (unsigned int i = 0; i < MAX_BONES; i++) // get location all matrices of bones
         {
             std::string name = "bones[" + std::to_string(i) + "]";// name like in shader
-            m_bone_location[i] = glGetUniformLocation(shader_program, name.c_str());
+            m_bone_location[i] = glGetUniformLocation(shader.ID, name.c_str());
         }
 
         // rotate head AND AXIS(y_z) about x !!!!!  Not be gimbal lock
@@ -80,6 +81,17 @@ namespace Clumsy
     // draws the model, and thus all its meshes
     void Model::Draw(Shader shader)
     {
+		if (init == false)
+		{
+			for (unsigned int i = 0; i < MAX_BONES; i++) // get location all matrices of bones
+			{
+				std::string name = "bones[" + std::to_string(i) + "]";// name like in shader
+				m_bone_location[i] = glGetUniformLocation(shader.ID, name.c_str());
+			}
+			init = true;
+		}
+		
+
         std::vector<aiMatrix4x4> transforms;
 
         float time = (float)glfwGetTime();

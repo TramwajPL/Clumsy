@@ -49,6 +49,7 @@ namespace Clumsy
     public:
         Mesh(std::vector<Vertex> vertic, std::vector<unsigned int> ind, std::vector<Texture> textur, std::vector<VertexBoneData> bone_id_weights);
         Mesh() {};
+		~Mesh();
         void Draw(unsigned int shaders_program);
 
         std::vector<Vertex> vertices;

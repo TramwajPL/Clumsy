@@ -99,7 +99,7 @@ namespace Clumsy
 
 		 
 		object.GetTransform();
-		object.RenderAll(*m_Shader);
+		//object.RenderAll(*m_Shader);
 	}
 
 	void RenderEngine::CleanUp()

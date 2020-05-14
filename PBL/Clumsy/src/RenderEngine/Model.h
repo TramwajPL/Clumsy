@@ -23,7 +23,7 @@ namespace Clumsy
         Mesh processMesh(aiMesh* mesh, const aiScene* scene);
         std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 	
-        void initShaders(unsigned int shader_program);
+        void initShaders(Shader shader);
         void loadModel(const std::string& path);
         //void update();
         void Draw(Shader shader);
@@ -32,8 +32,9 @@ namespace Clumsy
 
         glm::mat4 aiToGlm(aiMatrix4x4 ai_matr);
         aiQuaternion nlerp(aiQuaternion a, aiQuaternion b, float blend); // super super n lerp =)
-
+		
     private:
+		bool init = false;
 		float m_LastFrameTime = 0.0f;
 		Assimp::Importer import;
 		const aiScene* scene;

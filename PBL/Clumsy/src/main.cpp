@@ -30,19 +30,22 @@ public:
 		glm::vec3 pos4 = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::quat rot = glm::quat(0.0f, 0.0f, 0.0f, 1.0f);
 		glm::quat rot2 = glm::angleAxis(glm::radians(90.f), glm::vec3(1.0f, 0.0f, 0.0f));
+		glm::quat rot3 = glm::angleAxis(glm::radians(180.f), glm::vec3(1.0f, 1.0f, 0.0f)); //dodane
 		glm::vec3 pos2 = glm::vec3(1.0f, 0.0f, 0.0f);
 		glm::vec3 pos3 = glm::vec3(0.0f, 1.0f, 0.0f);
 
 		float scale = 0.0001f;
 
 		transform.SetPos(pos);
-		transform.SetRot(rot);
+		transform.SetRot(rot3);
 		transform.SetScale(scale); 
-		Clumsy::Transform transform2(pos + 0.5f, rot, 0.1f);
+		Clumsy::Transform transform2(pos + 0.5f, rot3, 0.1f);
 
 	
 		Clumsy::Model* m1 = new Clumsy::Model();
-		m1->loadModel("../Clumsy/src/models/dae/only_spider_with_animations_export.dae");/*
+		m1->loadModel("../Clumsy/src/models/Dwarf/dwarf.X");
+		//m1->loadModel("../Clumsy/src/models/man/model.dae");
+		/*
 		Clumsy::Model* m2 = new Clumsy::Model();
 		m2->loadModel("../Clumsy/res/models/jazda.obj");*/
 		
@@ -66,7 +69,7 @@ public:
 		AddToScene((new Clumsy::GameObject())
 			->AddComponent(physicsEngineComponent));
 
-		SceneParser(&physicsEngine, map);
+		//SceneParser(&physicsEngine, map);
 		std::cout << "Init gierki" << std::endl;
 		std::cout << glm::to_string(object1->GetTransform().GetPos()) << std::endl;
 		std::cout << glm::to_string(object2->GetTransform().GetPos()) << std::endl;
