@@ -29,5 +29,13 @@ void main()
     Normal = mat3(transpose(inverse(model))) * aNormal;  
     TexCoords = aTexCoords;
     
-    gl_Position = projection * view * model * boned_position;
+	vec4 zero(0.001,0.001,0.001,0.001);
+	if(boned_position - zero < 0.001 && boned_position + zero > 0.001)
+	{
+		gl_Position = projection * view * model * boned_position;
+	}
+	else()
+	{
+		gl_Position = projection * view * model * boned_position;
+	}
 }
