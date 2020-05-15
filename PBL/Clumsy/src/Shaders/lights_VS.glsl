@@ -26,16 +26,18 @@ void main()
 	
    
 	vec4 boned_position = bone_transform * vec4(aPos, 1.0); // transformed by bones
-    FragPos = vec3(model * boned_position);
     Normal = mat3(transpose(inverse(model))) * aNormal;  
     TexCoords = aTexCoords;
     
 	if(hasBones)
 	{
+		FragPos = vec3(model * boned_position);
 		gl_Position = projection * view * model * boned_position;
 	}
 	else
 	{
+		FragPos = vec3(model * vec4(aPos, 1.0));
 		gl_Position = projection * view * model * vec4(aPos, 1.0);
+		
 	}
 }
