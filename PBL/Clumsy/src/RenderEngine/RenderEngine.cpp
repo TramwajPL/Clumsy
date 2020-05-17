@@ -92,6 +92,7 @@ namespace Clumsy
 			//std::cout << m_Lights.size() << "hhhhhhhhhhhhhhh" << std::endl;
 			//m_Shader->setDirectional("directionalLight", (DirectionalLight*)&GetActiveLight());
 		}
+		object.Update();
 		object.RenderAll(*m_Shader);//  <--- tutaj ma sie renderowac
 		//TODO: renderowanie po drzewie calym
 

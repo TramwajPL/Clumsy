@@ -15,8 +15,9 @@ Clumsy::GameObject* object1;
 Clumsy::GameObject* map = new Clumsy::GameObject();
 Clumsy::PhysicsEngine physicsEngine;
 Clumsy::RenderModelComponent* rmc;
+Clumsy::GameObject* boy;
 
-//Clumsy::AudioMaster* Clumsy::AudioMaster::m_Instance = 0;
+Clumsy::AudioMaster* Clumsy::AudioMaster::m_Instance = 0;
 
 class TestGame : public Clumsy::Game 
 {
@@ -39,7 +40,7 @@ public:
 		//m1->loadModel("../Clumsy/src/models/Dwarf/dwarf.X");
 		model->loadModel("../Clumsy/src/models/man/model.dae");
 		
-		Clumsy::GameObject* boy = new Clumsy::GameObject(boyTransform);
+		boy = new Clumsy::GameObject(boyTransform);
 		Clumsy::GameObject* boy2 = new Clumsy::GameObject(boyTransform2);
 		
 		Clumsy::PhysicsObject* ob1 = new Clumsy::PhysicsObject(
@@ -53,8 +54,8 @@ public:
 
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent(physicsEngine);
-		
-		AddToScene((boy)->AddComponent(new Clumsy::RenderModelComponent(model, boy->GetTransform())));
+		rmc = new Clumsy::RenderModelComponent(model, boy->GetTransform());
+		AddToScene((boy)->AddComponent(rmc));
 		AddToScene((boy2)->AddComponent(new Clumsy::RenderModelComponent(model, boy2->GetTransform())));
 
 		boy->AddComponent(new Clumsy::PhysicsObjectComponent(ob1));
@@ -98,7 +99,7 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	camera->ProcessMouseScroll(yoffset);
 
-	//Clumsy::AudioMaster::GetInstance()->PlayBell();
+	Clumsy::AudioMaster::GetInstance()->PlayBell();
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
@@ -115,11 +116,13 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 
 		glm::vec3 vec3 = mp.GetPickedObject(&physicsEngine);
 		std::cout << glm::to_string(vec3) << std::endl;
-		object1->SetPos(vec3);
+		//object1->SetPos(vec3);
 		rmc->m_Transform.SetPos(vec3);
-		std::cout << "trans " << glm::to_string(rmc->m_Transform.GetPos()) << std::endl;
-		std::cout << " zamieniony " << glm::to_string(object1->GetTransform().GetPos());
-		std::cout << " parent? " << object1->GetComponents().size() << std::endl;
+		std::cout << "boiii " << glm::to_string(boy->GetTransform().GetPos()) << std::endl;
+		//boy->m_Transform.SetPos(vec3);
+		//std::cout << "trans " << glm::to_string(rmc->m_Transform.GetPos()) << std::endl;
+		//std::cout << " zamieniony " << glm::to_string(object1->GetTransform().GetPos());
+		//std::cout << " parent? " << object1->GetComponents().size() << std::endl;
 	}
 }
 int main() 
@@ -141,6 +144,6 @@ int main()
 	
 	coreEngine.Start();
 	window->~Window();
-	//Clumsy::AudioMaster::GetInstance()->Drop();
+	Clumsy::AudioMaster::GetInstance()->Drop();
 	return 0;
 }
