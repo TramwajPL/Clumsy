@@ -39,5 +39,9 @@ namespace Clumsy
 		Shader* debugDepthQuadShader;
 		std::vector<const BaseLight*> m_Lights;
 		const BaseLight* m_ActiveLight;
+		const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+		unsigned int depthMapFBO;
+		unsigned int depthMap;
+
 	};
 }

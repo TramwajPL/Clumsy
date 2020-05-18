@@ -34,29 +34,10 @@ namespace Clumsy
 		//m_Shader = new Shader("../Clumsy/res/shaders/model_loadingVS.glsl", "../Clumsy/res/shaders/model_loadingFS.glsl");
 		
 		glEnable(GL_DEPTH_TEST);
-	}
 
-	
-	void RenderEngine::Render(GameObject object)
-	{
-		float time = (float)glfwGetTime();
-		Timestep timestep = time - m_LastFrameTime;
-		m_LastFrameTime = time;
 
-		//glm::vec3 pointLightPositions[] = {
-		//		glm::vec3(-4.5f,  0.0f,  1.0f),
-		//		glm::vec3(4.5f, 0.0f, 1.0f),
-		//		glm::vec3(1.0f,  0.0f, -4.0f),
-		//		glm::vec3(1.0f,  0.0f, 4.0f)
-		//};
-
-		// configure depth map FBO
-		// -----------------------
-		const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
-		unsigned int depthMapFBO;
 		glGenFramebuffers(1, &depthMapFBO);
 		// create depth texture
-		unsigned int depthMap;
 		glGenTextures(1, &depthMap);
 		glBindTexture(GL_TEXTURE_2D, depthMap);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
@@ -79,15 +60,35 @@ namespace Clumsy
 		debugDepthQuadShader->use();
 		debugDepthQuadShader->setInt("depthMap", 0);
 
-		// lighting info
-		glm::vec3 lightPos(0.0f, 6.0f, 5.0f);
+
+	}
+
+	
+	void RenderEngine::Render(GameObject object)
+	{
+		float time = (float)glfwGetTime();
+		Timestep timestep = time - m_LastFrameTime;
+		m_LastFrameTime = time;
+
+		//glm::vec3 pointLightPositions[] = {
+		//		glm::vec3(-4.5f,  0.0f,  1.0f),
+		//		glm::vec3(4.5f, 0.0f, 1.0f),
+		//		glm::vec3(1.0f,  0.0f, -4.0f),
+		//		glm::vec3(1.0f,  0.0f, 4.0f)
+		//};
+
+		// configure depth map FBO
+		// -----------------------
+		
+				// lighting info
+		glm::vec3 lightPos(20.0f, 40.0f, -20.0f);
 
 		glm::mat4 lightProjection, lightView;
 		glm::mat4 lightSpaceMatrix;
 		float near_plane = 1.0f, far_plane = 15.0f;
 		
 		lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-		lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+		lightView = glm::lookAt(glm::vec3 (2.0f, 4.0f, -2.0f), glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
 		lightSpaceMatrix = lightProjection * lightView;
 		// render scene from light's point of view
 		simpleDepthShader->use();
