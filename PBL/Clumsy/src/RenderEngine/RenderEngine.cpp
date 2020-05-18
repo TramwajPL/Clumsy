@@ -156,15 +156,6 @@ namespace Clumsy
 		//// point light 4
 		//m_Shader->SetPointLight("3", pointLightPositions[3], glm::vec3(0.05f, 0.05f, 0.05),
 		//	glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f));
-		for (unsigned int i = 0; i < m_Lights.size(); i++)
-		{
-			m_ActiveLight = m_Lights[i];
-			//std::cout << m_Lights.size() << "hhhhhhhhhhhhhhh" << std::endl;
-			//m_Shader->setDirectional("directionalLight", (DirectionalLight*)&GetActiveLight());
-		}
-		object.Update();
-		object.RenderAll(*m_Shader);//  <--- tutaj ma sie renderowac
-		//TODO: renderowanie po drzewie calym
 
 		//// spotLight
 		//m_Shader->SetSpotLight(m_Camera->GetPosition(), m_Camera->GetFront(), glm::vec3(0.0f, 0.0f, 0.0f),
