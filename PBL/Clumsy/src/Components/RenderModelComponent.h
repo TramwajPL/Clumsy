@@ -48,7 +48,7 @@ namespace Clumsy {
 		{
 			glm::vec3 pos = GetParentTransform().GetPos();
 			m_Transform.SetPos(pos);
-			SetTransform(GetParentTransform());
+			//SetTransform(GetParentTransform());
 		}
 
 		Transform m_Transform;
