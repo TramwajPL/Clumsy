@@ -14,6 +14,9 @@
 #include "../Core/EntityComponent.h"
 #include "../Components/RenderModelComponent.h"
 
+const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_HEIGHT = 600;
+
 namespace Clumsy 
 {
 	RenderEngine::RenderEngine(GLFWwindow* window, Window* window2, Camera* camera) :
@@ -25,7 +28,9 @@ namespace Clumsy
 		//m_Shader = new Shader("../Clumsy/src/Shaders/model_loadingVS.glsl", "../Clumsy/src/Shaders/model_loadingFS.glsl");
 		//m_Shader = new Shader("../Clumsy/src/Shaders/phongVS.glsl", "../Clumsy/src/Shaders/phongFS.glsl");
 
-		m_Shader = new Shader("../Clumsy/src/Shaders/lights_VS.glsl", "../Clumsy/src/Shaders/lights_FS.glsl");
+		m_Shader = new Shader("../Clumsy/src/Shaders/shadows_shader_VS.glsl", "../Clumsy/src/Shaders/shadows_shader_FS.glsl");
+		simpleDepthShader = new Shader("../Clumsy/src/Shaders/shadow_mapping_depth_VS.glsl", "../Clumsy/src/Shaders/shadow_mapping_depth_FS.glsl");
+		debugDepthQuadShader = new Shader("../Clumsy/src/Shaders/debug_depth_quad_VS.glsl", "../Clumsy/src/Shaders/debug_depth_quad_FS.glsl");
 		//m_Shader = new Shader("../Clumsy/res/shaders/model_loadingVS.glsl", "../Clumsy/res/shaders/model_loadingFS.glsl");
 		
 		glEnable(GL_DEPTH_TEST);
@@ -45,60 +50,139 @@ namespace Clumsy
 				glm::vec3(1.0f,  0.0f, 4.0f)
 		};
 
+		//ADDING SOME CODE CONNECTED WITH SHADOWS
+		// configure depth map FBO
+		// -----------------------
+		const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+		unsigned int depthMapFBO;
+		glGenFramebuffers(1, &depthMapFBO);
+		// create depth texture
+		unsigned int depthMap;
+		glGenTextures(1, &depthMap);
+		glBindTexture(GL_TEXTURE_2D, depthMap);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+		float borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
+		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+		// attach depth texture as FBO's depth buffer
+		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
+		glDrawBuffer(GL_NONE);
+		glReadBuffer(GL_NONE);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		m_Shader->use();
+		m_Shader->setInt("diffuseTexture", 0);
+		m_Shader->setInt("shadowMap", 1);
+		debugDepthQuadShader->use();
+		debugDepthQuadShader->setInt("depthMap", 0);
+
+		// lighting info
+		glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
+
+		glm::mat4 lightProjection, lightView;
+		glm::mat4 lightSpaceMatrix;
+		float near_plane = 1.0f, far_plane = 7.5f;
+		//lightProjection = glm::perspective(glm::radians(45.0f), (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); // note that if you use a perspective projection matrix you'll have to change the light position as the current light position isn't enough to reflect the whole scene
+		lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+		lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+		lightSpaceMatrix = lightProjection * lightView;
+		// render scene from light's point of view
+		simpleDepthShader->use();
+		simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
+
+		glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+		glClear(GL_DEPTH_BUFFER_BIT);
+		//glActiveTexture(GL_TEXTURE0);
+		//glBindTexture(GL_TEXTURE_2D, woodTexture);
+		object.RenderAll(*simpleDepthShader);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		// reset viewport
+		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		// 2. render scene as normal using the generated depth/shadow map  
+	   // --------------------------------------------------------------
+		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		m_Shader->use();
+		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		glm::mat4 view = m_Camera->GetViewMatrix();
+		m_Shader->setMat4("projection", projection);
+		m_Shader->setMat4("view", view);
+		// set light uniforms
+		m_Shader->setVec3("viewPos", m_Camera->GetPosition());
+		m_Shader->setVec3("lightPos", lightPos);
+		m_Shader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
+;
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, depthMap);
+		object.RenderAll(*m_Shader);
+
+		// render Depth map to quad for visual debugging
+		// ---------------------------------------------
+		//debugDepthQuadShader->use();
+		//debugDepthQuadShader->setFloat("near_plane", near_plane);
+		//debugDepthQuadShader->setFloat("far_plane", far_plane);
+		//glActiveTexture(GL_TEXTURE0);
+		//glBindTexture(GL_TEXTURE_2D, depthMap);
+
 		processInput(timestep.GetSeconds());
 
-		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)800 / (float)600, 0.1f, 100.0f);
-		m_Shader->setMat4("projection", projection);
+		/////////////////////////////////////////////////////////// OLD GUY
 
-		// camera/view transformation
-		m_Shader->use();
-		
-		//m_Shader->setInt("material.diffuse", 0);
-	//	m_Shader->setInt("material.specular", 1);
+		//glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)800 / (float)600, 0.1f, 100.0f);
+		//m_Shader->setMat4("projection", projection);
 
-		glm::mat4 view = m_Camera->GetViewMatrix();
-		m_Shader->setMat4("view", view);
+		//// camera/view transformation
+		//m_Shader->use();
+		//
+		////m_Shader->setInt("material.diffuse", 0);
+		////	m_Shader->setInt("material.specular", 1);
 
-		m_Shader->use();
-		m_Shader->setVec3("viewPos", m_Camera->GetPosition());
-		m_Shader->setFloat("material.shininess", 32.0f);
+		//glm::mat4 view = m_Camera->GetViewMatrix();
+		//m_Shader->setMat4("view", view);
 
-		// SetDirectionalLight(direction, ambient, diffuse, specular) 
-		m_Shader->SetDirectionalLight(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(0.05f, 0.05f, 0.05f),
-			glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.5f, 0.5f, 0.5f));
+		////m_Shader->use();
+		//m_Shader->setVec3("viewPos", m_Camera->GetPosition());
+		//m_Shader->setFloat("material.shininess", 32.0f);
 
-		// point light 1
-		m_Shader->SetPointLight("0" , pointLightPositions[0], glm::vec3(0.05f, 0.05f, 0.05),
-			glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f));
-		// point light 2
-		m_Shader->SetPointLight("1", pointLightPositions[1], glm::vec3(0.05f, 0.05f, 0.05),
-			glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f));
-		// point light 3
-		m_Shader->SetPointLight("2", pointLightPositions[2], glm::vec3(0.05f, 0.05f, 0.05),
-			glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f));
-		// point light 4
-		m_Shader->SetPointLight("3", pointLightPositions[3], glm::vec3(0.05f, 0.05f, 0.05),
-			glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f));
+		//// SetDirectionalLight(direction, ambient, diffuse, specular) 
+		//m_Shader->SetDirectionalLight(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(0.05f, 0.05f, 0.05f),
+		//	glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.5f, 0.5f, 0.5f));
+
+		//// point light 1
+		//m_Shader->SetPointLight("0" , pointLightPositions[0], glm::vec3(0.05f, 0.05f, 0.05),
+		//	glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f));
+		//// point light 2
+		//m_Shader->SetPointLight("1", pointLightPositions[1], glm::vec3(0.05f, 0.05f, 0.05),
+		//	glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f));
+		//// point light 3
+		//m_Shader->SetPointLight("2", pointLightPositions[2], glm::vec3(0.05f, 0.05f, 0.05),
+		//	glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f));
+		//// point light 4
+		//m_Shader->SetPointLight("3", pointLightPositions[3], glm::vec3(0.05f, 0.05f, 0.05),
+		//	glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f));
+
+		//// spotLight
+		//m_Shader->SetSpotLight(m_Camera->GetPosition(), m_Camera->GetFront(), glm::vec3(0.0f, 0.0f, 0.0f),
+		//	glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+
+		///////////////////////////////////////////////////
 
 
-		// spotLight
-		m_Shader->SetSpotLight(m_Camera->GetPosition(), m_Camera->GetFront(), glm::vec3(0.0f, 0.0f, 0.0f),
-			glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-
-
-		for (unsigned int i = 0; i < m_Lights.size(); i++)
-		{
-			m_ActiveLight = m_Lights[i];
-			//std::cout << m_Lights.size() << "hhhhhhhhhhhhhhh" << std::endl;
-			//m_Shader->setDirectional("directionalLight", (DirectionalLight*)&GetActiveLight());
-		}
-		object.RenderAll(*m_Shader);//  <--- tutaj ma sie renderowac
+		//object.RenderAll(*m_Shader);//  <--- tutaj ma sie renderowac
 		//TODO: renderowanie po drzewie calym
 
 
 
 		 
-		object.GetTransform();
+		//object.GetTransform();
 		//object.RenderAll(*m_Shader);
 	}
 

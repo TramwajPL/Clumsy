@@ -35,6 +35,8 @@ namespace Clumsy
 		float m_LastFrameTime = 0.0f;
 		Camera* m_Camera;
 		Shader* m_Shader;
+		Shader* simpleDepthShader;
+		Shader* debugDepthQuadShader;
 		std::vector<const BaseLight*> m_Lights;
 		const BaseLight* m_ActiveLight;
 		//Shader shader; // <-- probably will be needed

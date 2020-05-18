@@ -13,9 +13,9 @@ out vec4 FragPosLightSpace;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
-uniform mat4 lightSpaceMatrix;
-
 uniform bool hasBones;
+
+uniform mat4 lightSpaceMatrix;
 
 const int MAX_BONES = 100;
 uniform mat4 bones[MAX_BONES];

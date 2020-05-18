@@ -18,7 +18,7 @@ namespace Clumsy {
 		virtual void Render(Shader& shader) 
 
 		{
-			shader.use();
+			//shader.use();
 			glm::mat4 model = glm::mat4(1.0f);
 
 			model = glm::translate(model, m_Transform.GetPos());

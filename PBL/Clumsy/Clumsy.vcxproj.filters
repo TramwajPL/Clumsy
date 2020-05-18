@@ -183,6 +183,24 @@
     <None Include="src\Shaders\lights_FS.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="src\Shaders\shadow_mapping_depth_FS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\shadow_mapping_depth_VS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\debug_depth_quad_FS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\debug_depth_quad_VS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\shadows_shader_FS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\shadows_shader_VS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
