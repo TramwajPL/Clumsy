@@ -43,14 +43,13 @@ namespace Clumsy
 		Timestep timestep = time - m_LastFrameTime;
 		m_LastFrameTime = time;
 
-		glm::vec3 pointLightPositions[] = {
-				glm::vec3(-4.5f,  0.0f,  1.0f),
-				glm::vec3(4.5f, 0.0f, 1.0f),
-				glm::vec3(1.0f,  0.0f, -4.0f),
-				glm::vec3(1.0f,  0.0f, 4.0f)
-		};
+		//glm::vec3 pointLightPositions[] = {
+		//		glm::vec3(-4.5f,  0.0f,  1.0f),
+		//		glm::vec3(4.5f, 0.0f, 1.0f),
+		//		glm::vec3(1.0f,  0.0f, -4.0f),
+		//		glm::vec3(1.0f,  0.0f, 4.0f)
+		//};
 
-		//ADDING SOME CODE CONNECTED WITH SHADOWS
 		// configure depth map FBO
 		// -----------------------
 		const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
@@ -81,12 +80,12 @@ namespace Clumsy
 		debugDepthQuadShader->setInt("depthMap", 0);
 
 		// lighting info
-		glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
+		glm::vec3 lightPos(0.0f, 6.0f, 5.0f);
 
 		glm::mat4 lightProjection, lightView;
 		glm::mat4 lightSpaceMatrix;
-		float near_plane = 1.0f, far_plane = 7.5f;
-		//lightProjection = glm::perspective(glm::radians(45.0f), (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); // note that if you use a perspective projection matrix you'll have to change the light position as the current light position isn't enough to reflect the whole scene
+		float near_plane = 1.0f, far_plane = 15.0f;
+		
 		lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
 		lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
 		lightSpaceMatrix = lightProjection * lightView;
@@ -97,8 +96,6 @@ namespace Clumsy
 		glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
 		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 		glClear(GL_DEPTH_BUFFER_BIT);
-		//glActiveTexture(GL_TEXTURE0);
-		//glBindTexture(GL_TEXTURE_2D, woodTexture);
 		object.RenderAll(*simpleDepthShader);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -116,21 +113,12 @@ namespace Clumsy
 		m_Shader->setMat4("projection", projection);
 		m_Shader->setMat4("view", view);
 		// set light uniforms
-		m_Shader->setVec3("viewPos", m_Camera->GetPosition());
-		m_Shader->setVec3("lightPos", lightPos);
-		m_Shader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
+		m_Shader->SetDirectionalLight(0.6, m_Camera->GetPosition(), lightPos, lightSpaceMatrix);
 ;
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, depthMap);
 		object.RenderAll(*m_Shader);
 
-		// render Depth map to quad for visual debugging
-		// ---------------------------------------------
-		debugDepthQuadShader->use();
-		debugDepthQuadShader->setFloat("near_plane", near_plane);
-		debugDepthQuadShader->setFloat("far_plane", far_plane);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, depthMap);
 
 		processInput(timestep.GetSeconds());
 
@@ -176,12 +164,9 @@ namespace Clumsy
 		///////////////////////////////////////////////////
 
 
-		//object.RenderAll(*m_Shader);//  <--- tutaj ma sie renderowac
-		//TODO: renderowanie po drzewie calym
+		//object.RenderAll(*m_Shader);
 
 
-
-		 
 		//object.GetTransform();
 		//object.RenderAll(*m_Shader);
 	}

@@ -134,12 +134,12 @@ namespace Clumsy
 		setVec3(uniformName + ".base.color", directionalLight->GetColor());
 		setFloat(uniformName + ".base.intensity", directionalLight->GetIntensity());
 	}
-    void Shader::SetDirectionalLight(glm::vec3 direction, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
+    void Shader::SetDirectionalLight(float intensity, glm::vec3 viewPosition, glm::vec3 lightPos, glm::mat4 lightSpaceMatrix)
     {
-        setVec3("dirLight.direction", direction);
-        setVec3("dirLight.ambient", ambient);
-        setVec3("dirLight.diffuse", diffuse);
-        setVec3("dirLight.specular", specular);
+        setFloat("intensity", intensity);
+		setVec3("viewPos",viewPosition);
+		setVec3("lightPos", lightPos);
+		setMat4("lightSpaceMatrix", lightSpaceMatrix);
     }
     void Shader::SetSpotLight(glm::vec3 position, glm::vec3 direction, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
     {

@@ -31,7 +31,7 @@ public:
 
 		float scale = 0.0001f;
 
-		Clumsy::Transform boyTransform(pos + 0.5f, rotBoy, 0.5f);
+		Clumsy::Transform boyTransform(pos + 0.5f, rotBoy, 0.1f);
 		Clumsy::Transform boyTransform2(pos, rotBoy, 0.1f);
 
 	

@@ -39,7 +39,5 @@ namespace Clumsy
 		Shader* debugDepthQuadShader;
 		std::vector<const BaseLight*> m_Lights;
 		const BaseLight* m_ActiveLight;
-		//Shader shader; // <-- probably will be needed
-
 	};
 }

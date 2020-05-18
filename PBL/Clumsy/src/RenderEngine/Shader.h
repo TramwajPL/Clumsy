@@ -26,7 +26,7 @@ namespace Clumsy
 		void setDirectional(const std::string& uniformName, DirectionalLight* directionalLight) const;
 
         
-        void SetDirectionalLight(glm::vec3 direction, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular);
+        void SetDirectionalLight(float intensity, glm::vec3 viewPosition, glm::vec3 lightPos, glm::mat4 lightSpaceMatrix);
        
         void SetSpotLight(glm::vec3 position, glm::vec3 direction, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular);
         

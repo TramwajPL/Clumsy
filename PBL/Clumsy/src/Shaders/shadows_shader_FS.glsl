@@ -10,6 +10,8 @@ in vec4 FragPosLightSpace;
 uniform sampler2D diffuseTexture;
 uniform sampler2D shadowMap;
 
+uniform float intensity;
+
 uniform vec3 lightPos;
 uniform vec3 viewPos;
 
@@ -55,7 +57,7 @@ void main()
     vec3 normal = normalize(Normal);
     vec3 lightColor = vec3(0.3);
     // ambient
-    vec3 ambient = 0.3 * color;
+    vec3 ambient = intensity * color;
     // diffuse
     vec3 lightDir = normalize(lightPos - FragPos);
     float diff = max(dot(lightDir, normal), 0.0);
@@ -67,7 +69,8 @@ void main()
     vec3 halfwayDir = normalize(lightDir + viewDir);  
     spec = pow(max(dot(normal, halfwayDir), 0.0), 64.0);
     vec3 specular = spec * lightColor;    
-    // calculate shadow
+    
+	// calculate shadow
     float shadow = ShadowCalculation(FragPosLightSpace);                      
     vec3 lighting = (ambient + (1.0 - shadow) * (diffuse + specular)) * color;    
     
