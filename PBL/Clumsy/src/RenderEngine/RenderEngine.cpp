@@ -126,11 +126,11 @@ namespace Clumsy
 
 		// render Depth map to quad for visual debugging
 		// ---------------------------------------------
-		//debugDepthQuadShader->use();
-		//debugDepthQuadShader->setFloat("near_plane", near_plane);
-		//debugDepthQuadShader->setFloat("far_plane", far_plane);
-		//glActiveTexture(GL_TEXTURE0);
-		//glBindTexture(GL_TEXTURE_2D, depthMap);
+		debugDepthQuadShader->use();
+		debugDepthQuadShader->setFloat("near_plane", near_plane);
+		debugDepthQuadShader->setFloat("far_plane", far_plane);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, depthMap);
 
 		processInput(timestep.GetSeconds());
 

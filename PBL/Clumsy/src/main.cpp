@@ -31,13 +31,14 @@ public:
 
 		float scale = 0.0001f;
 
-		Clumsy::Transform boyTransform(pos + 0.5f, rotBoy, 0.1f);
+		Clumsy::Transform boyTransform(pos + 0.5f, rotBoy, 0.5f);
 		Clumsy::Transform boyTransform2(pos, rotBoy, 0.1f);
 
 	
 		Clumsy::Model* model = new Clumsy::Model();
 		//m1->loadModel("../Clumsy/src/models/Dwarf/dwarf.X");
 		model->loadModel("../Clumsy/src/models/man/model.dae");
+		//model->loadModel("../Clumsy/src/models/capsule.obj");
 		
 		Clumsy::GameObject* boy = new Clumsy::GameObject(boyTransform);
 		Clumsy::GameObject* boy2 = new Clumsy::GameObject(boyTransform2);
