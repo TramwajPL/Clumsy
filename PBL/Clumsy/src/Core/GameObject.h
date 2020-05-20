@@ -42,6 +42,7 @@ namespace Clumsy
 		void ProcessInputAll(int input);
 	
 	private:
+		std::string m_Tag;
 		Transform m_Transform; 
 		std::vector<EntityComponent*> m_Components;
 		std::vector<GameObject*> m_Children;

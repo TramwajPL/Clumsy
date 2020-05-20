@@ -152,27 +152,27 @@ namespace Clumsy
         // directoru = container for model.obj and textures and other files
         directory = path.substr(0, path.find_last_of('/'));
 
-        std::cout << "scene->HasAnimations() 1: " << scene->HasAnimations() << std::endl;
-        std::cout << "scene->mNumMeshes 1: " << scene->mNumMeshes << std::endl;
+        /*std::cout << "scene->HasAnimations() 1: " << scene->HasAnimations() << std::endl;
+        std::cout << "scene->mNumMeshes 1: " << scene->mNumMeshes << std::endl;*/
         //std::cout << "scene->mAnimations[0]->mNumChannels 1: " << scene->mAnimations[0]->mNumChannels << std::endl;
        // std::cout << "scene->mAnimations[0]->mDuration 1: " << scene->mAnimations[0]->mDuration << std::endl;
        // std::cout << "scene->mAnimations[0]->mTicksPerSecond 1: " << scene->mAnimations[0]->mTicksPerSecond << std::endl << std::endl;
 
-        std::cout << "		name nodes : " << std::endl;
+       // std::cout << "		name nodes : " << std::endl;
         showNodeName(scene->mRootNode);
-        std::cout << std::endl;
+       // std::cout << std::endl;
 
-        std::cout << "		name bones : " << std::endl;
+       // std::cout << "		name bones : " << std::endl;
         processNode(scene->mRootNode, scene);
 
-        std::cout << "		name nodes animation : " << std::endl;
+       // std::cout << "		name nodes animation : " << std::endl;
         if (scene->mAnimations != NULL) {
             for (unsigned int i = 0; i < scene->mAnimations[0]->mNumChannels; i++)
             {
-                std::cout << scene->mAnimations[0]->mChannels[i]->mNodeName.C_Str() << std::endl;
+               // std::cout << scene->mAnimations[0]->mChannels[i]->mNodeName.C_Str() << std::endl;
             }
         }
-        std::cout << std::endl;
+       // std::cout << std::endl;
     }
 
     void Model::showNodeName(aiNode* node)

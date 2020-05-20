@@ -30,7 +30,6 @@ namespace Clumsy
     {
 		AddToScene(map);
 		Model* m3 = new Model();//= new Model();
-		m3->loadModel("../Clumsy/src/models/jazda.obj");
         std::vector<YAML::Node> nodes = YAML::LoadAllFromFile("Test.unity");
         for (int i = 0; i < nodes.size(); i++) {
             if (nodes[i]["PrefabInstance"]) {
@@ -43,6 +42,19 @@ namespace Clumsy
 						for (YAML::iterator it = nodes[i]["PrefabInstance"]["m_Modification"]["m_Modifications"].begin(); it != nodes[i]["PrefabInstance"]["m_Modification"]["m_Modifications"].end(); ++it) {
 							if (firstNode) {
 								if (it->first.as<std::string>() == "value") {
+									k = it->second.as<std::string>();
+									if (k.find("Pasture") != std::string::npos) {
+										m3->loadModel("../Clumsy/src/models/jazda.obj");
+									}
+									if (k.find("Desert") != std::string::npos) {
+										m3->loadModel("../Clumsy/src/models/jazda.obj");
+									}
+									if (k.find("Stone") != std::string::npos) {
+										m3->loadModel("../Clumsy/src/models/jazda.obj");
+									}
+									if (k.find("Water") != std::string::npos) {
+										m3->loadModel("../Clumsy/src/models/jazda.obj");
+									}
 									firstNode = false;
 								}
 							}

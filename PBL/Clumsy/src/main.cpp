@@ -65,10 +65,10 @@ public:
 		AddToScene((new Clumsy::GameObject())
 			->AddComponent(physicsEngineComponent));
 
-		SceneParser(&physicsEngine, map);
+		SceneParser(&physicsEngine, map);/*
 		std::cout << "Init gierki" << std::endl;
 		std::cout <<"BOY 1 POSITION: " << glm::to_string(boy->GetTransform().GetPos()) << std::endl;
-		std::cout <<"BOY 2 POSITION: "<< glm::to_string(boy2->GetTransform().GetPos()) << std::endl;
+		std::cout <<"BOY 2 POSITION: "<< glm::to_string(boy2->GetTransform().GetPos()) << std::endl;*/
 
 		Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
 	}
@@ -77,16 +77,14 @@ private:
 	GLFWwindow* m_GLFWWindow;	
 };
 
-
-
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH = 1920;
+const unsigned int SCR_HEIGHT = 1080;
 
 Clumsy::Camera* camera = new Clumsy::Camera(glm::vec3(0.0f, 13.0f, -8.0f));
 
 Clumsy::Window* window = new Clumsy::Window(SCR_WIDTH, SCR_HEIGHT);
 
-glm::mat4 projectionMP = glm::perspective(glm::radians(camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+glm::mat4 projectionMP = glm::perspective(glm::radians(camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 1.0f, 100.0f);
 
 Clumsy::MousePicker mp(camera, window, projectionMP);
 
@@ -109,17 +107,17 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 	{
 		double xpos, ypos;
 		//getting cursor position
-		glfwGetCursorPos(window, &xpos, &ypos);
-		std::cout << "Cursor Position at " << xpos << " : " << ypos << std::endl;
+		glfwGetCursorPos(window, &xpos, &ypos);/*
+		std::cout << "Cursor Position at " << xpos << " : " << ypos << std::endl;*/
 		mp.Update();
 
-		std::cout << "RAY: " << mp.GetCurrentRay().x << " , " << mp.GetCurrentRay().y << " , " << mp.GetCurrentRay().z << std::endl;
+		//std::cout << "RAY: " << mp.GetCurrentRay().x << " , " << mp.GetCurrentRay().y << " , " << mp.GetCurrentRay().z << std::endl;
 
 		glm::vec3 vec3 = mp.GetPickedObject(&physicsEngine);
 		std::cout << glm::to_string(vec3) << std::endl;
 		//object1->SetPos(vec3);
-		rmc->m_Transform.SetPos(vec3);
-		std::cout << "boiii " << glm::to_string(boy->GetTransform().GetPos()) << std::endl;
+		rmc->m_Transform.SetPos(vec3);/*
+		std::cout << "boiii " << glm::to_string(boy->GetTransform().GetPos()) << std::endl;*/
 		//boy->m_Transform.SetPos(vec3);
 		//std::cout << "trans " << glm::to_string(rmc->m_Transform.GetPos()) << std::endl;
 		//std::cout << " zamieniony " << glm::to_string(object1->GetTransform().GetPos());
