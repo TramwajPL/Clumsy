@@ -163,6 +163,15 @@
     <ClInclude Include="src\RenderEngine\Lighting.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\EventSystem\Event.h">
+      <Filter>EventSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EventSystem\EventSystem.h">
+      <Filter>EventSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EventSystem\Listener.h">
+      <Filter>EventSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">
@@ -220,6 +229,9 @@
     </Filter>
     <Filter Include="Audio">
       <UniqueIdentifier>{43956525-12f5-400a-b683-d7909ccdeed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EventSystem">
+      <UniqueIdentifier>{53eddf74-477c-4862-8aba-9bafd67a1315}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

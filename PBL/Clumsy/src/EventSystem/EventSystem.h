@@ -1,0 +1,36 @@
+#pragma once
+
+#include <map>
+#include <queue>
+#include <vector>
+
+#include "Listener.h"
+
+namespace Clumsy
+{
+	class EventSystem
+	{
+	private:
+		static EventSystem* m_Instance;
+
+		std::map<EVENT_ID, std::vector<Listener>> m_Observers;		
+		std::queue<EVENT_ID> m_CurrentEvents; // do we need this?
+
+		EventSystem() {}
+		~EventSystem() { ShutDown(); }
+		EventSystem(const EventSystem& rhs) {}
+		EventSystem& operator=(const EventSystem& rhs) {}
+
+	public:
+		static EventSystem* GetInstance() { return m_Instance; }
+
+		void SubscribeListener(EVENT_ID eventId, Listener* listener);
+		void UnsubscribeListener(EVENT_ID eventId, Listener* listener);
+		void UnsubscribeAll(Listener* listener); // unsubscribe a listener from all events
+		void SendEvent(EVENT_ID eventId);
+		void ProcessEvents();
+		void ClearEvents();
+		void ShutDown();
+
+	};
+}

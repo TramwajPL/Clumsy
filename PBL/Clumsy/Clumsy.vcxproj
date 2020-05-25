@@ -60,6 +60,9 @@
     <ClInclude Include="src\Core\Time.h" />
     <ClInclude Include="src\Core\Timestep.h" />
     <ClInclude Include="src\Core\Transform.h" />
+    <ClInclude Include="src\EventSystem\Event.h" />
+    <ClInclude Include="src\EventSystem\EventSystem.h" />
+    <ClInclude Include="src\EventSystem\Listener.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\PhysicsEngine\Aabb.h" />
     <ClInclude Include="src\PhysicsEngine\BoundingSphere.h" />
