@@ -21,8 +21,12 @@ namespace Clumsy
 		EventSystem(const EventSystem& rhs) {}
 		EventSystem& operator=(const EventSystem& rhs) {}
 
+		// Helper methods
+		bool AlreadySubscribed(EVENT_ID eventId, Listener* listener);
+		void DispatchEvent(Event* event);
+
 	public:
-		static EventSystem* GetInstance() { return m_Instance; }
+		static EventSystem* GetInstance();
 
 		void SubscribeListener(EVENT_ID eventId, Listener* listener);
 		void UnsubscribeListener(EVENT_ID eventId, Listener* listener);

@@ -66,6 +66,9 @@
     <ClCompile Include="src\RenderEngine\Lighting.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\EventSystem\EventSystem.cpp">
+      <Filter>EventSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
