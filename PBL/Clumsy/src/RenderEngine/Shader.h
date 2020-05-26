@@ -13,7 +13,7 @@ namespace Clumsy
     {
     public:
         unsigned int ID;
-        Shader(const char* vertexPath, const char* fragmentPath, const char* tccontrol = nullptr, const char* tcevalutaion = nullptr);
+        Shader(const char* vertexPath, const char* fragmentPath);
 		Shader() {}
         void use();
         void setBool(const std::string& name, bool value) const;
