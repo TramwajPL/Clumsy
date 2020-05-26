@@ -201,6 +201,12 @@
     <None Include="src\Shaders\shadows_shader_VS.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="tessellationControl.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="tessellationEvaluation.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

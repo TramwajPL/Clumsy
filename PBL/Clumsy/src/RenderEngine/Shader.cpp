@@ -9,16 +9,23 @@
 
 namespace Clumsy 
 {
-    Shader::Shader(const char* vertexPath, const char* fragmentPath)
+    Shader::Shader(const char* vertexPath, const char* fragmentPath, 
+		const char* tccontrol, const char* tcevalutaion)
     {
         // 1. retrieve the vertex/fragment source code from filePath
         std::string vertexCode;
         std::string fragmentCode;
+		std::string tcControlCode;
+		std::string tcEvalutionCode;
         std::ifstream vShaderFile;
         std::ifstream fShaderFile;
+		std::ifstream ftcControlFile;
+		std::ifstream ftcEvalutionFile;
         // ensure ifstream objects can throw exceptions:
         vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
         fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+		ftcControlFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+		ftcEvalutionFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
         try
         {
             // open files
@@ -34,6 +41,20 @@ namespace Clumsy
             // convert stream into string
             vertexCode = vShaderStream.str();
             fragmentCode = fShaderStream.str();
+
+			//tc shader control and evaluation
+			if (tccontrol != nullptr && tcevalutaion != nullptr)
+			{
+				ftcControlFile.open(tccontrol);
+				ftcEvalutionFile.open(tcevalutaion);
+				std::stringstream tcControlShaderStream, tcEvaluationShaderStream;
+				tcControlShaderStream << ftcControlFile.rdbuf();
+				tcEvaluationShaderStream << ftcEvalutionFile.rdbuf();
+				ftcControlFile.close();
+				ftcEvalutionFile.close();
+				tcControlCode = tcControlShaderStream.str();
+				tcEvalutionCode = tcEvaluationShaderStream.str();
+			}
         }
         catch (std::ifstream::failure & e)
         {
@@ -53,15 +74,40 @@ namespace Clumsy
         glShaderSource(fragment, 1, &fShaderCode, NULL);
         glCompileShader(fragment);
         checkCompileErrors(fragment, "FRAGMENT");
+		//tc shaders
+		unsigned int tcControl, tcEvaluation;
+		if (tccontrol != nullptr && tcevalutaion != nullptr)
+		{
+			const char* tcControlShaderCode = tcControlCode.c_str();
+			const char* tcEvaluationShaderCode = tcEvalutionCode.c_str();
+			tcControl = glCreateShader(GL_TESS_CONTROL_SHADER);
+			tcEvaluation = glCreateShader(GL_TESS_EVALUATION_SHADER);
+			glShaderSource(tcControl, 1, &tcControlShaderCode, NULL);
+			glShaderSource(tcEvaluation, 1, &tcEvaluationShaderCode, NULL);
+			glCompileShader(tcControl);
+			glCompileShader(tcEvaluation);
+			checkCompileErrors(tcControl, "TC_CONTROL");
+			checkCompileErrors(tcEvaluation, "TC_EVALUATION");
+		}
         // shader Program
         ID = glCreateProgram();
         glAttachShader(ID, vertex);
         glAttachShader(ID, fragment);
+		if (tccontrol != nullptr && tcevalutaion != nullptr)
+		{
+			glAttachShader(ID, tcControl);
+			glAttachShader(ID, tcEvaluation);
+		}
         glLinkProgram(ID);
         checkCompileErrors(ID, "PROGRAM");
         // delete the shaders as they're linked into our program now and no longer necessary
         glDeleteShader(vertex);
         glDeleteShader(fragment);
+		if (tccontrol != nullptr && tcevalutaion != nullptr)
+		{
+			glDeleteShader(tcControl);
+			glDeleteShader(tcEvaluation);
+		}
     }
 
     void Shader::use()
