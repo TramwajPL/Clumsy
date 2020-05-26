@@ -66,6 +66,9 @@
     <ClCompile Include="src\RenderEngine\Lighting.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\RenderEngine\FrustumController.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -161,6 +164,9 @@
       <Filter>Audio</Filter>
     </ClInclude>
     <ClInclude Include="src\RenderEngine\Lighting.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\FrustumController.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
   </ItemGroup>

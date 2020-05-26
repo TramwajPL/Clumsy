@@ -6,6 +6,7 @@
 
 #include "Input.h"
 #include "Transform.h"
+#include "../Components/PhysicsObjectComponent.h"
 
 namespace Clumsy 
 {
@@ -16,7 +17,7 @@ namespace Clumsy
 	class GameObject 
 	{
 	public:
-		GameObject(Transform transform);
+		GameObject(Transform transform, PhysicsObjectComponent physics = NULL);
 		GameObject() {};
 		~GameObject() {};
 
@@ -40,8 +41,11 @@ namespace Clumsy
 
 		void ProcessInput(int input);
 		void ProcessInputAll(int input);
-	
+
+		void setPhysics(PhysicsObjectComponent physics2) { physics = physics2; }
+
 	private:
+		PhysicsObjectComponent physics = NULL;
 		std::string m_Tag;
 		Transform m_Transform; 
 		std::vector<EntityComponent*> m_Components;

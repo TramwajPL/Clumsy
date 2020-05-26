@@ -175,6 +175,50 @@ namespace Clumsy
 		//object.RenderAll(*m_Shader);
 	}
 
+	bool RenderEngine::pointInPlane(Plane p, glm::vec3 point) {
+
+		bool result;
+		float distance = glm::dot(p.GetNormal(), point) - p.GetDistance();
+		if (distance < 0)
+			result = true;
+		else
+			result = false;
+		return result;
+	}
+
+	void RenderEngine::setFrustum(glm::mat4 viewProjection)
+	{
+		glm::vec4 row1 = glm::vec4(viewProjection[0, 0], viewProjection[0, 1], viewProjection[0, 2], viewProjection[0, 3]);
+		glm::vec4 row2 = glm::vec4(viewProjection[1, 0], viewProjection[1, 1], viewProjection[1, 2], viewProjection[1, 3]);
+		glm::vec4 row3 = glm::vec4(viewProjection[2, 0], viewProjection[2, 1], viewProjection[2, 2], viewProjection[2, 3]);
+		glm::vec4 row4 = glm::vec4(viewProjection[3, 0], viewProjection[3, 1], viewProjection[3, 2], viewProjection[3, 3]);
+
+		glm::vec4 p1 = row4 + row1;
+		glm::vec4 p2 = row4 - row1;
+		glm::vec4 p3 = row4 + row2;
+		glm::vec4 p4 = row4 - row2;
+		glm::vec4 p5 = row4 + row3;
+		glm::vec4 p6 = row4 - row3;
+
+		Plane left(glm::vec3(p1.x, p1.y, p1.z), p1.w);
+		pl.push_back(left);
+
+		Plane right(glm::vec3(p2.x, p2.y, p2.z), p2.w);
+		pl.push_back(right);
+
+		Plane top(glm::vec3(p4.x, p4.y, p4.z), p4.w);
+		pl.push_back(top);
+
+		Plane down(glm::vec3(p3.x, p3.y, p3.z), p3.w);
+		pl.push_back(down);
+
+		Plane near(glm::vec3(p5.x, p5.y, p5.z), p5.w);
+		pl.push_back(near);
+
+		Plane far(glm::vec3(p6.x, p6.y, p6.z), p6.w);
+		pl.push_back(far);
+	}
+
 	void RenderEngine::CleanUp()
 	{
 		m_Window->~Window();

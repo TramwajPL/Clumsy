@@ -8,8 +8,9 @@
 
 namespace Clumsy 
 {
-	Clumsy::GameObject::GameObject(Transform transform) 
-		: m_Transform(transform) {}
+	Clumsy::GameObject::GameObject(Transform transform, PhysicsObjectComponent physics = NULL)
+		: m_Transform(transform),
+		  physics(physics) {}
 
 	Transform Clumsy::GameObject::GetTransform() 
 	{ 

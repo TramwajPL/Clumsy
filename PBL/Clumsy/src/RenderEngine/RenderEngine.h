@@ -8,6 +8,7 @@
 #include "../Core/Timestep.h"
 #include "../Core/GameObject.h"
 #include "Lighting.h"
+#include "../PhysicsEngine/Plane.h"
 
 
 namespace Clumsy 
@@ -16,7 +17,8 @@ namespace Clumsy
 	class RenderEngine 
 	{
 	public:
-		RenderEngine(GLFWwindow* window, Window* window2, Camera* camera);
+		std::vector<Plane> pl;
+		
 		//void Start();
 		//void Stop();
 		void processInput(float deltaTime);
@@ -24,8 +26,16 @@ namespace Clumsy
 		void Render(GameObject object);
 		void AddLights(const BaseLight& light) { m_Lights.push_back(&light);}
 		const BaseLight& GetActiveLight() const { return *m_ActiveLight; }
+		bool pointInPlane(Plane p, glm::vec3 point);
+		void setFrustum(glm::mat4 viewProjection);
 
 	private:
+		RenderEngine(GLFWwindow* window, Window* window2, Camera* camera);
+		static RenderEngine* m_instance;
+		enum {
+			TOP = 0, BOTTOM, LEFT_PLANE,
+			RIGHT_PLANE, NEARP, FARP
+		};
 		//void Run();
 		void CleanUp();
 		GLFWwindow* m_GLFWWindow;

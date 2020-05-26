@@ -35,6 +35,7 @@
     <ClCompile Include="src\PhysicsEngine\PhysicsEngine.cpp" />
     <ClCompile Include="src\PhysicsEngine\PhysicsObject.cpp" />
     <ClCompile Include="src\PhysicsEngine\Plane.cpp" />
+    <ClCompile Include="src\RenderEngine\FrustumController.cpp" />
     <ClCompile Include="src\RenderEngine\Lighting.cpp" />
     <ClCompile Include="src\RenderEngine\Mesh.cpp" />
     <ClCompile Include="src\RenderEngine\Model.cpp" />
@@ -70,6 +71,7 @@
     <ClInclude Include="src\PhysicsEngine\Plane.h" />
     <ClInclude Include="src\PhysicsEngine\ReferenceCounter.h" />
     <ClInclude Include="src\RenderEngine\Camera.h" />
+    <ClInclude Include="src\RenderEngine\FrustumController.h" />
     <ClInclude Include="src\RenderEngine\Lighting.h" />
     <ClInclude Include="src\RenderEngine\Mesh.h" />
     <ClInclude Include="src\RenderEngine\Model.h" />

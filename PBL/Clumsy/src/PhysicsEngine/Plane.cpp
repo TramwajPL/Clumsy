@@ -3,6 +3,12 @@
 
 namespace Clumsy
 {
+	void Plane::set3Points(glm::vec3 ntr, glm::vec3 ntl, glm::vec3 ftl)
+	{
+		this->ntr = ntr;
+		this->ntl = ntl;
+		this->ftl = ftl;
+	}
 	Plane Plane::Normalized() const
 	{
 		float magnitude = glm::length(m_Normal);

@@ -12,6 +12,7 @@ namespace Clumsy
 			m_Normal(normal), 
 			m_Distance(distance) {}
 
+		void set3Points(glm::vec3 ntr, glm::vec3 ntl, glm::vec3 ftl);
 		Plane Normalized() const;
 		IntersectData IntersectSphere(const BoundingSphere& other) const;
 
@@ -19,6 +20,7 @@ namespace Clumsy
 		inline const float GetDistance() const { return m_Distance; }
 
 	private:
+		glm::vec3 ntr, ntl, ftl;
 		const glm::vec3 m_Normal;
 		const float m_Distance;
 	};
