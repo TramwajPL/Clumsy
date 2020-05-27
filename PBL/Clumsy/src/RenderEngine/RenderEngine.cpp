@@ -63,6 +63,17 @@ namespace Clumsy
 
 	}
 
+	void RenderEngine::CreateInstance(GLFWwindow* window, Window* window2, Camera* camera)
+	{
+		assert(!m_Instance);
+		m_Instance = new RenderEngine(window, window2, camera);
+	}
+
+	RenderEngine* RenderEngine::GetInstance()
+	{
+		assert(m_Instance);
+		return m_Instance;
+	}
 	
 	void RenderEngine::Render(GameObject object)
 	{

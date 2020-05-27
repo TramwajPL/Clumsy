@@ -80,15 +80,15 @@ namespace Clumsy
 		return tmin;
 	}
 
-	glm::vec3 MousePicker::GetPickedObject(PhysicsEngine* physicsEngine)
+	glm::vec3 MousePicker::GetPickedObject()
 	{
 		float checkCollisionResult;
-		for (int i = 0; i < physicsEngine->GetNumObjects() ; i++)
+		for (int i = 0; i < PhysicsEngine::GetInstance()->GetNumObjects() ; i++)
 		{
-			checkCollisionResult = CheckCollision(&physicsEngine->GetObject(i).GetCollider());
+			checkCollisionResult = CheckCollision(&PhysicsEngine::GetInstance()->GetObject(i).GetCollider());
 			if (checkCollisionResult != -1) {
 				std::cout << i;
-				return physicsEngine->GetObject(i).GetPosition();
+				return PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
 			}
 		}
 		return glm::vec3(1.0f, 1.0f, 0.0f);

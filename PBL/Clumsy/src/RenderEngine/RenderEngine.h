@@ -16,7 +16,9 @@ namespace Clumsy
 	class RenderEngine 
 	{
 	public:
-		RenderEngine(GLFWwindow* window, Window* window2, Camera* camera);
+		static RenderEngine* GetInstance();
+		static void CreateInstance(GLFWwindow* window, Window* window2, Camera* camera);
+
 		//void Start();
 		//void Stop();
 		void processInput(float deltaTime);
@@ -43,5 +45,7 @@ namespace Clumsy
 		unsigned int depthMapFBO;
 		unsigned int depthMap;
 
+		static RenderEngine* m_Instance;
+		RenderEngine(GLFWwindow* window, Window* window2, Camera* camera);
 	};
 }

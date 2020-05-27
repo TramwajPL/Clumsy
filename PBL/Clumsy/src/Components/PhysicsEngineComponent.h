@@ -8,17 +8,11 @@ namespace Clumsy
 	class PhysicsEngineComponent : public EntityComponent 
 	{
 	public:
-		PhysicsEngineComponent(PhysicsEngine& physicsEngine) : 
-			m_PhysicsEngine(physicsEngine) {}
+		PhysicsEngineComponent() {}
 
 		virtual void Update() 
 		{
-			m_PhysicsEngine.HandleCollisions();
+			PhysicsEngine::GetInstance()->HandleCollisions();
 		}
-
-		PhysicsEngine& GetPhysicsEngine() { return m_PhysicsEngine; }
-
-	private:
-		PhysicsEngine m_PhysicsEngine;
 	};
 }

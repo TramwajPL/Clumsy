@@ -12,13 +12,13 @@ namespace Clumsy
 	public:
 		virtual void Init() {} 
 		virtual void Move() {}
-		void Render(RenderEngine* renderingEngine);
+		void Render();
 		void Update();
 		void ProcessInput(int input);
 		void AddToScene(GameObject* child);
 
 		GameObject getRoot() { return m_Root; }
-		void SceneParser(PhysicsEngine* physicsEngine, GameObject* map);
+		void SceneParser(GameObject* map);
 
 	private:
 		GameObject m_Root;
