@@ -76,10 +76,10 @@ namespace Clumsy
 	
 	void RenderEngine::setFrustum(glm::mat4 viewProjection)
 	{
-		/*glm::vec4 row1 = glm::vec4(viewProjection[0, 0], viewProjection[0, 1], viewProjection[0, 2], viewProjection[0, 3]);
-		glm::vec4 row2 = glm::vec4(viewProjection[1, 0], viewProjection[1, 1], viewProjection[1, 2], viewProjection[1, 3]);
-		glm::vec4 row3 = glm::vec4(viewProjection[2, 0], viewProjection[2, 1], viewProjection[2, 2], viewProjection[2, 3]);
-		glm::vec4 row4 = glm::vec4(viewProjection[3, 0], viewProjection[3, 1], viewProjection[3, 2], viewProjection[3, 3]);
+		glm::vec4 row1 = glm::vec4(viewProjection[0][0], viewProjection[0][1], viewProjection[0][2], viewProjection[0][3]);
+		glm::vec4 row2 = glm::vec4(viewProjection[1][0], viewProjection[1][1], viewProjection[1][2], viewProjection[1][3]);
+		glm::vec4 row3 = glm::vec4(viewProjection[2][0], viewProjection[2][1], viewProjection[2][2], viewProjection[2][3]);
+		glm::vec4 row4 = glm::vec4(viewProjection[3][0], viewProjection[3][1], viewProjection[3][2], viewProjection[3][3]);
 
 		glm::vec4 p1 = row4 + row1;
 		glm::vec4 p2 = row4 - row1;
@@ -104,7 +104,7 @@ namespace Clumsy
 		pl.push_back(near);
 
 		Plane far(glm::vec3(p6.x, p6.y, p6.z), p6.w);
-		pl.push_back(far);*/
+		pl.push_back(far);
 	}
 
 	bool RenderEngine::pointInPlane(Plane p, glm::vec3 point) 
@@ -114,7 +114,10 @@ namespace Clumsy
 		if (distance < 0)
 			result = true;
 		else
+		{
+			std::cout << "FALSEEEEEEEEEEEEEEEEEEEE" << std::endl;
 			result = false;
+		}
 		return result;
 	}
 
@@ -172,6 +175,7 @@ namespace Clumsy
 
 	void RenderEngine::Render(GameObject object)
 	{
+		m_Counter = 0;
 		float time = (float)glfwGetTime();
 		Timestep timestep = time - m_LastFrameTime;
 		m_LastFrameTime = time;
@@ -229,7 +233,7 @@ namespace Clumsy
 
 		object.RenderAll(*m_Shader);
 
-
+		std::cout << "KURWA" << RenderEngine::GetInstance()->m_Counter << std::endl;
 		processInput(timestep.GetSeconds());
 
 	}

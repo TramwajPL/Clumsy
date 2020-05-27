@@ -7,17 +7,17 @@
 #include "../RenderEngine/RenderEngine.h"
 #include "../Components/PhysicsObjectComponent.h"
 
-namespace Clumsy 
+namespace Clumsy
 {
 	Clumsy::GameObject::GameObject(Transform transform)//, PhysicsObjectComponent* poc) 
-		: m_Transform(transform){}
-		  //m_POC(poc) {}
+		: m_Transform(transform) {}
+	//m_POC(poc) {}
 
-	Transform Clumsy::GameObject::GetTransform() 
-	{ 
-		return m_Transform; 
+	Transform Clumsy::GameObject::GetTransform()
+	{
+		return m_Transform;
 	}
-	
+
 	//Adding component to game object
 	GameObject* GameObject::AddComponent(EntityComponent* component)
 	{
@@ -52,9 +52,24 @@ namespace Clumsy
 
 	void GameObject::RenderAll(Shader& shader)
 	{
-		PhysicsObjectComponent* poc = (PhysicsObjectComponent*)GetComponents()[1];
-		if(RenderEngine::GetInstance()->IsInFrustum(&poc->getCollider()))
+		if (GetComponents().size() <= 1)
+		{
 			Render(shader);
+		}
+		else
+		{
+			PhysicsObjectComponent* poc = (PhysicsObjectComponent*)GetComponents()[1];
+			if (RenderEngine::GetInstance()->IsInFrustum(&poc->getCollider()))
+			{
+				RenderEngine::GetInstance()->m_Counter++;
+				//std::cout << "KURWA" << RenderEngine::GetInstance()->m_Counter << std::endl;
+				Render(shader);
+			}
+			else
+			{
+				std::cout << "KUPSKO #########" << std::endl;
+			}
+		}
 
 		for (int i = 0; i < m_Children.size(); i++) 
 		{

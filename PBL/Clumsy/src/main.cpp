@@ -72,7 +72,7 @@ public:
 		std::cout <<"BOY 1 POSITION: " << glm::to_string(boy->GetTransform().GetPos()) << std::endl;
 		std::cout <<"BOY 2 POSITION: "<< glm::to_string(boy2->GetTransform().GetPos()) << std::endl;*/
 
-		Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
+		//Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
 	}
 
 private:

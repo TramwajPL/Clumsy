@@ -30,6 +30,7 @@ namespace Clumsy
 		void setFrustum(glm::mat4 viewProjection);
 		bool pointInPlane(Plane p, glm::vec3 point);
 		bool IsInFrustum(const Collider* aabb);
+		int m_Counter = 0;
 
 	private:
 		//void Run();
