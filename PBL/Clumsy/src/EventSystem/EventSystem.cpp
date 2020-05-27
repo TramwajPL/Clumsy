@@ -12,48 +12,67 @@ namespace Clumsy
 		return m_Instance;
 	}
 
-	bool AlreadySubscribed(EVENT_ID eventId, Listener* listener)
+	bool EventSystem::AlreadySubscribed(EVENT_ID eventId, Listener* listener)
 	{
 		bool alreadySubbed = false;
+
+		/*std::map<EVENT_ID, std::vector<Listener*>>::iterator it = m_Observers.find(eventId);
+		if (it != m_Observers.end())
+		{
+			for (int i = 0; i < m_Observers[eventId].size(); i++)
+			{
+				if (m_Observers[eventId][i] == listener)
+				{
+					alreadySubbed = true;
+					break;
+				}
+			}
+		}*/
 		return alreadySubbed;
 	}
 
-	void DispatchEvent(Event* event)
+	void EventSystem::DispatchEvent(Event* event)
 	{
-
+		/*for (int i = 0; i < m_Observers[event->GetEventId()].size(); i++)
+		{
+			m_Observers[event->GetEventId()][i]->HandleEvent(event);
+		}*/
 	}
 
 	void EventSystem::SubscribeListener(EVENT_ID eventId, Listener* listener)
 	{
+		/*if (!listener || AlreadySubscribed(eventId, listener))
+			return;
 
+		m_Observers[eventId].push_back(listener);*/
 	}
 
-	void UnsubscribeListener(EVENT_ID eventId, Listener* listener)
+	void EventSystem::UnsubscribeListener(EVENT_ID eventId, Listener* listener)
 	{
 
 	}
 
-	void UnsubscribeAll(Listener* listener)
+	void EventSystem::UnsubscribeAll(Listener* listener)
 	{
 
 	} 
 
-	void SendEvent(EVENT_ID eventId)
+	void EventSystem::SendEvent(EVENT_ID eventId)
 	{
 
 	}
 
-	void ProcessEvents()
+	void EventSystem::ProcessEvents()
 	{
 
 	}
 
-	void ClearEvents()
+	void EventSystem::ClearEvents()
 	{
 
 	}
 
-	void ShutDown()
+	void EventSystem::ShutDown()
 	{
 
 	}

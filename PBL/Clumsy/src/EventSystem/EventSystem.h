@@ -13,7 +13,7 @@ namespace Clumsy
 	private:
 		static EventSystem* m_Instance;
 
-		std::map<EVENT_ID, std::vector<Listener>> m_Observers;		
+		std::map<EVENT_ID, std::vector<Listener*>> m_Observers;		
 		std::queue<EVENT_ID> m_CurrentEvents; // do we need this?
 
 		EventSystem() {}

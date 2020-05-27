@@ -3,11 +3,12 @@
 #include "Window.h"
 #include "Camera.h"
 #include "Shader.h"
+#include "Lighting.h"
 #include "RenderUtil.h"
 #include "../Core/Time.h"
 #include "../Core/Timestep.h"
 #include "../Core/GameObject.h"
-#include "Lighting.h"
+#include "../PhysicsEngine/Plane.h"
 
 
 namespace Clumsy 
@@ -26,6 +27,9 @@ namespace Clumsy
 		void Render(GameObject object);
 		void AddLights(const BaseLight& light) { m_Lights.push_back(&light);}
 		const BaseLight& GetActiveLight() const { return *m_ActiveLight; }
+		void setFrustum(glm::mat4 viewProjection);
+		bool pointInPlane(Plane p, glm::vec3 point);
+		bool IsInFrustum(const Collider* aabb);
 
 	private:
 		//void Run();
@@ -44,6 +48,7 @@ namespace Clumsy
 		const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
 		unsigned int depthMapFBO;
 		unsigned int depthMap;
+		std::vector<Plane> pl;
 
 		static RenderEngine* m_Instance;
 		RenderEngine(GLFWwindow* window, Window* window2, Camera* camera);

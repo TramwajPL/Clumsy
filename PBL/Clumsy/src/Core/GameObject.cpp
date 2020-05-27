@@ -5,11 +5,13 @@
 #include "GameObject.h"
 #include "EntityComponent.h"
 #include "../RenderEngine/RenderEngine.h"
+#include "../Components/PhysicsObjectComponent.h"
 
 namespace Clumsy 
 {
-	Clumsy::GameObject::GameObject(Transform transform) 
-		: m_Transform(transform) {}
+	Clumsy::GameObject::GameObject(Transform transform)//, PhysicsObjectComponent* poc) 
+		: m_Transform(transform){}
+		  //m_POC(poc) {}
 
 	Transform Clumsy::GameObject::GetTransform() 
 	{ 
@@ -46,12 +48,13 @@ namespace Clumsy
 		{
 			m_Components[i]->Render(shader);
 		}
-
 	}
 
 	void GameObject::RenderAll(Shader& shader)
 	{
-		Render(shader);
+		PhysicsObjectComponent* poc = (PhysicsObjectComponent*)GetComponents()[1];
+		if(RenderEngine::GetInstance()->IsInFrustum(&poc->getCollider()))
+			Render(shader);
 
 		for (int i = 0; i < m_Children.size(); i++) 
 		{

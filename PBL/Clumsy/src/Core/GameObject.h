@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../pch.h"
+//#include "../pch.h"
 
 #include <vector>
 
@@ -12,11 +12,12 @@ namespace Clumsy
 	class EntityComponent;
 	class Shader;
 	class RenderEngine;
+	class PhysicsObjectComponent;
 
 	class GameObject 
 	{
 	public:
-		GameObject(Transform transform);
+		GameObject(Transform transform);//, PhysicsObjectComponent* poc = nullptr);
 		GameObject() {};
 		~GameObject() {};
 
@@ -29,6 +30,8 @@ namespace Clumsy
 
 		std::vector<EntityComponent*> GetComponents();
 		std::vector<GameObject*> GetAllChildren();
+
+		//PhysicsObjectComponent* GetPOC() { return m_POC; }
 
 		//These guys may need some arguments
 		void Render(Shader& shader); //probably can be private
@@ -46,7 +49,7 @@ namespace Clumsy
 		Transform m_Transform; 
 		std::vector<EntityComponent*> m_Components;
 		std::vector<GameObject*> m_Children;
-
+		//PhysicsObjectComponent* m_POC = nullptr;
 	};
 
 }
