@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm\ext\matrix_clip_space.hpp>
 #include <glm\ext\matrix_transform.hpp>
+#include <glm\gtx\string_cast.hpp>
 
 #include "Model.h"
 #include "RenderEngine.h"
@@ -166,11 +167,11 @@ namespace Clumsy
 		{
 			for (int j = 0; j < pl.size(); j++)
 			{
-				if (pointInPlane(pl[j], points[i]))
-					return true;
+				if (!pointInPlane(pl[j], points[i]))
+					return false;
 			}
 		}
-		return false;
+		return true;
 	}
 
 	void RenderEngine::Render(GameObject object)

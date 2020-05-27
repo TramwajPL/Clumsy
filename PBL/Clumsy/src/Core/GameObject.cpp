@@ -50,6 +50,57 @@ namespace Clumsy
 		}
 	}
 
+	bool GameObject::SetupAabb() {
+		glm::vec3 point0 = this->GetTransform().GetPos();
+		glm::vec3 min = point0 - 2.0f;
+		glm::vec3 max = point0 + 2.0f;
+
+		points.push_back(min);
+		points.push_back(max);
+
+		glm::vec3 p;
+		p.x = points[1].x;
+		p.y = points[0].y;
+		p.z = points[0].z;
+		points.push_back(p);
+
+		p.x = points[1].x;
+		p.y = points[1].y;
+		p.z = points[0].z;
+		points.push_back(p);
+
+		p.x = points[0].x;
+		p.y = points[1].y;
+		p.z = points[0].z;
+		points.push_back(p);
+
+		p.x = points[0].x;
+		p.y = points[0].y;
+		p.z = points[1].z;
+		points.push_back(p);
+
+		p.x = points[0].x;
+		p.y = points[1].y;
+		p.z = points[1].z;
+		points.push_back(p);
+
+		p.x = points[1].x;
+		p.y = points[0].y;
+		p.z = points[1].z;
+		points.push_back(p);
+
+		for (int i = 0; i < points.size(); i++)
+		{
+			for (int j = 0; j < RenderEngine::GetInstance()->GetPl().size(); j++)
+			{
+				if (!RenderEngine::GetInstance()->pointInPlane(RenderEngine::GetInstance()->GetPl()[j], points[i]))
+					return false;
+			}
+		}
+		return true;
+
+	}
+
 	void GameObject::RenderAll(Shader& shader)
 	{
 		if (GetComponents().size() <= 1)
@@ -59,7 +110,7 @@ namespace Clumsy
 		else
 		{
 			PhysicsObjectComponent* poc = (PhysicsObjectComponent*)GetComponents()[1];
-			if (RenderEngine::GetInstance()->IsInFrustum(&poc->getCollider()))
+			if (SetupAabb())
 			{
 				RenderEngine::GetInstance()->m_Counter++;
 				//std::cout << "KURWA" << RenderEngine::GetInstance()->m_Counter << std::endl;

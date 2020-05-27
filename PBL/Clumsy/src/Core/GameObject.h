@@ -36,7 +36,7 @@ namespace Clumsy
 		//These guys may need some arguments
 		void Render(Shader& shader); //probably can be private
 		void RenderAll(Shader& shader);  
-
+		bool SetupAabb();
 
 		void Update();
 		void UpdateAll();
@@ -45,6 +45,7 @@ namespace Clumsy
 		void ProcessInputAll(int input);
 	
 	private:
+		std::vector<glm::vec3> points;
 		std::string m_Tag;
 		Transform m_Transform; 
 		std::vector<EntityComponent*> m_Components;
