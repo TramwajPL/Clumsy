@@ -9,9 +9,9 @@
 
 namespace Clumsy 
 {	
-	void Game::Render(RenderEngine* renderingEngine)
+	void Game::Render()
 	{
-		renderingEngine->Render(m_Root); 
+		RenderEngine::GetInstance()->Render(m_Root); 
 	}
 
 	void Game::Update()
@@ -26,7 +26,7 @@ namespace Clumsy
 
     std::string path = "../Clumsy/src/models/";
 
-    void Game::SceneParser(PhysicsEngine* physicsEngine, GameObject* map)
+    void Game::SceneParser(GameObject* map)
     {
 		AddToScene(map);
 		Model* m3 = new Model();//= new Model();
@@ -80,7 +80,7 @@ namespace Clumsy
 						glm::vec3 min = glm::vec3(transform.GetPos() - glm::vec3(0.5f, 0.1f, 0.8f));
 						glm::vec3 max = glm::vec3(transform.GetPos() + glm::vec3(0.5f, 0.1f, 0.8f));
 						PhysicsObject* pO = new PhysicsObject(new Aabb(min, max), &transform);
-						physicsEngine->AddObject(*pO);
+						PhysicsEngine::GetInstance()->AddObject(*pO);
 						map->AddChild((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m3, transform))
 							->AddComponent(new PhysicsObjectComponent(pO)));
 					}

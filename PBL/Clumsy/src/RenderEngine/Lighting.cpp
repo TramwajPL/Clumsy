@@ -5,6 +5,6 @@ namespace Clumsy {
 
 	void BaseLight::AddToEngine(CoreEngine* engine) const
 	{
-		engine->GetRenderEngine()->AddLights(*this);
+		RenderEngine::GetInstance()->AddLights(*this);
 	}
 }

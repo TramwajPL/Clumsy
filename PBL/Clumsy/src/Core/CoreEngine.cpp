@@ -18,7 +18,7 @@ namespace Clumsy
 
 			m_Game->ProcessInput(m_Window->GetInput());
 			//m_Game->Update();
-			m_Game->Render(m_RenderEngine);
+			m_Game->Render();
 
 			glfwSwapBuffers(m_Window->GetGLFWWindow());
 			glfwPollEvents();

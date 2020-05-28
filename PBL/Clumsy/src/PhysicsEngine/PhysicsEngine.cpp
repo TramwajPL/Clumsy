@@ -5,6 +5,13 @@
 
 namespace Clumsy
 {
+	PhysicsEngine* PhysicsEngine::GetInstance()
+	{
+		if (!m_Instance)
+			m_Instance = new PhysicsEngine;
+		return m_Instance;
+	}
+
 	void PhysicsEngine::AddObject(const PhysicsObject& object)
 	{
 		m_Objects.push_back(object);
