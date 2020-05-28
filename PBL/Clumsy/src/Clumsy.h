@@ -50,3 +50,10 @@
 #include "EventSystem/EventSystem.h"
 
 //////////////////
+
+// CANVAS
+
+#include "GUI/GUI.h"
+#include "GUI/Button.h"
+
+//////////////////

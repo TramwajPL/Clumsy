@@ -14,6 +14,9 @@ namespace Clumsy
 		void OnClick();
 		void CleanUp();
 
+		std::string GetText() { return m_Text; }
+		Aabb* GetCollider() { return m_Collider; }
+
 	private:
 		glm::vec2 m_Corner;
 		float m_Height;
@@ -23,6 +26,6 @@ namespace Clumsy
 		std::string m_Text;
 		glm::vec3 m_Color;
 		Aabb* m_Collider;
-		unsigned int VBO, VAO, EBO;
+		unsigned int VBO, VAO;
 	};
 }

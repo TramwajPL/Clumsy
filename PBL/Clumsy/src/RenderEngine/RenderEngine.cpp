@@ -71,7 +71,8 @@ namespace Clumsy
 		debugDepthQuadShader->setInt("depthMap", 0);
 
 		gui = new GUI();
-		m_ButtonCameraOnPlayer = new Button(glm::vec2(25.0f, SCR_HEIGHT - 75.0f), 10.0f, 30.0f, "Center", glm::vec4(1.0f));
+		m_ButtonCameraOnPlayer = new Button(glm::vec2(25.0f, SCR_HEIGHT - 200.0f), 101.0f, 301.0f, "Center", glm::vec3(0.16f, 0.03f, 0.29f));
+		//m_ButtonCameraOnPlayer = new Button(glm::vec2(0.0f, 0.0f), 101.0f, 301.0f, "Center", glm::vec3(0.16f, 0.03f, 0.29f));
 
 	}
 
@@ -244,16 +245,16 @@ namespace Clumsy
 		//setFrustum(projection * view);
 		object.RenderAll(*m_Shader);
 
-		glm::mat4 projectionText = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
-		textShader->use();
-		textShader->setMat4("projection", projectionText);
-		gui->RenderText(textShader, "Wood: ", 25.0f, SCR_HEIGHT - 75.0f, 0.75f, glm::vec3(0.16f, 0.03f, 0.29f));
-		gui->RenderText(textShader, "Actions: ", 25.0f, SCR_HEIGHT - 125.0f, 0.75f, glm::vec3(0.16f, 0.03f, 0.29f));
-
-		glm::mat4 projectionButton = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
+		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
 		buttonShader->use();
-		buttonShader->setMat4("projection", projectionButton);
+		buttonShader->setMat4("projection", projectionGUI);
 		m_ButtonCameraOnPlayer->Render(buttonShader);
+
+		textShader->use();
+		textShader->setMat4("projection", projectionGUI);
+		gui->RenderText(textShader, "Wood: ", 25.0f, SCR_HEIGHT - 100.0f, 0.75f, glm::vec3(0.16f, 0.03f, 0.29f));
+		gui->RenderText(textShader, "Actions: ", 25.0f, SCR_HEIGHT - 150.0f, 0.75f, glm::vec3(0.16f, 0.03f, 0.29f));
+		gui->RenderText(textShader, m_ButtonCameraOnPlayer->GetText(), 25.0f, SCR_HEIGHT - 200.0f, 0.75f, glm::vec3(0.16f, 0.03f, 0.29f));
 
 		//std::cout << "KURWA" << RenderEngine::GetInstance()->m_Counter << std::endl;
 	}

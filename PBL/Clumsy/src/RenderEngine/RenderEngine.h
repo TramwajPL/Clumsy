@@ -34,6 +34,7 @@ namespace Clumsy
 		bool IsInFrustum(const Collider* aabb);
 		int m_Counter = 0;
 		std::vector<Plane> GetPl() { return pl; }
+		Button* GetCenterButton() { return m_ButtonCameraOnPlayer; }
 
 	private:
 		//void Run();

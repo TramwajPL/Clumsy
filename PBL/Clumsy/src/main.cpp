@@ -67,7 +67,8 @@ public:
 		AddToScene((new Clumsy::GameObject())
 			->AddComponent(physicsEngineComponent));
 
-		SceneParser(map);/*
+		//SceneParser(map);
+		/*
 		std::cout << "Init gierki" << std::endl;
 		std::cout <<"BOY 1 POSITION: " << glm::to_string(boy->GetTransform().GetPos()) << std::endl;
 		std::cout <<"BOY 2 POSITION: "<< glm::to_string(boy2->GetTransform().GetPos()) << std::endl;*/
@@ -109,21 +110,21 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 	{
 		double xpos, ypos;
 		//getting cursor position
-		glfwGetCursorPos(window, &xpos, &ypos);/*
-		std::cout << "Cursor Position at " << xpos << " : " << ypos << std::endl;*/
+		glfwGetCursorPos(window, &xpos, &ypos);
+		std::cout << "Cursor Position at " << xpos << " : " << ypos << std::endl;
 		mp.Update();
 
 		//std::cout << "RAY: " << mp.GetCurrentRay().x << " , " << mp.GetCurrentRay().y << " , " << mp.GetCurrentRay().z << std::endl;
 
 		glm::vec3 vec3 = mp.GetPickedObject();
-		std::cout << glm::to_string(vec3) << std::endl;
+		//std::cout << glm::to_string(vec3) << std::endl;
 		//object1->SetPos(vec3);
-		rmc->m_Transform.SetPos(vec3);/*
-		std::cout << "boiii " << glm::to_string(boy->GetTransform().GetPos()) << std::endl;*/
-		//boy->m_Transform.SetPos(vec3);
-		//std::cout << "trans " << glm::to_string(rmc->m_Transform.GetPos()) << std::endl;
-		//std::cout << " zamieniony " << glm::to_string(object1->GetTransform().GetPos());
-		//std::cout << " parent? " << object1->GetComponents().size() << std::endl;
+		rmc->m_Transform.SetPos(vec3);
+
+		if (mp.CheckCollision(Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetCollider()) != -1)
+		{
+			Clumsy::RenderEngine::GetInstance()->GetCenterButton()->OnClick();
+		}
 	}
 }
 int main() 
