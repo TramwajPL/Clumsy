@@ -79,7 +79,7 @@ namespace Clumsy
 	}
 	
 	void RenderEngine::setFrustum(glm::mat4 viewProjection)
-	{
+	{/*
 		glm::vec4 row1 = glm::vec4(viewProjection[0][0], viewProjection[0][1], viewProjection[0][2], viewProjection[0][3]);
 		glm::vec4 row2 = glm::vec4(viewProjection[1][0], viewProjection[1][1], viewProjection[1][2], viewProjection[1][3]);
 		glm::vec4 row3 = glm::vec4(viewProjection[2][0], viewProjection[2][1], viewProjection[2][2], viewProjection[2][3]);
@@ -108,11 +108,11 @@ namespace Clumsy
 		pl.push_back(near);
 
 		Plane far(glm::vec3(p6.x, p6.y, p6.z), p6.w);
-		pl.push_back(far);
+		pl.push_back(far);*/
 	}
 
 	bool RenderEngine::pointInPlane(Plane p, glm::vec3 point) 
-	{
+	{/*
 		bool result;
 		float distance = glm::dot(p.GetNormal(), point) - p.GetDistance();
 		if (distance < 0)
@@ -122,58 +122,60 @@ namespace Clumsy
 			std::cout << "FALSEEEEEEEEEEEEEEEEEEEE" << std::endl;
 			result = false;
 		}
-		return result;
+		return result;*/
+		return true;
 	}
 
 	bool RenderEngine::IsInFrustum(const Collider* aabb)
 	{
-		std::vector<glm::vec3> points; // p1, p2, p3, p4, p5, p6, p7, p8;
+		//std::vector<glm::vec3> points; // p1, p2, p3, p4, p5, p6, p7, p8;
 
-		glm::vec3 p;
-		p = aabb->GetMinExtends();
-		points.push_back(p);
+		//glm::vec3 p;
+		//p = aabb->GetMinExtends();
+		//points.push_back(p);
 
-		p = aabb->GetMaxExtends();
-		points.push_back(p);
+		//p = aabb->GetMaxExtends();
+		//points.push_back(p);
 
-		p.x = points[1].x;
-		p.y = points[0].y;
-		p.z = points[0].z;
-		points.push_back(p);
+		//p.x = points[1].x;
+		//p.y = points[0].y;
+		//p.z = points[0].z;
+		//points.push_back(p);
 
-		p.x = points[1].x;
-		p.y = points[1].y;
-		p.z = points[0].z;
-		points.push_back(p);
+		//p.x = points[1].x;
+		//p.y = points[1].y;
+		//p.z = points[0].z;
+		//points.push_back(p);
 
-		p.x = points[0].x;
-		p.y = points[1].y;
-		p.z = points[0].z;
-		points.push_back(p);
+		//p.x = points[0].x;
+		//p.y = points[1].y;
+		//p.z = points[0].z;
+		//points.push_back(p);
 
-		p.x = points[0].x;
-		p.y = points[0].y;
-		p.z = points[1].z;
-		points.push_back(p);
+		//p.x = points[0].x;
+		//p.y = points[0].y;
+		//p.z = points[1].z;
+		//points.push_back(p);
 
-		p.x = points[0].x;
-		p.y = points[1].y;
-		p.z = points[1].z;
-		points.push_back(p);
+		//p.x = points[0].x;
+		//p.y = points[1].y;
+		//p.z = points[1].z;
+		//points.push_back(p);
 
-		p.x = points[1].x;
-		p.y = points[0].y;
-		p.z = points[1].z;
-		points.push_back(p);
+		//p.x = points[1].x;
+		//p.y = points[0].y;
+		//p.z = points[1].z;
+		//points.push_back(p);
 
-		for (int i = 0; i < points.size(); i++)
-		{
-			for (int j = 0; j < pl.size(); j++)
-			{
-				if (!pointInPlane(pl[j], points[i]))
-					return false;
-			}
-		}
+		//for (int i = 0; i < points.size(); i++)
+		//{
+		//	for (int j = 0; j < pl.size(); j++)
+		//	{
+		//		if (!pointInPlane(pl[j], points[i]))
+		//			return false;
+		//	}
+		//}
+		//return true;
 		return true;
 	}
 
