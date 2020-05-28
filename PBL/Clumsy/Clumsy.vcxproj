@@ -24,12 +24,13 @@
     <ClCompile Include="src\Core\CoreEngine.cpp" />
     <ClCompile Include="src\Core\Game.cpp" />
     <ClCompile Include="src\Core\GameObject.cpp" />
-    <ClCompile Include="src\Core\GUI.cpp" />
     <ClCompile Include="src\Core\Input.cpp" />
     <ClCompile Include="src\Core\MousePicker.cpp" />
     <ClCompile Include="src\Core\Time.cpp" />
     <ClCompile Include="src\Core\Transform.cpp" />
     <ClCompile Include="src\EventSystem\EventSystem.cpp" />
+    <ClCompile Include="src\GUI\Button.cpp" />
+    <ClCompile Include="src\GUI\GUI.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PhysicsEngine\Aabb.cpp" />
     <ClCompile Include="src\PhysicsEngine\BoundingSphere.cpp" />
@@ -56,7 +57,6 @@
     <ClInclude Include="src\Core\EntityComponent.h" />
     <ClInclude Include="src\Core\Game.h" />
     <ClInclude Include="src\Core\GameObject.h" />
-    <ClInclude Include="src\Core\GUI.h" />
     <ClInclude Include="src\Core\Input.h" />
     <ClInclude Include="src\Core\KeyCodes.h" />
     <ClInclude Include="src\Core\MousePicker.h" />
@@ -66,6 +66,8 @@
     <ClInclude Include="src\EventSystem\Event.h" />
     <ClInclude Include="src\EventSystem\EventSystem.h" />
     <ClInclude Include="src\EventSystem\Listener.h" />
+    <ClInclude Include="src\GUI\Button.h" />
+    <ClInclude Include="src\GUI\GUI.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\PhysicsEngine\Aabb.h" />
     <ClInclude Include="src\PhysicsEngine\BoundingSphere.h" />
@@ -85,6 +87,8 @@
     <ClInclude Include="src\RenderEngine\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\Shaders\button_FS.glsl" />
+    <None Include="src\Shaders\button_VS.glsl" />
     <None Include="src\Shaders\debug_depth_quad_FS.glsl" />
     <None Include="src\Shaders\debug_depth_quad_VS.glsl" />
     <None Include="src\Shaders\lights_FS.glsl" />
@@ -97,6 +101,8 @@
     <None Include="src\Shaders\shadows_shader_VS.glsl" />
     <None Include="src\Shaders\shadow_mapping_depth_FS.glsl" />
     <None Include="src\Shaders\shadow_mapping_depth_VS.glsl" />
+    <None Include="src\Shaders\text_FS.glsl" />
+    <None Include="src\Shaders\text_VS.glsl" />
     <None Include="tessellationControl.glsl" />
     <None Include="tessellationEvaluation.glsl" />
   </ItemGroup>

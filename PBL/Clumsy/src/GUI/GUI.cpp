@@ -1,5 +1,8 @@
+
 #include "../pch.h"
+
 #include <glad/glad.h> 
+
 #include "GUI.h"
 
 namespace Clumsy {
@@ -14,7 +17,7 @@ namespace Clumsy {
 		if (FT_Init_FreeType(&ft))
 			std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
 
-		if (FT_New_Face(ft, "fonts/arial.ttf", 0, &face))
+		if (FT_New_Face(ft, "../Clumsy/src/fonts/arial.ttf", 0, &face))
 			std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
 
 		FT_Set_Pixel_Sizes(face, 0, 48);
@@ -122,6 +125,12 @@ namespace Clumsy {
 		}
 		glBindVertexArray(0);
 		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	void GUI::CleanUp()
+	{
+		glDeleteVertexArrays(1, &VAO); 
+		glDeleteBuffers(1, &VBO);
 	}
 
 }

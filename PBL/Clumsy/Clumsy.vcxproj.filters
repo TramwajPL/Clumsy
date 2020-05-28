@@ -69,8 +69,11 @@
     <ClCompile Include="src\EventSystem\EventSystem.cpp">
       <Filter>EventSystem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\GUI.cpp">
-      <Filter>Core</Filter>
+    <ClCompile Include="src\GUI\GUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GUI\Button.cpp">
+      <Filter>GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -178,8 +181,11 @@
     <ClInclude Include="src\EventSystem\Listener.h">
       <Filter>EventSystem</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\GUI.h">
-      <Filter>Core</Filter>
+    <ClInclude Include="src\GUI\GUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUI\Button.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +231,18 @@
     <None Include="tessellationEvaluation.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="src\Shaders\text_VS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\text_FS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\button_VS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\button_FS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
@@ -247,6 +265,9 @@
     </Filter>
     <Filter Include="EventSystem">
       <UniqueIdentifier>{53eddf74-477c-4862-8aba-9bafd67a1315}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{1eaf821d-6a9c-426e-91a6-bc6996e6f7f2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -15,6 +15,7 @@ namespace Clumsy
 {
 	//class Shader;
 	class GUI;
+	class Button;
 	class RenderEngine 
 	{
 	public:
@@ -43,10 +44,11 @@ namespace Clumsy
 		RenderUtil renderUtil;
 		float m_LastFrameTime = 0.0f;
 		Camera* m_Camera;
-		GUI* gui;
 		Shader* m_Shader;
 		Shader* simpleDepthShader;
 		Shader* debugDepthQuadShader;
+		Shader* textShader;
+		Shader* buttonShader;
 		std::vector<const BaseLight*> m_Lights;
 		const BaseLight* m_ActiveLight;
 		const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
@@ -56,5 +58,8 @@ namespace Clumsy
 
 		static RenderEngine* m_Instance;
 		RenderEngine(GLFWwindow* window, Window* window2, Camera* camera);
+		
+		GUI* gui;
+		Button* m_ButtonCameraOnPlayer;
 	};
 }

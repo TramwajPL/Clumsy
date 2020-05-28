@@ -1,14 +1,18 @@
 #pragma once
+
 #include <ft2build.h>
 #include FT_FREETYPE_H 
-#include <glm/glm.hpp>
-#include "../RenderEngine/Shader.h"
-#include <iostream>
+
 #include <map>
+#include <iostream>
+#include <glm/glm.hpp>
+
+#include "../RenderEngine/Shader.h"
 
 namespace Clumsy {
 
-	struct Character {
+	struct Character 
+	{
 		unsigned int TextureID;  // ID handle of the glyph texture
 		glm::ivec2   Size;       // Size of glyph
 		glm::ivec2   Bearing;    // Offset from baseline to left/top of glyph
@@ -19,9 +23,11 @@ namespace Clumsy {
 	{
 	public: 
 		GUI();
-
+		~GUI() { CleanUp(); }
 		void Init();
 		void RenderText(Shader* shader, std::string text, float x, float y, float scale, glm::vec3 color);//TODO: iloœæ drewna i iloœæ akcji do koñca tury
+		void CleanUp();
+	
 	private:
 		FT_Library ft;
 		FT_Face face;

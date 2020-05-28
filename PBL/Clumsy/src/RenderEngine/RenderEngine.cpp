@@ -7,6 +7,9 @@
 
 #include "Model.h"
 #include "RenderEngine.h"
+
+#include "../GUI/GUI.h"
+#include "../GUI/Button.h"
 #include "../Core/Game.h"
 #include "../Core/Timestep.h"
 #include "../Core/GameObject.h"
@@ -14,7 +17,6 @@
 #include "../PhysicsEngine/Aabb.h"
 #include "../Core/EntityComponent.h"
 #include "../Components/RenderModelComponent.h"
-#include "../Core/GUI.h"
 
 const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1080;
@@ -33,13 +35,16 @@ namespace Clumsy
 		m_Shader = new Shader("../Clumsy/src/Shaders/shadows_shader_VS.glsl", "../Clumsy/src/Shaders/shadows_shader_FS.glsl");
 		simpleDepthShader = new Shader("../Clumsy/src/Shaders/shadow_mapping_depth_VS.glsl", "../Clumsy/src/Shaders/shadow_mapping_depth_FS.glsl");
 		debugDepthQuadShader = new Shader("../Clumsy/src/Shaders/debug_depth_quad_VS.glsl", "../Clumsy/src/Shaders/debug_depth_quad_FS.glsl");
+		textShader = new Shader("../Clumsy/src/Shaders/text_VS.glsl", "../Clumsy/src/Shaders/text_FS.glsl");
+		buttonShader = new Shader("../Clumsy/src/Shaders/button_VS.glsl", "../Clumsy/src/Shaders/button_FS.glsl");
 		//m_Shader = new Shader("../Clumsy/res/shaders/model_loadingVS.glsl", "../Clumsy/res/shaders/model_loadingFS.glsl");
 		
 		glEnable(GL_DEPTH_TEST);
 
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
-		
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		glGenFramebuffers(1, &depthMapFBO);
 		// create depth texture
@@ -64,7 +69,10 @@ namespace Clumsy
 		m_Shader->setInt("shadowMap", 1);
 		debugDepthQuadShader->use();
 		debugDepthQuadShader->setInt("depthMap", 0);
+
 		gui = new GUI();
+		m_ButtonCameraOnPlayer = new Button(glm::vec2(25.0f, SCR_HEIGHT - 75.0f), 10.0f, 30.0f, "Center", glm::vec4(1.0f));
+
 	}
 
 	void RenderEngine::CreateInstance(GLFWwindow* window, Window* window2, Camera* camera)
@@ -234,9 +242,18 @@ namespace Clumsy
 		glBindTexture(GL_TEXTURE_2D, depthMap);
 
 		//setFrustum(projection * view);
-		gui->RenderText(m_Shader, "This is sample text", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
-		gui->RenderText(m_Shader, "(C) LearnOpenGL.com", 540.0f, 570.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
 		object.RenderAll(*m_Shader);
+
+		glm::mat4 projectionText = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
+		textShader->use();
+		textShader->setMat4("projection", projectionText);
+		gui->RenderText(textShader, "Wood: ", 25.0f, SCR_HEIGHT - 75.0f, 0.75f, glm::vec3(0.16f, 0.03f, 0.29f));
+		gui->RenderText(textShader, "Actions: ", 25.0f, SCR_HEIGHT - 125.0f, 0.75f, glm::vec3(0.16f, 0.03f, 0.29f));
+
+		glm::mat4 projectionButton = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
+		buttonShader->use();
+		buttonShader->setMat4("projection", projectionButton);
+		m_ButtonCameraOnPlayer->Render(buttonShader);
 
 		//std::cout << "KURWA" << RenderEngine::GetInstance()->m_Counter << std::endl;
 	}
