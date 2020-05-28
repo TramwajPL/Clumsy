@@ -9,7 +9,8 @@ namespace Clumsy
 	class PhysicsEngine
 	{
 	public:
-		PhysicsEngine() {}
+		static PhysicsEngine* GetInstance();
+
 		void AddObject(const PhysicsObject& object);
 		void Simulate(float delta);
 
@@ -25,6 +26,8 @@ namespace Clumsy
 			return m_Objects[index];
 		}
 	private:
+		PhysicsEngine() {}
+		static PhysicsEngine* m_Instance;
 		std::vector<PhysicsObject> m_Objects;
 	};
 }

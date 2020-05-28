@@ -13,11 +13,13 @@
 
 Clumsy::GameObject* object1;
 Clumsy::GameObject* map = new Clumsy::GameObject();
-Clumsy::PhysicsEngine physicsEngine;
 Clumsy::RenderModelComponent* rmc;
 Clumsy::GameObject* boy;
 
 Clumsy::AudioMaster* Clumsy::AudioMaster::m_Instance = 0;
+Clumsy::EventSystem* Clumsy::EventSystem::m_Instance = 0;
+Clumsy::PhysicsEngine* Clumsy::PhysicsEngine::m_Instance = 0;
+Clumsy::RenderEngine* Clumsy::RenderEngine::m_Instance = 0;
 
 class TestGame : public Clumsy::Game 
 {
@@ -50,11 +52,11 @@ public:
 		Clumsy::PhysicsObject* ob2 = new Clumsy::PhysicsObject(
 			new Clumsy::BoundingSphere(boy2->GetTransform().GetPos(), 0.1f), &boy2->GetTransform());
 
-		physicsEngine.AddObject(*ob1);
-		physicsEngine.AddObject(*ob2);
+		Clumsy::PhysicsEngine::GetInstance()->AddObject(*ob1);
+		Clumsy::PhysicsEngine::GetInstance()->AddObject(*ob2);
 
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
-			= new Clumsy::PhysicsEngineComponent(physicsEngine);
+			= new Clumsy::PhysicsEngineComponent();
 		rmc = new Clumsy::RenderModelComponent(model, boy->GetTransform());
 		AddToScene((boy)->AddComponent(rmc));
 		AddToScene((boy2)->AddComponent(new Clumsy::RenderModelComponent(model, boy2->GetTransform())));
@@ -65,12 +67,12 @@ public:
 		AddToScene((new Clumsy::GameObject())
 			->AddComponent(physicsEngineComponent));
 
-		SceneParser(&physicsEngine, map);/*
+		SceneParser(map);/*
 		std::cout << "Init gierki" << std::endl;
 		std::cout <<"BOY 1 POSITION: " << glm::to_string(boy->GetTransform().GetPos()) << std::endl;
 		std::cout <<"BOY 2 POSITION: "<< glm::to_string(boy2->GetTransform().GetPos()) << std::endl;*/
 
-		Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
+		//Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
 	}
 
 private:
@@ -113,7 +115,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 
 		//std::cout << "RAY: " << mp.GetCurrentRay().x << " , " << mp.GetCurrentRay().y << " , " << mp.GetCurrentRay().z << std::endl;
 
-		glm::vec3 vec3 = mp.GetPickedObject(&physicsEngine);
+		glm::vec3 vec3 = mp.GetPickedObject();
 		std::cout << glm::to_string(vec3) << std::endl;
 		//object1->SetPos(vec3);
 		rmc->m_Transform.SetPos(vec3);/*
@@ -128,16 +130,17 @@ int main()
 {
 	GLFWwindow* glfwWindow = window->GetGLFWWindow();
 
-	Clumsy::RenderEngine* renderEngine = new Clumsy::RenderEngine(glfwWindow, window, camera);
+	Clumsy::RenderEngine::CreateInstance(glfwWindow, window, camera);
+	//Clumsy::RenderEngine* renderEngine = new Clumsy::RenderEngine(glfwWindow, window, camera);
 	glfwSetScrollCallback(glfwWindow, scroll_callback);
 	
 	glfwSetMouseButtonCallback(glfwWindow, mouse_button_callback);
 
-	Clumsy::PhysicsEngine* physicsEngine = new Clumsy::PhysicsEngine();
+	//Clumsy::PhysicsEngine* physicsEngine = new Clumsy::PhysicsEngine();
 
 	TestGame game(glfwWindow);
 	
-	Clumsy::CoreEngine coreEngine(60.0f, window, renderEngine, &game, physicsEngine);
+	Clumsy::CoreEngine coreEngine(60.0f, window, &game);
 
 	std::cout << game.getRoot().GetAllChildren().size() << std::endl;
 	

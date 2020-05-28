@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm\ext\matrix_clip_space.hpp>
 #include <glm\ext\matrix_transform.hpp>
+#include <glm\gtx\string_cast.hpp>
 
 #include "Model.h"
 #include "RenderEngine.h"
@@ -63,12 +64,122 @@ namespace Clumsy
 		debugDepthQuadShader->use();
 		debugDepthQuadShader->setInt("depthMap", 0);
 
-
 	}
 
+	void RenderEngine::CreateInstance(GLFWwindow* window, Window* window2, Camera* camera)
+	{
+		assert(!m_Instance);
+		m_Instance = new RenderEngine(window, window2, camera);
+	}
+
+	RenderEngine* RenderEngine::GetInstance()
+	{
+		assert(m_Instance);
+		return m_Instance;
+	}
 	
+	void RenderEngine::setFrustum(glm::mat4 viewProjection)
+	{
+		glm::vec4 row1 = glm::vec4(viewProjection[0][0], viewProjection[0][1], viewProjection[0][2], viewProjection[0][3]);
+		glm::vec4 row2 = glm::vec4(viewProjection[1][0], viewProjection[1][1], viewProjection[1][2], viewProjection[1][3]);
+		glm::vec4 row3 = glm::vec4(viewProjection[2][0], viewProjection[2][1], viewProjection[2][2], viewProjection[2][3]);
+		glm::vec4 row4 = glm::vec4(viewProjection[3][0], viewProjection[3][1], viewProjection[3][2], viewProjection[3][3]);
+
+		glm::vec4 p1 = row4 + row1;
+		glm::vec4 p2 = row4 - row1;
+		glm::vec4 p3 = row4 + row2;
+		glm::vec4 p4 = row4 - row2;
+		glm::vec4 p5 = row4 + row3;
+		glm::vec4 p6 = row4 - row3;
+
+		Plane left(glm::vec3(p1.x, p1.y, p1.z), p1.w);
+		pl.push_back(left);
+
+		Plane right(glm::vec3(p2.x, p2.y, p2.z), p2.w);
+		pl.push_back(right);
+
+		Plane top(glm::vec3(p4.x, p4.y, p4.z), p4.w);
+		pl.push_back(top);
+
+		Plane down(glm::vec3(p3.x, p3.y, p3.z), p3.w);
+		pl.push_back(down);
+
+		Plane near(glm::vec3(p5.x, p5.y, p5.z), p5.w);
+		pl.push_back(near);
+
+		Plane far(glm::vec3(p6.x, p6.y, p6.z), p6.w);
+		pl.push_back(far);
+	}
+
+	bool RenderEngine::pointInPlane(Plane p, glm::vec3 point) 
+	{
+		bool result;
+		float distance = glm::dot(p.GetNormal(), point) - p.GetDistance();
+		if (distance < 0)
+			result = true;
+		else
+		{
+			std::cout << "FALSEEEEEEEEEEEEEEEEEEEE" << std::endl;
+			result = false;
+		}
+		return result;
+	}
+
+	bool RenderEngine::IsInFrustum(const Collider* aabb)
+	{
+		std::vector<glm::vec3> points; // p1, p2, p3, p4, p5, p6, p7, p8;
+
+		glm::vec3 p;
+		p = aabb->GetMinExtends();
+		points.push_back(p);
+
+		p = aabb->GetMaxExtends();
+		points.push_back(p);
+
+		p.x = points[1].x;
+		p.y = points[0].y;
+		p.z = points[0].z;
+		points.push_back(p);
+
+		p.x = points[1].x;
+		p.y = points[1].y;
+		p.z = points[0].z;
+		points.push_back(p);
+
+		p.x = points[0].x;
+		p.y = points[1].y;
+		p.z = points[0].z;
+		points.push_back(p);
+
+		p.x = points[0].x;
+		p.y = points[0].y;
+		p.z = points[1].z;
+		points.push_back(p);
+
+		p.x = points[0].x;
+		p.y = points[1].y;
+		p.z = points[1].z;
+		points.push_back(p);
+
+		p.x = points[1].x;
+		p.y = points[0].y;
+		p.z = points[1].z;
+		points.push_back(p);
+
+		for (int i = 0; i < points.size(); i++)
+		{
+			for (int j = 0; j < pl.size(); j++)
+			{
+				if (!pointInPlane(pl[j], points[i]))
+					return false;
+			}
+		}
+		return true;
+	}
+
 	void RenderEngine::Render(GameObject object)
 	{
+		m_Counter = 0;
 		float time = (float)glfwGetTime();
 		Timestep timestep = time - m_LastFrameTime;
 		m_LastFrameTime = time;
@@ -121,58 +232,14 @@ namespace Clumsy
 ;
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, depthMap);
+
+		setFrustum(projection * view);
+
 		object.RenderAll(*m_Shader);
 
-
+		std::cout << "KURWA" << RenderEngine::GetInstance()->m_Counter << std::endl;
 		processInput(timestep.GetSeconds());
 
-		/////////////////////////////////////////////////////////// OLD GUY
-
-		//glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)800 / (float)600, 0.1f, 100.0f);
-		//m_Shader->setMat4("projection", projection);
-
-		//// camera/view transformation
-		//m_Shader->use();
-		//
-		////m_Shader->setInt("material.diffuse", 0);
-		////	m_Shader->setInt("material.specular", 1);
-
-		//glm::mat4 view = m_Camera->GetViewMatrix();
-		//m_Shader->setMat4("view", view);
-
-		////m_Shader->use();
-		//m_Shader->setVec3("viewPos", m_Camera->GetPosition());
-		//m_Shader->setFloat("material.shininess", 32.0f);
-
-		//// SetDirectionalLight(direction, ambient, diffuse, specular) 
-		//m_Shader->SetDirectionalLight(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(0.05f, 0.05f, 0.05f),
-		//	glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.5f, 0.5f, 0.5f));
-
-		//// point light 1
-		//m_Shader->SetPointLight("0" , pointLightPositions[0], glm::vec3(0.05f, 0.05f, 0.05),
-		//	glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f));
-		//// point light 2
-		//m_Shader->SetPointLight("1", pointLightPositions[1], glm::vec3(0.05f, 0.05f, 0.05),
-		//	glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f));
-		//// point light 3
-		//m_Shader->SetPointLight("2", pointLightPositions[2], glm::vec3(0.05f, 0.05f, 0.05),
-		//	glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f));
-		//// point light 4
-		//m_Shader->SetPointLight("3", pointLightPositions[3], glm::vec3(0.05f, 0.05f, 0.05),
-		//	glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f));
-
-		//// spotLight
-		//m_Shader->SetSpotLight(m_Camera->GetPosition(), m_Camera->GetFront(), glm::vec3(0.0f, 0.0f, 0.0f),
-		//	glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-
-		///////////////////////////////////////////////////
-
-
-		//object.RenderAll(*m_Shader);
-
-
-		//object.GetTransform();
-		//object.RenderAll(*m_Shader);
 	}
 
 	void RenderEngine::CleanUp()

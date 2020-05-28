@@ -42,3 +42,11 @@
 #include "Audio/AudioMaster.h"
 
 //////////////////
+
+// EVENTS
+
+#include "EventSystem/Event.h"
+#include "EventSystem/Listener.h"
+#include "EventSystem/EventSystem.h"
+
+//////////////////
