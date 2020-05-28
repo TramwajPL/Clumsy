@@ -24,6 +24,7 @@
     <ClCompile Include="src\Core\CoreEngine.cpp" />
     <ClCompile Include="src\Core\Game.cpp" />
     <ClCompile Include="src\Core\GameObject.cpp" />
+    <ClCompile Include="src\Core\GUI.cpp" />
     <ClCompile Include="src\Core\Input.cpp" />
     <ClCompile Include="src\Core\MousePicker.cpp" />
     <ClCompile Include="src\Core\Time.cpp" />
@@ -55,6 +56,7 @@
     <ClInclude Include="src\Core\EntityComponent.h" />
     <ClInclude Include="src\Core\Game.h" />
     <ClInclude Include="src\Core\GameObject.h" />
+    <ClInclude Include="src\Core\GUI.h" />
     <ClInclude Include="src\Core\Input.h" />
     <ClInclude Include="src\Core\KeyCodes.h" />
     <ClInclude Include="src\Core\MousePicker.h" />
@@ -182,13 +184,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/External Libraries/yaml-cpp/include;$(SolutionDir)/External Libraries/stb_image/include;$(SolutionDir)/External Libraries/GLM/include;$(SolutionDir)/External Libraries/GLAD/include;$(SolutionDir)/External Libraries/GLFW/include;$(SolutionDir)/External Libraries/assimp/include;$(SolutionDir)/External Libraries/irrklang/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/External Libraries/yaml-cpp/include;$(SolutionDir)/External Libraries/stb_image/include;$(SolutionDir)/External Libraries/GLM/include;$(SolutionDir)/External Libraries/GLAD/include;$(SolutionDir)/External Libraries/GLFW/include;$(SolutionDir)/External Libraries/assimp/include;$(SolutionDir)/External Libraries/irrklang/include;$(SolutionDir)/External Libraries/freeType/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)/External Libraries/yaml-cpp/lib;$(SolutionDir)/External Libraries/GLFW/lib;$(SolutionDir)/External Libraries/assimp/lib;$(SolutionDir)/External Libraries/irrklang/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;glfw3.lib;yaml-cppd.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)/External Libraries/yaml-cpp/lib;$(SolutionDir)/External Libraries/GLFW/lib;$(SolutionDir)/External Libraries/assimp/lib;$(SolutionDir)/External Libraries/irrklang/lib;$(SolutionDir)/External Libraries/freeType/win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;glfw3.lib;yaml-cppd.lib;irrKlang.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

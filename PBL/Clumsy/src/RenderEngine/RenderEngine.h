@@ -14,6 +14,7 @@
 namespace Clumsy 
 {
 	//class Shader;
+	class GUI;
 	class RenderEngine 
 	{
 	public:
@@ -42,6 +43,7 @@ namespace Clumsy
 		RenderUtil renderUtil;
 		float m_LastFrameTime = 0.0f;
 		Camera* m_Camera;
+		GUI* gui;
 		Shader* m_Shader;
 		Shader* simpleDepthShader;
 		Shader* debugDepthQuadShader;

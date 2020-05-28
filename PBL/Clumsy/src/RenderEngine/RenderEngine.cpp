@@ -14,6 +14,7 @@
 #include "../PhysicsEngine/Aabb.h"
 #include "../Core/EntityComponent.h"
 #include "../Components/RenderModelComponent.h"
+#include "../Core/GUI.h"
 
 const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1080;
@@ -63,7 +64,7 @@ namespace Clumsy
 		m_Shader->setInt("shadowMap", 1);
 		debugDepthQuadShader->use();
 		debugDepthQuadShader->setInt("depthMap", 0);
-
+		gui = new GUI();
 	}
 
 	void RenderEngine::CreateInstance(GLFWwindow* window, Window* window2, Camera* camera)
@@ -183,7 +184,7 @@ namespace Clumsy
 		float time = (float)glfwGetTime();
 		Timestep timestep = time - m_LastFrameTime;
 		m_LastFrameTime = time;
-
+		processInput(timestep.GetSeconds());
 		//glm::vec3 pointLightPositions[] = {
 		//		glm::vec3(-4.5f,  0.0f,  1.0f),
 		//		glm::vec3(4.5f, 0.0f, 1.0f),
@@ -219,7 +220,6 @@ namespace Clumsy
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// 2. render scene as normal using the generated depth/shadow map  
-	   // --------------------------------------------------------------
 		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		m_Shader->use();
@@ -233,13 +233,12 @@ namespace Clumsy
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, depthMap);
 
-		setFrustum(projection * view);
-
+		//setFrustum(projection * view);
+		gui->RenderText(m_Shader, "This is sample text", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+		gui->RenderText(m_Shader, "(C) LearnOpenGL.com", 540.0f, 570.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
 		object.RenderAll(*m_Shader);
 
-		std::cout << "KURWA" << RenderEngine::GetInstance()->m_Counter << std::endl;
-		processInput(timestep.GetSeconds());
-
+		//std::cout << "KURWA" << RenderEngine::GetInstance()->m_Counter << std::endl;
 	}
 
 	void RenderEngine::CleanUp()

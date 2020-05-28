@@ -103,24 +103,24 @@ namespace Clumsy
 
 	void GameObject::RenderAll(Shader& shader)
 	{
-		if (GetComponents().size() <= 1)
+		/*if (GetComponents().size() <= 1)
 		{
 			Render(shader);
 		}
 		else
-		{
-			PhysicsObjectComponent* poc = (PhysicsObjectComponent*)GetComponents()[1];
-			if (SetupAabb())
-			{
-				RenderEngine::GetInstance()->m_Counter++;
+		{*/
+			//PhysicsObjectComponent* poc = (PhysicsObjectComponent*)GetComponents()[1];
+			/*if (SetupAabb())
+			{*/
+				//RenderEngine::GetInstance()->m_Counter++;
 				//std::cout << "KURWA" << RenderEngine::GetInstance()->m_Counter << std::endl;
 				Render(shader);
-			}
+			/*}
 			else
 			{
 				std::cout << "KUPSKO #########" << std::endl;
-			}
-		}
+			}*/
+		//}
 
 		for (int i = 0; i < m_Children.size(); i++) 
 		{

@@ -69,6 +69,9 @@
     <ClCompile Include="src\EventSystem\EventSystem.cpp">
       <Filter>EventSystem</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\GUI.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -174,6 +177,9 @@
     </ClInclude>
     <ClInclude Include="src\EventSystem\Listener.h">
       <Filter>EventSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\GUI.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
