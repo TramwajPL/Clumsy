@@ -35,6 +35,7 @@ namespace Clumsy
 		int m_Counter = 0;
 		std::vector<Plane> GetPl() { return pl; }
 		Button* GetCenterButton() { return m_ButtonCameraOnPlayer; }
+		Button* GetEndTurnButton() { return m_ButtonEndTurn; }
 
 	private:
 		//void Run();
@@ -62,5 +63,6 @@ namespace Clumsy
 		
 		GUI* gui;
 		Button* m_ButtonCameraOnPlayer;
+		Button* m_ButtonEndTurn;
 	};
 }

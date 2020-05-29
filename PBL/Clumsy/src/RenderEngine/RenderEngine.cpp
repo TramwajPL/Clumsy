@@ -18,8 +18,8 @@
 #include "../Core/EntityComponent.h"
 #include "../Components/RenderModelComponent.h"
 
-const unsigned int SCR_WIDTH = 1366;
-const unsigned int SCR_HEIGHT = 768;
+const unsigned int SCR_WIDTH = 1920;
+const unsigned int SCR_HEIGHT = 1080;
 
 namespace Clumsy 
 {
@@ -71,9 +71,8 @@ namespace Clumsy
 		debugDepthQuadShader->setInt("depthMap", 0);
 
 		gui = new GUI();
-		m_ButtonCameraOnPlayer = new Button(glm::vec2(-0.9f, 0.1f), 101.0f, 301.0f, "Center", glm::vec3(0.16f, 0.03f, 0.29f));
-		//m_ButtonCameraOnPlayer = new Button(glm::vec2(25.0f, SCR_HEIGHT - 500.0f), 101.0f, 301.0f, "Center", glm::vec3(0.16f, 0.03f, 0.29f));
-		//m_ButtonCameraOnPlayer = new Button(glm::vec2(0.0f, 0.0f), 101.0f, 301.0f, "Center", glm::vec3(0.16f, 0.03f, 0.29f));
+		m_ButtonCameraOnPlayer = new Button(glm::vec2(-0.915f, 0.65f), "Center", glm::vec3(0.16f, 0.03f, 0.29f));
+		m_ButtonEndTurn = new Button(glm::vec2(-0.915f, 0.55f), "End Turn", glm::vec3(0.16f, 0.03f, 0.29f));
 	}
 
 	void RenderEngine::CreateInstance(GLFWwindow* window, Window* window2, Camera* camera)
@@ -246,15 +245,17 @@ namespace Clumsy
 		object.RenderAll(*m_Shader);
 
 		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
+		textShader->use();
+		textShader->setMat4("projection", projectionGUI);
+		gui->RenderText(textShader, "Wood: ", 25.0f, SCR_HEIGHT - 100.0f, 0.7f, glm::vec3(0.16f, 0.03f, 0.29f));
+		gui->RenderText(textShader, "Actions: ", 25.0f, SCR_HEIGHT - 150.0f, 0.7f, glm::vec3(0.16f, 0.03f, 0.29f));
+		gui->RenderText(textShader, m_ButtonCameraOnPlayer->GetText(), 25.0f, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+		gui->RenderText(textShader, m_ButtonEndTurn->GetText(), 25.0f, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+
 		buttonShader->use();
 		buttonShader->setMat4("projection", projectionGUI);
 		m_ButtonCameraOnPlayer->Render(buttonShader);
-
-		textShader->use();
-		textShader->setMat4("projection", projectionGUI);
-		gui->RenderText(textShader, "Wood: ", 25.0f, SCR_HEIGHT - 400.0f, 0.75f, glm::vec3(0.16f, 0.03f, 0.29f));
-		gui->RenderText(textShader, "Actions: ", 25.0f, SCR_HEIGHT - 450.0f, 0.75f, glm::vec3(0.16f, 0.03f, 0.29f));
-		gui->RenderText(textShader, m_ButtonCameraOnPlayer->GetText(), 25.0f, SCR_HEIGHT - 200.0f, 0.75f, glm::vec3(0.16f, 0.03f, 0.29f));
+		m_ButtonEndTurn->Render(buttonShader);
 
 		//std::cout << "KURWA" << RenderEngine::GetInstance()->m_Counter << std::endl;
 	}
