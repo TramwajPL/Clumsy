@@ -112,12 +112,12 @@ namespace Clumsy
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		//glLineWidth(2);
 		//Draw
-		for (unsigned int i = 0; i < 112; i++)
-		{
+		//for (unsigned int i = 0; i < 112; i++)
+		//{
 			glBindVertexArray(VAO);
 			glDrawElementsInstanced(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0, amount);
 			glBindVertexArray(0);
-		}
+		//}
 		//glBindVertexArray(VAO);
 		//glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 		//glBindVertexArray(0);
