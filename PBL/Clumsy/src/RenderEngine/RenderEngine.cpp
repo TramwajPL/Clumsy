@@ -239,7 +239,7 @@ namespace Clumsy
 
 		object.RenderAll(*m_Shader);
 
-		std::cout << "KURWA" << RenderEngine::GetInstance()->m_Counter << std::endl;
+		//std::cout << "KURWA" << RenderEngine::GetInstance()->m_Counter << std::endl;
 		processInput(timestep.GetSeconds());
 
 	}

@@ -4,6 +4,7 @@ layout (location = 1) in vec3 aNormal;
 layout (location = 2) in vec2 aTexCoords;
 layout (location = 3) in ivec4 bone_ids;     // INT pointer
 layout (location = 4) in vec4 weights;
+layout (location = 5) in mat4 instanceMatrix;
 
 out vec3 FragPos;
 out vec3 Normal;
@@ -41,7 +42,7 @@ void main()
 	else
 	{
 		FragPos = vec3(model * vec4(aPos, 1.0));
-		gl_Position = projection * view * model * vec4(aPos, 1.0);
+		gl_Position = projection * view * instanceMatrix * vec4(aPos, 1.0);
 		FragPosLightSpace = lightSpaceMatrix * vec4(FragPos, 1.0);
 	}
 }

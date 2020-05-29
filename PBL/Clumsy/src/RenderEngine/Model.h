@@ -34,6 +34,7 @@ namespace Clumsy
         glm::mat4 aiToGlm(aiMatrix4x4 ai_matr);
         aiQuaternion nlerp(aiQuaternion a, aiQuaternion b, float blend); // super super n lerp =)
 		bool hasBones = false;
+
 		std::vector<Mesh> meshes; // one mesh in one object
     private:
 		
