@@ -10,6 +10,9 @@
 
 #include "../GUI/GUI.h"
 #include "../GUI/Button.h"
+#include "../GUI/StoreGUI.h"
+#include "../GUI/WarehouseGUI.h"
+
 #include "../Core/Game.h"
 #include "../Core/Timestep.h"
 #include "../Core/GameObject.h"
@@ -71,8 +74,10 @@ namespace Clumsy
 		debugDepthQuadShader->setInt("depthMap", 0);
 
 		gui = new GUI();
-		m_ButtonCameraOnPlayer = new Button(glm::vec2(-0.915f, 0.65f), "Center", glm::vec3(0.16f, 0.03f, 0.29f));
-		m_ButtonEndTurn = new Button(glm::vec2(-0.915f, 0.55f), "End Turn", glm::vec3(0.16f, 0.03f, 0.29f));
+		m_ButtonCameraOnPlayer = new Button(glm::vec2(-0.9f, 0.65f), "Center", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(1.0f, 1.0f));
+		m_ButtonEndTurn = new Button(glm::vec2(-0.9f, 0.55f), "End Turn", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(1.0f, 1.0f));
+		m_StoreGUI = new StoreGUI();
+		m_WarehouseGUI = new WarehouseGUI();
 	}
 
 	void RenderEngine::CreateInstance(GLFWwindow* window, Window* window2, Camera* camera)
@@ -188,6 +193,8 @@ namespace Clumsy
 
 	void RenderEngine::Render(GameObject object)
 	{
+		glEnable(GL_DEPTH_TEST);
+
 		m_Counter = 0;
 		float time = (float)glfwGetTime();
 		Timestep timestep = time - m_LastFrameTime;
@@ -244,7 +251,14 @@ namespace Clumsy
 		//setFrustum(projection * view);
 		object.RenderAll(*m_Shader);
 
+		glDisable(GL_DEPTH_TEST);
+
 		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
+
+		buttonShader->use();
+		m_ButtonCameraOnPlayer->Render(buttonShader);
+		m_ButtonEndTurn->Render(buttonShader);
+
 		textShader->use();
 		textShader->setMat4("projection", projectionGUI);
 		gui->RenderText(textShader, "Wood: ", 25.0f, SCR_HEIGHT - 100.0f, 0.7f, glm::vec3(0.16f, 0.03f, 0.29f));
@@ -252,12 +266,8 @@ namespace Clumsy
 		gui->RenderText(textShader, m_ButtonCameraOnPlayer->GetText(), 25.0f, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 		gui->RenderText(textShader, m_ButtonEndTurn->GetText(), 25.0f, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 
-		buttonShader->use();
-		buttonShader->setMat4("projection", projectionGUI);
-		m_ButtonCameraOnPlayer->Render(buttonShader);
-		m_ButtonEndTurn->Render(buttonShader);
-
-		//std::cout << "KURWA" << RenderEngine::GetInstance()->m_Counter << std::endl;
+		m_StoreGUI->Render(buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
+		m_WarehouseGUI->Render(buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 	}
 
 	void RenderEngine::CleanUp()

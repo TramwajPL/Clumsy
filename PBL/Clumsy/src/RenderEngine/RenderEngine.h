@@ -16,6 +16,9 @@ namespace Clumsy
 	//class Shader;
 	class GUI;
 	class Button;
+	class StoreGUI;
+	class WarehouseGUI;
+
 	class RenderEngine 
 	{
 	public:
@@ -64,5 +67,7 @@ namespace Clumsy
 		GUI* gui;
 		Button* m_ButtonCameraOnPlayer;
 		Button* m_ButtonEndTurn;
+		StoreGUI* m_StoreGUI;
+		WarehouseGUI* m_WarehouseGUI;
 	};
 }

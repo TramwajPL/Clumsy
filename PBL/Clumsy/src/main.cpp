@@ -113,23 +113,18 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		std::cout << "Cursor Position at " << xpos << " : " << ypos << std::endl;
 		mp.Update();
 
-		//std::cout << "RAY: " << mp.GetCurrentRay().x << " , " << mp.GetCurrentRay().y << " , " << mp.GetCurrentRay().z << std::endl;
-
-		glm::vec3 vec3 = mp.GetPickedObject();
-		//std::cout << glm::to_string(vec3) << std::endl;
-		//object1->SetPos(vec3);
-		rmc->m_Transform.SetPos(vec3);
-
-		if (xpos > Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetCorner().x && xpos < Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetCorner().y + 30.0f
-			&& ypos > Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetCorner().y && ypos < Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetCorner().y + 10.0f)
+		if (xpos > 20.0 && xpos < 170.0 && ypos > 140.0 && ypos < 180.0)
 		{
 			Clumsy::RenderEngine::GetInstance()->GetCenterButton()->OnClick();
 		}
-		else if (xpos > Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->GetCorner().x && xpos < Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->GetCorner().y + 30.0f
-			&& ypos > Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->GetCorner().y && ypos < Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->GetCorner().y + 10.0f)
+		else if (xpos > 20.0 && xpos < 170.0 && ypos > 195.0 && ypos < 235.0)
 		{
 			Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->OnClick();
 		}
+
+		glm::vec3 vec3 = mp.GetPickedObject();
+		rmc->m_Transform.SetPos(vec3);
+
 	}
 }
 int main() 

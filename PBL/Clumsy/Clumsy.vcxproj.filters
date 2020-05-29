@@ -75,6 +75,12 @@
     <ClCompile Include="src\GUI\Button.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\GUI\WarehouseGUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GUI\StoreGUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -185,6 +191,12 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="src\GUI\Button.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUI\WarehouseGUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUI\StoreGUI.h">
       <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>

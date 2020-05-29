@@ -31,6 +31,8 @@
     <ClCompile Include="src\EventSystem\EventSystem.cpp" />
     <ClCompile Include="src\GUI\Button.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
+    <ClCompile Include="src\GUI\StoreGUI.cpp" />
+    <ClCompile Include="src\GUI\WarehouseGUI.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PhysicsEngine\Aabb.cpp" />
     <ClCompile Include="src\PhysicsEngine\BoundingSphere.cpp" />
@@ -68,6 +70,8 @@
     <ClInclude Include="src\EventSystem\Listener.h" />
     <ClInclude Include="src\GUI\Button.h" />
     <ClInclude Include="src\GUI\GUI.h" />
+    <ClInclude Include="src\GUI\StoreGUI.h" />
+    <ClInclude Include="src\GUI\WarehouseGUI.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\PhysicsEngine\Aabb.h" />
     <ClInclude Include="src\PhysicsEngine\BoundingSphere.h" />

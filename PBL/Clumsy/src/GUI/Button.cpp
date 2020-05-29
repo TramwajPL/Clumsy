@@ -9,18 +9,19 @@
 namespace Clumsy
 {
 
-	Button::Button(glm::vec2 corner, std::string text, glm::vec3 color) :
+	Button::Button(glm::vec2 corner, std::string text, glm::vec3 color, glm::vec2 scale) :
 		m_Corner(corner),
 		m_Text(text),
-		m_Color(color)
+		m_Color(color),
+		m_Scale(scale)
 	{
 		float vertices[] = { 
-			0.06f, 0.06f, 0.0f,  // top right 
-			-0.06f, 0.06f, 0.0f,// bottom right 
-			-0.06f, -0.06f, 0.0f, // bottom left 
-			-0.06f, -0.06f, 0.0f, // bottom left 
-			0.06f, -0.06f, 0.0f,  // top left //really: bootm right
-			0.06f, 0.06f, 0.0f,// top right 
+			0.08f, 0.04f, 0.0f,  // top right 
+			-0.08f, 0.04f, 0.0f, // bottom right 
+			-0.08f, -0.04f, 0.0f, // bottom left 
+			-0.08f, -0.04f, 0.0f, // bottom left 
+			0.08f, -0.04f, 0.0f,  // top left //really: bootm right
+			0.08f, 0.04f, 0.0f, // top right 
 		};
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
@@ -41,7 +42,8 @@ namespace Clumsy
 		shader->use();
 		glBindVertexArray(VAO); 
 		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(m_Corner,0.0f));
+		model = glm::translate(model, glm::vec3(m_Corner, 0.0f));
+		model = glm::scale(model, glm::vec3(m_Scale, 0.0f));
 		shader->setMat4("model",model);
 		shader->setVec3("Color", m_Color);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
