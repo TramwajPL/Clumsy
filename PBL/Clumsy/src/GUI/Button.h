@@ -26,6 +26,7 @@ namespace Clumsy
 		std::string m_Text;
 		glm::vec3 m_Color;
 		Aabb* m_Collider;
+		unsigned int texture;
 		unsigned int VBO, VAO;
 	};
 }
