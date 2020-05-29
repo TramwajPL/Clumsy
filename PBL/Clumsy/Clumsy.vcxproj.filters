@@ -175,6 +175,9 @@
     <ClInclude Include="src\EventSystem\Listener.h">
       <Filter>EventSystem</Filter>
     </ClInclude>
+    <ClInclude Include="src\Components\RenderInstancedModelComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">
