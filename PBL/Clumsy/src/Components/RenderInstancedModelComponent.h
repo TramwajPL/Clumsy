@@ -16,7 +16,7 @@ namespace Clumsy {
 		{
 
 			amount = m_Transform.size();
-			std::cout << "ammount: " << amount << std::endl;
+			//std::cout << "ammount: " << amount << std::endl;
 			glm::mat4* modelMatrices;
 			modelMatrices = new glm::mat4[amount];
 
@@ -49,7 +49,6 @@ namespace Clumsy {
 			// note: we're cheating a little by taking the, now publicly declared, VAO of the model's mesh(es) and adding new vertexAttribPointers
 			// normally you'd want to do this in a more organized fashion, but for learning purposes this will do.
 			// -----------------------------------------------------------------------------------------------------------------------------------
-			std::cout << "model meshes size: " << m_Model->meshes.size() << std::endl;
 			for (unsigned int i = 0; i < m_Model->meshes.size(); i++)
 			{
 				unsigned int VAO = m_Model->meshes[i].VAO;
@@ -78,16 +77,18 @@ namespace Clumsy {
 
 		{
 		
+			m_Model->Draw3(shader, amount);
 			//glActiveTexture(GL_TEXTURE0);
 			//std::cout << "Loaded textures: " << m_Model->textures_loaded.size() << std::endl;
 			//glBindTexture(GL_TEXTURE_2D, m_Model->textures_loaded[0].id); // note: we also made the textures_loaded vector public (instead of private) from the model class.
-			for (unsigned int i = 0; i < m_Model->meshes.size(); i++)
-			{
-				glBindVertexArray(m_Model->meshes[i].VAO);
-				glDrawElementsInstanced(GL_TRIANGLES, m_Model->meshes[i].indices.size(), GL_UNSIGNED_INT, 0, amount);
-				glBindVertexArray(0);
-			//	std::cout << "Renderuj sie plox " << std::endl;
-			}
+			//for (unsigned int i = 0; i < m_Model->meshes.size(); i++)
+			//{
+			//	//m_Model->Draw2(shader);
+			//	//glBindVertexArray(m_Model->meshes[i].VAO);
+			//	//glDrawElementsInstanced(GL_TRIANGLES, m_Model->meshes[i].indices.size(), GL_UNSIGNED_INT, 0, amount);
+			//	//glBindVertexArray(0);
+			////	std::cout << "Renderuj sie plox " << std::endl;
+			//}
 
 		}
 

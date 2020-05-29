@@ -96,6 +96,8 @@
     <None Include="src\Shaders\shadows_shader_VS.glsl" />
     <None Include="src\Shaders\shadow_mapping_depth_FS.glsl" />
     <None Include="src\Shaders\shadow_mapping_depth_VS.glsl" />
+    <None Include="src\Shaders\test_FS.glsl" />
+    <None Include="src\Shaders\test_VS.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

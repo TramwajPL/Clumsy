@@ -28,6 +28,7 @@ namespace Clumsy
         //void update();
         void Draw(Shader shader);
         void Draw2(Shader shader);
+		void Draw3(Shader shader, unsigned int amount);
         //void playSound();
         void showNodeName(aiNode* node);
 

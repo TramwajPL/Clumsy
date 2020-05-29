@@ -216,6 +216,12 @@
     <None Include="src\Shaders\shadows_shader_VS.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="src\Shaders\test_FS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\test_VS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

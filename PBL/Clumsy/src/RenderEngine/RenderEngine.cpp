@@ -235,7 +235,7 @@ namespace Clumsy
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, depthMap);
 
-		setFrustum(projection * view);
+		//setFrustum(projection * view);
 
 		object.RenderAll(*m_Shader);
 

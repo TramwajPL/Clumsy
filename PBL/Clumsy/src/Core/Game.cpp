@@ -90,7 +90,7 @@ namespace Clumsy
 						PhysicsEngine::GetInstance()->AddObject(*pO);
 						map->AddChild((new Clumsy::GameObject(transform))
 							->AddComponent(new PhysicsObjectComponent(pO))); //delete addnig render model component
-						map->AddComponent(new Clumsy::RenderInstancedModelComponent(m3, allTransforms));
+						//map->AddComponent(new Clumsy::RenderInstancedModelComponent(m3, allTransforms));
 
 
 					}
