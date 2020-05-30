@@ -39,6 +39,7 @@ namespace Clumsy
 		std::vector<Plane> GetPl() { return pl; }
 		Button* GetCenterButton() { return m_ButtonCameraOnPlayer; }
 		Button* GetEndTurnButton() { return m_ButtonEndTurn; }
+		bool isFrustumSet = false;
 
 	private:
 		//void Run();

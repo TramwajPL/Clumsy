@@ -66,7 +66,7 @@ public:
 		AddToScene((new Clumsy::GameObject())
 			->AddComponent(physicsEngineComponent));
 
-		//SceneParser(map);
+		SceneParser(map);
 		/*
 		std::cout << "Init gierki" << std::endl;
 		std::cout <<"BOY 1 POSITION: " << glm::to_string(boy->GetTransform().GetPos()) << std::endl;
