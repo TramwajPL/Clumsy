@@ -6,6 +6,7 @@
 #include "../RenderEngine/Model.h"
 #include "../Components/RenderModelComponent.h"
 #include "../Components/PhysicsObjectComponent.h"
+#include "../Components/RenderInstancedModelComponent.h"
 
 namespace Clumsy 
 {	
@@ -29,6 +30,7 @@ namespace Clumsy
     void Game::SceneParser(GameObject* map)
     {
 		AddToScene(map);
+		std::vector<Transform> allTransforms;
 		Model* m3 = new Model();//= new Model();
         std::vector<YAML::Node> nodes = YAML::LoadAllFromFile("Test.unity");
         for (int i = 0; i < nodes.size(); i++) {
@@ -77,16 +79,19 @@ namespace Clumsy
 						transform.SetRotZ(0.7f);//0
 						transform.SetRotW(0.0f);//1
 						transform.SetScale(0.0001f);
+
+						allTransforms.push_back(transform);
 						glm::vec3 min = glm::vec3(transform.GetPos() - glm::vec3(0.5f, 0.1f, 0.8f));
 						glm::vec3 max = glm::vec3(transform.GetPos() + glm::vec3(0.5f, 0.1f, 0.8f));
 						PhysicsObject* pO = new PhysicsObject(new Aabb(min, max), &transform);
 						PhysicsEngine::GetInstance()->AddObject(*pO);
-						map->AddChild((new Clumsy::GameObject(transform))->AddComponent(new Clumsy::RenderModelComponent(m3, transform))
+						map->AddChild((new Clumsy::GameObject(transform))
 							->AddComponent(new PhysicsObjectComponent(pO)));
 					}
 				}
             }
         }
+		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m3, allTransforms));
     }
 
 	void Game::ProcessInput(int input) 
