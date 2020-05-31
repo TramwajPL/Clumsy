@@ -54,6 +54,7 @@
     <ClInclude Include="src\Components\MoveComponent.h" />
     <ClInclude Include="src\Components\PhysicsEngineComponent.h" />
     <ClInclude Include="src\Components\PhysicsObjectComponent.h" />
+    <ClInclude Include="src\Components\RenderInstancedModelComponent.h" />
     <ClInclude Include="src\Components\RenderModelComponent.h" />
     <ClInclude Include="src\Core\CoreEngine.h" />
     <ClInclude Include="src\Core\EntityComponent.h" />

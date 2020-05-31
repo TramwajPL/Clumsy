@@ -123,6 +123,18 @@ namespace Clumsy
         }
     }
 
+	void Model::Draw3(Shader shader, unsigned int amount)
+	{
+		std::vector<aiMatrix4x4> transforms;
+
+		glUniform1i(glGetUniformLocation(shader.ID, "hasBones"), false);
+		for (int i = 0; i < meshes.size(); i++)
+		{
+			meshes[i].DrawInstanced(shader.ID, amount);
+		}
+	}
+
+
     void Model::loadModel(const std::string& path)
     {
 
