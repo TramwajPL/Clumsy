@@ -51,7 +51,6 @@ namespace Clumsy
         Mesh() {};
 		~Mesh();
         void Draw(unsigned int shaders_program);
-		void DrawInstanced(unsigned int shaders_program, unsigned int amount);
 
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
