@@ -113,14 +113,31 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		std::cout << "Cursor Position at " << xpos << " : " << ypos << std::endl;
 		mp.Update();
 
-		if (xpos > 20.0 && xpos < 170.0 && ypos > 140.0 && ypos < 180.0)
+		if (xpos > 25.0 && xpos < 165.0 && ypos > 145.0 && ypos < 180.0)
+		{
+			Clumsy::RenderEngine::GetInstance()->GetCenterButton()->OnClick();
+		}
+		else if (xpos > 25.0 && xpos < 165.0 && ypos > 195.0 && ypos < 240.0)
+		{
+			Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->OnClick();
+		}
+		/*float x = -0.9f;
+		float y = 0.65f;
+
+		float num = (1 + x) * SCR_WIDTH * 0.15;
+		std::cout << "x calc " << num <<  std::endl;
+
+		if (xpos > (1 + Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetCorner().x) * SCR_WIDTH * 0.15 && 
+			xpos < Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetCorner().x + SCR_WIDTH * Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetScale().x * 5 && 
+			ypos > Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetCorner().y * SCR_HEIGHT * 0.25 &&
+			ypos < Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetCorner().y + SCR_HEIGHT * Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetScale().y * 5)
 		{
 			Clumsy::RenderEngine::GetInstance()->GetCenterButton()->OnClick();
 		}
 		else if (xpos > 20.0 && xpos < 170.0 && ypos > 195.0 && ypos < 235.0)
 		{
 			Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->OnClick();
-		}
+		}*/
 
 		glm::vec3 vec3 = mp.GetPickedObject();
 		rmc->m_Transform.SetPos(vec3);

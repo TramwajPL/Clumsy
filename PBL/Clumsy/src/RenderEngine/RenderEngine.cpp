@@ -74,8 +74,8 @@ namespace Clumsy
 		debugDepthQuadShader->setInt("depthMap", 0);
 
 		gui = new GUI();
-		m_ButtonCameraOnPlayer = new Button(glm::vec2(-0.9f, 0.65f), "Center", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(1.0f, 1.0f));
-		m_ButtonEndTurn = new Button(glm::vec2(-0.9f, 0.55f), "End Turn", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(1.0f, 1.0f));
+		m_ButtonCameraOnPlayer = new Button(glm::vec2(-0.9f, 0.65f), " Center", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
+		m_ButtonEndTurn = new Button(glm::vec2(-0.9f, 0.55f), "End Turn", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
 		m_StoreGUI = new StoreGUI();
 		m_WarehouseGUI = new WarehouseGUI();
 	}

@@ -16,6 +16,7 @@ namespace Clumsy
 
 		std::string GetText() { return m_Text; }
 		glm::vec2 GetCorner() { return m_Corner; }
+		glm::vec2 GetScale() { return m_Scale; }
 		bool IsEnabled() { return m_Enabled; }
 
 		void SetEnabled(bool doopy) { m_Enabled = doopy; }

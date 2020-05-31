@@ -13,11 +13,11 @@ namespace Clumsy
 		BackgroundInit();
 
 		// Buttons
-		Button* exitButton = new Button(glm::vec2(0.36f, 0.33f), "X", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.3f, 1.0f));
+		Button* exitButton = new Button(glm::vec2(0.36f, 0.33f), "X", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.07f, 0.1f));
 		m_Buttons.push_back(exitButton);
-		Button* storeWoodButton = new Button(glm::vec2(-0.25f, 0.1f), "Store", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(1.5f, 1.0f));
+		Button* storeWoodButton = new Button(glm::vec2(-0.27f, 0.1f), "Store", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.19f, 0.1f));
 		m_Buttons.push_back(storeWoodButton);
-		Button* withdrawWoodButton = new Button(glm::vec2(-0.25f, -0.1f), "Withdraw", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(1.5f, 1.0f));
+		Button* withdrawWoodButton = new Button(glm::vec2(-0.27f, -0.09f), "Withdraw", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.19f, 0.1f));
 		m_Buttons.push_back(withdrawWoodButton);
 
 		gui = new GUI();

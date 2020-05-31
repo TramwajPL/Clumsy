@@ -16,12 +16,12 @@ namespace Clumsy
 		m_Scale(scale)
 	{
 		float vertices[] = { 
-			0.08f, 0.04f, 0.0f,  // top right 
-			-0.08f, 0.04f, 0.0f, // bottom right 
-			-0.08f, -0.04f, 0.0f, // bottom left 
-			-0.08f, -0.04f, 0.0f, // bottom left 
-			0.08f, -0.04f, 0.0f,  // top left //really: bootm right
-			0.08f, 0.04f, 0.0f, // top right 
+			0.5f, 0.5f, 0.0f,  // top right 
+			-0.5f, 0.5f, 0.0f, // bottom right 
+			-0.5f, -0.5f, 0.0f, // bottom left 
+			-0.5f, -0.5f, 0.0f, // bottom left 
+			0.5f, -0.5f, 0.0f,  // top left //really: bootm right
+			0.5f, 0.5f, 0.0f, // top right 
 		};
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
