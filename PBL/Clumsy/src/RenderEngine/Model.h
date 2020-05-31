@@ -28,12 +28,15 @@ namespace Clumsy
         //void update();
         void Draw(Shader shader);
         void Draw2(Shader shader);
+		void Draw3(Shader shader, unsigned int amount);
         //void playSound();
         void showNodeName(aiNode* node);
 
         glm::mat4 aiToGlm(aiMatrix4x4 ai_matr);
         aiQuaternion nlerp(aiQuaternion a, aiQuaternion b, float blend); // super super n lerp =)
 		bool hasBones = false;
+
+		std::vector<Mesh> meshes; // one mesh in one object
     private:
 		
 		bool init = false;
@@ -41,7 +44,7 @@ namespace Clumsy
 		float m_LastFrameTime = 0.0f;
 		Assimp::Importer import;
 		const aiScene* scene;
-		std::vector<Mesh> meshes; // one mesh in one object
+		
 
 		std::map<std::string, unsigned int> m_bone_mapping; // maps a bone name and their index
 		unsigned int m_num_bones = 0;
