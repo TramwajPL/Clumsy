@@ -52,8 +52,8 @@ namespace Clumsy
 
 	bool GameObject::SetupAabb() {
 		glm::vec3 point0 = this->GetTransform().GetPos();
-		glm::vec3 min = point0 - 2.0f;
-		glm::vec3 max = point0 + 2.0f;
+		glm::vec3 min = point0 * -0.2f;
+		glm::vec3 max = point0 * 0.2f;
 
 		points.push_back(min);
 		points.push_back(max);
@@ -93,34 +93,34 @@ namespace Clumsy
 		{
 			for (int j = 0; j < RenderEngine::GetInstance()->GetPl().size(); j++)
 			{
-				if (!RenderEngine::GetInstance()->pointInPlane(RenderEngine::GetInstance()->GetPl()[j], points[i]))
-					return false;
+				bool result;
+				float distance = glm::dot(points[i], RenderEngine::GetInstance()->GetPl()[j].GetNormal()) + RenderEngine::GetInstance()->GetPl()[j].GetDistance();
+				//std::cout << RenderEngine::GetInstance()->GetPl()[j].GetDistance() << std::endl;
+				if (distance > 0) {
+					points.clear();
+					return true;
+				}
 			}
 		}
-		return true;
+		points.clear();
+		return false;
 
 	}
 
 	void GameObject::RenderAll(Shader& shader)
 	{
-		/*if (GetComponents().size() <= 1)
+		if (GetComponents().size() <= 1)
 		{
 			Render(shader);
 		}
 		else
-		{*/
-			//PhysicsObjectComponent* poc = (PhysicsObjectComponent*)GetComponents()[1];
-			/*if (SetupAabb())
-			{*/
-				//RenderEngine::GetInstance()->m_Counter++;
-				//std::cout << "KURWA" << RenderEngine::GetInstance()->m_Counter << std::endl;
-				Render(shader);
-			/*}
-			else
+		{
+			if (SetupAabb())
 			{
-				std::cout << "KUPSKO #########" << std::endl;
-			}*/
-		//}
+				RenderEngine::GetInstance()->m_Counter++;
+				Render(shader);
+			}
+		}
 
 		for (int i = 0; i < m_Children.size(); i++) 
 		{
