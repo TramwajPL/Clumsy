@@ -40,6 +40,7 @@ namespace Clumsy
 		Button* GetCenterButton() { return m_ButtonCameraOnPlayer; }
 		Button* GetEndTurnButton() { return m_ButtonEndTurn; }
 		bool isFrustumSet = false;
+		bool wasCameraMoved = true;
 
 	private:
 		//void Run();

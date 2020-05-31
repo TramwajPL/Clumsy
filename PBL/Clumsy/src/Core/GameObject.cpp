@@ -52,8 +52,8 @@ namespace Clumsy
 
 	bool GameObject::SetupAabb() {
 		glm::vec3 point0 = this->GetTransform().GetPos();
-		glm::vec3 min = point0 - 2.0f;
-		glm::vec3 max = point0 + 2.0f;
+		glm::vec3 min = point0 * -0.2f;
+		glm::vec3 max = point0 * 0.2f;
 
 		points.push_back(min);
 		points.push_back(max);
@@ -93,7 +93,9 @@ namespace Clumsy
 		{
 			for (int j = 0; j < RenderEngine::GetInstance()->GetPl().size(); j++)
 			{
-				if (RenderEngine::GetInstance()->pointInPlane(RenderEngine::GetInstance()->GetPl()[j], points[i])) {
+				bool result;
+				float distance = glm::dot(RenderEngine::GetInstance()->GetPl()[j].GetNormal(), points[i]) + RenderEngine::GetInstance()->GetPl()[j].GetDistance();
+				if (distance > 0) {
 					points.clear();
 					return true;
 				}

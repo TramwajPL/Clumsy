@@ -130,8 +130,8 @@ namespace Clumsy
 	bool RenderEngine::pointInPlane(Plane p, glm::vec3 point) 
 	{
 		bool result;
-		float distance = glm::dot(p.GetNormal(), point) - p.GetDistance();
-		if (distance > 0) {
+		float distance = glm::dot(p.GetNormal(), point) + p.GetDistance();
+		if (distance < 0) {
 			result = true;
 		}
 		else
@@ -252,7 +252,8 @@ namespace Clumsy
 		glBindTexture(GL_TEXTURE_2D, depthMap);
 
 		if (isFrustumSet == false) {
-			setFrustum(view * projection);
+			glm::mat4 comboMatrix = view * glm::transpose(projection);
+			setFrustum(comboMatrix);
 			isFrustumSet = true;
 		}
 		object.RenderAll(*m_Shader);
