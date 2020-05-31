@@ -94,7 +94,8 @@ namespace Clumsy
 			for (int j = 0; j < RenderEngine::GetInstance()->GetPl().size(); j++)
 			{
 				bool result;
-				float distance = glm::dot(RenderEngine::GetInstance()->GetPl()[j].GetNormal(), points[i]) + RenderEngine::GetInstance()->GetPl()[j].GetDistance();
+				float distance = glm::dot(points[i], RenderEngine::GetInstance()->GetPl()[j].GetNormal()) + RenderEngine::GetInstance()->GetPl()[j].GetDistance();
+				//std::cout << RenderEngine::GetInstance()->GetPl()[j].GetDistance() << std::endl;
 				if (distance > 0) {
 					points.clear();
 					return true;
