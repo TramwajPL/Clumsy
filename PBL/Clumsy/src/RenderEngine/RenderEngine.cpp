@@ -66,7 +66,6 @@ namespace Clumsy
 		glDrawBuffer(GL_NONE);
 		glReadBuffer(GL_NONE);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
 		m_Shader->use();
 		m_Shader->setInt("diffuseTexture", 0);
 		m_Shader->setInt("shadowMap", 1);
@@ -94,46 +93,51 @@ namespace Clumsy
 	
 	void RenderEngine::setFrustum(glm::mat4 viewProjection)
 	{
-		glm::vec4 row1 = glm::vec4(viewProjection[0][0], viewProjection[0][1], viewProjection[0][2], viewProjection[0][3]);
-		glm::vec4 row2 = glm::vec4(viewProjection[1][0], viewProjection[1][1], viewProjection[1][2], viewProjection[1][3]);
-		glm::vec4 row3 = glm::vec4(viewProjection[2][0], viewProjection[2][1], viewProjection[2][2], viewProjection[2][3]);
-		glm::vec4 row4 = glm::vec4(viewProjection[3][0], viewProjection[3][1], viewProjection[3][2], viewProjection[3][3]);
+		if (pl.size() > 0) {
+			pl.clear();
+		}
 
-		glm::vec4 p1 = row4 + row1;
-		glm::vec4 p2 = row4 - row1;
-		glm::vec4 p3 = row4 + row2;
-		glm::vec4 p4 = row4 - row2;
-		glm::vec4 p5 = row4 + row3;
-		glm::vec4 p6 = row4 - row3;
-
-		Plane left(glm::vec3(p1.x, p1.y, p1.z), p1.w);
+		Plane left(glm::vec3(viewProjection[0][3] + viewProjection[0][0], viewProjection[1][3] + viewProjection[1][0], 
+			viewProjection[2][3] + viewProjection[2][0]), viewProjection[3][3] + viewProjection[3][0]);
 		pl.push_back(left);
 
-		Plane right(glm::vec3(p2.x, p2.y, p2.z), p2.w);
+		Plane right(glm::vec3(viewProjection[0][3] - viewProjection[0][0], viewProjection[1][3] - viewProjection[1][0],
+			viewProjection[2][3] - viewProjection[2][0]), viewProjection[3][3] - viewProjection[3][0]);
 		pl.push_back(right);
 
-		Plane top(glm::vec3(p4.x, p4.y, p4.z), p4.w);
+		Plane top(glm::vec3(viewProjection[0][3] - viewProjection[0][1], viewProjection[1][3] - viewProjection[1][1],
+			viewProjection[2][3] - viewProjection[2][1]), viewProjection[3][3] - viewProjection[3][1]);
 		pl.push_back(top);
 
-		Plane down(glm::vec3(p3.x, p3.y, p3.z), p3.w);
+		Plane down(glm::vec3(viewProjection[0][3] + viewProjection[0][1], viewProjection[1][3] + viewProjection[1][1],
+			viewProjection[2][3] + viewProjection[2][1]), viewProjection[3][3] + viewProjection[3][1]);
 		pl.push_back(down);
 
-		Plane near(glm::vec3(p5.x, p5.y, p5.z), p5.w);
+		Plane near(glm::vec3(viewProjection[0][3] + viewProjection[0][2], viewProjection[1][2] + viewProjection[1][0],
+			viewProjection[2][3] + viewProjection[2][2]), viewProjection[3][3] + viewProjection[3][2]);
 		pl.push_back(near);
 
-		Plane far(glm::vec3(p6.x, p6.y, p6.z), p6.w);
+		Plane far(glm::vec3(viewProjection[0][3] - viewProjection[0][2], viewProjection[1][2] - viewProjection[1][0],
+			viewProjection[2][3] - viewProjection[2][2]), viewProjection[3][3] - viewProjection[3][2]);
 		pl.push_back(far);
+
+		pl[0].SetNormal(glm::normalize(pl[0].GetNormal()));
+		pl[1].SetNormal(glm::normalize(pl[1].GetNormal()));
+		pl[2].SetNormal(glm::normalize(pl[2].GetNormal()));
+		pl[3].SetNormal(glm::normalize(pl[3].GetNormal()));
+		pl[4].SetNormal(glm::normalize(pl[4].GetNormal()));
+		pl[5].SetNormal(glm::normalize(pl[5].GetNormal()));
 	}
 
 	bool RenderEngine::pointInPlane(Plane p, glm::vec3 point) 
 	{
 		bool result;
-		float distance = glm::dot(p.GetNormal(), point) - p.GetDistance();
-		if (distance < 0)
+		float distance = glm::dot(p.GetNormal(), point) + p.GetDistance();
+		if (distance < 0) {
 			result = true;
+		}
 		else
 		{
-			std::cout << "FALSEEEEEEEEEEEEEEEEEEEE" << std::endl;
 			result = false;
 		}
 		return result;
@@ -184,7 +188,7 @@ namespace Clumsy
 		{
 			for (int j = 0; j < pl.size(); j++)
 			{
-				if (!pointInPlane(pl[j], points[i]))
+				if (pointInPlane(pl[j], points[i]))
 					return false;
 			}
 		}
@@ -228,6 +232,7 @@ namespace Clumsy
 		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 		glClear(GL_DEPTH_BUFFER_BIT);
 		object.RenderAll(*simpleDepthShader);
+	//	std::cout << "KURWA" << GetInstance()->m_Counter << std::endl;
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 		// reset viewport
@@ -248,8 +253,13 @@ namespace Clumsy
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, depthMap);
 
-		//setFrustum(projection * view);
+		if (isFrustumSet == false) {
+			glm::mat4 comboMatrix = view * glm::transpose(projection);
+			setFrustum(comboMatrix);
+			isFrustumSet = true;
+		}
 		object.RenderAll(*m_Shader);
+		//std::cout << RenderEngine::GetInstance()->m_Counter << std::endl;
 
 		glDisable(GL_DEPTH_TEST);
 
@@ -280,18 +290,35 @@ namespace Clumsy
 		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetWindowShouldClose(m_GLFWWindow, true);
 
-		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_W) == GLFW_PRESS)		
-			m_Camera->ProcessKeyboard(UP, deltaTime);		
-		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_S) == GLFW_PRESS)
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_W) == GLFW_PRESS) {
+			isFrustumSet = false;
+			m_Camera->ProcessKeyboard(UP, deltaTime);
+		}
+
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_S) == GLFW_PRESS) {
+			isFrustumSet = false;
 			m_Camera->ProcessKeyboard(DOWN, deltaTime);
-		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_A) == GLFW_PRESS)
+		}
+
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_A) == GLFW_PRESS) {
+			isFrustumSet = false;
 			m_Camera->ProcessKeyboard(LEFT, deltaTime);
-		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_D) == GLFW_PRESS)
+		}
+
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_D) == GLFW_PRESS) {
+			isFrustumSet = false;
 			m_Camera->ProcessKeyboard(RIGHT, deltaTime);
-		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_R) == GLFW_PRESS)
+		}
+
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_R) == GLFW_PRESS) {
+			isFrustumSet = false;
 			m_Camera->ProcessKeyboard(FORWARD, deltaTime);
-		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_F) == GLFW_PRESS)
+		}
+
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_F) == GLFW_PRESS) {
+			isFrustumSet = false;
 			m_Camera->ProcessKeyboard(BACKWARD, deltaTime);
+		}
 
 	}
 }
