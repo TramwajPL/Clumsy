@@ -1,16 +1,18 @@
 #pragma once
 
 #include <irrKlang.h>
+#include "../EventSystem/Listener.h"
 
 namespace Clumsy
 {
-	class AudioMaster
+	class AudioMaster : public Listener
 	{
 	public:
 		static AudioMaster* GetInstance();
 		void PlayAmbientMusic();
 		void PlayBell();
 		void Drop();
+		void HandleEvent(Event* event);
 
 	private:
 		AudioMaster();
