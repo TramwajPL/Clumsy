@@ -8,7 +8,9 @@ namespace Clumsy
     class Event
     {
     public:
-        virtual ~Event() {}
+        Event(EVENT_ID eventId) :
+            m_EventId(eventId) {}
+        ~Event() {}
         EVENT_ID GetEventId() { return m_EventId; }
 
     private:
