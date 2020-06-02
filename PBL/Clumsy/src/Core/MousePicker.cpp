@@ -93,4 +93,13 @@ namespace Clumsy
 		}
 		return originalPosition;
 	}
+
+	void MousePicker::HandleEvent(Event* event)
+	{
+		if (event->GetEventId() == "move")
+		{
+			glm::vec3 vec3 = GetPickedObject(event->GetParameter()->m_Transform.GetPos());
+			event->GetParameter()->m_Transform.SetPos(vec3);
+		}
+	}
 }

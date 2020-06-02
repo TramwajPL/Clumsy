@@ -80,8 +80,10 @@ private:
 	GLFWwindow* m_GLFWWindow;	
 };
 
-const unsigned int SCR_WIDTH = 1920;
-const unsigned int SCR_HEIGHT = 1080;//zmieniæ
+//const unsigned int SCR_WIDTH = 1920;
+const unsigned int SCR_WIDTH = 1366;
+const unsigned int SCR_HEIGHT = 768;//zmieniæ
+//const unsigned int SCR_HEIGHT = 1080;//zmieniæ
 
 Clumsy::Camera* camera = new Clumsy::Camera(glm::vec3(0.0f, 13.0f, -8.0f));
 
@@ -140,9 +142,20 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		{
 			Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->OnClick();
 		}*/
+		
+		
+		if (Clumsy::RenderEngine::GetInstance()->GetStoreGUI()->IsEnabled())
+		{
 
-		glm::vec3 vec3 = mp.GetPickedObject(rmc->m_Transform.GetPos());
-		rmc->m_Transform.SetPos(vec3);
+		}
+		else if (Clumsy::RenderEngine::GetInstance()->GetWarehouseGUI()->IsEnabled())
+		{
+
+		}
+		else
+		{
+			Clumsy::EventSystem::GetInstance()->SendEvent("move", (void*)rmc);
+		}
 
 	}
 }

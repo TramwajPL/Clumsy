@@ -69,9 +69,9 @@ namespace Clumsy
 		}
 	} 
 
-	void EventSystem::SendEvent(EVENT_ID eventId)
+	void EventSystem::SendEvent(EVENT_ID eventId, void* data)
 	{
-		Event event(eventId);
+		Event event(eventId, data);
 		m_CurrentEvents.push_back(event);
 	}
 

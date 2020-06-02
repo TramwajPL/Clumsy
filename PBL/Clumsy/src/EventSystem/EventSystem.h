@@ -31,7 +31,7 @@ namespace Clumsy
 		void SubscribeListener(EVENT_ID eventId, Listener* listener);
 		void UnsubscribeListener(EVENT_ID eventId, Listener* listener);
 		void UnsubscribeAll(Listener* listener); // unsubscribe a listener from all events
-		void SendEvent(EVENT_ID eventId);
+		void SendEvent(EVENT_ID eventId, void* data = 0);
 		void ProcessEvents();
 		void ClearEvents();
 		void ShutDown();
