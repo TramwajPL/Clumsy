@@ -80,7 +80,7 @@ namespace Clumsy
 		return tmin;
 	}
 
-	glm::vec3 MousePicker::GetPickedObject()
+	glm::vec3 MousePicker::GetPickedObject(glm::vec3 originalPosition)
 	{
 		float checkCollisionResult;
 		for (int i = 0; i < PhysicsEngine::GetInstance()->GetNumObjects() ; i++)
@@ -91,6 +91,6 @@ namespace Clumsy
 				return PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
 			}
 		}
-		return glm::vec3(1.0f, 1.0f, 0.0f);
+		return originalPosition;
 	}
 }

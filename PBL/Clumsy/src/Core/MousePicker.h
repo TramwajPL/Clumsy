@@ -30,7 +30,7 @@ namespace Clumsy
 
 		float CheckCollision(const Collider* aabb);
 
-		glm::vec3 GetPickedObject();
+		glm::vec3 GetPickedObject(glm::vec3 originalPosition);
 
 	private:
 		glm::vec3 m_CurrentRay;

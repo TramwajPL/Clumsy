@@ -141,7 +141,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 			Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->OnClick();
 		}*/
 
-		glm::vec3 vec3 = mp.GetPickedObject();
+		glm::vec3 vec3 = mp.GetPickedObject(rmc->m_Transform.GetPos());
 		rmc->m_Transform.SetPos(vec3);
 
 	}
