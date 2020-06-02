@@ -2,6 +2,12 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include "../Core/Time.h"
+#include "../Core/Timestep.h"
+#include "../RenderEngine/Window.h"
+#include <ctime>
+
+
 
 namespace Clumsy {
 
@@ -31,7 +37,13 @@ namespace Clumsy {
 		glm::vec3 GetTransformedPos();
 		glm::quat GetTransformedRot() const;
 
-		inline void SetPos(glm::vec3& pos) { m_pos = pos; }
+		inline void SetPos(glm::vec3& pos) 
+		{ 
+				m_pos = lerp(m_pos, pos, 0.5);
+
+		}
+		glm::vec3 lerp(glm::vec3 currentPos, glm::vec3 goalPos, float delta);
+
 		inline void SetPosX(const float x) { m_pos.x = x; }
 		inline void SetPosY(const float y) { m_pos.y = y; }
 		inline void SetPosZ(const float z) { m_pos.z = z; }
@@ -47,11 +59,11 @@ namespace Clumsy {
 
 	private:
 		const glm::mat4& GetParentMatrix() const;
+		float m_LastFrameTime = 0.0f;
 
 		glm::vec3 m_pos;
 		glm::quat m_rot;
 		float m_scale;
-
 		Transform* m_parent;
 		mutable glm::mat4 m_parentMatrix;
 
