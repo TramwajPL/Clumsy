@@ -108,8 +108,6 @@
     <None Include="src\Shaders\shadow_mapping_depth_VS.glsl" />
     <None Include="src\Shaders\text_FS.glsl" />
     <None Include="src\Shaders\text_VS.glsl" />
-    <None Include="tessellationControl.glsl" />
-    <None Include="tessellationEvaluation.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

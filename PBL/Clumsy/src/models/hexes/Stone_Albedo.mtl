@@ -1,7 +1,7 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
 # File Created: 05.05.2020 22:29:26
 
-newmtl groundEarth_base_color
+newmtl Stone_Albedo
 	Ns 10.0000
 	Ni 1.5000
 	d 1.0000
@@ -12,4 +12,4 @@ newmtl groundEarth_base_color
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-map_Kd Clay_ground_Albedo.png
+map_Kd Stone_Albedo.png
