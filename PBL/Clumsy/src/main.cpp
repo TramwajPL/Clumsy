@@ -80,10 +80,10 @@ private:
 	GLFWwindow* m_GLFWWindow;	
 };
 
-//const unsigned int SCR_WIDTH = 1920;
-const unsigned int SCR_WIDTH = 1366;
-const unsigned int SCR_HEIGHT = 768;//zmieniæ
-//const unsigned int SCR_HEIGHT = 1080;//zmieniæ
+const unsigned int SCR_WIDTH = 1920;
+//const unsigned int SCR_WIDTH = 1366;
+//const unsigned int SCR_HEIGHT = 768;//zmieniæ
+const unsigned int SCR_HEIGHT = 1080;//zmieniæ
 
 Clumsy::Camera* camera = new Clumsy::Camera(glm::vec3(0.0f, 13.0f, -8.0f));
 
@@ -165,6 +165,7 @@ int main()
 
 	Clumsy::RenderEngine::CreateInstance(glfwWindow, window, camera);
 	Clumsy::EventSystem::GetInstance()->SubscribeListener("scroll", Clumsy::AudioMaster::GetInstance());
+	Clumsy::EventSystem::GetInstance()->SubscribeListener("move", &mp);
 	
 	glfwSetScrollCallback(glfwWindow, scroll_callback);
 	glfwSetMouseButtonCallback(glfwWindow, mouse_button_callback);

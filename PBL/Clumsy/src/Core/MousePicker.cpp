@@ -4,6 +4,7 @@
 #include <glm/gtx/string_cast.hpp>
 
 #include "MousePicker.h"
+#include "../Components/RenderModelComponent.h"
 
 namespace Clumsy
 {
@@ -98,8 +99,9 @@ namespace Clumsy
 	{
 		if (event->GetEventId() == "move")
 		{
-			glm::vec3 vec3 = GetPickedObject(event->GetParameter()->m_Transform.GetPos());
-			event->GetParameter()->m_Transform.SetPos(vec3);
+			RenderModelComponent* rmc = (RenderModelComponent*)event->GetParameter();
+			glm::vec3 vec3 = GetPickedObject(rmc->m_Transform.GetPos());
+			rmc->m_Transform.SetPos(vec3);
 		}
 	}
 }

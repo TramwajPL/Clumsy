@@ -12,6 +12,7 @@
 
 namespace Clumsy
 {
+	class RenderModelComponent;
 	class MousePicker : public Listener
 	{
 	public:
