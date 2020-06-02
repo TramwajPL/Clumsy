@@ -61,7 +61,7 @@ namespace Clumsy
 									if (k.find("Pasture") != std::string::npos) {
 										//std::cout << "znalazlem $$$$$$$$$$$$$$$$$$" << std::endl;
 										m3->loadModel("../Clumsy/src/models/hexes/groundEarth_base_color.obj");
-										m7->loadModel("../Clumsy/src/models/hexes/low_poly_tree_summer.obj");
+										m7->loadModel("../Clumsy/src/models/hexes/tree_Oliwiw.obj");
 										model3 = true;
 									}
 									if (k.find("Desert") != std::string::npos) {
@@ -119,7 +119,7 @@ namespace Clumsy
 							transform2.SetRotY(0.7f);//0
 							transform2.SetRotZ(0.7f);//0
 							transform2.SetRotW(0.0f);//1
-							transform2.SetScale(1.0f);
+							transform2.SetScale(0.1f);
 							allTransformsM7.push_back(transform2);
 							glm::vec3 min2 = glm::vec3(transform2.GetPos() - glm::vec3(0.5f, 0.1f, 0.8f));
 							glm::vec3 max2 = glm::vec3(transform2.GetPos() + glm::vec3(0.5f, 0.1f, 0.8f));
