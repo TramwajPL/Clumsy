@@ -55,5 +55,7 @@
 
 #include "GUI/GUI.h"
 #include "GUI/Button.h"
+#include "GUI/StoreGUI.h"
+#include "GUI/WarehouseGUI.h"
 
 //////////////////

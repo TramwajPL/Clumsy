@@ -1,7 +1,7 @@
 #pragma once
 
 #include <map>
-#include <queue>
+#include <list>
 #include <vector>
 
 #include "Listener.h"
@@ -14,7 +14,7 @@ namespace Clumsy
 		static EventSystem* m_Instance;
 
 		std::map<EVENT_ID, std::vector<Listener*>> m_Observers;		
-		std::queue<EVENT_ID> m_CurrentEvents; // do we need this?
+		std::list<Event> m_CurrentEvents; 
 
 		EventSystem() {}
 		~EventSystem() { ShutDown(); }
@@ -31,10 +31,9 @@ namespace Clumsy
 		void SubscribeListener(EVENT_ID eventId, Listener* listener);
 		void UnsubscribeListener(EVENT_ID eventId, Listener* listener);
 		void UnsubscribeAll(Listener* listener); // unsubscribe a listener from all events
-		void SendEvent(EVENT_ID eventId);
+		void SendEvent(EVENT_ID eventId, void* data = 0);
 		void ProcessEvents();
 		void ClearEvents();
 		void ShutDown();
-
 	};
 }

@@ -24,6 +24,9 @@
 const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1080;
 
+//const unsigned int SCR_WIDTH = 1366;
+//const unsigned int SCR_HEIGHT = 768;//zmieniæ
+
 namespace Clumsy 
 {
 	RenderEngine::RenderEngine(GLFWwindow* window, Window* window2, Camera* camera) :

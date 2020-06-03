@@ -8,11 +8,12 @@
 #include "../RenderEngine/Camera.h"
 #include "../PhysicsEngine/PhysicsEngine.h"
 #include "../Components/PhysicsObjectComponent.h"
-
+#include "../EventSystem/Listener.h"
 
 namespace Clumsy
 {
-	class MousePicker
+	class RenderModelComponent;
+	class MousePicker : public Listener
 	{
 	public:
 		MousePicker(Camera* camera, Window* window, glm::mat4 projectionMatrix) :
@@ -30,7 +31,8 @@ namespace Clumsy
 
 		float CheckCollision(const Collider* aabb);
 
-		glm::vec3 GetPickedObject();
+		glm::vec3 GetPickedObject(glm::vec3 originalPosition);
+		void HandleEvent(Event* event);
 
 	private:
 		glm::vec3 m_CurrentRay;

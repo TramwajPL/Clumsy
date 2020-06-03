@@ -31,4 +31,13 @@ namespace Clumsy
     {
         m_SoundEngine = irrklang::createIrrKlangDevice();
     }
+
+	void AudioMaster::HandleEvent(Event* event)
+	{
+		if (event->GetEventId() == "scroll")
+		{
+			PlayBell();
+		}
+		
+	}
 }

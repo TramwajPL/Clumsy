@@ -14,6 +14,7 @@ Clumsy::GameObject* object1;
 Clumsy::GameObject* map = new Clumsy::GameObject();
 Clumsy::RenderModelComponent* rmc;
 Clumsy::GameObject* boy;
+bool isScrolled = false;
 
 Clumsy::AudioMaster* Clumsy::AudioMaster::m_Instance = 0;
 Clumsy::EventSystem* Clumsy::EventSystem::m_Instance = 0;
@@ -99,8 +100,9 @@ Clumsy::Aabb a1(v1, v2);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	camera->ProcessMouseScroll(yoffset);
-
-	Clumsy::AudioMaster::GetInstance()->PlayBell();
+	//isScrolled = true;
+	//Clumsy::AudioMaster::GetInstance()->PlayBell();
+	Clumsy::EventSystem::GetInstance()->SendEvent("scroll");
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
@@ -138,10 +140,23 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		{
 			Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->OnClick();
 		}*/
+		
+		
+		if (Clumsy::RenderEngine::GetInstance()->GetStoreGUI()->IsEnabled())
+		{
 
 		glm::vec3 vec3 = mp.GetPickedObject();
 		//rmc->m_Transform.SetPos(vec3);
 		rmc->SetTransform(vec3);
+		}
+		else if (Clumsy::RenderEngine::GetInstance()->GetWarehouseGUI()->IsEnabled())
+		{
+
+		}
+		else
+		{
+			Clumsy::EventSystem::GetInstance()->SendEvent("move", (void*)rmc);
+		}
 
 	}
 }
@@ -150,12 +165,11 @@ int main()
 	GLFWwindow* glfwWindow = window->GetGLFWWindow();
 
 	Clumsy::RenderEngine::CreateInstance(glfwWindow, window, camera);
-	//Clumsy::RenderEngine* renderEngine = new Clumsy::RenderEngine(glfwWindow, window, camera);
-	glfwSetScrollCallback(glfwWindow, scroll_callback);
+	Clumsy::EventSystem::GetInstance()->SubscribeListener("scroll", Clumsy::AudioMaster::GetInstance());
+	Clumsy::EventSystem::GetInstance()->SubscribeListener("move", &mp);
 	
+	glfwSetScrollCallback(glfwWindow, scroll_callback);
 	glfwSetMouseButtonCallback(glfwWindow, mouse_button_callback);
-
-	//Clumsy::PhysicsEngine* physicsEngine = new Clumsy::PhysicsEngine();
 
 	TestGame game(glfwWindow);
 	

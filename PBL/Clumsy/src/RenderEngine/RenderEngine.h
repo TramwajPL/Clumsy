@@ -19,7 +19,7 @@ namespace Clumsy
 	class StoreGUI;
 	class WarehouseGUI;
 
-	class RenderEngine 
+	class RenderEngine
 	{
 	public:
 		static RenderEngine* GetInstance();
@@ -30,7 +30,7 @@ namespace Clumsy
 		void processInput(float deltaTime);
 		Camera GetCamera() { return *m_Camera; }
 		void Render(GameObject object);
-		void AddLights(const BaseLight& light) { m_Lights.push_back(&light);}
+		void AddLights(const BaseLight& light) { m_Lights.push_back(&light); }
 		const BaseLight& GetActiveLight() const { return *m_ActiveLight; }
 		void setFrustum(glm::mat4 viewProjection);
 		bool pointInPlane(Plane p, glm::vec3 point);
@@ -39,6 +39,8 @@ namespace Clumsy
 		std::vector<Plane> GetPl() { return pl; }
 		Button* GetCenterButton() { return m_ButtonCameraOnPlayer; }
 		Button* GetEndTurnButton() { return m_ButtonEndTurn; }
+		StoreGUI* GetStoreGUI() { return m_StoreGUI; }
+		WarehouseGUI* GetWarehouseGUI() { return m_WarehouseGUI; }
 		bool isFrustumSet = false;
 		bool wasCameraMoved = true;
 
