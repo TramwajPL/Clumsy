@@ -40,8 +40,8 @@ namespace Clumsy {
 		inline void SetPos(glm::vec3& pos) 
 		{ 
 				m_pos = lerp(m_pos, pos, 0.5f);
-
 		}
+
 		glm::vec3 lerp(glm::vec3 currentPos, glm::vec3 goalPos, float delta);
 
 		inline void SetPosX(const float x) { m_pos.x = x; }
@@ -66,7 +66,6 @@ namespace Clumsy {
 		float m_scale;
 		Transform* m_parent;
 		mutable glm::mat4 m_parentMatrix;
-
 		mutable glm::vec3 m_oldPos;
 		mutable glm::quat m_oldRot;
 		mutable float m_oldScale;
