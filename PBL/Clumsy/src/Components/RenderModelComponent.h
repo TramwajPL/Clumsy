@@ -39,16 +39,17 @@ namespace Clumsy {
 			
 		}
 
-		void SetTransform(Transform tr)
+		void SetTransform(glm::vec3 tr)
 		{
-			m_Transform = tr;
+			m_Transform.SetPos(tr);
 		}
 
 		virtual void Update() 
 		{
-			glm::vec3 pos = GetParentTransform().GetPos();
-			m_Transform.SetPos(pos);
+			//glm::vec3 pos = GetParentTransform().GetPos();
+			//m_Transform.SetPos(pos);
 			//SetTransform(GetParentTransform());
+			SetTransform(m_Transform.GetPos());
 		}
 
 		Transform m_Transform;

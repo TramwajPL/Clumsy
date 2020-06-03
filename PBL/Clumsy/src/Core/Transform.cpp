@@ -114,7 +114,7 @@ namespace Clumsy{
 
 	glm::vec3 Transform::lerp(glm::vec3 currentPos, glm::vec3 goalPos, float delta)
 	{
-		return currentPos*delta + goalPos*(1.0f-delta);
+		return currentPos + delta*(goalPos - currentPos);
 	}
 
 	glm::mat4 Transform::SetRotation()

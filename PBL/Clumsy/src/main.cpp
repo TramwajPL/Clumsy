@@ -140,7 +140,8 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		}*/
 
 		glm::vec3 vec3 = mp.GetPickedObject();
-		rmc->m_Transform.SetPos(vec3);
+		//rmc->m_Transform.SetPos(vec3);
+		rmc->SetTransform(vec3);
 
 	}
 }

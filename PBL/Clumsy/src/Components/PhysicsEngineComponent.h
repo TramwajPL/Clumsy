@@ -12,7 +12,7 @@ namespace Clumsy
 
 		virtual void Update() 
 		{
-			PhysicsEngine::GetInstance()->HandleCollisions();
+			//PhysicsEngine::GetInstance()->HandleCollisions();
 		}
 	};
 }
