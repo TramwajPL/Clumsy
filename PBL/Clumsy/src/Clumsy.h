@@ -3,28 +3,28 @@
 // FOR APPLICATION
 
 #include "Core/Game.h"
+#include "Core/Parser.h"
 #include "Core/CoreEngine.h"
 #include "Core/MousePicker.h"
-#include "Core/Parser.h"
 
 /////////////////
  
-//COMPONENTS
+// COMPONENTS
 #include "Components/RenderModelComponent.h"
-
 
 ////////////////
 
+#include "Components/MoveComponent.h"
 #include "Components/PhysicsObjectComponent.h"
 #include "Components/PhysicsEngineComponent.h"
-#include "Components/MoveComponent.h"
 
 // RENDERING
 
-#include "RenderEngine/Camera.h"
-#include "RenderEngine/RenderEngine.h"
 #include "RenderEngine/Model.h"
+#include "RenderEngine/Camera.h"
 #include "RenderEngine/Lighting.h"
+#include "RenderEngine/RenderEngine.h"
+#include "RenderEngine/PostProcessor.h"
 
 /////////////////
 
@@ -32,8 +32,8 @@
 // PHYSICS
 
 #include "PhysicsEngine/Aabb.h"
-#include "PhysicsEngine/BoundingSphere.h"
 #include "PhysicsEngine/PhysicsEngine.h"
+#include "PhysicsEngine/BoundingSphere.h"
 
 /////////////////
 

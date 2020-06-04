@@ -16,6 +16,11 @@ uniform mat4 view;
 uniform mat4 projection;
 uniform bool hasBones;
 
+uniform bool  chaos;
+uniform bool  confuse;
+uniform bool  shake;
+uniform float time;
+
 uniform mat4 lightSpaceMatrix;
 
 const int MAX_BONES = 100;
@@ -45,4 +50,10 @@ void main()
 		gl_Position = projection * view * instanceMatrix * vec4(aPos, 1.0);
 		FragPosLightSpace = lightSpaceMatrix * vec4(FragPos, 1.0);
 	}
+	if (shake)
+    {
+        float strength = 0.1;
+        gl_Position.x += cos(time * 10) * strength;        
+        gl_Position.y += cos(time * 15) * strength;        
+    }
 }

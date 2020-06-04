@@ -23,7 +23,7 @@ namespace Clumsy
 
 	private:
 		bool m_IsRunning;				//Whether or not the engine is running
-		float m_FrameTime;				//How long, in seconds, one frame should take
+		float m_FrameTime = 0.0f;		//How long, in seconds, one frame should take
 		Window* m_Window;				//Used to display the game
 		Game* m_Game;					//The game itself. Stored as pointer so the user can pass in a derived class.
 

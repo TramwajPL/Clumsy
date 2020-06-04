@@ -44,6 +44,8 @@ namespace Clumsy
 		bool isFrustumSet = false;
 		bool wasCameraMoved = true;
 
+		Shader* GetMShader() { return m_Shader; }
+
 	private:
 		//void Run();
 		void CleanUp();

@@ -82,6 +82,13 @@ namespace Clumsy
         glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
     }
 
+    void Shader::SetInteger(const GLchar* name, GLint value, GLboolean useShader)
+    {
+        //if (useShader)
+          //  use();
+        glUniform1i(glGetUniformLocation(ID, name), value);
+    }
+
     void Shader::setFloat(const std::string& name, float value) const
     {
         glUniform1f(glGetUniformLocation(ID, name.c_str()), value);

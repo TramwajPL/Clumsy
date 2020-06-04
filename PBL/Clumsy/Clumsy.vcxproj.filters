@@ -81,6 +81,9 @@
     <ClCompile Include="src\GUI\StoreGUI.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\RenderEngine\PostProcessor.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -201,6 +204,9 @@
     </ClInclude>
     <ClInclude Include="src\Components\RenderInstancedModelComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\PostProcessor.h">
+      <Filter>RenderEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

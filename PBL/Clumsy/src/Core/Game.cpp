@@ -12,12 +12,21 @@ namespace Clumsy
 {	
 	void Game::Render()
 	{
+		Effects->BeginRender();
 		RenderEngine::GetInstance()->Render(m_Root); 
+		Effects->EndRender();
+		Effects->Render(glfwGetTime());
 	}
 
-	void Game::Update()
+	void Game::Update(float deltaTime)
 	{
 		m_Root.UpdateAll();
+		if (m_ShakeTime > 0.0f)
+		{
+			m_ShakeTime -= deltaTime;
+			if (m_ShakeTime <= 0.0f)
+				Effects->m_Shake = false;
+		}
 	}
 
 	void Game::AddToScene(GameObject* child)

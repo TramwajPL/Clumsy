@@ -11,14 +11,22 @@ namespace Clumsy
 	{	
 		m_IsRunning = true;		
 
+		float lastFrame = 0.0f;
+
 		while (!glfwWindowShouldClose(m_Window->GetGLFWWindow()))
 		{
 			glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+			// calculate delta time
+			// --------------------
+			float currentFrame = glfwGetTime();
+			m_FrameTime = currentFrame - lastFrame;
+			lastFrame = currentFrame;
+
 			EventSystem::GetInstance()->ProcessEvents();
 			m_Game->ProcessInput(m_Window->GetInput());
-			m_Game->Update();
+			m_Game->Update(m_FrameTime);
 			m_Game->Render();
 
 			glfwSwapBuffers(m_Window->GetGLFWWindow());

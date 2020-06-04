@@ -8,6 +8,10 @@
 
 #include "Clumsy.h"
 
+const unsigned int SCR_WIDTH = 1920;
+//const unsigned int SCR_WIDTH = 1366;
+//const unsigned int SCR_HEIGHT = 768;//zmieniæ
+const unsigned int SCR_HEIGHT = 1080;//zmieniæ
 
 Clumsy::GameObject* object1;
 Clumsy::GameObject* map = new Clumsy::GameObject();
@@ -28,6 +32,7 @@ public:
 
 	virtual void Init()
 	{
+		Effects = new Clumsy::PostProcessor(*Clumsy::RenderEngine::GetInstance()->GetMShader(), SCR_WIDTH, SCR_HEIGHT);
 		glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::quat rotBoy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f));
 
@@ -79,10 +84,6 @@ private:
 	GLFWwindow* m_GLFWWindow;
 };
 
-const unsigned int SCR_WIDTH = 1920;
-//const unsigned int SCR_WIDTH = 1366;
-//const unsigned int SCR_HEIGHT = 768;//zmieniæ
-const unsigned int SCR_HEIGHT = 1080;//zmieniæ
 
 Clumsy::Camera* camera = new Clumsy::Camera(glm::vec3(0.0f, 13.0f, -8.0f));
 
@@ -97,6 +98,8 @@ glm::vec3 v2 = glm::vec3(0.0f, 0.0f, -2.0f) + glm::vec3(1.0f, 1.0f, 1.0f);
 
 Clumsy::Aabb a1(v1, v2);
 
+GLFWwindow* glfwWindow = window->GetGLFWWindow();
+TestGame game(glfwWindow);
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
@@ -151,23 +154,21 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		}
 		else
 		{
-				Clumsy::EventSystem::GetInstance()->SendEvent("move", (void*)rmc);
+			game.SetShakeTime(0.15f);
+			game.GetEffects()->m_Shake = true;
+			Clumsy::EventSystem::GetInstance()->SendEvent("move", (void*)rmc);
 		}
 
 	}
 }
 int main()
 {
-	GLFWwindow* glfwWindow = window->GetGLFWWindow();
-
 	Clumsy::RenderEngine::CreateInstance(glfwWindow, window, camera);
 	Clumsy::EventSystem::GetInstance()->SubscribeListener("scroll", Clumsy::AudioMaster::GetInstance());
 	Clumsy::EventSystem::GetInstance()->SubscribeListener("move", &mp);
 
 	glfwSetScrollCallback(glfwWindow, scroll_callback);
 	glfwSetMouseButtonCallback(glfwWindow, mouse_button_callback);
-
-	TestGame game(glfwWindow);
 
 	Clumsy::CoreEngine coreEngine(60.0f, window, &game);
 

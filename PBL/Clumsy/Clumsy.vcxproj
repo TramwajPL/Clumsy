@@ -43,6 +43,7 @@
     <ClCompile Include="src\RenderEngine\Lighting.cpp" />
     <ClCompile Include="src\RenderEngine\Mesh.cpp" />
     <ClCompile Include="src\RenderEngine\Model.cpp" />
+    <ClCompile Include="src\RenderEngine\PostProcessor.cpp" />
     <ClCompile Include="src\RenderEngine\RenderEngine.cpp" />
     <ClCompile Include="src\RenderEngine\RenderUtil.cpp" />
     <ClCompile Include="src\RenderEngine\Shader.cpp" />
@@ -86,6 +87,7 @@
     <ClInclude Include="src\RenderEngine\Lighting.h" />
     <ClInclude Include="src\RenderEngine\Mesh.h" />
     <ClInclude Include="src\RenderEngine\Model.h" />
+    <ClInclude Include="src\RenderEngine\PostProcessor.h" />
     <ClInclude Include="src\RenderEngine\RenderEngine.h" />
     <ClInclude Include="src\RenderEngine\RenderUtil.h" />
     <ClInclude Include="src\RenderEngine\Shader.h" />
