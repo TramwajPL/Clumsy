@@ -32,6 +32,8 @@ public:
 
 	virtual void Init()
 	{
+		SceneParser(map);
+
 		glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::quat rotBoy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f));
 
@@ -70,7 +72,6 @@ public:
 		AddToScene((new Clumsy::GameObject())
 			->AddComponent(physicsEngineComponent));
 
-		SceneParser(map);
 		/*
 		std::cout << "Init gierki" << std::endl;
 		std::cout <<"BOY 1 POSITION: " << glm::to_string(boy->GetTransform().GetPos()) << std::endl;
