@@ -7,6 +7,8 @@
 #include "Shader.h"
 #include "Lighting.h"
 #include "RenderUtil.h"
+#include "PostProcessor.h"
+
 #include "../Core/Time.h"
 #include "../Core/Timestep.h"
 #include "../Core/GameObject.h"
@@ -53,6 +55,8 @@ namespace Clumsy
 		Shader* GetPostShader() { return m_Postprocessing; }
 
 		PostProcessor* GetPostProcessor() { return Effects; }
+		float GetShakeTime() { return m_ShakeTime; }
+		void SetShakeTime(float time) { m_ShakeTime = time; }
 
 
 	private:
@@ -91,6 +95,6 @@ namespace Clumsy
 		WarehouseGUI* m_WarehouseGUI;
 
 		PostProcessor* Effects;
-
+		float m_ShakeTime;
 	};
 }
