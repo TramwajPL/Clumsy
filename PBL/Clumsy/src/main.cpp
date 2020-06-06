@@ -79,10 +79,10 @@ private:
 	GLFWwindow* m_GLFWWindow;
 };
 
-const unsigned int SCR_WIDTH = 1920;
-//const unsigned int SCR_WIDTH = 1366;
-//const unsigned int SCR_HEIGHT = 768;//zmieniæ
-const unsigned int SCR_HEIGHT = 1080;//zmieniæ
+//const unsigned int SCR_WIDTH = 1920;
+const unsigned int SCR_WIDTH = 1366;
+const unsigned int SCR_HEIGHT = 768;//zmieniæ
+//const unsigned int SCR_HEIGHT = 1080;//zmieniæ
 
 Clumsy::Camera* camera = new Clumsy::Camera(glm::vec3(0.0f, 13.0f, -8.0f));
 
@@ -113,17 +113,50 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		double xpos, ypos;
 		//getting cursor position
 		glfwGetCursorPos(window, &xpos, &ypos);
-		std::cout << "Cursor Position at " << xpos << " : " << ypos << std::endl;
+		std::cout << "Cursor Position at " << xpos << " : " << ypos << std::endl;	
 		mp.Update();
+		float screenX = 2.0f * xpos / SCR_WIDTH - 1.0f;
+		float screenY = 1.0f - 2.0f * ypos / SCR_HEIGHT;
 
-		if (xpos > 25.0 && xpos < 165.0 && ypos > 145.0 && ypos < 180.0)
+		glm::vec2 centerButton = Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetCorner();
+		glm::vec2 endTurnButton = Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->GetCorner();
+		glm::vec2 restartButton = Clumsy::RenderEngine::GetInstance()->GetRestartButton()->GetCorner();
+		glm::vec2 scale1 = Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetScale();
+		glm::vec2 scale2 = Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->GetScale();
+		glm::vec2 scale3 = Clumsy::RenderEngine::GetInstance()->GetRestartButton()->GetScale();
+		std::cout << "TMPP: " << glm::to_string(centerButton) << std::endl;
+		std::cout << "SCALE: " << glm::to_string(scale1) << std::endl;
+		std::cout << "SCREEEN X: " << screenX << std::endl;
+		std::cout << "SCREEEN Y " << screenY << std::endl;
+
+		std::cout << "NEW center Y: " << (centerButton.y + scale1.y) << std::endl;
+		std::cout << "NEW center X 2: " << (centerButton.y - (scale1.y / 2)) << std::endl;
+		std::cout << "NEW end Y: " << (endTurnButton.y + scale2.y) << std::endl;
+		std::cout << "NEW end Y 2: " << (endTurnButton.y - (scale2.y / 2)) << std::endl;
+
+		if (screenX > (centerButton.x - (scale1.x/2)) && screenX < (centerButton.x + (scale1.x/2))
+			&& screenY < (centerButton.y + scale1.y) && screenY > centerButton.y)
+		{
+			Clumsy::RenderEngine::GetInstance()->GetCenterButton()->OnClick();
+		}
+		if (screenX > (endTurnButton.x - (scale2.x / 2)) && screenX < (endTurnButton.x + (scale2.x / 2))
+			&& screenY < (endTurnButton.y + scale2.y) && screenY > endTurnButton.y)
+		{
+			Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->OnClick();
+		}
+		if (screenX > (restartButton.x - (scale3.x / 2)) && screenX < (restartButton.x + (scale3.x / 2))
+			&& screenY < (restartButton.y + scale3.y) && screenY > restartButton.y)
+		{
+			Clumsy::RenderEngine::GetInstance()->GetRestartButton()->OnClick();
+		}
+		/*if (xpos > 25.0 && xpos < 165.0 && ypos > 145.0 && ypos < 180.0)
 		{
 			Clumsy::RenderEngine::GetInstance()->GetCenterButton()->OnClick();
 		}
 		else if (xpos > 25.0 && xpos < 165.0 && ypos > 195.0 && ypos < 240.0)
 		{
 			Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->OnClick();
-		}
+		}*/
 		/*float x = -0.9f;
 		float y = 0.65f;
 		float num = (1 + x) * SCR_WIDTH * 0.15;
