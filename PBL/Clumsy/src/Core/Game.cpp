@@ -12,10 +12,10 @@ namespace Clumsy
 {	
 	void Game::Render()
 	{
-		Effects->BeginRender();
 		RenderEngine::GetInstance()->Render(m_Root); 
-		Effects->EndRender();
-		Effects->Render(glfwGetTime());
+		//Effects->BeginRender();
+		//Effects->EndRender();
+		//Effects->Render(glfwGetTime());
 	}
 
 	void Game::Update(float deltaTime)
@@ -25,7 +25,7 @@ namespace Clumsy
 		{
 			m_ShakeTime -= deltaTime;
 			if (m_ShakeTime <= 0.0f)
-				Effects->m_Shake = false;
+				Clumsy::RenderEngine::GetInstance()->m_Shake = false;
 		}
 	}
 

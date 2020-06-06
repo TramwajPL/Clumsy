@@ -25,9 +25,14 @@ namespace Clumsy
 			lastFrame = currentFrame;
 
 			EventSystem::GetInstance()->ProcessEvents();
+
 			m_Game->ProcessInput(m_Window->GetInput());
+
 			m_Game->Update(m_FrameTime);
+
 			m_Game->Render();
+
+			RenderEngine::GetInstance()->RenderGUI();
 
 			glfwSwapBuffers(m_Window->GetGLFWWindow());
 			glfwPollEvents();

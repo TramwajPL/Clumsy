@@ -6,7 +6,7 @@ namespace Clumsy
 {
     PostProcessor::PostProcessor(Shader shader, GLuint width, GLuint height) : 
         m_PostProcessingShader(shader), 
-        //Texture(), 
+        m_Texture(), 
         m_Width(width), 
         m_Height(height), 
         m_Confuse(GL_FALSE), 
@@ -28,8 +28,8 @@ namespace Clumsy
 
         // Also initialize the FBO/texture to blit multisampled color-buffer to; used for shader operations (for postprocessing effects)
         glBindFramebuffer(GL_FRAMEBUFFER, this->FBO);
-        //this->Texture.Generate(width, height, NULL);
-        //glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->Texture.ID, 0); // Attach texture to framebuffer as its color attachment
+        this->m_Texture.Generate(width, height, NULL);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->m_Texture.ID, 0); // Attach texture to framebuffer as its color attachment
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             std::cout << "ERROR::POSTPROCESSOR: Failed to initialize FBO" << std::endl;
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -89,7 +89,7 @@ namespace Clumsy
         this->m_PostProcessingShader.setInt("shake", this->m_Shake);
         // Render textured quad
         glActiveTexture(GL_TEXTURE0);
-        //this->Texture.Bind();
+        this->m_Texture.Bind();
         glBindVertexArray(this->VAO);
         glDrawArrays(GL_TRIANGLES, 0, 6);
         glBindVertexArray(0);

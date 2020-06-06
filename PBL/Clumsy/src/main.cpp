@@ -32,7 +32,7 @@ public:
 
 	virtual void Init()
 	{
-		Effects = new Clumsy::PostProcessor(*Clumsy::RenderEngine::GetInstance()->GetMShader(), SCR_WIDTH, SCR_HEIGHT);
+		Effects = new Clumsy::PostProcessor(*Clumsy::RenderEngine::GetInstance()->GetPostShader(), SCR_WIDTH, SCR_HEIGHT);
 		glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::quat rotBoy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f));
 
@@ -155,7 +155,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		else
 		{
 			game.SetShakeTime(0.15f);
-			game.GetEffects()->m_Shake = true;
+			Clumsy::RenderEngine::GetInstance()->m_Shake = true;
 			Clumsy::EventSystem::GetInstance()->SendEvent("move", (void*)rmc);
 		}
 

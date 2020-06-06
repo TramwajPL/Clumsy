@@ -47,6 +47,7 @@
     <ClCompile Include="src\RenderEngine\RenderEngine.cpp" />
     <ClCompile Include="src\RenderEngine\RenderUtil.cpp" />
     <ClCompile Include="src\RenderEngine\Shader.cpp" />
+    <ClCompile Include="src\RenderEngine\TextureClass.cpp" />
     <ClCompile Include="src\RenderEngine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +92,7 @@
     <ClInclude Include="src\RenderEngine\RenderEngine.h" />
     <ClInclude Include="src\RenderEngine\RenderUtil.h" />
     <ClInclude Include="src\RenderEngine\Shader.h" />
+    <ClInclude Include="src\RenderEngine\TextureClass.h" />
     <ClInclude Include="src\RenderEngine\Window.h" />
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +106,8 @@
     <None Include="src\Shaders\model_loadingVS.glsl" />
     <None Include="src\Shaders\phongFS.glsl" />
     <None Include="src\Shaders\phongVS.glsl" />
+    <None Include="src\Shaders\post_FS.glsl" />
+    <None Include="src\Shaders\post_VS.glsl" />
     <None Include="src\Shaders\shadows_shader_FS.glsl" />
     <None Include="src\Shaders\shadows_shader_VS.glsl" />
     <None Include="src\Shaders\shadow_mapping_depth_FS.glsl" />

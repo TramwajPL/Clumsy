@@ -27,24 +27,25 @@ const unsigned int SCR_HEIGHT = 1080;
 //const unsigned int SCR_WIDTH = 1366;
 //const unsigned int SCR_HEIGHT = 768;//zmieniæ
 
-namespace Clumsy 
+namespace Clumsy
 {
 	RenderEngine::RenderEngine(GLFWwindow* window, Window* window2, Camera* camera) :
-		m_Window(window2), 
-		m_GLFWWindow(window), 
-		m_Camera(camera)
+		m_Window(window2),
+		m_GLFWWindow(window),
+		m_Camera(camera),
+		m_Confuse(GL_FALSE),
+		m_Chaos(GL_FALSE),
+		m_Shake(GL_FALSE)
 	{
 		isRunning = false;
-		//m_Shader = new Shader("../Clumsy/src/Shaders/model_loadingVS.glsl", "../Clumsy/src/Shaders/model_loadingFS.glsl");
-		//m_Shader = new Shader("../Clumsy/src/Shaders/phongVS.glsl", "../Clumsy/src/Shaders/phongFS.glsl");
 
 		m_Shader = new Shader("../Clumsy/src/Shaders/shadows_shader_VS.glsl", "../Clumsy/src/Shaders/shadows_shader_FS.glsl");
+		m_Postprocessing = new Shader("../Clumsy/src/Shaders/post_VS.glsl", "../Clumsy/src/Shaders/post_FS.glsl");
 		simpleDepthShader = new Shader("../Clumsy/src/Shaders/shadow_mapping_depth_VS.glsl", "../Clumsy/src/Shaders/shadow_mapping_depth_FS.glsl");
-		//debugDepthQuadShader = new Shader("../Clumsy/src/Shaders/debug_depth_quad_VS.glsl", "../Clumsy/src/Shaders/debug_depth_quad_FS.glsl");
+		debugDepthQuadShader = new Shader("../Clumsy/src/Shaders/debug_depth_quad_VS.glsl", "../Clumsy/src/Shaders/debug_depth_quad_FS.glsl");
 		textShader = new Shader("../Clumsy/src/Shaders/text_VS.glsl", "../Clumsy/src/Shaders/text_FS.glsl");
 		buttonShader = new Shader("../Clumsy/src/Shaders/button_VS.glsl", "../Clumsy/src/Shaders/button_FS.glsl");
-		//m_Shader = new Shader("../Clumsy/res/shaders/model_loadingVS.glsl", "../Clumsy/res/shaders/model_loadingFS.glsl");
-		
+
 		glEnable(GL_DEPTH_TEST);
 
 		glEnable(GL_CULL_FACE);
@@ -52,22 +53,39 @@ namespace Clumsy
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+		// generate FBO
 		glGenFramebuffers(1, &depthMapFBO);
+
 		// create depth texture
 		glGenTextures(1, &depthMap);
 		glBindTexture(GL_TEXTURE_2D, depthMap);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SCR_WIDTH, SCR_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 		float borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
 		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		// create rendered texture
+		glGenTextures(1, &m_RenderedTexture);
+		glBindTexture(GL_TEXTURE_2D, m_RenderedTexture);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGB, GL_FLOAT, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
 		// attach depth texture as FBO's depth buffer
 		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
-		glDrawBuffer(GL_NONE);
-		glReadBuffer(GL_NONE);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_RenderedTexture, 0);
+		//glDrawBuffer(GL_NONE);
+		//glReadBuffer(GL_NONE);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		m_Shader->use();
 		m_Shader->setInt("diffuseTexture", 0);
@@ -80,6 +98,24 @@ namespace Clumsy
 		m_ButtonEndTurn = new Button(glm::vec2(-0.9f, 0.55f), "End Turn", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
 		m_StoreGUI = new StoreGUI();
 		m_WarehouseGUI = new WarehouseGUI();
+
+		float quadVertices[] = {
+			// positions        // texture Coords
+			-1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+			-1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+			 1.0f,  1.0f, 0.0f, 1.0f, 1.0f,
+			 1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+		};
+		// setup plane VAO
+		glGenVertexArrays(1, &quadVAO);
+		glGenBuffers(1, &quadVBO);
+		glBindVertexArray(quadVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	}
 
 	void RenderEngine::CreateInstance(GLFWwindow* window, Window* window2, Camera* camera)
@@ -93,14 +129,14 @@ namespace Clumsy
 		assert(m_Instance);
 		return m_Instance;
 	}
-	
+
 	void RenderEngine::setFrustum(glm::mat4 viewProjection)
 	{
 		if (pl.size() > 0) {
 			pl.clear();
 		}
 
-		Plane left(glm::vec3(viewProjection[0][3] + viewProjection[0][0], viewProjection[1][3] + viewProjection[1][0], 
+		Plane left(glm::vec3(viewProjection[0][3] + viewProjection[0][0], viewProjection[1][3] + viewProjection[1][0],
 			viewProjection[2][3] + viewProjection[2][0]), viewProjection[3][3] + viewProjection[3][0]);
 		pl.push_back(left);
 
@@ -132,7 +168,7 @@ namespace Clumsy
 		pl[5].SetNormal(glm::normalize(pl[5].GetNormal()));
 	}
 
-	bool RenderEngine::pointInPlane(Plane p, glm::vec3 point) 
+	bool RenderEngine::pointInPlane(Plane p, glm::vec3 point)
 	{
 		bool result;
 		float distance = glm::dot(p.GetNormal(), point) + p.GetDistance();
@@ -203,37 +239,33 @@ namespace Clumsy
 		glEnable(GL_DEPTH_TEST);
 
 		m_Counter = 0;
+
 		float time = (float)glfwGetTime();
 		Timestep timestep = time - m_LastFrameTime;
 		m_LastFrameTime = time;
 		processInput(timestep.GetSeconds());
-		//glm::vec3 pointLightPositions[] = {
-		//		glm::vec3(-4.5f,  0.0f,  1.0f),
-		//		glm::vec3(4.5f, 0.0f, 1.0f),
-		//		glm::vec3(1.0f,  0.0f, -4.0f),
-		//		glm::vec3(1.0f,  0.0f, 4.0f)
-		//};
 
-		// configure depth map FBO
-		// -----------------------
-		
-				// lighting info
+		// lighting info
 		glm::vec3 lightPos(20.0f, 40.0f, -20.0f);
 
 		glm::mat4 lightProjection, lightView;
 		glm::mat4 lightSpaceMatrix;
+
 		float near_plane = 1.0f, far_plane = 15.0f;
-		
 		lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-		lightView = glm::lookAt(glm::vec3 (2.0f, 4.0f, -2.0f), glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+		lightView = glm::lookAt(glm::vec3(2.0f, 4.0f, -2.0f), glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
 		lightSpaceMatrix = lightProjection * lightView;
+
 		// render scene from light's point of view
 		simpleDepthShader->use();
 		simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
 
-		glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
-		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO); 
+		//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
 		glClear(GL_DEPTH_BUFFER_BIT);
+
+		glActiveTexture(GL_TEXTURE0);
 		object.RenderAll(*simpleDepthShader);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -242,28 +274,78 @@ namespace Clumsy
 		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// 2. render scene as normal using the generated depth/shadow map  
-		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+		//		// 2. render scene as normal using the generated depth/shadow map  
+		//		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+		//		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//		m_Shader->use();
+		//		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		//		glm::mat4 view = m_Camera->GetViewMatrix();
+		//		m_Shader->setMat4("projection", projection);
+		//		m_Shader->setMat4("view", view);
+		//		// set light uniforms
+		//		m_Shader->SetDirectionalLight(0.6, m_Camera->GetPosition(), lightPos, lightSpaceMatrix);
+		//;
+		//		glActiveTexture(GL_TEXTURE1);
+		//		glBindTexture(GL_TEXTURE_2D, depthMap);
+
+				// 2. render scene as normal using the generated depth/shadow map  
+				//glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+				//glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+				//glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+				//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_RenderedTexture, 0);
+				//glActiveTexture(GL_TEXTURE0);
+				//glBindTexture(GL_TEXTURE_2D, m_RenderedTexture);
+
+		//glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+		//glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+		//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
+		//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_RenderedTexture, 0);
+		//glClear(GL_DEPTH_BUFFER_BIT);
+
+		//m_Shader->use();
+		//glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		//glm::mat4 view = m_Camera->GetViewMatrix();
+		//m_Shader->setMat4("projection", projection);
+		//m_Shader->setMat4("view", view);
+		//// set light uniforms
+		//m_Shader->SetDirectionalLight(0.6, m_Camera->GetPosition(), lightPos, lightSpaceMatrix);
+
+		////glActiveTexture(GL_TEXTURE1);
+		////glBindTexture(GL_TEXTURE_2D, depthMap);
+
+		//if (isFrustumSet == false) {
+		//	glm::mat4 comboMatrix = view * glm::transpose(projection);
+		//	setFrustum(comboMatrix);
+		//	isFrustumSet = true;
+		//}
+		//object.RenderAll(*m_Shader);
+		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		// render to viewport?
+
+		/*glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		m_Shader->use();
-		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-		glm::mat4 view = m_Camera->GetViewMatrix();
-		m_Shader->setMat4("projection", projection);
-		m_Shader->setMat4("view", view);
-		// set light uniforms
-		m_Shader->SetDirectionalLight(0.6, m_Camera->GetPosition(), lightPos, lightSpaceMatrix);
-;
-		glActiveTexture(GL_TEXTURE1);
+		m_Postprocessing->use();
+		m_Postprocessing->setFloat("time", time);
+		m_Postprocessing->setInt("confuse", m_Confuse);
+		m_Postprocessing->setInt("chaos", m_Chaos);
+		m_Postprocessing->setInt("shake", m_Shake);*/
+
+		debugDepthQuadShader->use();
+		debugDepthQuadShader->setFloat("near_plane", near_plane);
+		debugDepthQuadShader->setFloat("far_plane", far_plane);
+		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, depthMap);
 
-		if (isFrustumSet == false) {
-			glm::mat4 comboMatrix = view * glm::transpose(projection);
-			setFrustum(comboMatrix);
-			isFrustumSet = true;
-		}
-		object.RenderAll(*m_Shader);
-		//std::cout << RenderEngine::GetInstance()->m_Counter << std::endl;
+		// render quad?
+		glBindVertexArray(quadVAO);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		glBindVertexArray(0);
 
+	}
+
+	void RenderEngine::RenderGUI()
+	{
 		glDisable(GL_DEPTH_TEST);
 
 		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
@@ -324,4 +406,5 @@ namespace Clumsy
 		}
 
 	}
+
 }

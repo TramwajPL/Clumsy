@@ -3,6 +3,7 @@
 #include <glad\glad.h>
 
 #include "Shader.h"
+#include "TextureClass.h"
 
 namespace Clumsy
 {
@@ -10,7 +11,7 @@ namespace Clumsy
 	{
 	public:
 		Shader m_PostProcessingShader;
-		//Texture2D m_Texture;
+		TextureClass m_Texture;
 		GLuint m_Width, m_Height;
 		GLboolean m_Confuse, m_Chaos, m_Shake;
 

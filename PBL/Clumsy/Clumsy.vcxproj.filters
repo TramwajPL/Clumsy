@@ -84,6 +84,9 @@
     <ClCompile Include="src\RenderEngine\PostProcessor.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\RenderEngine\TextureClass.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -208,6 +211,9 @@
     <ClInclude Include="src\RenderEngine\PostProcessor.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\RenderEngine\TextureClass.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">
@@ -256,6 +262,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="src\Shaders\button_FS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\post_VS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\post_FS.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
