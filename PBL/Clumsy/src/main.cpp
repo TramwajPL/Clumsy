@@ -32,7 +32,6 @@ public:
 
 	virtual void Init()
 	{
-		Effects = new Clumsy::PostProcessor(*Clumsy::RenderEngine::GetInstance()->GetPostShader(), SCR_WIDTH, SCR_HEIGHT);
 		glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::quat rotBoy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f));
 
@@ -117,32 +116,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		//getting cursor position
 		glfwGetCursorPos(window, &xpos, &ypos);
 		std::cout << "Cursor Position at " << xpos << " : " << ypos << std::endl;
-		mp.Update();
-
-		if (xpos > 25.0 && xpos < 165.0 && ypos > 145.0 && ypos < 180.0)
-		{
-			Clumsy::RenderEngine::GetInstance()->GetCenterButton()->OnClick();
-		}
-		else if (xpos > 25.0 && xpos < 165.0 && ypos > 195.0 && ypos < 240.0)
-		{
-			Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->OnClick();
-		}
-		/*float x = -0.9f;
-		float y = 0.65f;
-		float num = (1 + x) * SCR_WIDTH * 0.15;
-		std::cout << "x calc " << num <<  std::endl;
-		if (xpos > (1 + Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetCorner().x) * SCR_WIDTH * 0.15 &&
-			xpos < Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetCorner().x + SCR_WIDTH * Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetScale().x * 5 &&
-			ypos > Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetCorner().y * SCR_HEIGHT * 0.25 &&
-			ypos < Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetCorner().y + SCR_HEIGHT * Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetScale().y * 5)
-		{
-			Clumsy::RenderEngine::GetInstance()->GetCenterButton()->OnClick();
-		}
-		else if (xpos > 20.0 && xpos < 170.0 && ypos > 195.0 && ypos < 235.0)
-		{
-			Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->OnClick();
-		}*/
-
+		mp.Update();		
 
 		if (Clumsy::RenderEngine::GetInstance()->GetStoreGUI()->IsEnabled())
 		{
@@ -154,13 +128,39 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		}
 		else
 		{
+			float screenX = 2.0f * xpos / SCR_WIDTH - 1.0f;
+			float screenY = 1.0f - 2.0f * ypos / SCR_HEIGHT;
+
+			glm::vec2 centerButton = Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetCorner();
+			glm::vec2 endTurnButton = Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->GetCorner();
+			glm::vec2 restartButton = Clumsy::RenderEngine::GetInstance()->GetRestartButton()->GetCorner();
+			glm::vec2 scale1 = Clumsy::RenderEngine::GetInstance()->GetCenterButton()->GetScale();
+			glm::vec2 scale2 = Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->GetScale();
+			glm::vec2 scale3 = Clumsy::RenderEngine::GetInstance()->GetRestartButton()->GetScale();
+
+			if (screenX > (centerButton.x - (scale1.x / 2)) && screenX < (centerButton.x + (scale1.x / 2))
+				&& screenY < (centerButton.y + scale1.y) && screenY > centerButton.y)
+			{
+				Clumsy::RenderEngine::GetInstance()->GetCenterButton()->OnClick();
+			}
+			else if (screenX > (endTurnButton.x - (scale2.x / 2)) && screenX < (endTurnButton.x + (scale2.x / 2))
+				&& screenY < (endTurnButton.y + scale2.y) && screenY > endTurnButton.y)
+			{
+				Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->OnClick();
+			}
+			else if (screenX > (restartButton.x - (scale3.x / 2)) && screenX < (restartButton.x + (scale3.x / 2))
+				&& screenY < (restartButton.y + scale3.y) && screenY > restartButton.y)
+			{
+				Clumsy::RenderEngine::GetInstance()->GetRestartButton()->OnClick();
+			}
+
 			game.SetShakeTime(0.15f);
-			Clumsy::RenderEngine::GetInstance()->m_Shake = true;
+			Clumsy::RenderEngine::GetInstance()->GetPostProcessor()->m_Shake = true;
 			Clumsy::EventSystem::GetInstance()->SendEvent("move", (void*)rmc);
 		}
-
 	}
 }
+
 int main()
 {
 	Clumsy::RenderEngine::CreateInstance(glfwWindow, window, camera);

@@ -40,17 +40,20 @@ namespace Clumsy
 		bool IsInFrustum(const Collider* aabb);
 		int m_Counter = 0;
 		std::vector<Plane> GetPl() { return pl; }
+
 		Button* GetCenterButton() { return m_ButtonCameraOnPlayer; }
 		Button* GetEndTurnButton() { return m_ButtonEndTurn; }
 		Button* GetRestartButton() { return m_ButtonRestart; }
 		StoreGUI* GetStoreGUI() { return m_StoreGUI; }
 		WarehouseGUI* GetWarehouseGUI() { return m_WarehouseGUI; }
+
 		bool isFrustumSet = false;
 		bool wasCameraMoved = true;
 
 		Shader* GetPostShader() { return m_Postprocessing; }
 
-		GLboolean m_Confuse, m_Chaos, m_Shake;
+		PostProcessor* GetPostProcessor() { return Effects; }
+
 
 	private:
 		//void Run();
@@ -61,22 +64,21 @@ namespace Clumsy
 		RenderUtil renderUtil;
 		float m_LastFrameTime = 0.0f;
 		Camera* m_Camera;
+
 		Shader* m_Shader;
 		Shader* m_Postprocessing;
 		Shader* simpleDepthShader;
 		Shader* debugDepthQuadShader;
 		Shader* textShader;
 		Shader* buttonShader;
+
 		std::vector<const BaseLight*> m_Lights;
 		const BaseLight* m_ActiveLight;
-		//const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
-		std::vector<Plane> pl;
-		unsigned int quadVAO;
-		unsigned int quadVBO;
-		unsigned int depthMapFBO;
-		unsigned int depthMap;
 
-		GLuint m_RenderedTexture;
+		std::vector<Plane> pl;
+
+		//unsigned int depthMapFBO;
+		//unsigned int depthMap;
 
 		static RenderEngine* m_Instance;
 		RenderEngine(GLFWwindow* window, Window* window2, Camera* camera);
@@ -87,6 +89,8 @@ namespace Clumsy
 		Button* m_ButtonRestart;
 		StoreGUI* m_StoreGUI;
 		WarehouseGUI* m_WarehouseGUI;
+
+		PostProcessor* Effects;
 
 	};
 }

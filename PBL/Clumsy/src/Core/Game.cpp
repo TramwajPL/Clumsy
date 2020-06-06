@@ -12,20 +12,21 @@ namespace Clumsy
 {	
 	void Game::Render()
 	{
+		RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();
 		RenderEngine::GetInstance()->Render(m_Root); 
-		//Effects->BeginRender();
-		//Effects->EndRender();
-		//Effects->Render(glfwGetTime());
+		RenderEngine::GetInstance()->GetPostProcessor()->EndRender();
+		RenderEngine::GetInstance()->GetPostProcessor()->Render(glfwGetTime());
+		RenderEngine::GetInstance()->RenderGUI();
 	}
 
 	void Game::Update(float deltaTime)
 	{
 		m_Root.UpdateAll();
-		if (m_ShakeTime > 0.0f)
+		if (RenderEngine::GetInstance()->GetShakeTime() > 0.0f)
 		{
-			m_ShakeTime -= deltaTime;
-			if (m_ShakeTime <= 0.0f)
-				Clumsy::RenderEngine::GetInstance()->m_Shake = false;
+			RenderEngine::GetInstance()->SetShakeTime(RenderEngine::GetInstance()->GetShakeTime() - deltaTime);
+			if (RenderEngine::GetInstance()->GetShakeTime() <= 0.0f)
+				Clumsy::RenderEngine::GetInstance()->GetPostProcessor()->m_Shake = false;
 		}
 	}
 

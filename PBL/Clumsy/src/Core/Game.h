@@ -18,17 +18,10 @@ namespace Clumsy
 		void ProcessInput(int input);
 		void AddToScene(GameObject* child);
 
-		void SetShakeTime(float time) { m_ShakeTime = time; }
-		PostProcessor* GetEffects() { return Effects; }
-
 		GameObject getRoot() { return m_Root; }
 		void SceneParser(GameObject* map);
 
 	private:
 		GameObject m_Root;
-		float m_ShakeTime = 0.0f;
-
-	protected:
-		PostProcessor* Effects;
 	};
 }

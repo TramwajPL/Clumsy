@@ -32,8 +32,6 @@ namespace Clumsy
 
 			m_Game->Render();
 
-			RenderEngine::GetInstance()->RenderGUI();
-
 			glfwSwapBuffers(m_Window->GetGLFWWindow());
 			glfwPollEvents();
 		}

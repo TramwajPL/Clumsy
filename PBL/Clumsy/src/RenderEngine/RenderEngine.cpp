@@ -32,10 +32,7 @@ namespace Clumsy
 	RenderEngine::RenderEngine(GLFWwindow* window, Window* window2, Camera* camera) :
 		m_Window(window2),
 		m_GLFWWindow(window),
-		m_Camera(camera),
-		m_Confuse(GL_FALSE),
-		m_Chaos(GL_FALSE),
-		m_Shake(GL_FALSE)
+		m_Camera(camera)
 	{
 		isRunning = false;
 
@@ -46,6 +43,8 @@ namespace Clumsy
 		textShader = new Shader("../Clumsy/src/Shaders/text_VS.glsl", "../Clumsy/src/Shaders/text_FS.glsl");
 		buttonShader = new Shader("../Clumsy/src/Shaders/button_VS.glsl", "../Clumsy/src/Shaders/button_FS.glsl");
 
+		Effects = new PostProcessor(*m_Postprocessing, SCR_WIDTH, SCR_HEIGHT);
+
 		glEnable(GL_DEPTH_TEST);
 
 		glEnable(GL_CULL_FACE);
@@ -53,9 +52,7 @@ namespace Clumsy
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		// generate FBO
 		glGenFramebuffers(1, &depthMapFBO);
-
 		// create depth texture
 		glGenTextures(1, &depthMap);
 		glBindTexture(GL_TEXTURE_2D, depthMap);
@@ -66,56 +63,24 @@ namespace Clumsy
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 		float borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
 		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
-
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		// create rendered texture
-		glGenTextures(1, &m_RenderedTexture);
-		glBindTexture(GL_TEXTURE_2D, m_RenderedTexture);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGB, GL_FLOAT, NULL);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-		glBindTexture(GL_TEXTURE_2D, 0);
-
 		// attach depth texture as FBO's depth buffer
 		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_RenderedTexture, 0);
-		//glDrawBuffer(GL_NONE);
-		//glReadBuffer(GL_NONE);
+		glDrawBuffer(GL_NONE);
+		glReadBuffer(GL_NONE);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		m_Shader->use();
 		m_Shader->setInt("diffuseTexture", 0);
 		m_Shader->setInt("shadowMap", 1);
-		//debugDepthQuadShader->use();
-		//debugDepthQuadShader->setInt("depthMap", 0);
+		debugDepthQuadShader->use();
+		debugDepthQuadShader->setInt("depthMap", 0);
 
 		gui = new GUI();
 		m_ButtonCameraOnPlayer = new Button(glm::vec2(-0.9f, 0.65f), " Center", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
 		m_ButtonEndTurn = new Button(glm::vec2(-0.9f, 0.55f), "End Turn", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
+		m_ButtonRestart = new Button(glm::vec2(-0.9f, 0.45f), "Restart", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
 		m_StoreGUI = new StoreGUI();
 		m_WarehouseGUI = new WarehouseGUI();
-
-		float quadVertices[] = {
-			// positions        // texture Coords
-			-1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
-			-1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-			 1.0f,  1.0f, 0.0f, 1.0f, 1.0f,
-			 1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-		};
-		// setup plane VAO
-		glGenVertexArrays(1, &quadVAO);
-		glGenBuffers(1, &quadVBO);
-		glBindVertexArray(quadVAO);
-		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	}
 
 	void RenderEngine::CreateInstance(GLFWwindow* window, Window* window2, Camera* camera)
@@ -261,87 +226,36 @@ namespace Clumsy
 		simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
 
 		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
-		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO); 
-		//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 		glClear(GL_DEPTH_BUFFER_BIT);
-
-		glActiveTexture(GL_TEXTURE0);
 		object.RenderAll(*simpleDepthShader);
-
+		//	std::cout << "KURWA" << GetInstance()->m_Counter << std::endl;
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 		// reset viewport
 		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//		// 2. render scene as normal using the generated depth/shadow map  
-		//		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
-		//		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//		m_Shader->use();
-		//		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-		//		glm::mat4 view = m_Camera->GetViewMatrix();
-		//		m_Shader->setMat4("projection", projection);
-		//		m_Shader->setMat4("view", view);
-		//		// set light uniforms
-		//		m_Shader->SetDirectionalLight(0.6, m_Camera->GetPosition(), lightPos, lightSpaceMatrix);
-		//;
-		//		glActiveTexture(GL_TEXTURE1);
-		//		glBindTexture(GL_TEXTURE_2D, depthMap);
-
-				// 2. render scene as normal using the generated depth/shadow map  
-				//glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
-				//glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-				//glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
-				//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_RenderedTexture, 0);
-				//glActiveTexture(GL_TEXTURE0);
-				//glBindTexture(GL_TEXTURE_2D, m_RenderedTexture);
-
-		//glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
-		//glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-		//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
-		//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_RenderedTexture, 0);
-		//glClear(GL_DEPTH_BUFFER_BIT);
-
-		//m_Shader->use();
-		//glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-		//glm::mat4 view = m_Camera->GetViewMatrix();
-		//m_Shader->setMat4("projection", projection);
-		//m_Shader->setMat4("view", view);
-		//// set light uniforms
-		//m_Shader->SetDirectionalLight(0.6, m_Camera->GetPosition(), lightPos, lightSpaceMatrix);
-
-		////glActiveTexture(GL_TEXTURE1);
-		////glBindTexture(GL_TEXTURE_2D, depthMap);
-
-		//if (isFrustumSet == false) {
-		//	glm::mat4 comboMatrix = view * glm::transpose(projection);
-		//	setFrustum(comboMatrix);
-		//	isFrustumSet = true;
-		//}
-		//object.RenderAll(*m_Shader);
-		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-		// render to viewport?
-
-		/*glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+		// 2. render scene as normal using the generated depth/shadow map  
+		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		m_Postprocessing->use();
-		m_Postprocessing->setFloat("time", time);
-		m_Postprocessing->setInt("confuse", m_Confuse);
-		m_Postprocessing->setInt("chaos", m_Chaos);
-		m_Postprocessing->setInt("shake", m_Shake);*/
-
-		debugDepthQuadShader->use();
-		debugDepthQuadShader->setFloat("near_plane", near_plane);
-		debugDepthQuadShader->setFloat("far_plane", far_plane);
-		glActiveTexture(GL_TEXTURE0);
+		m_Shader->use();
+		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		glm::mat4 view = m_Camera->GetViewMatrix();
+		m_Shader->setMat4("projection", projection);
+		m_Shader->setMat4("view", view);
+		// set light uniforms
+		m_Shader->SetDirectionalLight(0.6, m_Camera->GetPosition(), lightPos, lightSpaceMatrix);
+		;
+		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, depthMap);
 
-		// render quad?
-		glBindVertexArray(quadVAO);
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-		glBindVertexArray(0);
-
+		if (isFrustumSet == false) {
+			glm::mat4 comboMatrix = view * glm::transpose(projection);
+			setFrustum(comboMatrix);
+			isFrustumSet = true;
+		}
+		object.RenderAll(*m_Shader);
 	}
 
 	void RenderEngine::RenderGUI()
@@ -353,13 +267,15 @@ namespace Clumsy
 		buttonShader->use();
 		m_ButtonCameraOnPlayer->Render(buttonShader);
 		m_ButtonEndTurn->Render(buttonShader);
+		m_ButtonRestart->Render(buttonShader);
 
 		textShader->use();
 		textShader->setMat4("projection", projectionGUI);
 		gui->RenderText(textShader, "Wood: ", 25.0f, SCR_HEIGHT - 100.0f, 0.7f, glm::vec3(0.16f, 0.03f, 0.29f));
 		gui->RenderText(textShader, "Actions: ", 25.0f, SCR_HEIGHT - 150.0f, 0.7f, glm::vec3(0.16f, 0.03f, 0.29f));
 		gui->RenderText(textShader, m_ButtonCameraOnPlayer->GetText(), 25.0f, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
-		gui->RenderText(textShader, m_ButtonEndTurn->GetText(), 25.0f, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+		gui->RenderText(textShader, m_ButtonEndTurn->GetText(), 25.0f, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f)); 
+		gui->RenderText(textShader, m_ButtonRestart->GetText(), 25.0f, SCR_HEIGHT - 300.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 
 		m_StoreGUI->Render(buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 		m_WarehouseGUI->Render(buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
