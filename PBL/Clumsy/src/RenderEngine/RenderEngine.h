@@ -42,6 +42,7 @@ namespace Clumsy
 		std::vector<Plane> GetPl() { return pl; }
 		Button* GetCenterButton() { return m_ButtonCameraOnPlayer; }
 		Button* GetEndTurnButton() { return m_ButtonEndTurn; }
+		Button* GetRestartButton() { return m_ButtonRestart; }
 		StoreGUI* GetStoreGUI() { return m_StoreGUI; }
 		WarehouseGUI* GetWarehouseGUI() { return m_WarehouseGUI; }
 		bool isFrustumSet = false;
@@ -83,6 +84,7 @@ namespace Clumsy
 		GUI* gui;
 		Button* m_ButtonCameraOnPlayer;
 		Button* m_ButtonEndTurn;
+		Button* m_ButtonRestart;
 		StoreGUI* m_StoreGUI;
 		WarehouseGUI* m_WarehouseGUI;
 
