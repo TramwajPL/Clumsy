@@ -9,9 +9,8 @@ namespace Clumsy
         m_Texture(), 
         m_Width(width), 
         m_Height(height), 
-        m_Reverse(GL_TRUE),
-        m_Shake(GL_FALSE),
-        m_Blur(GL_FALSE)
+        m_Reverse(GL_FALSE),
+        m_Shake(GL_FALSE)
     {
         // Initialize renderbuffer/framebuffer object
         glGenFramebuffers(1, &this->MSFBO);
@@ -86,7 +85,6 @@ namespace Clumsy
         this->m_PostProcessingShader.setFloat("time", time);
         this->m_PostProcessingShader.setInt("reverse", this->m_Reverse);
         this->m_PostProcessingShader.setInt("shake", this->m_Shake);
-        this->m_PostProcessingShader.setInt("blur", this->m_Blur);
         // Render textured quad
         glActiveTexture(GL_TEXTURE0);
         this->m_Texture.Bind();

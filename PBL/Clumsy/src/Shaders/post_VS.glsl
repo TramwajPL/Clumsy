@@ -5,7 +5,6 @@
     
     uniform bool reverse;
     uniform bool shake;
-    uniform bool blur;
 
     uniform float time;
 
