@@ -155,7 +155,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 				Clumsy::RenderEngine::GetInstance()->GetRestartButton()->OnClick();
 			}
 
-			Clumsy::RenderEngine::GetInstance()->SetShakeTime(0.15f);
+			Clumsy::RenderEngine::GetInstance()->SetShakeTime(0.2f);
 			Clumsy::RenderEngine::GetInstance()->GetPostProcessor()->m_Shake = true;
 			Clumsy::EventSystem::GetInstance()->SendEvent("move", (void*)rmc);
 		}
