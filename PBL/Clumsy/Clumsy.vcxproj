@@ -34,6 +34,7 @@
     <ClCompile Include="src\GUI\StoreGUI.cpp" />
     <ClCompile Include="src\GUI\WarehouseGUI.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Particles\ParticleGenerator.cpp" />
     <ClCompile Include="src\PhysicsEngine\Aabb.cpp" />
     <ClCompile Include="src\PhysicsEngine\BoundingSphere.cpp" />
     <ClCompile Include="src\PhysicsEngine\Collider.cpp" />
@@ -75,6 +76,7 @@
     <ClInclude Include="src\GUI\GUI.h" />
     <ClInclude Include="src\GUI\StoreGUI.h" />
     <ClInclude Include="src\GUI\WarehouseGUI.h" />
+    <ClInclude Include="src\Particles\ParticleGenerator.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\PhysicsEngine\Aabb.h" />
     <ClInclude Include="src\PhysicsEngine\BoundingSphere.h" />
@@ -104,6 +106,8 @@
     <None Include="src\Shaders\lights_VS.glsl" />
     <None Include="src\Shaders\model_loadingFS.glsl" />
     <None Include="src\Shaders\model_loadingVS.glsl" />
+    <None Include="src\Shaders\particle_FS.glsl" />
+    <None Include="src\Shaders\particle_VS.glsl" />
     <None Include="src\Shaders\phongFS.glsl" />
     <None Include="src\Shaders\phongVS.glsl" />
     <None Include="src\Shaders\post_FS.glsl" />
