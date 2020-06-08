@@ -229,10 +229,10 @@ namespace Clumsy
 
 		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 		//glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-		glClear(GL_DEPTH_BUFFER_BIT);
+		//glClear(GL_DEPTH_BUFFER_BIT);
 		object.RenderAll(*simpleDepthShader);
 		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
+		glClear(GL_DEPTH_BUFFER_BIT);
 		// reset viewport
 		glBindFramebuffer(GL_READ_FRAMEBUFFER, Effects->DepthFBO);
 		glActiveTexture(GL_TEXTURE0);
@@ -247,6 +247,7 @@ namespace Clumsy
 		//glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		m_Shader->use();
+		//glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = m_Camera->GetViewMatrix();
 		m_Shader->setMat4("projection", projection);
