@@ -37,11 +37,7 @@ namespace Clumsy {
 		glm::vec3 GetTransformedPos();
 		glm::quat GetTransformedRot() const;
 
-		inline void SetPos(glm::vec3& pos) 
-		{ 
-			m_pos = pos;
-				//m_pos = lerp(m_pos, pos, 0.5f);
-		}
+		inline void SetPos(glm::vec3& pos) { m_pos = pos; }
 
 		glm::vec3 lerp(glm::vec3 currentPos, glm::vec3 goalPos, float delta);
 

@@ -22,6 +22,7 @@ namespace Clumsy
 	class Button;
 	class StoreGUI;
 	class WarehouseGUI;
+	class RenderModelComponent;
 
 	class RenderEngine
 	{
@@ -60,12 +61,12 @@ namespace Clumsy
 
 		//movement
 		bool m_Movement = false;
-		glm::vec3* GetDestination() { return m_Destination; }
-		glm::vec3* GetCurrentPosition() { return m_CurrentPosition; }
-		glm::vec3* GetDeltaMove() { return m_DeltaMove; }
-		void SetDestination(glm::vec3* pos) { m_Destination = pos; }
-		void SetCurrentPosition(glm::vec3* pos) { m_CurrentPosition = pos; }
-		void SetDeltaMove(glm::vec3* delta) { m_DeltaMove = delta; }
+		glm::vec3 GetDestination() { return m_Destination; }
+		RenderModelComponent* GetCurrentPlayer() { return m_CurrentPlayer; }
+		glm::vec3 GetDeltaMove() { return m_DeltaMove; }
+		void SetDestination(glm::vec3 pos) { m_Destination = pos; }
+		void SetCurrentPlayer(RenderModelComponent* rmc) { m_CurrentPlayer = rmc; }
+		void SetDeltaMove(glm::vec3 delta) { m_DeltaMove = delta; }
 
 	private:
 		//void Run();
@@ -106,8 +107,8 @@ namespace Clumsy
 		float m_ShakeTime;
 
 		//movement
-		glm::vec3* m_Destination;
-		glm::vec3* m_CurrentPosition;
-		glm::vec3* m_DeltaMove;
+		glm::vec3 m_Destination;
+		RenderModelComponent* m_CurrentPlayer;
+		glm::vec3 m_DeltaMove;
 	};
 }

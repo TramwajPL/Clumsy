@@ -30,14 +30,17 @@ namespace Clumsy
 		}
 		if (RenderEngine::GetInstance()->m_Movement)
 		{
-			std::cout << "pierwsza petla - movement truuuu" << std::endl;
-			if (*RenderEngine::GetInstance()->GetCurrentPosition() != *RenderEngine::GetInstance()->GetDestination())
+			glm::vec3 currentPos = RenderEngine::GetInstance()->GetCurrentPlayer()->m_Transform.GetPos();
+			glm::vec3 delta = RenderEngine::GetInstance()->GetDeltaMove();
+			glm::vec3 destination = RenderEngine::GetInstance()->GetDestination();
+			if (glm::length(currentPos - destination) > 0.001f)
 			{
-				std::cout << "duga petla" << std::endl;
-				glm::vec3 pos = *RenderEngine::GetInstance()->GetCurrentPosition();
-				RenderEngine::GetInstance()->SetCurrentPosition(&(pos + *RenderEngine::GetInstance()->GetDeltaMove()));
-				if (RenderEngine::GetInstance()->GetCurrentPosition() == RenderEngine::GetInstance()->GetDestination())
+				glm::vec3 pos = RenderEngine::GetInstance()->GetCurrentPlayer()->m_Transform.GetPos();
+				glm::vec3 newpos = pos + delta;
+				RenderEngine::GetInstance()->GetCurrentPlayer()->m_Transform.SetPos(newpos);
+				if (glm::length(pos - destination) <= 0.001f)
 				{
+					RenderEngine::GetInstance()->GetCurrentPlayer()->m_Transform.SetPos(destination);
 					RenderEngine::GetInstance()->m_Movement = false;
 				}
 			}

@@ -227,7 +227,7 @@ namespace Clumsy
 		simpleDepthShader->use();
 		simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
 
-		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+		glViewport(0, 0, SCR_WIDTH/2, SCR_HEIGHT/2);
 		//glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 		//glClear(GL_DEPTH_BUFFER_BIT);
 		object.RenderAll(*simpleDepthShader);
@@ -235,7 +235,7 @@ namespace Clumsy
 		glClear(GL_DEPTH_BUFFER_BIT);
 		// reset viewport
 		glBindFramebuffer(GL_READ_FRAMEBUFFER, Effects->DepthFBO);
-		glActiveTexture(GL_TEXTURE0);
+		//glActiveTexture(GL_TEXTURE0);
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, Effects->MSFBO);
 		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

@@ -6,9 +6,9 @@
 #include "../PhysicsEngine/Aabb.h"
 #include "../RenderEngine/Window.h"
 #include "../RenderEngine/Camera.h"
+#include "../EventSystem/Listener.h"
 #include "../PhysicsEngine/PhysicsEngine.h"
 #include "../Components/PhysicsObjectComponent.h"
-#include "../EventSystem/Listener.h"
 
 namespace Clumsy
 {

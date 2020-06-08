@@ -47,7 +47,7 @@ namespace Clumsy
 		m_Observers[eventId].push_back(listener);
 	}
 
-	void EventSystem::UnsubscribeListener(EVENT_ID eventId, Listener* listener) // ok?
+	void EventSystem::UnsubscribeListener(EVENT_ID eventId, Listener* listener) 
 	{
 		std::vector<Listener*>::iterator iter = std::find(m_Observers[eventId].begin(), m_Observers[eventId].end(), listener);
 
