@@ -200,10 +200,12 @@ namespace Clumsy
 	}
 
 	void RenderEngine::Render(GameObject object)
-	{/*
+	{
 		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_STENCIL_TEST);
-		glDepthMask(GL_TRUE);*/
+		glDepthMask(GL_TRUE);
+		glDepthFunc(GL_ALWAYS);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//glEnable(GL_STENCIL_TEST);
 
 		m_Counter = 0;
 
@@ -241,7 +243,6 @@ namespace Clumsy
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//glActiveTexture(GL_TEXTURE1);
-
 
 		// 2. render scene as normal using the generated depth/shadow map  
 		//glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
@@ -331,6 +332,10 @@ namespace Clumsy
 		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_F) == GLFW_PRESS) {
 			isFrustumSet = false;
 			m_Camera->ProcessKeyboard(BACKWARD, deltaTime);
+		}
+
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_G) == GLFW_PRESS) {
+			Effects->m_Grey = !Effects->m_Grey;
 		}
 
 	}

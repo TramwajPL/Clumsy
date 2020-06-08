@@ -3,9 +3,7 @@
 
     out vec2 TexCoords;
     
-    uniform bool reverse;
     uniform bool shake;
-
     uniform float time;
 
     void main()

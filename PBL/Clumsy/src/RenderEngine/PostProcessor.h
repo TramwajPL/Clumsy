@@ -13,7 +13,7 @@ namespace Clumsy
 		Shader m_PostProcessingShader;
 		TextureClass m_Texture, m_Texture2;
 		GLuint m_Width, m_Height;
-		GLboolean m_Reverse, m_Shake;
+		GLboolean m_Grey, m_Shake;
 
 		PostProcessor(Shader shader, GLuint width, GLuint height);
 		~PostProcessor() {}
