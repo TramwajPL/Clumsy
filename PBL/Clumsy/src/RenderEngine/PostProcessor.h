@@ -11,7 +11,7 @@ namespace Clumsy
 	{
 	public:
 		Shader m_PostProcessingShader;
-		TextureClass m_Texture;
+		TextureClass m_Texture, m_Texture2;
 		GLuint m_Width, m_Height;
 		GLboolean m_Reverse, m_Shake;
 

@@ -27,8 +27,29 @@ namespace Clumsy
 
         // Also initialize the FBO/texture to blit multisampled color-buffer to; used for shader operations (for postprocessing effects)
         glBindFramebuffer(GL_FRAMEBUFFER, this->FBO);
-        this->m_Texture.Generate(width, height, NULL);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->m_Texture.ID, 0); // Attach texture to framebuffer as its color attachment
+        glGenTextures(1, &m_Texture.ID);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, m_Texture.ID);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); //GL_LINEAR
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); //GL_NEAREST
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_Texture.ID, 0);
+
+
+        glGenTextures(1, &m_Texture2.ID);
+        glActiveTexture(GL_TEXTURE1); // activating the 2nd texture
+        glBindTexture(GL_TEXTURE_2D, m_Texture2.ID);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); //GL_LINEAR
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); //GL_NEAREST
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, m_Texture2.ID, 0);
+
+
+
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             std::cout << "ERROR::POSTPROCESSOR: Failed to initialize FBO" << std::endl;
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -65,12 +86,14 @@ namespace Clumsy
 
     void PostProcessor::BeginRender()
     {
+        glEnable(GL_DEPTH_TEST);
         glBindFramebuffer(GL_FRAMEBUFFER, this->MSFBO);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
     }
     void PostProcessor::EndRender()
     {
+        glEnable(GL_DEPTH_TEST);
         // Now resolve multisampled color-buffer into intermediate FBO to store to texture
         glBindFramebuffer(GL_READ_FRAMEBUFFER, this->MSFBO);
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, this->FBO);
@@ -80,6 +103,7 @@ namespace Clumsy
 
     void PostProcessor::Render(GLfloat time)
     {
+        glEnable(GL_DEPTH_TEST);
         // Set uniforms/options
         this->m_PostProcessingShader.use();
         this->m_PostProcessingShader.setFloat("time", time);
