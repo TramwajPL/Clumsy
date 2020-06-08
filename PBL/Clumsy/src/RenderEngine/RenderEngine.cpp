@@ -200,10 +200,10 @@ namespace Clumsy
 	}
 
 	void RenderEngine::Render(GameObject object)
-	{
+	{/*
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_STENCIL_TEST);
-		glDepthMask(GL_TRUE);
+		glDepthMask(GL_TRUE);*/
 
 		m_Counter = 0;
 
