@@ -59,6 +59,19 @@ namespace Clumsy
 		float GetShakeTime() { return m_ShakeTime; }
 		void SetShakeTime(float time) { m_ShakeTime = time; }
 
+		unsigned int loadCubemap(std::vector<std::string> faces);
+
+		glm::mat4 getProjection() {
+			return projection;
+		}
+
+		glm::mat4 getView() {
+			return view;
+		}
+
+		Camera* getCamera() {
+			return m_Camera;
+		}
 
 	private:
 		//void Run();
@@ -77,6 +90,14 @@ namespace Clumsy
 		Shader* textShader;
 		Shader* buttonShader;
 		Shader* particleShader;
+		Shader* shaderCube;
+		Shader* shaderSkybox;
+
+		/*unsigned int cubeVAO, cubeVBO;
+		unsigned int cubemapTexture;
+		unsigned int skyboxVAO, skyboxVBO;*/
+		glm::mat4 projection;
+		glm::mat4 view;
 
 		TextureClass particleTexture;
 		ParticleGenerator* particles;

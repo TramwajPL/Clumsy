@@ -100,6 +100,8 @@
   <ItemGroup>
     <None Include="src\Shaders\button_FS.glsl" />
     <None Include="src\Shaders\button_VS.glsl" />
+    <None Include="src\Shaders\cubeMap_FS.glsl" />
+    <None Include="src\Shaders\cubeMap_VS.glsl" />
     <None Include="src\Shaders\debug_depth_quad_FS.glsl" />
     <None Include="src\Shaders\debug_depth_quad_VS.glsl" />
     <None Include="src\Shaders\lights_FS.glsl" />
@@ -116,6 +118,8 @@
     <None Include="src\Shaders\shadows_shader_VS.glsl" />
     <None Include="src\Shaders\shadow_mapping_depth_FS.glsl" />
     <None Include="src\Shaders\shadow_mapping_depth_VS.glsl" />
+    <None Include="src\Shaders\skybox_FS.glsl" />
+    <None Include="src\Shaders\skybox_VS.glsl" />
     <None Include="src\Shaders\text_FS.glsl" />
     <None Include="src\Shaders\text_VS.glsl" />
   </ItemGroup>

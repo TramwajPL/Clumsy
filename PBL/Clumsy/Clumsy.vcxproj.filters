@@ -282,6 +282,18 @@
     <None Include="src\Shaders\particle_FS.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="src\Shaders\cubeMap_FS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\cubeMap_VS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\skybox_FS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\skybox_VS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
