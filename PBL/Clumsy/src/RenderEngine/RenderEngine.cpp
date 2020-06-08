@@ -4,6 +4,7 @@
 #include <glm\ext\matrix_clip_space.hpp>
 #include <glm\ext\matrix_transform.hpp>
 #include <glm\gtx\string_cast.hpp>
+#include <stb_image.h>
 
 #include "Model.h"
 #include "RenderEngine.h"
@@ -20,12 +21,13 @@
 #include "../PhysicsEngine/Aabb.h"
 #include "../Core/EntityComponent.h"
 #include "../Components/RenderModelComponent.h"
+#include "../Particles/ParticleGenerator.h"
 
-const unsigned int SCR_WIDTH = 1920;
-const unsigned int SCR_HEIGHT = 1080;
+//const unsigned int SCR_WIDTH = 1920;
+//const unsigned int SCR_HEIGHT = 1080;
 
-//const unsigned int SCR_WIDTH = 1366;
-//const unsigned int SCR_HEIGHT = 768;//zmieniæ
+const unsigned int SCR_WIDTH = 1366;
+const unsigned int SCR_HEIGHT = 768;//zmieniæ
 
 namespace Clumsy
 {
@@ -40,9 +42,10 @@ namespace Clumsy
 		m_Postprocessing = new Shader("../Clumsy/src/Shaders/post_VS.glsl", "../Clumsy/src/Shaders/post_FS.glsl");
 		simpleDepthShader = new Shader("../Clumsy/src/Shaders/shadow_mapping_depth_VS.glsl", "../Clumsy/src/Shaders/shadow_mapping_depth_FS.glsl");
 		debugDepthQuadShader = new Shader("../Clumsy/src/Shaders/debug_depth_quad_VS.glsl", "../Clumsy/src/Shaders/debug_depth_quad_FS.glsl");
+		particleShader = new Shader("../Clumsy/src/Shaders/particle_VS.glsl", "../Clumsy/src/Shaders/particle_FS.glsl");
+		particleTexture = loadTextureFromFile("../Clumsy/src/models/flame.png", GL_TRUE);
 		textShader = new Shader("../Clumsy/src/Shaders/text_VS.glsl", "../Clumsy/src/Shaders/text_FS.glsl");
 		buttonShader = new Shader("../Clumsy/src/Shaders/button_VS.glsl", "../Clumsy/src/Shaders/button_FS.glsl");
-
 		Effects = new PostProcessor(*m_Postprocessing, SCR_WIDTH, SCR_HEIGHT);
 
 		glEnable(GL_DEPTH_TEST);
@@ -75,12 +78,32 @@ namespace Clumsy
 		debugDepthQuadShader->use();
 		debugDepthQuadShader->setInt("depthMap", 0);
 
+		particles = new ParticleGenerator( particleShader, particleTexture, 500);
 		gui = new GUI();
 		m_ButtonCameraOnPlayer = new Button(glm::vec2(-0.9f, 0.65f), " Center", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
 		m_ButtonEndTurn = new Button(glm::vec2(-0.9f, 0.55f), "End Turn", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
 		m_ButtonRestart = new Button(glm::vec2(-0.9f, 0.45f), " Restart", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
 		m_StoreGUI = new StoreGUI();
 		m_WarehouseGUI = new WarehouseGUI();
+	}
+
+	TextureClass RenderEngine::loadTextureFromFile(const char* file, bool alpha)
+	{
+		// create texture object
+		TextureClass texture;
+		if (alpha)
+		{
+			texture.Internal_Format = GL_RGBA;
+			texture.Image_Format = GL_RGBA;
+		}
+		// load image
+		int width, height, nrChannels;
+		unsigned char* data = stbi_load(file, &width, &height, &nrChannels, 0);
+		// now generate texture
+		texture.Generate(width, height, data);
+		// and finally free image data
+		stbi_image_free(data);
+		return texture;
 	}
 
 	void RenderEngine::CreateInstance(GLFWwindow* window, Window* window2, Camera* camera)
@@ -255,6 +278,12 @@ namespace Clumsy
 			isFrustumSet = true;
 		}
 		object.RenderAll(*m_Shader);
+		glm::mat4 projectionParticles = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), static_cast<float>(SCR_HEIGHT), 0.0f, -1.0f, 1.0f);
+		particleShader->use();
+		particleShader->SetInteger("sprite", 0, GL_TRUE);
+		particleShader->setMat4("projection", projectionParticles);
+		particles->Update(timestep.GetSeconds(), 2);
+		particles->Draw();
 	}
 
 	void RenderEngine::RenderGUI()

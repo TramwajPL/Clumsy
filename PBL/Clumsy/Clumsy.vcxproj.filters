@@ -87,6 +87,9 @@
     <ClCompile Include="src\RenderEngine\TextureClass.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\Particles\ParticleGenerator.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -214,6 +217,9 @@
     <ClInclude Include="src\RenderEngine\TextureClass.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\Particles\ParticleGenerator.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">
@@ -270,6 +276,12 @@
     <None Include="src\Shaders\post_FS.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="src\Shaders\particle_VS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\particle_FS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
@@ -295,6 +307,9 @@
     </Filter>
     <Filter Include="GUI">
       <UniqueIdentifier>{1eaf821d-6a9c-426e-91a6-bc6996e6f7f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particles">
+      <UniqueIdentifier>{aadd9447-789b-41cf-b341-c991364ac600}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

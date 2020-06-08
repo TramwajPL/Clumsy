@@ -22,13 +22,14 @@ namespace Clumsy
 	class Button;
 	class StoreGUI;
 	class WarehouseGUI;
+	class ParticleGenerator;
 
 	class RenderEngine
 	{
 	public:
 		static RenderEngine* GetInstance();
 		static void CreateInstance(GLFWwindow* window, Window* window2, Camera* camera);
-
+		TextureClass loadTextureFromFile(const char* file, bool alpha);
 		//void Start();
 		//void Stop();
 		void processInput(float deltaTime);
@@ -75,6 +76,10 @@ namespace Clumsy
 		Shader* debugDepthQuadShader;
 		Shader* textShader;
 		Shader* buttonShader;
+		Shader* particleShader;
+
+		TextureClass particleTexture;
+		ParticleGenerator* particles;
 
 		std::vector<const BaseLight*> m_Lights;
 		const BaseLight* m_ActiveLight;
