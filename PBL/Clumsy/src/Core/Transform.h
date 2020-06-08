@@ -39,7 +39,8 @@ namespace Clumsy {
 
 		inline void SetPos(glm::vec3& pos) 
 		{ 
-				m_pos = lerp(m_pos, pos, 0.5f);
+			m_pos = pos;
+				//m_pos = lerp(m_pos, pos, 0.5f);
 		}
 
 		glm::vec3 lerp(glm::vec3 currentPos, glm::vec3 goalPos, float delta);

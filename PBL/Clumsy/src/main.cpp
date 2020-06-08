@@ -154,10 +154,22 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 			{
 				Clumsy::RenderEngine::GetInstance()->GetRestartButton()->OnClick();
 			}
+			else
+			{
+				Clumsy::RenderEngine::GetInstance()->SetShakeTime(0.2f);
+				Clumsy::RenderEngine::GetInstance()->GetPostProcessor()->m_Shake = true;
 
-			Clumsy::RenderEngine::GetInstance()->SetShakeTime(0.2f);
-			Clumsy::RenderEngine::GetInstance()->GetPostProcessor()->m_Shake = true;
-			Clumsy::EventSystem::GetInstance()->SendEvent("move", (void*)rmc);
+				// movement
+				glm::vec3* destination = &mp.GetPickedObject(rmc->m_Transform.GetPos());
+				glm::vec3* currentpos = &rmc->m_Transform.GetPos();
+				glm::vec3 delta = ((mp.GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
+				Clumsy::RenderEngine::GetInstance()->SetDestination(&mp.GetPickedObject(rmc->m_Transform.GetPos()));
+				Clumsy::RenderEngine::GetInstance()->SetCurrentPosition(&rmc->m_Transform.GetPos());
+				Clumsy::RenderEngine::GetInstance()->SetDeltaMove(&delta);
+				Clumsy::RenderEngine::GetInstance()->m_Movement = true;
+				
+				//Clumsy::EventSystem::GetInstance()->SendEvent("move", (void*)rmc);
+			}
 		}
 	}
 }

@@ -202,6 +202,8 @@ namespace Clumsy
 	void RenderEngine::Render(GameObject object)
 	{
 		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_STENCIL_TEST);
+		glDepthMask(GL_TRUE);
 
 		m_Counter = 0;
 
@@ -232,6 +234,9 @@ namespace Clumsy
 		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 		// reset viewport
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, Effects->DepthFBO);
+		glActiveTexture(GL_TEXTURE0);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, Effects->MSFBO);
 		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -251,7 +256,6 @@ namespace Clumsy
 		
 		//glActiveTexture(GL_TEXTURE0);
 		//glBindTexture(GL_TEXTURE_2D, Effects->m_Texture.ID);
-		glActiveTexture(GL_TEXTURE1);
 		//glBindTexture(GL_TEXTURE_2D, Effects->m_Texture2.ID);
 
 		if (isFrustumSet == false) {

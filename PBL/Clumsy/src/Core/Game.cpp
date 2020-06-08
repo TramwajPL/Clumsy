@@ -28,6 +28,20 @@ namespace Clumsy
 			if (RenderEngine::GetInstance()->GetShakeTime() <= 0.0f)
 				Clumsy::RenderEngine::GetInstance()->GetPostProcessor()->m_Shake = false;
 		}
+		if (RenderEngine::GetInstance()->m_Movement)
+		{
+			std::cout << "pierwsza petla - movement truuuu" << std::endl;
+			if (*RenderEngine::GetInstance()->GetCurrentPosition() != *RenderEngine::GetInstance()->GetDestination())
+			{
+				std::cout << "duga petla" << std::endl;
+				glm::vec3 pos = *RenderEngine::GetInstance()->GetCurrentPosition();
+				RenderEngine::GetInstance()->SetCurrentPosition(&(pos + *RenderEngine::GetInstance()->GetDeltaMove()));
+				if (RenderEngine::GetInstance()->GetCurrentPosition() == RenderEngine::GetInstance()->GetDestination())
+				{
+					RenderEngine::GetInstance()->m_Movement = false;
+				}
+			}
+		}
 	}
 
 	void Game::AddToScene(GameObject* child)

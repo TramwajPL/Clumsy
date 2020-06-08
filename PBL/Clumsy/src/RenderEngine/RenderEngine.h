@@ -58,6 +58,14 @@ namespace Clumsy
 		float GetShakeTime() { return m_ShakeTime; }
 		void SetShakeTime(float time) { m_ShakeTime = time; }
 
+		//movement
+		bool m_Movement = false;
+		glm::vec3* GetDestination() { return m_Destination; }
+		glm::vec3* GetCurrentPosition() { return m_CurrentPosition; }
+		glm::vec3* GetDeltaMove() { return m_DeltaMove; }
+		void SetDestination(glm::vec3* pos) { m_Destination = pos; }
+		void SetCurrentPosition(glm::vec3* pos) { m_CurrentPosition = pos; }
+		void SetDeltaMove(glm::vec3* delta) { m_DeltaMove = delta; }
 
 	private:
 		//void Run();
@@ -96,5 +104,10 @@ namespace Clumsy
 
 		PostProcessor* Effects;
 		float m_ShakeTime;
+
+		//movement
+		glm::vec3* m_Destination;
+		glm::vec3* m_CurrentPosition;
+		glm::vec3* m_DeltaMove;
 	};
 }

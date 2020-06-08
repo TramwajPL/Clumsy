@@ -21,9 +21,9 @@ namespace Clumsy
 		void EndRender();
 		void Render(GLfloat time);
 
+		GLuint MSFBO, FBO, DepthFBO;
 	private:
-		GLuint MSFBO, FBO;
-		GLuint RBO; 
+		GLuint RBO, DepthRBO;
 		GLuint VAO;
 
 		void initRenderData();

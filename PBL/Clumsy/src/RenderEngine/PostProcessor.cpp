@@ -13,9 +13,28 @@ namespace Clumsy
         m_Shake(GL_FALSE)
     {
         // Initialize renderbuffer/framebuffer object
+        glGenFramebuffers(1, &this->DepthFBO);
         glGenFramebuffers(1, &this->MSFBO);
         glGenFramebuffers(1, &this->FBO);
         glGenRenderbuffers(1, &this->RBO);
+        glGenRenderbuffers(1, &this->DepthRBO);
+
+        // depth
+        glBindFramebuffer(GL_FRAMEBUFFER, this->DepthFBO);
+        glBindRenderbuffer(GL_RENDERBUFFER, this->DepthRBO);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_STENCIL, width, height); // Allocate storage for render buffer object
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL, GL_RENDERBUFFER, this->DepthRBO); // Attach MS render buffer object to framebuffer
+        //glGenTextures(1, &m_Texture2.ID);
+        //glActiveTexture(GL_TEXTURE0);
+        //glBindTexture(GL_TEXTURE_2D, m_Texture2.ID);
+        //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); //GL_LINEAR
+        //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); //GL_NEAREST
+        //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        //glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_Width, m_Height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+        //glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_Texture2.ID, 0);
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+            std::cout << "ERROR::POSTPROCESSOR: Failed to initialize DepthFBO" << std::endl;
 
         // Initialize renderbuffer storage with a multisampled color buffer (don't need a depth/stencil buffer)
         glBindFramebuffer(GL_FRAMEBUFFER, this->MSFBO);
@@ -87,7 +106,8 @@ namespace Clumsy
     void PostProcessor::BeginRender()
     {
         glEnable(GL_DEPTH_TEST);
-        glBindFramebuffer(GL_FRAMEBUFFER, this->MSFBO);
+        //glBindFramebuffer(GL_FRAMEBUFFER, this->MSFBO);
+        glBindFramebuffer(GL_FRAMEBUFFER, this->DepthFBO);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
     }
