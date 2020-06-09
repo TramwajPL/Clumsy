@@ -113,13 +113,11 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 
 		if (Clumsy::RenderEngine::GetInstance()->GetStoreGUI()->IsEnabled())
 		{
-			while (Clumsy::RenderEngine::GetInstance()->GetStoreGUI()->IsEnabled())
-				Clumsy::RenderEngine::GetInstance()->GetStoreGUI()->HandleButtonClick(screenX, screenY);
+			Clumsy::RenderEngine::GetInstance()->GetStoreGUI()->HandleButtonClick(screenX, screenY);
 		}
 		else if (Clumsy::RenderEngine::GetInstance()->GetWarehouseGUI()->IsEnabled())
 		{
-			while (Clumsy::RenderEngine::GetInstance()->GetWarehouseGUI()->IsEnabled())
-				Clumsy::RenderEngine::GetInstance()->GetWarehouseGUI()->HandleButtonClick(screenX, screenY);
+			Clumsy::RenderEngine::GetInstance()->GetWarehouseGUI()->HandleButtonClick(screenX, screenY);
 		}
 		else
 		{

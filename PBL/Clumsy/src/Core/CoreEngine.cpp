@@ -20,69 +20,6 @@ namespace Clumsy
 
 		Cube *cube = new Cube(glm::vec3(3.0f, 0.0f, -5.0f), glm::vec3(1.0f));
 		Cube *cube2 = new Cube(glm::vec3(5.0f, 0.0f, 4.0f), glm::vec3(1.0f));
-		//glEnable(GL_DEPTH_TEST);
-		//glDepthMask(GL_TRUE);
-
-
-		//float cubeVertices[] = {
-		//	// Back face
-		//	-0.5f, -0.5f, -0.5f, 0.0f,  0.0f, -1.0f, // Bottom-left
-		//	 0.5f, -0.5f, -0.5f, 0.0f,  0.0f, -1.0f, // bottom-right   
-		//	 0.5f,  0.5f, -0.5f, 0.0f,  0.0f, -1.0f, // top-right             
-		//	 0.5f,  0.5f, -0.5f, 0.0f,  0.0f, -1.0f, // top-right
-		//	-0.5f,  0.5f, -0.5f, 0.0f,  0.0f, -1.0f, // top-left
-		//	-0.5f, -0.5f, -0.5f, 0.0f,  0.0f, -1.0f, // bottom-left               
-		//	// Front face
-		//	-0.5f, -0.5f,  0.5f, 0.0f,  0.0f, 1.0f, // bottom-left
-		//	 0.5f,  0.5f,  0.5f, 0.0f,  0.0f, 1.0f, // top-right
-		//	 0.5f, -0.5f,  0.5f, 0.0f,  0.0f, 1.0f, // bottom-right       
-		//	 0.5f,  0.5f,  0.5f, 0.0f,  0.0f, 1.0f, // top-right
-		//	-0.5f, -0.5f,  0.5f, 0.0f,  0.0f, 1.0f, // bottom-left
-		//	-0.5f,  0.5f,  0.5f, 0.0f,  0.0f, 1.0f, // top-left       
-		//	// Left face
-		//	-0.5f,  0.5f,  0.5f, 1.0f,  0.0f,  0.0f, // top-right
-		//	-0.5f, -0.5f, -0.5f, 1.0f,  0.0f,  0.0f, // bottom-left
-		//	-0.5f,  0.5f, -0.5f, 1.0f,  0.0f,  0.0f, // top-left      
-		//	-0.5f, -0.5f, -0.5f, 1.0f,  0.0f,  0.0f, // bottom-left
-		//	-0.5f,  0.5f,  0.5f, 1.0f,  0.0f,  0.0f, // top-right
-		//	-0.5f, -0.5f,  0.5f, 1.0f,  0.0f,  0.0f, // bottom-right
-		//	// Right face
-		//	 0.5f,  0.5f,  0.5f, 1.0f,  0.0f,  0.0f, // top-left
-		//	 0.5f,  0.5f, -0.5f, 1.0f,  0.0f,  0.0f, // top-right     
-		//	 0.5f, -0.5f, -0.5f, 1.0f,  0.0f,  0.0f, // bottom-right         
-		//	 0.5f, -0.5f, -0.5f, 1.0f,  0.0f,  0.0f, // bottom-right
-		//	 0.5f, -0.5f,  0.5f, 1.0f,  0.0f,  0.0f, // bottom-left
-		//	 0.5f,  0.5f,  0.5f, 1.0f,  0.0f,  0.0f, // top-left
-		//	// Bottom face      
-		//	-0.5f, -0.5f, -0.5f, 0.0f, -1.0f,  0.0f, // top-right
-		//	 0.5f, -0.5f,  0.5f, 0.0f, -1.0f,  0.0f, // bottom-left
-		//	 0.5f, -0.5f, -0.5f, 0.0f, -1.0f,  0.0f, // top-left       
-		//	 0.5f, -0.5f,  0.5f, 0.0f, -1.0f,  0.0f, // bottom-left
-		//	-0.5f, -0.5f, -0.5f, 0.0f, -1.0f,  0.0f, // top-right
-		//	-0.5f, -0.5f,  0.5f, 0.0f, -1.0f,  0.0f, // bottom-right
-		//	// Top face
-		//	-0.5f,  0.5f, -0.5f, 0.0f,  1.0f,  0.0f, // top-left
-		//	 0.5f,  0.5f, -0.5f, 0.0f,  1.0f,  0.0f, // top-right
-		//	 0.5f,  0.5f,  0.5f, 0.0f,  1.0f,  0.0f, // bottom-right                
-		//	 0.5f,  0.5f,  0.5f, 0.0f,  1.0f,  0.0f, // bottom-right
-		//	-0.5f,  0.5f,  0.5f, 0.0f,  1.0f,  0.0f, // bottom-left
-		//	-0.5f,  0.5f, -0.5f, 0.0f,  1.0f,  0.0f // top-left    
-		//};
-
-
-		//unsigned int cubeVAO, cubeVBO;
-		//glGenVertexArrays(1, &cubeVAO);
-		//glGenBuffers(1, &cubeVBO);
-		//glBindVertexArray(cubeVAO);
-		//glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
-		//glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), &cubeVertices, GL_STATIC_DRAW);
-		//glEnableVertexAttribArray(0);
-		//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-		//glEnableVertexAttribArray(1);
-		//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-
-
-
 
 		std::vector<std::string> faces
 		{
@@ -129,32 +66,10 @@ namespace Clumsy
 			shaderCube->use();
 			cube->Render(shaderCube, cubemapTexture);
 			cube2->Render(shaderCube, cubemapTexture);
-
-			//glm::mat4 model = glm::mat4(1.0f);
-			//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 0.5f, 0.5f));
-			//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.2f, 0.4f, 0.0f));
-			//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 0.4f, 0.4f));
-			//shaderCube->setMat4("model", model);
-			//shaderCube->setMat4("view", RenderEngine::GetInstance()->getView());
-			//shaderCube->setMat4("projection", RenderEngine::GetInstance()->getProjection());
-			//shaderCube->setVec3("cameraPos", RenderEngine::GetInstance()->getCamera()->GetPosition());
-
-			//glBindVertexArray(cubeVAO);
-			//glActiveTexture(GL_TEXTURE0);
-			//glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
-			//glDrawArrays(GL_TRIANGLES, 0, 36);
-			//glBindVertexArray(0);
-
-
-
-
 			glfwSwapBuffers(m_Window->GetGLFWWindow());
 			glfwPollEvents();
 		}
-		//glDeleteVertexArrays(1, &cubeVAO);
-		//glDeleteVertexArrays(1, &skyboxVAO);
-		//glDeleteBuffers(1, &cubeVBO);
-		//glDeleteBuffers(1, &skyboxVAO);
+
 		glfwTerminate();
 	}
 

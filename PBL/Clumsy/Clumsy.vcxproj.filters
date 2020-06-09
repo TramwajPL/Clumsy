@@ -87,6 +87,8 @@
     <ClCompile Include="src\RenderEngine\TextureClass.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\Particles\ParticleGenerator.cpp" />
+    <ClCompile Include="src\RenderEngine\Cube.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -217,6 +219,8 @@
     <ClInclude Include="src\Game\Player.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="src\Particles\ParticleGenerator.h" />
+    <ClInclude Include="src\RenderEngine\Cube.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">
@@ -271,6 +275,24 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="src\Shaders\post_FS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\skybox_FS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\skybox_VS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\particle_VS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\particle_FS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\cubeMap_VS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\cubeMap_FS.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
