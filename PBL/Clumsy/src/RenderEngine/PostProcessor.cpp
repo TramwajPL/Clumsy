@@ -49,7 +49,7 @@ namespace Clumsy
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_Texture.ID, 0);
 
-
+        glBindFramebuffer(GL_FRAMEBUFFER, this->DepthFBO);
         glGenTextures(1, &m_Texture2.ID);
         glActiveTexture(GL_TEXTURE1); // activating the 2nd texture
         glBindTexture(GL_TEXTURE_2D, m_Texture2.ID);
@@ -97,7 +97,7 @@ namespace Clumsy
     void PostProcessor::BeginRender()
     {
         glEnable(GL_DEPTH_TEST);
-        glBindFramebuffer(GL_FRAMEBUFFER, this->DepthFBO);
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, this->DepthFBO);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     }
     void PostProcessor::EndRender()

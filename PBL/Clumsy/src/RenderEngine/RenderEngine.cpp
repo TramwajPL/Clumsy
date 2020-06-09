@@ -299,19 +299,18 @@ namespace Clumsy
 		glm::mat4 lightProjection, lightView;
 		glm::mat4 lightSpaceMatrix;
 
-		float near_plane = 1.0f, far_plane = 15.0f;
+		float near_plane = 1.1f, far_plane = 1050.0f;
 		lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-		lightView = glm::lookAt(glm::vec3(2.0f, 4.0f, -2.0f), glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+		lightView = glm::lookAt(glm::vec3(20.0f, 40.0f, -20.0f), glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
 		lightSpaceMatrix = lightProjection * lightView;
 
 		// render scene from light's point of view
 		simpleDepthShader->use();
 		simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
 
-		glViewport(0, 0, SCR_WIDTH / 2, SCR_HEIGHT / 2);
+		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT );
 		object.RenderAll(*simpleDepthShader);
-		glClear(GL_DEPTH_BUFFER_BIT);
-		// reset viewport
+
 		glBindFramebuffer(GL_READ_FRAMEBUFFER, Effects->DepthFBO);
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, Effects->MSFBO);
 		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);

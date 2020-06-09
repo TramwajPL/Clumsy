@@ -26,7 +26,7 @@
         }
 
         // gamma correction
-        float gamma = 1.6;
+        float gamma = 1.1;
         color.rgb = pow(color.rgb, vec3(1.0/gamma));
         color = vec4(color.rgb, 1.0);        
 
