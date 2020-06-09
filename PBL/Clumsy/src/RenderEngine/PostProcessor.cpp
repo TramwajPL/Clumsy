@@ -22,17 +22,10 @@ namespace Clumsy
         // depth
         glBindFramebuffer(GL_FRAMEBUFFER, this->DepthFBO);
         glBindRenderbuffer(GL_RENDERBUFFER, this->DepthRBO);
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height); // Allocate storage for render buffer object
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT32F, width, height); // Allocate storage for render buffer object
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, this->DepthRBO); // Attach MS render buffer object to framebuffer
-     //   glGenTextures(1, &m_Texture2.ID);
-     //   glActiveTexture(GL_TEXTURE0);
-    //    glBindTexture(GL_TEXTURE_2D, m_Texture2.ID);
-    //    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); //GL_LINEAR
-     //   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); //GL_NEAREST
-     //   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-      //  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-     //   glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, width, height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
-     //   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, m_Texture2.ID, 0);
+        glDrawBuffer(GL_NONE);
+        glReadBuffer(GL_NONE);
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             std::cout << "ERROR::POSTPROCESSOR: Failed to initialize DepthFBO" << std::endl;
 
@@ -66,8 +59,6 @@ namespace Clumsy
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, m_Texture2.ID, 0);
-
-
 
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             std::cout << "ERROR::POSTPROCESSOR: Failed to initialize FBO" << std::endl;
@@ -106,10 +97,8 @@ namespace Clumsy
     void PostProcessor::BeginRender()
     {
         glEnable(GL_DEPTH_TEST);
-        //glBindFramebuffer(GL_FRAMEBUFFER, this->MSFBO);
         glBindFramebuffer(GL_FRAMEBUFFER, this->DepthFBO);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
     }
     void PostProcessor::EndRender()
     {

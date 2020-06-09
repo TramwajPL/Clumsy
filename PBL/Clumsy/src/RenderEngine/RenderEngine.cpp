@@ -52,23 +52,6 @@ namespace Clumsy
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		//glGenFramebuffers(1, &depthMapFBO);
-		//// create depth texture
-		//glGenTextures(1, &depthMap);
-		//glBindTexture(GL_TEXTURE_2D, depthMap);
-		//glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SCR_WIDTH, SCR_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-		//float borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
-		//glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
-		//// attach depth texture as FBO's depth buffer
-		//glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-		//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
-		//glDrawBuffer(GL_NONE);
-		//glReadBuffer(GL_NONE);
-		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		m_Shader->use();
 		m_Shader->setInt("diffuseTexture", 0);
 		m_Shader->setInt("shadowMap", 1);
@@ -205,7 +188,6 @@ namespace Clumsy
 		glDepthMask(GL_TRUE);
 		glDepthFunc(GL_ALWAYS);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//glEnable(GL_STENCIL_TEST);
 
 		m_Counter = 0;
 
@@ -229,36 +211,21 @@ namespace Clumsy
 		simpleDepthShader->use();
 		simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
 
-		glViewport(0, 0, SCR_WIDTH/2, SCR_HEIGHT/2);
-		//glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-		//glClear(GL_DEPTH_BUFFER_BIT);
+		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 		object.RenderAll(*simpleDepthShader);
-		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glClear(GL_DEPTH_BUFFER_BIT);
-		// reset viewport
+
 		glBindFramebuffer(GL_READ_FRAMEBUFFER, Effects->DepthFBO);
-		//glActiveTexture(GL_TEXTURE0);
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, Effects->MSFBO);
 		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//glActiveTexture(GL_TEXTURE1);
-
-		// 2. render scene as normal using the generated depth/shadow map  
-		//glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		m_Shader->use();
-		//glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = m_Camera->GetViewMatrix();
 		m_Shader->setMat4("projection", projection);
 		m_Shader->setMat4("view", view);
 		// set light uniforms
 		m_Shader->SetDirectionalLight(0.6, m_Camera->GetPosition(), lightPos, lightSpaceMatrix);
-		
-		//glActiveTexture(GL_TEXTURE0);
-		//glBindTexture(GL_TEXTURE_2D, Effects->m_Texture.ID);
-		//glBindTexture(GL_TEXTURE_2D, Effects->m_Texture2.ID);
 
 		if (isFrustumSet == false) {
 			glm::mat4 comboMatrix = view * glm::transpose(projection);

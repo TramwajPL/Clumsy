@@ -22,6 +22,7 @@ namespace Clumsy
 		void Render(GLfloat time);
 
 		GLuint MSFBO, FBO, DepthFBO;
+
 	private:
 		GLuint RBO, DepthRBO;
 		GLuint VAO;
