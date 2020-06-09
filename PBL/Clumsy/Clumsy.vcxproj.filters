@@ -90,6 +90,9 @@
     <ClCompile Include="src\Particles\ParticleGenerator.cpp">
       <Filter>Particles</Filter>
     </ClCompile>
+    <ClCompile Include="src\RenderEngine\Cube.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -219,6 +222,9 @@
     </ClInclude>
     <ClInclude Include="src\Particles\ParticleGenerator.h">
       <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\Cube.h">
+      <Filter>RenderEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

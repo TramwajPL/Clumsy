@@ -143,16 +143,19 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 				&& screenY < (centerButton.y + scale1.y) && screenY > centerButton.y)
 			{
 				Clumsy::RenderEngine::GetInstance()->GetCenterButton()->OnClick();
+				std::cout << "Is played: " << Clumsy::RenderEngine::GetInstance()->isPlayed << std::endl;
 			}
 			else if (screenX > (endTurnButton.x - (scale2.x / 2)) && screenX < (endTurnButton.x + (scale2.x / 2))
 				&& screenY < (endTurnButton.y + scale2.y) && screenY > endTurnButton.y)
 			{
 				Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->OnClick();
+				Clumsy::RenderEngine::GetInstance()->isPlayed = true;
 			}
 			else if (screenX > (restartButton.x - (scale3.x / 2)) && screenX < (restartButton.x + (scale3.x / 2))
 				&& screenY < (restartButton.y + scale3.y) && screenY > restartButton.y)
 			{
 				Clumsy::RenderEngine::GetInstance()->GetRestartButton()->OnClick();
+				Clumsy::RenderEngine::GetInstance()->isPlayed = false;
 			}
 
 			Clumsy::RenderEngine::GetInstance()->SetShakeTime(0.2f);

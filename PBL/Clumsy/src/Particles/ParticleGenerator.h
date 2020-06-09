@@ -27,11 +27,12 @@ namespace Clumsy {
 	class ParticleGenerator
 	{
 	public:
-		ParticleGenerator(Shader* shader, TextureClass texture, GLuint amount);
+		ParticleGenerator(Shader* shader, TextureClass texture, GLuint amount, float x, float y);
 		void Update(GLfloat dt, GLuint newParticles, glm::vec3 offset = glm::vec3(0.0f, 0.0f, 0.0f));
 		//na razie do pozycji ?
 		void Draw();
 	private:
+		float m_X, m_Y;
 		std::vector<Particle> m_Particles;
 		GLuint m_Amount;
 		Shader* m_Shader;

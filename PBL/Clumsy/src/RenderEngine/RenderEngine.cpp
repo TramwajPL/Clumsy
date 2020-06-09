@@ -47,7 +47,7 @@ namespace Clumsy
 		textShader = new Shader("../Clumsy/src/Shaders/text_VS.glsl", "../Clumsy/src/Shaders/text_FS.glsl");
 		buttonShader = new Shader("../Clumsy/src/Shaders/button_VS.glsl", "../Clumsy/src/Shaders/button_FS.glsl");
 		Effects = new PostProcessor(*m_Postprocessing, SCR_WIDTH, SCR_HEIGHT);
-		//shaderCube = new Shader("../Clumsy/src/Shaders/cubeMap_VS.glsl", "../Clumsy/src/Shaders/cubeMap_FS.glsl");
+		shaderCube = new Shader("../Clumsy/src/Shaders/cubeMap_VS.glsl", "../Clumsy/src/Shaders/cubeMap_FS.glsl");
 
 		shaderSkybox = new Shader("../Clumsy/src/Shaders/skybox_VS.glsl", "../Clumsy/src/Shaders/skybox_FS.glsl");
 
@@ -115,6 +115,8 @@ namespace Clumsy
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 
+		//Cube1 = new Cube(glm::vec3(0.0f));
+		
 		//glGenFramebuffers(1, &depthMapFBO);
 		//// create depth texture
 		//glGenTextures(1, &depthMap);
@@ -138,7 +140,9 @@ namespace Clumsy
 		debugDepthQuadShader->use();
 		debugDepthQuadShader->setInt("depthMap", 0);
 
-		particles = new ParticleGenerator(particleShader, particleTexture, 500);
+		particles = new ParticleGenerator(particleShader, particleTexture, 500, 780.0f, 100.0f);
+		particles1 = new ParticleGenerator(particleShader, particleTexture, 500, 650.0f, 100.0f);
+
 		gui = new GUI();
 		m_ButtonCameraOnPlayer = new Button(glm::vec2(-0.9f, 0.65f), " Center", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
 		m_ButtonEndTurn = new Button(glm::vec2(-0.9f, 0.55f), "End Turn", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
@@ -154,12 +158,12 @@ namespace Clumsy
 
 		std::vector<std::string> faces
 		{
-			("../Clumsy/src/models/skybox/right.jpg"),
-			("../Clumsy/src/models/skybox/left.jpg"),
-			("../Clumsy/src/models/skybox/top.jpg"),
-			("../Clumsy/src/models/skybox/bottom.jpg"),
-			("../Clumsy/src/models/skybox/front.jpg"),
-			("../Clumsy/src/models/skybox/back.jpg"),
+			("../Clumsy/src/models/skybox/bkg/lightblue/right.png"),
+			("../Clumsy/src/models/skybox/bkg/lightblue/left.png"),
+			("../Clumsy/src/models/skybox/bkg/lightblue/top.png"),
+			("../Clumsy/src/models/skybox/bkg/lightblue/bot.png"),
+			("../Clumsy/src/models/skybox/bkg/lightblue/front.png"),
+			("../Clumsy/src/models/skybox/bkg/lightblue/back.png"),
 		};
 		cubemapTexture = loadCubemap(faces);
 
@@ -354,6 +358,11 @@ namespace Clumsy
 		model1 = glm::rotate(model1, glm::radians(130.0f), glm::vec3(0.0f, 0.5f, 0.5f));
 		model1 = glm::rotate(model1, glm::radians(20.0f), glm::vec3(0.0f, 0.0f, -0.5f));
 		model1 = glm::rotate(model1, glm::radians(20.0f), glm::vec3(0.2f, 0.4f, 0.6f));
+		model1 = glm::rotate(model1, glm::radians(90.0f), glm::vec3(0.2f, 0.4f, 0.6f));//taki przekrzywiony dotad
+		model1 = glm::rotate(model1, glm::radians(-20.0f), glm::vec3(0.0f, 0.0f, 0.7f));
+		model1 = glm::rotate(model1, glm::radians(-10.0f), glm::vec3(0.0f, 0.0f, 0.7f));
+		model1 = glm::rotate(model1, glm::radians(-10.0f), glm::vec3(0.0f, 0.0f, 0.5f));
+		model1 = glm::rotate(model1, glm::radians(-6.0f), glm::vec3(0.0f, 0.0f, 0.3f));
 		glm::mat4 view1 = glm::mat4(glm::mat3(m_Camera->GetViewMatrix())); // remove translation from the view matrix
 		shaderSkybox->setMat4("view", view1);
 		shaderSkybox->setMat4("projection", projection);
@@ -367,6 +376,7 @@ namespace Clumsy
 		glBindVertexArray(0);
 		glDepthFunc(GL_LESS); // set depth function back to default
 		//glDepthMask(GL_TRUE);
+
 
 		m_Shader->use();
 
@@ -385,16 +395,23 @@ namespace Clumsy
 			isFrustumSet = true;
 		}
 
-
-	
-
 		object.RenderAll(*m_Shader);
-		//glm::mat4 projectionParticles = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), static_cast<float>(SCR_HEIGHT), 0.0f, -1.0f, 1.0f);
-		//particleShader->use();
-		//particleShader->SetInteger("sprite", 0, GL_TRUE);
-		//particleShader->setMat4("projection", projectionParticles);
-		//particles->Update(timestep.GetSeconds(), 2);
-		//particles->Draw();
+
+
+		//shaderCube->use();
+		//Cube1->Render(shaderCube, cubemapTexture, view, projection, m_Camera->GetPosition());
+
+		if (isPlayed == true) {
+			glm::mat4 projectionParticles = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), static_cast<float>(SCR_HEIGHT), 0.0f, -1.0f, 1.0f);
+			particleShader->use();
+			particleShader->SetInteger("sprite", 0, GL_TRUE);
+			particleShader->setMat4("projection", projectionParticles);
+			particles->Update(timestep.GetSeconds(), 2);
+			particles->Draw();
+			
+			particles1->Update(timestep.GetSeconds(), 2);
+			particles1->Draw();
+		}
 
 
 	}

@@ -6,8 +6,8 @@
 
 namespace Clumsy {
 
-	ParticleGenerator::ParticleGenerator(Shader* shader, TextureClass texture, GLuint amount)
-	: m_Shader(shader), m_Texture(texture), m_Amount(amount)
+	ParticleGenerator::ParticleGenerator(Shader* shader, TextureClass texture, GLuint amount, float x, float y)
+	: m_Shader(shader), m_Texture(texture), m_Amount(amount), m_X(x), m_Y(y)
 	{
 		this->init();
 	}
@@ -111,13 +111,20 @@ namespace Clumsy {
 
 	void ParticleGenerator::respawnParticle(Particle& particle, glm::vec3 offset)
 	{
-		GLfloat random = ((rand() % 1000) - 500) / 10.0f;
+		GLfloat random = ((rand() % 1000) -	500) / 10.0f;
 		GLfloat rColor = 0.5 + ((rand() % 100) / 100.0f);
-		particle.position.x = 125.0f;
-		particle.position.y = 80.0f+ random + (34.5f/2);
+		particle.position.x = m_X;
+		particle.position.y = m_Y + random + (34.5f/2);
 		particle.color = glm::vec4(rColor, rColor, rColor, 1.0f);
 		particle.life = 1.0f;
 		particle.velocity = initialVelocity * 0.1f; //?????
 	}
+	//GLfloat random = ((rand() % 1000) - 500) / 10.0f;
+	//GLfloat rColor = 0.5 + ((rand() % 100) / 100.0f);
+	//particle.position.x = 780.0f;
+	//particle.position.y = 100.0f + random + (34.5f / 2);
+	//particle.color = glm::vec4(rColor, rColor, rColor, 1.0f);
+	//particle.life = 1.0f;
+	//particle.velocity = initialVelocity * 0.1f; //?????
 
 }

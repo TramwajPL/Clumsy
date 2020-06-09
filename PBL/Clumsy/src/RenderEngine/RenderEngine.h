@@ -8,6 +8,7 @@
 #include "Lighting.h"
 #include "RenderUtil.h"
 #include "PostProcessor.h"
+#include "Cube.h"
 
 #include "../Core/Time.h"
 #include "../Core/Timestep.h"
@@ -73,7 +74,9 @@ namespace Clumsy
 			return m_Camera;
 		}
 
+		bool isPlayed = false;
 	private:
+		
 		//void Run();
 		void CleanUp();
 		GLFWwindow* m_GLFWWindow;
@@ -90,16 +93,17 @@ namespace Clumsy
 		Shader* textShader;
 		Shader* buttonShader;
 		Shader* particleShader;
-		//Shader* shaderCube;
+		Shader* shaderCube;
 		Shader* shaderSkybox;
 
 		unsigned int skyboxVAO, skyboxVBO, cubemapTexture;
 
 		glm::mat4 projection;
 		glm::mat4 view;
-
+		Cube* Cube1;
 		TextureClass particleTexture;
 		ParticleGenerator* particles;
+		ParticleGenerator* particles1;
 
 		std::vector<const BaseLight*> m_Lights;
 		const BaseLight* m_ActiveLight;
