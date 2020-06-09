@@ -22,6 +22,7 @@ namespace Clumsy
 		
 		Transform GetTransform();
 		void SetPos(glm::vec3 vect) { m_Transform.SetPos(vect); }
+		glm::vec3 GetPos() { m_Transform.GetPos(); }
 
 		GameObject* AddComponent(EntityComponent* component);
 		void AddChild(GameObject* child);

@@ -34,6 +34,11 @@ namespace Clumsy
         
         void SetPointLight(std::string number ,glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular);
 
+		void setVec2(const std::string& name, const glm::vec2& value) const;
+		void setVec2(const std::string& name, float x, float y) const;
+		void setVec4(const std::string& name, const glm::vec4& value) const;
+		void setVec4(const std::string& name, float x, float y, float z, float w);
+
     private:
         void checkCompileErrors(unsigned int shader, std::string type);
     };

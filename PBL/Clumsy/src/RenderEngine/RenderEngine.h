@@ -8,6 +8,7 @@
 #include "Lighting.h"
 #include "RenderUtil.h"
 #include "PostProcessor.h"
+#include "Cube.h"
 
 #include "../Core/Time.h"
 #include "../Core/Timestep.h"
@@ -22,6 +23,7 @@ namespace Clumsy
 	class Button;
 	class StoreGUI;
 	class WarehouseGUI;
+	class ParticleGenerator;
 	class RenderModelComponent;
 
 	class RenderEngine
@@ -29,7 +31,7 @@ namespace Clumsy
 	public:
 		static RenderEngine* GetInstance();
 		static void CreateInstance(GLFWwindow* window, Window* window2, Camera* camera);
-
+		TextureClass loadTextureFromFile(const char* file, bool alpha);
 		//void Start();
 		//void Stop();
 		void processInput(float deltaTime);
@@ -59,6 +61,16 @@ namespace Clumsy
 		float GetShakeTime() { return m_ShakeTime; }
 		void SetShakeTime(float time) { m_ShakeTime = time; }
 
+		unsigned int loadCubemap(std::vector<std::string> faces);
+
+		glm::mat4 getProjection() {
+			return projection;
+		}
+
+		glm::mat4 getView() {
+			return view;
+		}
+
 		//movement
 		bool m_Movement = false;
 		glm::vec3 GetDestination() { return m_Destination; }
@@ -68,7 +80,13 @@ namespace Clumsy
 		void SetCurrentPlayer(RenderModelComponent* rmc) { m_CurrentPlayer = rmc; }
 		void SetDeltaMove(glm::vec3 delta) { m_DeltaMove = delta; }
 
+		Camera* getCamera() {
+			return m_Camera;
+		}
+
+		bool isPlayed = false;
 	private:
+		
 		//void Run();
 		void CleanUp();
 		GLFWwindow* m_GLFWWindow;
@@ -84,6 +102,18 @@ namespace Clumsy
 		Shader* debugDepthQuadShader;
 		Shader* textShader;
 		Shader* buttonShader;
+		Shader* particleShader;
+		Shader* shaderCube;
+		Shader* shaderSkybox;
+
+		unsigned int skyboxVAO, skyboxVBO, cubemapTexture;
+
+		glm::mat4 projection;
+		glm::mat4 view;
+		Cube* Cube1;
+		TextureClass particleTexture;
+		ParticleGenerator* particles;
+		ParticleGenerator* particles1;
 
 		std::vector<const BaseLight*> m_Lights;
 		const BaseLight* m_ActiveLight;

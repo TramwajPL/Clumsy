@@ -34,12 +34,14 @@
     <ClCompile Include="src\GUI\StoreGUI.cpp" />
     <ClCompile Include="src\GUI\WarehouseGUI.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Particles\ParticleGenerator.cpp" />
     <ClCompile Include="src\PhysicsEngine\Aabb.cpp" />
     <ClCompile Include="src\PhysicsEngine\BoundingSphere.cpp" />
     <ClCompile Include="src\PhysicsEngine\Collider.cpp" />
     <ClCompile Include="src\PhysicsEngine\PhysicsEngine.cpp" />
     <ClCompile Include="src\PhysicsEngine\PhysicsObject.cpp" />
     <ClCompile Include="src\PhysicsEngine\Plane.cpp" />
+    <ClCompile Include="src\RenderEngine\Cube.cpp" />
     <ClCompile Include="src\RenderEngine\Lighting.cpp" />
     <ClCompile Include="src\RenderEngine\Mesh.cpp" />
     <ClCompile Include="src\RenderEngine\Model.cpp" />
@@ -76,6 +78,7 @@
     <ClInclude Include="src\GUI\GUI.h" />
     <ClInclude Include="src\GUI\StoreGUI.h" />
     <ClInclude Include="src\GUI\WarehouseGUI.h" />
+    <ClInclude Include="src\Particles\ParticleGenerator.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\PhysicsEngine\Aabb.h" />
     <ClInclude Include="src\PhysicsEngine\BoundingSphere.h" />
@@ -86,6 +89,7 @@
     <ClInclude Include="src\PhysicsEngine\Plane.h" />
     <ClInclude Include="src\PhysicsEngine\ReferenceCounter.h" />
     <ClInclude Include="src\RenderEngine\Camera.h" />
+    <ClInclude Include="src\RenderEngine\Cube.h" />
     <ClInclude Include="src\RenderEngine\Lighting.h" />
     <ClInclude Include="src\RenderEngine\Mesh.h" />
     <ClInclude Include="src\RenderEngine\Model.h" />
@@ -99,12 +103,16 @@
   <ItemGroup>
     <None Include="src\Shaders\button_FS.glsl" />
     <None Include="src\Shaders\button_VS.glsl" />
+    <None Include="src\Shaders\cubeMap_FS.glsl" />
+    <None Include="src\Shaders\cubeMap_VS.glsl" />
     <None Include="src\Shaders\debug_depth_quad_FS.glsl" />
     <None Include="src\Shaders\debug_depth_quad_VS.glsl" />
     <None Include="src\Shaders\lights_FS.glsl" />
     <None Include="src\Shaders\lights_VS.glsl" />
     <None Include="src\Shaders\model_loadingFS.glsl" />
     <None Include="src\Shaders\model_loadingVS.glsl" />
+    <None Include="src\Shaders\particle_FS.glsl" />
+    <None Include="src\Shaders\particle_VS.glsl" />
     <None Include="src\Shaders\phongFS.glsl" />
     <None Include="src\Shaders\phongVS.glsl" />
     <None Include="src\Shaders\post_FS.glsl" />
@@ -113,6 +121,8 @@
     <None Include="src\Shaders\shadows_shader_VS.glsl" />
     <None Include="src\Shaders\shadow_mapping_depth_FS.glsl" />
     <None Include="src\Shaders\shadow_mapping_depth_VS.glsl" />
+    <None Include="src\Shaders\skybox_FS.glsl" />
+    <None Include="src\Shaders\skybox_VS.glsl" />
     <None Include="src\Shaders\text_FS.glsl" />
     <None Include="src\Shaders\text_VS.glsl" />
   </ItemGroup>
