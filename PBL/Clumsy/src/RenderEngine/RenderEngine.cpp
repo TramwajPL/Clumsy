@@ -4,6 +4,7 @@
 #include <glm\ext\matrix_clip_space.hpp>
 #include <glm\ext\matrix_transform.hpp>
 #include <glm\gtx\string_cast.hpp>
+#include <stb_image.h>
 
 #include "Model.h"
 #include "RenderEngine.h"
@@ -20,12 +21,13 @@
 #include "../PhysicsEngine/Aabb.h"
 #include "../Core/EntityComponent.h"
 #include "../Components/RenderModelComponent.h"
+#include "../Particles/ParticleGenerator.h"
 
 const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1080;
 
 //const unsigned int SCR_WIDTH = 1366;
-//const unsigned int SCR_HEIGHT = 768;//zmieniæ
+//const unsigned int SCR_HEIGHT = 768;//zmienic
 
 namespace Clumsy
 {
@@ -40,10 +42,14 @@ namespace Clumsy
 		m_Postprocessing = new Shader("../Clumsy/src/Shaders/post_VS.glsl", "../Clumsy/src/Shaders/post_FS.glsl");
 		simpleDepthShader = new Shader("../Clumsy/src/Shaders/shadow_mapping_depth_VS.glsl", "../Clumsy/src/Shaders/shadow_mapping_depth_FS.glsl");
 		debugDepthQuadShader = new Shader("../Clumsy/src/Shaders/debug_depth_quad_VS.glsl", "../Clumsy/src/Shaders/debug_depth_quad_FS.glsl");
+		particleShader = new Shader("../Clumsy/src/Shaders/particle_VS.glsl", "../Clumsy/src/Shaders/particle_FS.glsl");
+		particleTexture = loadTextureFromFile("../Clumsy/src/models/flame.png", GL_TRUE);
 		textShader = new Shader("../Clumsy/src/Shaders/text_VS.glsl", "../Clumsy/src/Shaders/text_FS.glsl");
 		buttonShader = new Shader("../Clumsy/src/Shaders/button_VS.glsl", "../Clumsy/src/Shaders/button_FS.glsl");
-
 		Effects = new PostProcessor(*m_Postprocessing, SCR_WIDTH, SCR_HEIGHT);
+		shaderCube = new Shader("../Clumsy/src/Shaders/cubeMap_VS.glsl", "../Clumsy/src/Shaders/cubeMap_FS.glsl");
+
+		shaderSkybox = new Shader("../Clumsy/src/Shaders/skybox_VS.glsl", "../Clumsy/src/Shaders/skybox_FS.glsl");
 
 		glEnable(GL_DEPTH_TEST);
 
@@ -52,11 +58,68 @@ namespace Clumsy
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+		float skyboxVertices[] = {
+			// positions   
+
+			-1.0f, -1.0f, -1.0f,
+			 1.0f, -1.0f, -1.0f,
+			 1.0f,  1.0f, -1.0f,
+			 1.0f,  1.0f, -1.0f,
+			-1.0f,  1.0f, -1.0f,
+			-1.0f, -1.0f, -1.0f,
+			// Front face
+			-1.0f, -1.0f,  1.0f,
+			1.0f,  1.0f,  1.0f,
+			1.0f, -1.0f,  1.0f,
+			1.0f,  1.0f,  1.0f,
+			-1.0f, -1.0f,  1.0f,
+			-1.0f,  1.0f,  1.0f,
+			// Left face
+			-1.0f,  1.0f,  1.0f,
+			-1.0f, -1.0f, -1.0f,
+			-1.0f,  1.0f, -1.0f,
+			-1.0f, -1.0f, -1.0f,
+			-1.0f,  1.0f,  1.0f,
+			-1.0f, -1.0f,  1.0f,
+			// Right face
+			1.0f,  1.0f,  1.0f,
+			1.0f,  1.0f, -1.0f,
+			1.0f, -1.0f, -1.0f,
+			1.0f, -1.0f, -1.0f,
+			1.0f, -1.0f,  1.0f,
+			1.0f,  1.0f,  1.0f,
+			// Bottom face      
+			-1.0f, -1.0f, -1.0f,
+			 1.0f, -1.0f,  1.0f,
+			 1.0f, -1.0f, -1.0f,
+			 1.0f, -1.0f,  1.0f,
+			-1.0f, -1.0f, -1.0f,
+			-1.0f, -1.0f,  1.0f,
+			// Top face
+			-1.0f,  1.0f, -1.0f,
+			 1.0f,  1.0f, -1.0f,
+			 1.0f,  1.0f,  1.0f,
+			 1.0f,  1.0f,  1.0f,
+			-1.0f,  1.0f,  1.0f,
+			-1.0f,  1.0f, -1.0f,
+		};
+
+		glGenVertexArrays(1, &skyboxVAO);
+		glGenBuffers(1, &skyboxVBO);
+		glBindVertexArray(skyboxVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
 		m_Shader->use();
 		m_Shader->setInt("diffuseTexture", 0);
 		m_Shader->setInt("shadowMap", 1);
 		debugDepthQuadShader->use();
 		debugDepthQuadShader->setInt("depthMap", 0);
+
+		particles = new ParticleGenerator(particleShader, particleTexture, 500, 780.0f, 100.0f);
+		particles1 = new ParticleGenerator(particleShader, particleTexture, 500, 650.0f, 100.0f);
 
 		gui = new GUI();
 		m_ButtonCameraOnPlayer = new Button(glm::vec2(-0.9f, 0.65f), " Center", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
@@ -64,6 +127,40 @@ namespace Clumsy
 		m_ButtonRestart = new Button(glm::vec2(-0.9f, 0.45f), " Restart", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
 		m_StoreGUI = new StoreGUI();
 		m_WarehouseGUI = new WarehouseGUI();
+
+
+		std::vector<std::string> faces
+		{
+			("../Clumsy/src/models/skybox/bkg/lightblue/right.png"),
+			("../Clumsy/src/models/skybox/bkg/lightblue/left.png"),
+			("../Clumsy/src/models/skybox/bkg/lightblue/top.png"),
+			("../Clumsy/src/models/skybox/bkg/lightblue/bot.png"),
+			("../Clumsy/src/models/skybox/bkg/lightblue/front.png"),
+			("../Clumsy/src/models/skybox/bkg/lightblue/back.png"),
+		};
+		cubemapTexture = loadCubemap(faces);
+
+		shaderSkybox->use();
+		shaderSkybox->setInt("skybox", 0);
+	}
+
+	TextureClass RenderEngine::loadTextureFromFile(const char* file, bool alpha)
+	{
+		// create texture object
+		TextureClass texture;
+		if (alpha)
+		{
+			texture.Internal_Format = GL_RGBA;
+			texture.Image_Format = GL_RGBA;
+		}
+		// load image
+		int width, height, nrChannels;
+		unsigned char* data = stbi_load(file, &width, &height, &nrChannels, 0);
+		// now generate texture
+		texture.Generate(width, height, data);
+		// and finally free image data
+		stbi_image_free(data);
+		return texture;
 	}
 
 	void RenderEngine::CreateInstance(GLFWwindow* window, Window* window2, Camera* camera)
@@ -211,14 +308,43 @@ namespace Clumsy
 		simpleDepthShader->use();
 		simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
 
-		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+		glViewport(0, 0, SCR_WIDTH / 2, SCR_HEIGHT / 2);
 		object.RenderAll(*simpleDepthShader);
-
+		glClear(GL_DEPTH_BUFFER_BIT);
+		// reset viewport
 		glBindFramebuffer(GL_READ_FRAMEBUFFER, Effects->DepthFBO);
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, Effects->MSFBO);
 		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		view = m_Camera->GetViewMatrix();
 
+		//glDepthMask(GL_FALSE);
+		glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
+		shaderSkybox->use();
+		glm::mat4 model1 = glm::mat4(1.0f);
+		model1 = glm::rotate(model1, glm::radians(130.0f), glm::vec3(0.0f, 0.5f, 0.5f));
+		model1 = glm::rotate(model1, glm::radians(20.0f), glm::vec3(0.0f, 0.0f, -0.5f));
+		model1 = glm::rotate(model1, glm::radians(20.0f), glm::vec3(0.2f, 0.4f, 0.6f));
+		model1 = glm::rotate(model1, glm::radians(90.0f), glm::vec3(0.2f, 0.4f, 0.6f));//taki przekrzywiony dotad
+		model1 = glm::rotate(model1, glm::radians(-20.0f), glm::vec3(0.0f, 0.0f, 0.7f));
+		model1 = glm::rotate(model1, glm::radians(-10.0f), glm::vec3(0.0f, 0.0f, 0.7f));
+		model1 = glm::rotate(model1, glm::radians(-10.0f), glm::vec3(0.0f, 0.0f, 0.5f));
+		model1 = glm::rotate(model1, glm::radians(-6.0f), glm::vec3(0.0f, 0.0f, 0.3f));
+		glm::mat4 view1 = glm::mat4(glm::mat3(m_Camera->GetViewMatrix())); // remove translation from the view matrix
+		shaderSkybox->setMat4("view", view1);
+		shaderSkybox->setMat4("projection", projection);
+		shaderSkybox->setMat4("model", model1);
+		// skybox cube
+		glFrontFace(GL_CCW);
+		glBindVertexArray(skyboxVAO);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glBindVertexArray(0);
+		glDepthFunc(GL_LESS); // set depth function back to default
+
+		m_Shader->use();
 		m_Shader->use();
 		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = m_Camera->GetViewMatrix();
@@ -227,12 +353,27 @@ namespace Clumsy
 		// set light uniforms
 		m_Shader->SetDirectionalLight(0.6, m_Camera->GetPosition(), lightPos, lightSpaceMatrix);
 
+
 		if (isFrustumSet == false) {
 			glm::mat4 comboMatrix = view * glm::transpose(projection);
 			setFrustum(comboMatrix);
 			isFrustumSet = true;
 		}
+
 		object.RenderAll(*m_Shader);
+
+
+		if (isPlayed == true) {
+			glm::mat4 projectionParticles = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), static_cast<float>(SCR_HEIGHT), 0.0f, -1.0f, 1.0f);
+			particleShader->use();
+			particleShader->SetInteger("sprite", 0, GL_TRUE);
+			particleShader->setMat4("projection", projectionParticles);
+			particles->Update(timestep.GetSeconds(), 2);
+			particles->Draw();
+
+			particles1->Update(timestep.GetSeconds(), 2);
+			particles1->Draw();
+		}
 	}
 
 	void RenderEngine::RenderGUI()
@@ -249,7 +390,7 @@ namespace Clumsy
 			m_ButtonCameraOnPlayer->Render(buttonShader);
 			m_ButtonEndTurn->Render(buttonShader);
 			m_ButtonRestart->Render(buttonShader);
-						
+
 			gui->RenderText(textShader, "Wood: ", 25.0f, SCR_HEIGHT - 100.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(textShader, "Actions: ", 25.0f, SCR_HEIGHT - 150.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(textShader, m_ButtonCameraOnPlayer->GetText(), 25.0f, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
@@ -313,6 +454,36 @@ namespace Clumsy
 			m_WarehouseGUI->SetEnabled(!m_WarehouseGUI->IsEnabled());
 		}
 
+	}
+
+	unsigned int RenderEngine::loadCubemap(std::vector<std::string> faces)
+	{
+		unsigned int textureID;
+		glGenTextures(1, &textureID);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+		int width, height, nrComponents;
+		for (unsigned int i = 0; i < faces.size(); i++)
+		{
+			unsigned char* data = stbi_load(faces[i].c_str(), &width, &height, &nrComponents, 0);
+			if (data)
+			{
+				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+				stbi_image_free(data);
+			}
+			else
+			{
+				std::cout << "Cubemap texture failed to load at path: " << faces[i] << std::endl;
+				stbi_image_free(data);
+			}
+		}
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+		return textureID;
 	}
 
 }
