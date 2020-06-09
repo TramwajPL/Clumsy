@@ -59,3 +59,9 @@
 #include "GUI/WarehouseGUI.h"
 
 //////////////////
+
+// GAME
+
+#include "Game/Player.h"
+
+//////////////////

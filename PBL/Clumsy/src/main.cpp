@@ -44,8 +44,8 @@ public:
 		Clumsy::Model* model = new Clumsy::Model();
 		model->loadModel("../Clumsy/src/models/man/model.dae");
 
-		boy = new Clumsy::GameObject(boyTransform);
-		Clumsy::GameObject* boy2 = new Clumsy::GameObject(boyTransform2);
+		boy = new Clumsy::Player(boyTransform);
+		Clumsy::Player* boy2 = new Clumsy::Player(boyTransform2);
 
 		Clumsy::PhysicsObject* ob1 = new Clumsy::PhysicsObject(
 			new Clumsy::BoundingSphere(boy->GetTransform().GetPos(), 0.1f), &boy->GetTransform());
@@ -108,13 +108,18 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		std::cout << "Cursor Position at " << xpos << " : " << ypos << std::endl;
 		mp.Update();		
 
+		float screenX = 2.0f * xpos / SCR_WIDTH - 1.0f;
+		float screenY = 1.0f - 2.0f * ypos / SCR_HEIGHT;
+
 		if (Clumsy::RenderEngine::GetInstance()->GetStoreGUI()->IsEnabled())
 		{
-
+			while (Clumsy::RenderEngine::GetInstance()->GetStoreGUI()->IsEnabled())
+				Clumsy::RenderEngine::GetInstance()->GetStoreGUI()->HandleButtonClick(screenX, screenY);
 		}
 		else if (Clumsy::RenderEngine::GetInstance()->GetWarehouseGUI()->IsEnabled())
 		{
-
+			while (Clumsy::RenderEngine::GetInstance()->GetWarehouseGUI()->IsEnabled())
+				Clumsy::RenderEngine::GetInstance()->GetWarehouseGUI()->HandleButtonClick(screenX, screenY);
 		}
 		else
 		{

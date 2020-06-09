@@ -214,6 +214,9 @@
     <ClInclude Include="src\RenderEngine\TextureClass.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\Player.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">
@@ -295,6 +298,9 @@
     </Filter>
     <Filter Include="GUI">
       <UniqueIdentifier>{1eaf821d-6a9c-426e-91a6-bc6996e6f7f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{9648da43-09f4-45c9-8e9a-3339d2e6a6ef}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

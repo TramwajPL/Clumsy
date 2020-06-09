@@ -305,6 +305,14 @@ namespace Clumsy
 			Effects->m_Grey = !Effects->m_Grey;
 		}
 
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_O) == GLFW_PRESS) {
+			m_StoreGUI->SetEnabled(!m_StoreGUI->IsEnabled());
+		}
+
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_P) == GLFW_PRESS) {
+			m_WarehouseGUI->SetEnabled(!m_WarehouseGUI->IsEnabled());
+		}
+
 	}
 
 }

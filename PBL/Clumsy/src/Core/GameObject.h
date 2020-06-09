@@ -16,8 +16,8 @@ namespace Clumsy
 	{
 	public:
 		GameObject(Transform transform);
-		GameObject() {};
-		~GameObject() {};
+		GameObject() {}
+		~GameObject() {}
 
 		
 		Transform GetTransform();
