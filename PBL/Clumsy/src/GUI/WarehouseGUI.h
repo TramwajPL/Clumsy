@@ -11,7 +11,7 @@ namespace Clumsy
 	{
 	public:
 		WarehouseGUI();
-		~WarehouseGUI();
+		~WarehouseGUI() {}
 		void Render(Shader* shader, Shader* shaderText, int SCR_WIDTH, int SCR_HEIGHT);
 		void BackgroundInit();
 

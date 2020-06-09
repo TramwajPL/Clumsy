@@ -1,7 +1,5 @@
 #include "pch.h"
 
-
-
 #include <glm/glm.hpp>
 #include <glm/gtx/string_cast.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
@@ -44,9 +42,7 @@ public:
 
 
 		Clumsy::Model* model = new Clumsy::Model();
-		//m1->loadModel("../Clumsy/src/models/Dwarf/dwarf.X");
 		model->loadModel("../Clumsy/src/models/man/model.dae");
-		//model->loadModel("../Clumsy/src/models/capsule.obj");
 
 		boy = new Clumsy::GameObject(boyTransform);
 		Clumsy::GameObject* boy2 = new Clumsy::GameObject(boyTransform2);
@@ -71,11 +67,6 @@ public:
 
 		AddToScene((new Clumsy::GameObject())
 			->AddComponent(physicsEngineComponent));
-
-		/*
-		std::cout << "Init gierki" << std::endl;
-		std::cout <<"BOY 1 POSITION: " << glm::to_string(boy->GetTransform().GetPos()) << std::endl;
-		std::cout <<"BOY 2 POSITION: "<< glm::to_string(boy2->GetTransform().GetPos()) << std::endl;*/
 
 		//Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
 	}
@@ -104,8 +95,6 @@ TestGame game(glfwWindow);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	camera->ProcessMouseScroll(yoffset);
-	//isScrolled = true;
-	//Clumsy::AudioMaster::GetInstance()->PlayBell();
 	Clumsy::EventSystem::GetInstance()->SendEvent("scroll");
 }
 
@@ -157,10 +146,20 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 				Clumsy::RenderEngine::GetInstance()->GetRestartButton()->OnClick();
 				Clumsy::RenderEngine::GetInstance()->isPlayed = false;
 			}
+			else
+			{
+				Clumsy::RenderEngine::GetInstance()->SetShakeTime(0.2f);
+				Clumsy::RenderEngine::GetInstance()->GetPostProcessor()->m_Shake = true;
 
-			Clumsy::RenderEngine::GetInstance()->SetShakeTime(0.2f);
-			Clumsy::RenderEngine::GetInstance()->GetPostProcessor()->m_Shake = true;
-			Clumsy::EventSystem::GetInstance()->SendEvent("move", (void*)rmc);
+				// movement
+				glm::vec3* destination = &mp.GetPickedObject(rmc->m_Transform.GetPos());
+				glm::vec3* currentpos = &rmc->m_Transform.GetPos();
+				glm::vec3 delta = ((mp.GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
+				Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
+				Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
+				Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
+				Clumsy::RenderEngine::GetInstance()->m_Movement = true;
+			}
 		}
 	}
 }

@@ -24,6 +24,7 @@ namespace Clumsy
 	class StoreGUI;
 	class WarehouseGUI;
 	class ParticleGenerator;
+	class RenderModelComponent;
 
 	class RenderEngine
 	{
@@ -69,6 +70,14 @@ namespace Clumsy
 		glm::mat4 getView() {
 			return view;
 		}
+		//movement
+		bool m_Movement = false;
+		glm::vec3 GetDestination() { return m_Destination; }
+		RenderModelComponent* GetCurrentPlayer() { return m_CurrentPlayer; }
+		glm::vec3 GetDeltaMove() { return m_DeltaMove; }
+		void SetDestination(glm::vec3 pos) { m_Destination = pos; }
+		void SetCurrentPlayer(RenderModelComponent* rmc) { m_CurrentPlayer = rmc; }
+		void SetDeltaMove(glm::vec3 delta) { m_DeltaMove = delta; }
 
 		Camera* getCamera() {
 			return m_Camera;
@@ -125,5 +134,10 @@ namespace Clumsy
 
 		PostProcessor* Effects;
 		float m_ShakeTime;
+
+		//movement
+		glm::vec3 m_Destination;
+		RenderModelComponent* m_CurrentPlayer;
+		glm::vec3 m_DeltaMove;
 	};
 }

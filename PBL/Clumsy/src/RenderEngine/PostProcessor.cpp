@@ -9,13 +9,32 @@ namespace Clumsy
         m_Texture(), 
         m_Width(width), 
         m_Height(height), 
-        m_Reverse(GL_FALSE),
+        m_Grey(GL_FALSE),
         m_Shake(GL_FALSE)
     {
         // Initialize renderbuffer/framebuffer object
+        glGenFramebuffers(1, &this->DepthFBO);
         glGenFramebuffers(1, &this->MSFBO);
         glGenFramebuffers(1, &this->FBO);
         glGenRenderbuffers(1, &this->RBO);
+        glGenRenderbuffers(1, &this->DepthRBO);
+
+        // depth
+        glBindFramebuffer(GL_FRAMEBUFFER, this->DepthFBO);
+        glBindRenderbuffer(GL_RENDERBUFFER, this->DepthRBO);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height); // Allocate storage for render buffer object
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, this->DepthRBO); // Attach MS render buffer object to framebuffer
+     //   glGenTextures(1, &m_Texture2.ID);
+     //   glActiveTexture(GL_TEXTURE0);
+    //    glBindTexture(GL_TEXTURE_2D, m_Texture2.ID);
+    //    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); //GL_LINEAR
+     //   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); //GL_NEAREST
+     //   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+      //  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+     //   glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, width, height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
+     //   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, m_Texture2.ID, 0);
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+            std::cout << "ERROR::POSTPROCESSOR: Failed to initialize DepthFBO" << std::endl;
 
         // Initialize renderbuffer storage with a multisampled color buffer (don't need a depth/stencil buffer)
         glBindFramebuffer(GL_FRAMEBUFFER, this->MSFBO);
@@ -27,8 +46,29 @@ namespace Clumsy
 
         // Also initialize the FBO/texture to blit multisampled color-buffer to; used for shader operations (for postprocessing effects)
         glBindFramebuffer(GL_FRAMEBUFFER, this->FBO);
-        this->m_Texture.Generate(width, height, NULL);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->m_Texture.ID, 0); // Attach texture to framebuffer as its color attachment
+        glGenTextures(1, &m_Texture.ID);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, m_Texture.ID);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); //GL_LINEAR
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); //GL_NEAREST
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_Texture.ID, 0);
+
+
+        glGenTextures(1, &m_Texture2.ID);
+        glActiveTexture(GL_TEXTURE1); // activating the 2nd texture
+        glBindTexture(GL_TEXTURE_2D, m_Texture2.ID);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); //GL_LINEAR
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); //GL_NEAREST
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, m_Texture2.ID, 0);
+
+
+
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             std::cout << "ERROR::POSTPROCESSOR: Failed to initialize FBO" << std::endl;
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -65,7 +105,9 @@ namespace Clumsy
 
     void PostProcessor::BeginRender()
     {
-        glBindFramebuffer(GL_FRAMEBUFFER, this->MSFBO);
+        glEnable(GL_DEPTH_TEST);
+        //glBindFramebuffer(GL_FRAMEBUFFER, this->MSFBO);
+        glBindFramebuffer(GL_FRAMEBUFFER, this->DepthFBO);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
     }
@@ -83,7 +125,7 @@ namespace Clumsy
         // Set uniforms/options
         this->m_PostProcessingShader.use();
         this->m_PostProcessingShader.setFloat("time", time);
-        this->m_PostProcessingShader.setInt("reverse", this->m_Reverse);
+        this->m_PostProcessingShader.setInt("grey", this->m_Grey);
         this->m_PostProcessingShader.setInt("shake", this->m_Shake);
         // Render textured quad
         glActiveTexture(GL_TEXTURE0);

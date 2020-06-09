@@ -1,11 +1,10 @@
 #pragma once
-//#include "../pch.h"
 
+#include <glad\glad.h>
 #include <glm/gtx/string_cast.hpp>
-//#include <vector>
+
 #include "../RenderEngine/Model.h"
 #include "../Core/EntityComponent.h"
-#include <glad\glad.h>
 
 namespace Clumsy {
 
@@ -16,7 +15,6 @@ namespace Clumsy {
 		{
 
 			amount = m_Transform.size();
-			//std::cout << "ammount: " << amount << std::endl;
 			glm::mat4* modelMatrices;
 			modelMatrices = new glm::mat4[amount];
 

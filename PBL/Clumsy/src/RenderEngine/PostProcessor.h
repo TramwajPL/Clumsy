@@ -11,9 +11,9 @@ namespace Clumsy
 	{
 	public:
 		Shader m_PostProcessingShader;
-		TextureClass m_Texture;
+		TextureClass m_Texture, m_Texture2;
 		GLuint m_Width, m_Height;
-		GLboolean m_Reverse, m_Shake;
+		GLboolean m_Grey, m_Shake;
 
 		PostProcessor(Shader shader, GLuint width, GLuint height);
 		~PostProcessor() {}
@@ -21,9 +21,9 @@ namespace Clumsy
 		void EndRender();
 		void Render(GLfloat time);
 
+		GLuint MSFBO, FBO, DepthFBO;
 	private:
-		GLuint MSFBO, FBO;
-		GLuint RBO; 
+		GLuint RBO, DepthRBO;
 		GLuint VAO;
 
 		void initRenderData();

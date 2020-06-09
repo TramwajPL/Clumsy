@@ -316,6 +316,11 @@ namespace Clumsy
 	{
 		//glEnable(GL_DEPTH_TEST);
 
+		glEnable(GL_DEPTH_TEST);
+		glDepthMask(GL_TRUE);
+		glDepthFunc(GL_ALWAYS);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//glEnable(GL_STENCIL_TEST);
 
 		m_Counter = 0;
 
@@ -339,13 +344,16 @@ namespace Clumsy
 		simpleDepthShader->use();
 		simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
 
-		/*glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
-		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-		glClear(GL_DEPTH_BUFFER_BIT);
+		glViewport(0, 0, SCR_WIDTH/2, SCR_HEIGHT/2);
+		//glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+		//glClear(GL_DEPTH_BUFFER_BIT);
 		object.RenderAll(*simpleDepthShader);
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);*/
-
+		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glClear(GL_DEPTH_BUFFER_BIT);
 		// reset viewport
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, Effects->DepthFBO);
+		//glActiveTexture(GL_TEXTURE0);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, Effects->MSFBO);
 		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
@@ -380,6 +388,16 @@ namespace Clumsy
 
 		m_Shader->use();
 
+=======
+		//glActiveTexture(GL_TEXTURE1);
+
+		// 2. render scene as normal using the generated depth/shadow map  
+		//glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		m_Shader->use();
+		//glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		glm::mat4 view = m_Camera->GetViewMatrix();
 		m_Shader->setMat4("projection", projection);
 		m_Shader->setMat4("view", view);
 		// set light uniforms
@@ -480,6 +498,10 @@ namespace Clumsy
 		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_F) == GLFW_PRESS) {
 			isFrustumSet = false;
 			m_Camera->ProcessKeyboard(BACKWARD, deltaTime);
+		}
+
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_G) == GLFW_PRESS) {
+			Effects->m_Grey = !Effects->m_Grey;
 		}
 
 	}
