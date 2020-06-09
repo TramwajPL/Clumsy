@@ -90,12 +90,11 @@ namespace Clumsy
 		Shader* textShader;
 		Shader* buttonShader;
 		Shader* particleShader;
-		Shader* shaderCube;
+		//Shader* shaderCube;
 		Shader* shaderSkybox;
 
-		/*unsigned int cubeVAO, cubeVBO;
-		unsigned int cubemapTexture;
-		unsigned int skyboxVAO, skyboxVBO;*/
+		unsigned int skyboxVAO, skyboxVBO, cubemapTexture;
+
 		glm::mat4 projection;
 		glm::mat4 view;
 
