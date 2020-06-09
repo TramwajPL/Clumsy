@@ -314,6 +314,7 @@ namespace Clumsy
 
 	void RenderEngine::Render(GameObject object)
 	{
+
 		//glEnable(GL_DEPTH_TEST);
 
 		glEnable(GL_DEPTH_TEST);
@@ -388,7 +389,6 @@ namespace Clumsy
 
 		m_Shader->use();
 
-=======
 		//glActiveTexture(GL_TEXTURE1);
 
 		// 2. render scene as normal using the generated depth/shadow map  
@@ -404,8 +404,13 @@ namespace Clumsy
 		m_Shader->SetDirectionalLight(0.6, m_Camera->GetPosition(), lightPos, lightSpaceMatrix);
 
 
+
 		//glActiveTexture(GL_TEXTURE1);
 		//glBindTexture(GL_TEXTURE_2D, depthMap);
+
+		//glActiveTexture(GL_TEXTURE0);
+		//glBindTexture(GL_TEXTURE_2D, Effects->m_Texture.ID);
+		//glBindTexture(GL_TEXTURE_2D, Effects->m_Texture2.ID);
 
 		if (isFrustumSet == false) {
 			glm::mat4 comboMatrix = view * glm::transpose(projection);

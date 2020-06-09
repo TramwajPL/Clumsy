@@ -70,6 +70,7 @@ namespace Clumsy
 		glm::mat4 getView() {
 			return view;
 		}
+
 		//movement
 		bool m_Movement = false;
 		glm::vec3 GetDestination() { return m_Destination; }
