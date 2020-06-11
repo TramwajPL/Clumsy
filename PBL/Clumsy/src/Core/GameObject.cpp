@@ -108,7 +108,7 @@ namespace Clumsy
 
 	void GameObject::RenderAll(Shader& shader)
 	{
-		
+		if (GetWasCut() == false) {
 			if (GetComponents().size() <= 1)
 			{
 				Render(shader);
@@ -126,7 +126,7 @@ namespace Clumsy
 			{
 				m_Children[i]->RenderAll(shader);
 			}
-		
+		}
 	}
 
 	void GameObject::Update()

@@ -150,7 +150,7 @@ namespace Clumsy
 							PhysicsEngine::GetInstance()->AddObject(*pO2);
 							GameObject* tree = new GameObject(transform2);
 							tree->SetM_Tag("tree");
-							map->AddChild((tree)->AddComponent(new PhysicsObjectComponent(pO2)));
+							map->AddChild((tree)->AddComponent(new PhysicsObjectComponent(pO2))->AddComponent(new RenderModelComponent(m7, transform2)));
 							model3 = false;
 						}
 
@@ -219,7 +219,6 @@ namespace Clumsy
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m4, allTransformsM4));
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m5, allTransformsM5));
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m6, allTransformsM6));
-		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m7, allTransformsM7));
     }
 
 	void Game::ProcessInput(int input) 

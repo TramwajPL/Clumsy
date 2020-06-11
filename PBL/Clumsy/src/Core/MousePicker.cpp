@@ -98,7 +98,6 @@ namespace Clumsy
 					
 					glm::vec3 position = RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetTransform().GetPos();
 					if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "tree") {
-						
 						RenderEngine::GetInstance()->map->GetAllChildren()[j]->SetWasCut(true);
 						std::cout << "tree: " << j << " " << RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetWasCut()<<  std::endl;
 					}

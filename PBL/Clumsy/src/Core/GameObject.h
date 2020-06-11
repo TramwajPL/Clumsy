@@ -44,7 +44,7 @@ namespace Clumsy
 		void SetM_Tag(std::string tag) { m_Tag = tag; }
 	
 		bool GetWasCut() { return m_WasCut; }
-		void SetWasCut(bool bool1) { m_WasCut = bool1; }
+		void SetWasCut(bool bool1) { m_WasCut = &bool1; }
 
 	private:
 		bool m_WasCut = false;
