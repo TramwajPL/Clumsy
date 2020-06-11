@@ -61,7 +61,6 @@ namespace Clumsy
 		std::vector<Transform> allTransformsM4;
 		std::vector<Transform> allTransformsM5;
 		std::vector<Transform> allTransformsM6;
-		std::vector<Transform> allTransformsM7;
 		Model* m3 = new Model();
 		Model* m4 = new Model();
 		Model* m5 = new Model();
@@ -87,7 +86,6 @@ namespace Clumsy
 									k = it->second.as<std::string>();
 									if (k.find("Pasture") != std::string::npos) {
 										m3->loadModel("../Clumsy/src/models/hexes/groundEarth_base_color.obj");
-										m7->loadModel("../Clumsy/src/models/hexes/tree_Oliwiw.obj");
 										model3 = true;
 									}
 									if (k.find("Desert") != std::string::npos) {
@@ -143,14 +141,15 @@ namespace Clumsy
 							transform2.SetRotZ(0.7f);//0
 							transform2.SetRotW(0.0f);//1
 							transform2.SetScale(0.1f);
-							allTransformsM7.push_back(transform2);
+
 							glm::vec3 min2 = glm::vec3(transform2.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
 							glm::vec3 max2 = glm::vec3(transform2.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
 							PhysicsObject* pO2 = new PhysicsObject(new Aabb(min2, max2), &transform2);
 							PhysicsEngine::GetInstance()->AddObject(*pO2);
 							GameObject* tree = new GameObject(transform2);
 							tree->SetM_Tag("tree");
-							map->AddChild((tree)->AddComponent(new PhysicsObjectComponent(pO2))->AddComponent(new RenderModelComponent(m7, transform2)));
+							m7->loadModel("../Clumsy/src/models/hexes/tree_Oliwiw.obj");
+							map->AddChild((tree)->AddComponent(new RenderModelComponent(m7, transform2))->AddComponent(new PhysicsObjectComponent(pO2)));
 							model3 = false;
 						}
 
