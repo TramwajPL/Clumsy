@@ -29,6 +29,7 @@
     <ClCompile Include="src\Core\Time.cpp" />
     <ClCompile Include="src\Core\Transform.cpp" />
     <ClCompile Include="src\EventSystem\EventSystem.cpp" />
+    <ClCompile Include="src\Game\TurnSystem.cpp" />
     <ClCompile Include="src\GUI\Button.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
     <ClCompile Include="src\GUI\StoreGUI.cpp" />

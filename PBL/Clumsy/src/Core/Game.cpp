@@ -7,6 +7,7 @@
 #include "../Components/RenderModelComponent.h"
 #include "../Components/PhysicsObjectComponent.h"
 #include "../Components/RenderInstancedModelComponent.h"
+#include "../Game/TurnSystem.h"
 
 namespace Clumsy 
 {	
@@ -21,6 +22,7 @@ namespace Clumsy
 
 	void Game::Update(float deltaTime)
 	{
+		TurnSystem::GetInstance()->Update();
 		m_Root.UpdateAll();
 		if (RenderEngine::GetInstance()->GetShakeTime() > 0.0f)
 		{

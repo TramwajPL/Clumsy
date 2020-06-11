@@ -21,6 +21,7 @@ Clumsy::AudioMaster* Clumsy::AudioMaster::m_Instance = 0;
 Clumsy::EventSystem* Clumsy::EventSystem::m_Instance = 0;
 Clumsy::PhysicsEngine* Clumsy::PhysicsEngine::m_Instance = 0;
 Clumsy::RenderEngine* Clumsy::RenderEngine::m_Instance = 0;
+Clumsy::TurnSystem* Clumsy::TurnSystem::m_Instance = 0;
 
 class TestGame : public Clumsy::Game
 {
@@ -67,6 +68,11 @@ public:
 
 		AddToScene((new Clumsy::GameObject())
 			->AddComponent(physicsEngineComponent));
+
+		Clumsy::GameObject* nature = new Clumsy::GameObject();
+
+		Clumsy::TurnSystem::GetInstance()->AddPlayer(nature);
+		Clumsy::TurnSystem::GetInstance()->AddPlayer(boy);
 
 		//Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
 	}

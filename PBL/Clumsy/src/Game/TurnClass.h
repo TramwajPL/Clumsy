@@ -12,9 +12,10 @@ namespace Clumsy
 
 		GameObject* GetGameObject() { return m_GameObject; }
 
-	private:
-		GameObject* m_GameObject;
 		bool isTurn = false;
 		bool wasTurnPrev = false;
+
+	private:
+		GameObject* m_GameObject;
 	};
 }
