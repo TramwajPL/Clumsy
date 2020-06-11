@@ -221,6 +221,12 @@
     </ClInclude>
     <ClInclude Include="src\Particles\ParticleGenerator.h" />
     <ClInclude Include="src\RenderEngine\Cube.h" />
+    <ClInclude Include="src\Game\TurnClass.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\TurnSystem.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">
