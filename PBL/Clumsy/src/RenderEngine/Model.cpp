@@ -91,6 +91,7 @@ namespace Clumsy
 			init = true;
 		}
         glUniform1i(glGetUniformLocation(shader.ID, "hasBones"), true);
+        glUniform1i(glGetUniformLocation(shader.ID, "instanced"), true);
 
         std::vector<aiMatrix4x4> transforms;
 
@@ -117,6 +118,7 @@ namespace Clumsy
         std::vector<aiMatrix4x4> transforms;
 
         glUniform1i(glGetUniformLocation(shader.ID, "hasBones"), false);
+        glUniform1i(glGetUniformLocation(shader.ID, "instanced"), false);
         for (int i = 0; i < meshes.size(); i++)
         {
             meshes[i].Draw(shader.ID);
@@ -128,6 +130,7 @@ namespace Clumsy
 		std::vector<aiMatrix4x4> transforms;
 
 		glUniform1i(glGetUniformLocation(shader.ID, "hasBones"), false);
+		glUniform1i(glGetUniformLocation(shader.ID, "instanced"), true);
 		for (int i = 0; i < meshes.size(); i++)
 		{
 			meshes[i].DrawInstanced(shader.ID, amount);

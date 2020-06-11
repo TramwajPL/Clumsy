@@ -15,6 +15,7 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 uniform bool hasBones;
+uniform bool instanced;
 
 uniform mat4 lightSpaceMatrix;
 
@@ -37,6 +38,12 @@ void main()
 	{
 		FragPos = vec3(model * boned_position);
 		gl_Position = projection * view * model * boned_position;
+		FragPosLightSpace = lightSpaceMatrix * vec4(FragPos, 1.0);
+	}
+	else if(instanced == false) 
+	{
+		FragPos = vec3(model * vec4(aPos, 1.0));
+		gl_Position = projection * view * model * vec4(FragPos, 1.0);
 		FragPosLightSpace = lightSpaceMatrix * vec4(FragPos, 1.0);
 	}
 	else
