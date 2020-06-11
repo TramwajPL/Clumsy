@@ -12,7 +12,6 @@ const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1080;//zmieniæ
 
 Clumsy::GameObject* object1;
-Clumsy::GameObject* map = new Clumsy::GameObject();
 Clumsy::RenderModelComponent* rmc;
 Clumsy::GameObject* boy;
 bool isScrolled = false;
@@ -30,7 +29,8 @@ public:
 
 	virtual void Init()
 	{
-		SceneParser(map);
+		std::string filename = "Test.unity";
+		SceneParser(Clumsy::RenderEngine::GetInstance()->map, filename);
 
 		glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::quat rotBoy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f));

@@ -359,8 +359,9 @@ namespace Clumsy
 			isFrustumSet = true;
 		}
 
-		object.RenderAll(*m_Shader);
-
+		if (object.GetWasCut() == false) {
+			object.RenderAll(*m_Shader);
+		}
 
 		if (isPlayed == true) {
 			glm::mat4 projectionParticles = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), static_cast<float>(SCR_HEIGHT), 0.0f, -1.0f, 1.0f);

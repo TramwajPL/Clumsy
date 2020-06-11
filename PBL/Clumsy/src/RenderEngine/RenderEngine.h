@@ -71,6 +71,9 @@ namespace Clumsy
 			return view;
 		}
 
+		//fields for objects for easier access
+		GameObject* map = new GameObject();
+
 		//movement
 		bool m_Movement = false;
 		glm::vec3 GetDestination() { return m_Destination; }

@@ -6,6 +6,7 @@
 #include "../PhysicsEngine/Aabb.h"
 #include "../RenderEngine/Window.h"
 #include "../RenderEngine/Camera.h"
+#include "../RenderEngine/RenderEngine.h"
 #include "../EventSystem/Listener.h"
 #include "../PhysicsEngine/PhysicsEngine.h"
 #include "../Components/PhysicsObjectComponent.h"
@@ -28,6 +29,7 @@ namespace Clumsy
 		glm::vec3 ToWorldCoords(glm::vec4 eyeCoords);
 		glm::vec4 ToEyeCoords(glm::vec4 clipCoords);
 		glm::vec2 GetNormalisedDeviceCoordinates(float mouseX, float mouseY);
+		void CutTree();
 
 		float CheckCollision(const Collider* aabb);
 

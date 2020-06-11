@@ -15,7 +15,6 @@ namespace Clumsy
 		float lastFrame = 0.0f;
 
 
-
 		Shader* shaderCube = new Shader("../Clumsy/src/Shaders/cubeMap_VS.glsl", "../Clumsy/src/Shaders/cubeMap_FS.glsl");
 
 		Cube *cube = new Cube(glm::vec3(3.0f, 0.0f, -5.0f), glm::vec3(1.0f));

@@ -189,7 +189,6 @@ namespace Clumsy
 
     void Model::showNodeName(aiNode* node)
     {
-        std::cout << node->mName.data << std::endl;
         for (unsigned int i = 0; i < node->mNumChildren; i++)
         {
             showNodeName(node->mChildren[i]);
@@ -210,8 +209,6 @@ namespace Clumsy
 
     Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     {
-        std::cout << "bones: " << mesh->mNumBones << " vertices: " << mesh->mNumVertices << std::endl;
-
         std::vector<Vertex> vertices;
         std::vector<GLuint> indices;
         std::vector<Texture> textures;
@@ -303,14 +300,11 @@ namespace Clumsy
 
         // load bones
         if (mesh->HasBones()) {
-            std::cout << "elo" << std::endl;
             hasBones = true;
             for (unsigned int i = 0; i < mesh->mNumBones; i++)
             {
                 unsigned int bone_index = 0;
                 std::string bone_name(mesh->mBones[i]->mName.data);
-
-                std::cout << mesh->mBones[i]->mName.data << std::endl;
 
                 if (m_bone_mapping.find(bone_name) == m_bone_mapping.end())
                 {

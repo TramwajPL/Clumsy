@@ -108,24 +108,25 @@ namespace Clumsy
 
 	void GameObject::RenderAll(Shader& shader)
 	{
-		if (GetComponents().size() <= 1)
-		{
-			Render(shader);
-		}
-		else
-		{
-			if (SetupAabb())
+		
+			if (GetComponents().size() <= 1)
 			{
-				RenderEngine::GetInstance()->m_Counter++;
 				Render(shader);
 			}
-		}
+			else
+			{
+				if (SetupAabb())
+				{
+					RenderEngine::GetInstance()->m_Counter++;
+					Render(shader);
+				}
+			}
 
-		for (int i = 0; i < m_Children.size(); i++) 
-		{
-			m_Children[i]->RenderAll(shader);
-		}
-
+			for (int i = 0; i < m_Children.size(); i++)
+			{
+				m_Children[i]->RenderAll(shader);
+			}
+		
 	}
 
 	void GameObject::Update()
