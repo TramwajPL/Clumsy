@@ -63,7 +63,7 @@
 // GAME
 
 #include "Game/Player.h"
-#include "Game/TurnClass.h"
+#include "Game/Nature.h"
 #include "Game/TurnSystem.h"
 
 //////////////////

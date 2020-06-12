@@ -1,7 +1,8 @@
 #pragma once
 
-#include "../Core/GameObject.h"
+#include "../pch.h"
 #include "../Game/TurnClass.h"
+#include "../Core/GameObject.h"
 
 namespace Clumsy
 {
@@ -38,8 +39,6 @@ namespace Clumsy
 					this->actionsCount = 0;
 				}
 			}
-			else
-				std::cout << " nie ma tury " << std::endl;
 		}
 
 	private:

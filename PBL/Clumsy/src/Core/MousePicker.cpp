@@ -138,7 +138,6 @@ namespace Clumsy
 				Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
 				Clumsy::RenderEngine::GetInstance()->m_Movement = true;
 				player->IncrementActionCount();
-				player->UpdateTurn();
 				std::cout << "active player actions " << player->GetActionsCount() << std::endl;
 			}
 		}

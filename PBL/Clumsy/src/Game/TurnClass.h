@@ -4,6 +4,8 @@
 
 namespace Clumsy
 {
+	class GameObject;
+
 	class TurnClass
 	{
 	public:

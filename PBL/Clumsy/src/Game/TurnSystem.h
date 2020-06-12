@@ -13,6 +13,7 @@ namespace Clumsy
 		void ResetTurns(); 
 		void Update();
 		void UpdateTurns();
+		int GetTurnCounter() { return m_TurnCounter; }
 		GameObject* GetActivePlayer();
 		void AddPlayer(GameObject* player);
 		//void DeletePlayer(GameObject* player);

@@ -42,6 +42,7 @@ namespace Clumsy
             if (players[i]->isTurn)
                 m_ActivePlayer = players[i]->GetGameObject();
         }
+        m_ActivePlayer->UpdateTurn();
     }
 
     void TurnSystem::UpdateTurns()

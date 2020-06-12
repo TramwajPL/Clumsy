@@ -75,9 +75,9 @@ public:
 		AddToScene((new Clumsy::GameObject())
 			->AddComponent(physicsEngineComponent));
 
-		//Clumsy::GameObject* nature = new Clumsy::GameObject();
+		Clumsy::Nature* nature = new Clumsy::Nature();
 
-		//Clumsy::TurnSystem::GetInstance()->AddPlayer(nature);
+		Clumsy::TurnSystem::GetInstance()->AddPlayer(nature);
 		Clumsy::TurnSystem::GetInstance()->AddPlayer(boy);
 		Clumsy::TurnSystem::GetInstance()->AddPlayer(boy2);
 
