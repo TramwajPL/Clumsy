@@ -41,16 +41,20 @@ namespace Clumsy
 		void ProcessInput(int input);
 		void ProcessInputAll(int input);
 		std::string GetM_Tag() { return m_Tag; }
-		void SetM_Tag(std::string tag) { m_Tag = tag; }
+		virtual void SetM_Tag(std::string tag) { m_Tag = tag; }
 	
-		bool GetWasCut() { return m_WasCut; }
-		void SetWasCut(bool bool1) { m_WasCut = &bool1; }
+		/*bool GetWasCut() { return m_WasCut; }
+		void SetWasCut(bool bool1) { m_WasCut = &bool1; }*/
+		virtual bool GetWasCut() { return m_WasCut; }
+		virtual void SetWasCut(bool bool1) { }
 
-	private:
+	protected:
 		bool m_WasCut = false;
-		std::vector<glm::vec3> points;
-		std::string m_Tag = "";
 		Transform m_Transform; 
+		std::string m_Tag = "";
+	private:
+		
+		std::vector<glm::vec3> points;
 		std::vector<EntityComponent*> m_Components;
 		std::vector<GameObject*> m_Children;
 	};

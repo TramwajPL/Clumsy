@@ -8,6 +8,7 @@
 #include "../Components/PhysicsObjectComponent.h"
 #include "../Components/RenderInstancedModelComponent.h"
 #include "../Game/TurnSystem.h"
+#include "../Game/TreeObject.h"
 
 namespace Clumsy 
 {	
@@ -155,7 +156,7 @@ namespace Clumsy
 							glm::vec3 max2 = glm::vec3(transform2.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
 							PhysicsObject* pO2 = new PhysicsObject(new Aabb(min2, max2), &transform2);
 							PhysicsEngine::GetInstance()->AddObject(*pO2);
-							GameObject* tree = new GameObject(transform2);
+							TreeObject* tree = new TreeObject(transform2);
 							tree->SetM_Tag("tree");
 							map->AddChild((tree)->AddComponent(new PhysicsObjectComponent(pO2)));
 							//m7->loadModel("../Clumsy/src/models/hexes/tree_Oliwiw.obj");

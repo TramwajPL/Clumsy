@@ -14,7 +14,7 @@
 #include "../Core/Timestep.h"
 #include "../Core/GameObject.h"
 #include "../PhysicsEngine/Plane.h"
-
+#include "../Game/TreeObject.h"
 
 namespace Clumsy 
 {
@@ -75,7 +75,8 @@ namespace Clumsy
 		}
 
 		//fields for objects for easier access
-		GameObject* map = new GameObject();
+		//GameObject* map = new GameObject();
+		TreeObject* map = new TreeObject();
 		std::vector<Transform> treeTransforms;
 
 		//movement
