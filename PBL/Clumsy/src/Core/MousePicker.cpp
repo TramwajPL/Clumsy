@@ -94,12 +94,21 @@ namespace Clumsy
 			checkCollisionResult = CheckCollision(&PhysicsEngine::GetInstance()->GetObject(i).GetCollider());
 			if (checkCollisionResult != -1) {
 				glm::vec3 vectorGameObject = PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
+				
 				for (int j = 0; j < RenderEngine::GetInstance()->map->GetAllChildren().size(); j++) {
-					
+					//int count = RenderEngine::GetInstance()->map->GetAllChildren()[j]->m_CountCollectedTrees;
 					glm::vec3 position = RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetTransform().GetPos();
+					//std::cout << "CHECK IF RENDER BEFORE: " << RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetRenderEnemy()<< std::endl;
 					if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "tree") {
 						RenderEngine::GetInstance()->map->GetAllChildren()[j]->SetWasCut(true);
-						std::cout << "tree: " << j << " " << RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetWasCut()<<  std::endl;
+						countTrees++;
+						std::cout << "Mouse Picker Tree Count: " << countTrees << std::endl;
+						Clumsy::RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
+						//std::cout << "Render Enemy in Mouse Picker: " << RenderEngine::GetInstance()->enemy->GetRenderEnemy() << std::endl;
+						//std::cout << "TAGGGGGGGGGGGG: " << RenderEngine::GetInstance()->enemy->GetM_Tag() << std::endl;
+						//RenderEngine::GetInstance()->map->GetAllChildren()[j]->checkIfRender(RenderEngine::GetInstance()->map->GetAllChildren()[j]->m_CountCollectedTrees);
+						//std::cout << "CHECK IF RENDER BEFORE: " << RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetRenderEnemy()<<std::endl;
+						//std::cout << "tree: " << j << " " << RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetWasCut()<<  std::endl;
 					}
 				}
 				return PhysicsEngine::GetInstance()->GetObject(i).GetPosition();

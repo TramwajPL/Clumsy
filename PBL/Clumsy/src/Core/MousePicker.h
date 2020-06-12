@@ -42,5 +42,6 @@ namespace Clumsy
 		glm::mat4 m_ViewMatrix;
 		Window* m_Window;
 		Camera* m_Camera;
+		int countTrees = 0;
 	};
 }

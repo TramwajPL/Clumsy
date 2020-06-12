@@ -15,6 +15,7 @@
 #include "../Core/GameObject.h"
 #include "../PhysicsEngine/Plane.h"
 #include "../Game/TreeObject.h"
+#include "../Game/Enemy.h"
 
 namespace Clumsy 
 {
@@ -75,7 +76,8 @@ namespace Clumsy
 		//GameObject* map = new GameObject();
 		TreeObject* map = new TreeObject();
 		std::vector<Transform> treeTransforms;
-
+		Enemy* enemy;
+		
 		//movement
 		bool m_Movement = false;
 		glm::vec3 GetDestination() { return m_Destination; }

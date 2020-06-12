@@ -92,6 +92,9 @@
     <ClCompile Include="src\Game\TurnSystem.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Enemy.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -231,6 +234,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\TreeObject.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Enemy.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>

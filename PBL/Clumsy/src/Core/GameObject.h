@@ -41,15 +41,23 @@ namespace Clumsy
 		void ProcessInput(int input);
 		void ProcessInputAll(int input);
 		std::string GetM_Tag() { return m_Tag; }
-		virtual void SetM_Tag(std::string tag) { m_Tag = tag; }
 	
 		/*bool GetWasCut() { return m_WasCut; }
 		void SetWasCut(bool bool1) { m_WasCut = &bool1; }*/
+		virtual int GetCollectedTreesCount() { return m_CountCollectedTrees; }
+		virtual bool GetRenderEnemy() { return m_RenderEnemy; }
 		virtual bool GetWasCut() { return m_WasCut; }
-		virtual void SetWasCut(bool bool1) { }
+		virtual void SetM_Tag(std::string tag) { m_Tag = tag; }
 
+		virtual void SetWasCut(bool bool1) { }
+		//virtual void SetCollectedTreesCount(int newCount) { m_CountCollectedTrees = newCount; }
+		virtual void SetRenderEnemy(bool renderEnemy) { m_RenderEnemy = renderEnemy; }
+		virtual void checkIfRender(int collectedTrees) { } //enemy
+		
 	protected:
+		int m_CountCollectedTrees;
 		bool m_WasCut = false;
+		bool m_RenderEnemy = false;
 		Transform m_Transform; 
 		std::string m_Tag = "";
 	private:

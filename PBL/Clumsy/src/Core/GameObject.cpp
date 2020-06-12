@@ -108,30 +108,65 @@ namespace Clumsy
 
 	void GameObject::RenderAll(Shader& shader)
 	{
-		if (GetWasCut() == false) {
-			if (GetComponents().size() <= 1)
-			{
-				Render(shader);
-			}
-			else
-			{
-				if (SetupAabb())
+		//checkIfRender(GetCollectedTreesCount());
+		//std::cout << "Render tree count: " << m_CountCollectedTrees << std::endl;
+
+		/*if (GetRenderEnemy())
+		{
+			std::cout << "Render enemy" << std::endl;
+		}*/
+		//std::cout << "RENDER ENEMY: " << GetRenderEnemy() << std::endl;
+		//std::cout << "TAG OF PLAYER: " << GetM_Tag() << std::endl;
+		if (GetRenderEnemy() == false && GetM_Tag() != "enemy")
+		{
+			if (GetWasCut() == false) {
+
+				if (GetComponents().size() <= 1)
 				{
-					RenderEngine::GetInstance()->m_Counter++;
 					Render(shader);
 				}
-			}
+				else
+				{
+					if (SetupAabb())
+					{
+						RenderEngine::GetInstance()->m_Counter++;
+						Render(shader);
+					}
+				}
 
-			for (int i = 0; i < m_Children.size(); i++)
-			{
-				m_Children[i]->RenderAll(shader);
+				for (int i = 0; i < m_Children.size(); i++)
+				{
+					m_Children[i]->RenderAll(shader);
+				}
+			}
+		}
+		else if(GetRenderEnemy() == true)
+		{
+			if (GetWasCut() == false) {
+				if (GetComponents().size() <= 1)
+				{
+					Render(shader);
+				}
+				else
+				{
+					if (SetupAabb())
+					{
+						RenderEngine::GetInstance()->m_Counter++;
+						Render(shader);
+					}
+				}
+
+				for (int i = 0; i < m_Children.size(); i++)
+				{
+					m_Children[i]->RenderAll(shader);
+				}
 			}
 		}
 	}
 
 	void GameObject::Update()
 	{
-		for (int i = 0; i < m_Components.size(); i++) 
+		for (int i = 0; i < m_Components.size(); i++)
 		{
 			m_Components[i]->Update();
 		}
@@ -140,8 +175,8 @@ namespace Clumsy
 	void GameObject::UpdateAll()
 	{
 		Update();
-		
-		for (int i = 0; i < m_Children.size(); i++) 
+
+		for (int i = 0; i < m_Children.size(); i++)
 		{
 			m_Children[i]->UpdateAll();
 		}
@@ -151,7 +186,7 @@ namespace Clumsy
 	{
 		m_Transform.Update();
 
-		for (int i = 0; i < m_Components.size(); i++) 
+		for (int i = 0; i < m_Components.size(); i++)
 		{
 			m_Components[i]->ProcessInput(input);
 		}
@@ -161,7 +196,7 @@ namespace Clumsy
 	{
 		ProcessInput(input);
 
-		for (int i = 0; i < m_Children.size(); i++) 
+		for (int i = 0; i < m_Children.size(); i++)
 		{
 			m_Children[i]->ProcessInputAll(input);
 		}
