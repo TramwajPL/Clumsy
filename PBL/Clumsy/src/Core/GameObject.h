@@ -49,6 +49,7 @@ namespace Clumsy
 		void SetWasCut(bool bool1) { m_WasCut = &bool1; }*/
 		virtual bool GetWasCut() { return m_WasCut; }
 		virtual void SetWasCut(bool bool1) { }
+
 		//virtual std::vector<Transform> getTreeTransform() { return m_TreeTransforms; }
 		//virtual void setTreeTransform(std::vector<Transform> newTransform) {}
 		virtual void UpdateTurn() {}
