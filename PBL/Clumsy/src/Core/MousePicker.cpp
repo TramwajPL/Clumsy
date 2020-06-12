@@ -99,11 +99,6 @@ namespace Clumsy
 				for (int j = 0; j < RenderEngine::GetInstance()->map->GetAllChildren().size(); j++) {
 					glm::vec3 position = RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetTransform().GetPos();
 					
-					//for (auto it = RenderEngine::GetInstance()->treeTransforms.begin(); it != RenderEngine::GetInstance()->treeTransforms.end();) {
-					//	if (vectorGameObject == it->GetPos()) {
-					//		RenderEngine::GetInstance()->treeTransforms.erase(it);
-					//	}
-					//}
 					for (int k = 0; k < RenderEngine::GetInstance()->treeTransforms.size(); k++) {
 						if (vectorGameObject == RenderEngine::GetInstance()->treeTransforms[k].GetPos()) {
 							RenderEngine::GetInstance()->wasCut = true;
@@ -112,11 +107,6 @@ namespace Clumsy
 							Clumsy::RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
 						}
 					}
-
-					//if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "tree") {
-					//	RenderEngine::GetInstance()->map->GetAllChildren()[j]->SetWasCut(true);
-					//	std::cout << "tree: " << j << " " << RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetWasCut()<<  std::endl;
-					//}
 				}
 				return PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
 			}

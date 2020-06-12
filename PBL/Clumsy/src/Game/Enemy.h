@@ -6,7 +6,7 @@ namespace Clumsy {
 	class Enemy : public GameObject
 	{
 	public:
-		Enemy(Transform transform, int maxCollectedTrees = 3) : m_MaxCollectedTrees(maxCollectedTrees), GameObject(transform) {}
+		Enemy(Transform transform, int maxCollectedTrees = 6) : m_MaxCollectedTrees(maxCollectedTrees), GameObject(transform) {}
 		Enemy() {}
 
 		void SetM_Tag(std::string tag) override { m_Tag = tag; }

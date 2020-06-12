@@ -249,8 +249,10 @@
     <ClInclude Include="src\Components\RenderInstancedTreesComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Nature.h" />
     <ClInclude Include="src\Game\Enemy.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Nature.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
