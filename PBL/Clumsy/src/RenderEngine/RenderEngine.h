@@ -73,6 +73,7 @@ namespace Clumsy
 
 		//fields for objects for easier access
 		GameObject* map = new GameObject();
+		std::vector<Transform> treeTransforms;
 
 		//movement
 		bool m_Movement = false;

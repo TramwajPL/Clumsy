@@ -140,7 +140,7 @@ namespace Clumsy
 							transform2.SetRotY(0.7f);//0
 							transform2.SetRotZ(0.7f);//0
 							transform2.SetRotW(0.0f);//1
-							transform2.SetScale(0.1f);
+							transform2.SetScale(0.3f);
 
 							glm::vec3 min2 = glm::vec3(transform2.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
 							glm::vec3 max2 = glm::vec3(transform2.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
