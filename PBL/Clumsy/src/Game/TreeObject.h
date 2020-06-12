@@ -14,17 +14,16 @@ namespace Clumsy {
 			m_WasCut = &bool1; 
 		}
 		void SetM_Tag(std::string tag) { m_Tag = tag; }
-<<<<<<< HEAD
+
 		int GetCollectedTreesCount() override { return m_CountCollectedTrees; }
 		//void SetCollectedTreesCount(int newCount) override { m_CountCollectedTrees = newCount; }
 	private:
-	
-=======
+
 
 		//std::vector<Transform> getTreeTransform() override { return m_TreeTransforms; }
 		//void setTreeTransform(std::vector<Transform> newTransform) override { m_TreeTransforms = newTransform; }
 	private:
 		std::vector<Transform> ListOfTreesTransforms;
->>>>>>> development
+
 	};
 }

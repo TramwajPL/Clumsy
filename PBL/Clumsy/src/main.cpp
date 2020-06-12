@@ -75,13 +75,11 @@ public:
 			= new Clumsy::PhysicsEngineComponent();
 
 		rmc = new Clumsy::RenderModelComponent(model, boy->GetTransform(), 90.0f);
-<<<<<<< HEAD
 		enemyRmc = new Clumsy::RenderModelComponent(enemyModel, Clumsy::RenderEngine::GetInstance()->enemy->GetTransform(), 90.0f); //enemy RMC //ost zmiana
 
 		AddToScene((boy)->AddComponent(rmc));
 		AddToScene((boy2)->AddComponent(new Clumsy::RenderModelComponent(model, boy2->GetTransform(), 90.0f)));
 		AddToScene((Clumsy::RenderEngine::GetInstance()->enemy)->AddComponent(enemyRmc)); //enemy Add to scene //ost zmiana
-=======
 
 		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(model, boy->GetTransform(), 90.0f);
 		boy->m_Rmc = rmc1;
@@ -90,7 +88,6 @@ public:
 		Clumsy::RenderModelComponent* rmc2 = new Clumsy::RenderModelComponent(model, boy2->GetTransform(), 90.0f);
 		boy2->m_Rmc = rmc2;
 		AddToScene((boy2)->AddComponent(rmc2));
->>>>>>> development
 
 		boy->AddComponent(new Clumsy::PhysicsObjectComponent(ob1));
 		boy2->AddComponent(new Clumsy::PhysicsObjectComponent(ob2));
@@ -99,11 +96,8 @@ public:
 		AddToScene((new Clumsy::GameObject())
 			->AddComponent(physicsEngineComponent));
 
-<<<<<<< HEAD
 		Clumsy::GameObject* nature = new Clumsy::GameObject(); //co to ?
-=======
 		//Clumsy::GameObject* nature = new Clumsy::GameObject();
->>>>>>> development
 
 		//Clumsy::TurnSystem::GetInstance()->AddPlayer(nature);
 		Clumsy::TurnSystem::GetInstance()->AddPlayer(boy);

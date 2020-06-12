@@ -109,7 +109,6 @@ namespace Clumsy
 
 	void GameObject::RenderAll(Shader& shader)
 	{
-<<<<<<< HEAD
 		//checkIfRender(GetCollectedTreesCount());
 		//std::cout << "Render tree count: " << m_CountCollectedTrees << std::endl;
 
@@ -124,56 +123,55 @@ namespace Clumsy
 			if (GetWasCut() == false) {
 
 				if (GetComponents().size() <= 1)
-=======
-		//if (GetWasCut() == false) {
-			if (GetComponents().size() <= 1)
-			{
-				Render(shader);
-			}
-			else
-			{
-				if (SetupAabb())
->>>>>>> development
-				{
-					Render(shader);
-				}
-				else
-				{
-					if (SetupAabb())
+					//if (GetWasCut() == false) {
+					if (GetComponents().size() <= 1)
 					{
-						RenderEngine::GetInstance()->m_Counter++;
 						Render(shader);
 					}
-				}
+					else
+					{
+						if (SetupAabb())
+						{
+							Render(shader);
+						}
+						else
+						{
+							if (SetupAabb())
+							{
+								RenderEngine::GetInstance()->m_Counter++;
+								Render(shader);
+							}
+						}
 
-				for (int i = 0; i < m_Children.size(); i++)
-				{
-					m_Children[i]->RenderAll(shader);
+						for (int i = 0; i < m_Children.size(); i++)
+						{
+							m_Children[i]->RenderAll(shader);
+						}
+					}
+			}
+			else if (GetRenderEnemy() == true)
+			{
+				if (GetWasCut() == false) {
+					if (GetComponents().size() <= 1)
+					{
+						Render(shader);
+					}
+					else
+					{
+						if (SetupAabb())
+						{
+							RenderEngine::GetInstance()->m_Counter++;
+							Render(shader);
+						}
+					}
+
+					for (int i = 0; i < m_Children.size(); i++)
+					{
+						m_Children[i]->RenderAll(shader);
+					}
 				}
 			}
 		}
-		else if(GetRenderEnemy() == true)
-		{
-			if (GetWasCut() == false) {
-				if (GetComponents().size() <= 1)
-				{
-					Render(shader);
-				}
-				else
-				{
-					if (SetupAabb())
-					{
-						RenderEngine::GetInstance()->m_Counter++;
-						Render(shader);
-					}
-				}
-
-				for (int i = 0; i < m_Children.size(); i++)
-				{
-					m_Children[i]->RenderAll(shader);
-				}
-			}
-		//}
 	}
 
 	void GameObject::Update()

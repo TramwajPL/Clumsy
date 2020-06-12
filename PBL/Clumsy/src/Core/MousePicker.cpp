@@ -90,15 +90,15 @@ namespace Clumsy
 	glm::vec3 MousePicker::GetPickedObject(glm::vec3 originalPosition)
 	{
 		float checkCollisionResult;
-		for (int i = 0; i < PhysicsEngine::GetInstance()->GetNumObjects() ; i++)
+		for (int i = 0; i < PhysicsEngine::GetInstance()->GetNumObjects(); i++)
 		{
 			checkCollisionResult = CheckCollision(&PhysicsEngine::GetInstance()->GetObject(i).GetCollider());
 			if (checkCollisionResult != -1) {
 				//vector of collider's position  
 				glm::vec3 vectorGameObject = PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
-				
+
 				for (int j = 0; j < RenderEngine::GetInstance()->map->GetAllChildren().size(); j++) {
-<<<<<<< HEAD
+
 					//int count = RenderEngine::GetInstance()->map->GetAllChildren()[j]->m_CountCollectedTrees;
 					glm::vec3 position = RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetTransform().GetPos();
 					//std::cout << "CHECK IF RENDER BEFORE: " << RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetRenderEnemy()<< std::endl;
@@ -112,31 +112,30 @@ namespace Clumsy
 						//RenderEngine::GetInstance()->map->GetAllChildren()[j]->checkIfRender(RenderEngine::GetInstance()->map->GetAllChildren()[j]->m_CountCollectedTrees);
 						//std::cout << "CHECK IF RENDER BEFORE: " << RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetRenderEnemy()<<std::endl;
 						//std::cout << "tree: " << j << " " << RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetWasCut()<<  std::endl;
-=======
-					glm::vec3 position = RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetTransform().GetPos();
-					
-					//for (auto it = RenderEngine::GetInstance()->treeTransforms.begin(); it != RenderEngine::GetInstance()->treeTransforms.end();) {
-					//	if (vectorGameObject == it->GetPos()) {
-					//		RenderEngine::GetInstance()->treeTransforms.erase(it);
-					//	}
-					//}
-					for (int k = 0; k < RenderEngine::GetInstance()->treeTransforms.size(); k++) {
-						if (vectorGameObject == RenderEngine::GetInstance()->treeTransforms[k].GetPos()) {
-							RenderEngine::GetInstance()->wasCut = true;
-							RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + k);
-						}
->>>>>>> development
-					}
+						glm::vec3 position = RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetTransform().GetPos();
 
-					//if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "tree") {
-					//	RenderEngine::GetInstance()->map->GetAllChildren()[j]->SetWasCut(true);
-					//	std::cout << "tree: " << j << " " << RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetWasCut()<<  std::endl;
-					//}
+						//for (auto it = RenderEngine::GetInstance()->treeTransforms.begin(); it != RenderEngine::GetInstance()->treeTransforms.end();) {
+						//	if (vectorGameObject == it->GetPos()) {
+						//		RenderEngine::GetInstance()->treeTransforms.erase(it);
+						//	}
+						//}
+						for (int k = 0; k < RenderEngine::GetInstance()->treeTransforms.size(); k++) {
+							if (vectorGameObject == RenderEngine::GetInstance()->treeTransforms[k].GetPos()) {
+								RenderEngine::GetInstance()->wasCut = true;
+								RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + k);
+							}
+						}
+
+						//if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "tree") {
+						//	RenderEngine::GetInstance()->map->GetAllChildren()[j]->SetWasCut(true);
+						//	std::cout << "tree: " << j << " " << RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetWasCut()<<  std::endl;
+						//}
+					}
+					return PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
 				}
-				return PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
 			}
+			return originalPosition;
 		}
-		return originalPosition;
 	}
 
 	void MousePicker::HandleEvent(Event* event)

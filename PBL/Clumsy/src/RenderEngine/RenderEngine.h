@@ -79,11 +79,9 @@ namespace Clumsy
 		//GameObject* map = new GameObject();
 		GameObject* map = new GameObject();
 		std::vector<Transform> treeTransforms;
-<<<<<<< HEAD
+
 		Enemy* enemy;
-=======
 		bool wasCut = false;
->>>>>>> development
 		
 		//movement
 		bool m_Movement = false;
