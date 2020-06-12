@@ -65,5 +65,5 @@
 #include "Game/Player.h"
 #include "Game/Nature.h"
 #include "Game/TurnSystem.h"
-
+#include "Game/Enemy.h"
 //////////////////

@@ -37,6 +37,7 @@ namespace Clumsy
 		void HandleEvent(Event* event);
 
 	private:
+		int countTrees = 0;
 		glm::vec3 m_CurrentRay;
 		glm::mat4 m_ProjectionMatrix;
 		glm::mat4 m_ViewMatrix;

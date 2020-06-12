@@ -108,6 +108,8 @@ namespace Clumsy
 						if (vectorGameObject == RenderEngine::GetInstance()->treeTransforms[k].GetPos()) {
 							RenderEngine::GetInstance()->wasCut = true;
 							RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + k);
+							countTrees++;
+							Clumsy::RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
 						}
 					}
 

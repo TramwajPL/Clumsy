@@ -97,6 +97,9 @@
     <ClCompile Include="src\RenderEngine\Cube.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Enemy.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -245,6 +248,10 @@
     </ClInclude>
     <ClInclude Include="src\Components\RenderInstancedTreesComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Nature.h" />
+    <ClInclude Include="src\Game\Enemy.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
