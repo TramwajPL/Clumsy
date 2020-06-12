@@ -216,45 +216,6 @@ namespace Clumsy
 				}
             }
         }
-
-		Model* mShop = new Model();
-		Transform transformShop;
-		Transform transformWoodHouse;
-
-		transformShop.SetPosX(1.19f);
-		transformShop.SetPosY(-1.0f);
-		transformShop.SetPosZ(1.52f);
-		transformShop.SetRotX(0.0f);//0
-		transformShop.SetRotY(0.7f);//0
-		transformShop.SetRotZ(0.7f);//0
-		transformShop.SetRotW(0.0f);//1
-		transformShop.SetScale(0.04f);
-
-		transformWoodHouse.SetPosX(-.950f);
-		transformWoodHouse.SetPosY(-1.0f);
-		transformWoodHouse.SetPosZ(1.52f);
-		transformWoodHouse.SetRotX(0.0f);//0
-		transformWoodHouse.SetRotY(0.7f);//0
-		transformWoodHouse.SetRotZ(0.7f);//0
-		transformWoodHouse.SetRotW(0.0f);//1
-		transformWoodHouse.SetScale(0.04f);
-
-		glm::vec3 min2 = glm::vec3(transformShop.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
-		glm::vec3 max2 = glm::vec3(transformShop.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
-		PhysicsObject* pOShop = new PhysicsObject(new Aabb(min2, max2), &transformShop);
-		PhysicsEngine::GetInstance()->AddObject(*pOShop);
-		GameObject* shop = new GameObject(transformShop);
-		GameObject* woodHouse = new GameObject(transformWoodHouse);
-		shop->SetM_Tag("shop");
-		woodHouse->SetM_Tag("woodHouse");
-		mShop->loadModel("../Clumsy/src/models/shop/shop.obj");
-		map->AddChild((shop)->AddComponent(new RenderModelComponent(mShop, transformShop, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop)));
-
-		glm::vec3 minWood = glm::vec3(transformShop.GetPos() - glm::vec3(1.5f, 0.1f, 1.5f));
-		glm::vec3 maxWood = glm::vec3(transformShop.GetPos() + glm::vec3(1.5f, 0.1f, 1.5f));
-		PhysicsObject* pOShop2 = new PhysicsObject(new Aabb(minWood, maxWood), &transformWoodHouse);
-		map->AddChild((woodHouse)->AddComponent(new RenderModelComponent(mShop, transformWoodHouse, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop2)));
-
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m3, allTransformsM3));
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m4, allTransformsM4));
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m5, allTransformsM5));
