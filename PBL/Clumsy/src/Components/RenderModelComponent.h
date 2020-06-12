@@ -12,7 +12,6 @@ namespace Clumsy {
 	public:
 		RenderModelComponent(Model* model, Transform transform, float angle) : m_Model(model), m_Transform(transform), m_Angle(angle)
 		{
-			//delete constructor in EntityComponent.h
 		}
 
 		virtual void Render(Shader& shader) 

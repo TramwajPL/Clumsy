@@ -4,6 +4,7 @@
 #include <glm/gtx/string_cast.hpp>
 
 #include "MousePicker.h"
+#include "../Game/Player.h"
 #include "../Components/RenderModelComponent.h"
 
 namespace Clumsy
@@ -112,9 +113,21 @@ namespace Clumsy
 	{
 		if (event->GetEventId() == "move")
 		{
-			RenderModelComponent* rmc = (RenderModelComponent*)event->GetParameter();
-			glm::vec3 vec3 = GetPickedObject(rmc->m_Transform.GetPos());
-			rmc->m_Transform.SetPos(vec3);
+			Player* player = (Player*)event->GetParameter();
+			RenderModelComponent* rmc = player->m_Rmc;
+			glm::vec3* destination = &GetPickedObject(rmc->m_Transform.GetPos());
+			glm::vec3* currentpos = &rmc->m_Transform.GetPos();
+			if (destination != currentpos)
+			{
+				glm::vec3 delta = ((GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
+				Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
+				Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
+				Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
+				Clumsy::RenderEngine::GetInstance()->m_Movement = true;
+				player->IncrementActionCount();
+				std::cout << "active player actions" << player->GetActionsCount() << std::endl;
+			}
 		}
 	}
+
 }

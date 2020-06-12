@@ -11,6 +11,7 @@ namespace Clumsy
 	class Shader;
 	class RenderEngine;
 	class PhysicsObjectComponent;
+	class RenderModelComponent;
 
 	class GameObject 
 	{
@@ -47,6 +48,8 @@ namespace Clumsy
 		void SetWasCut(bool bool1) { m_WasCut = &bool1; }*/
 		virtual bool GetWasCut() { return m_WasCut; }
 		virtual void SetWasCut(bool bool1) { }
+
+		RenderModelComponent* m_Rmc;
 
 	protected:
 		bool m_WasCut = false;

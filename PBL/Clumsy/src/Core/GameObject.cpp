@@ -6,6 +6,7 @@
 #include "EntityComponent.h"
 #include "../RenderEngine/RenderEngine.h"
 #include "../Components/PhysicsObjectComponent.h"
+//#include "../Components/RenderModelComponent.h"
 
 namespace Clumsy
 {
@@ -21,7 +22,7 @@ namespace Clumsy
 	GameObject* GameObject::AddComponent(EntityComponent* component)
 	{
 		m_Components.push_back(component);
-		component->SetParent(*this);
+		component->SetParent(this);
 		return this;
 	}
 
