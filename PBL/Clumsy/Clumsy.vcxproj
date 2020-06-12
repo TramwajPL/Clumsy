@@ -76,6 +76,7 @@
     <ClInclude Include="src\EventSystem\Event.h" />
     <ClInclude Include="src\EventSystem\EventSystem.h" />
     <ClInclude Include="src\EventSystem\Listener.h" />
+    <ClInclude Include="src\Game\Nature.h" />
     <ClInclude Include="src\Game\Player.h" />
     <ClInclude Include="src\Game\TreeObject.h" />
     <ClInclude Include="src\Game\TurnClass.h" />

@@ -11,6 +11,8 @@ namespace Clumsy
 	class Shader;
 	class RenderEngine;
 	class PhysicsObjectComponent;
+	class RenderModelComponent;
+	class TurnClass;
 
 	class GameObject 
 	{
@@ -49,6 +51,10 @@ namespace Clumsy
 		virtual void SetWasCut(bool bool1) { }
 		//virtual std::vector<Transform> getTreeTransform() { return m_TreeTransforms; }
 		//virtual void setTreeTransform(std::vector<Transform> newTransform) {}
+		virtual void UpdateTurn() {}
+		virtual void SetTurnClass(TurnClass* tc) {}
+		RenderModelComponent* m_Rmc;
+
 	protected:
 		bool m_WasCut = false;
 		Transform m_Transform; 

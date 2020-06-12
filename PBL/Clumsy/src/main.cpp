@@ -60,8 +60,14 @@ public:
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent();
 		rmc = new Clumsy::RenderModelComponent(model, boy->GetTransform(), 90.0f);
-		AddToScene((boy)->AddComponent(rmc));
-		AddToScene((boy2)->AddComponent(new Clumsy::RenderModelComponent(model, boy2->GetTransform(), 90.0f)));
+
+		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(model, boy->GetTransform(), 90.0f);
+		boy->m_Rmc = rmc1;
+		AddToScene((boy)->AddComponent(rmc1));
+
+		Clumsy::RenderModelComponent* rmc2 = new Clumsy::RenderModelComponent(model, boy2->GetTransform(), 90.0f);
+		boy2->m_Rmc = rmc2;
+		AddToScene((boy2)->AddComponent(rmc2));
 
 		boy->AddComponent(new Clumsy::PhysicsObjectComponent(ob1));
 		boy2->AddComponent(new Clumsy::PhysicsObjectComponent(ob2));
@@ -69,10 +75,11 @@ public:
 		AddToScene((new Clumsy::GameObject())
 			->AddComponent(physicsEngineComponent));
 
-		Clumsy::GameObject* nature = new Clumsy::GameObject();
+		//Clumsy::GameObject* nature = new Clumsy::GameObject();
 
-		Clumsy::TurnSystem::GetInstance()->AddPlayer(nature);
+		//Clumsy::TurnSystem::GetInstance()->AddPlayer(nature);
 		Clumsy::TurnSystem::GetInstance()->AddPlayer(boy);
+		Clumsy::TurnSystem::GetInstance()->AddPlayer(boy2);
 
 		//Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
 	}
@@ -165,13 +172,8 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 				Clumsy::RenderEngine::GetInstance()->GetPostProcessor()->m_Shake = true;
 
 				// movement
-				glm::vec3* destination = &mp.GetPickedObject(rmc->m_Transform.GetPos());
-				glm::vec3* currentpos = &rmc->m_Transform.GetPos();
-				glm::vec3 delta = ((mp.GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
-				Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
-				Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
-				Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
-				Clumsy::RenderEngine::GetInstance()->m_Movement = true;
+				Clumsy::GameObject* player = Clumsy::TurnSystem::GetInstance()->GetActivePlayer();
+				Clumsy::EventSystem::GetInstance()->SendEvent("move", (void*)player);
 			}
 		}
 	}

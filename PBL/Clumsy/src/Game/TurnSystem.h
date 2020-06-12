@@ -15,12 +15,12 @@ namespace Clumsy
 		void UpdateTurns();
 		GameObject* GetActivePlayer();
 		void AddPlayer(GameObject* player);
-		void DeletePlayer(GameObject* player);
+		//void DeletePlayer(GameObject* player);
 
 		static TurnSystem* GetInstance();
 
 	private:
-		std::vector<TurnClass> players;
+		std::vector<TurnClass*> players;
 		GameObject* m_ActivePlayer;
 		int m_TurnCounter = 0;
 		static TurnSystem* m_Instance;
