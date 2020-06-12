@@ -4,6 +4,9 @@
 #include <glm/gtx/string_cast.hpp>
 
 #include "MousePicker.h"
+#include "../RenderEngine/RenderEngine.h"
+#include "../GUI/StoreGUI.h"
+#include "../GUI/WarehouseGUI.h"
 #include "../Components/RenderModelComponent.h"
 
 namespace Clumsy
@@ -95,11 +98,16 @@ namespace Clumsy
 			if (checkCollisionResult != -1) {
 				glm::vec3 vectorGameObject = PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
 				for (int j = 0; j < RenderEngine::GetInstance()->map->GetAllChildren().size(); j++) {
-					
 					glm::vec3 position = RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetTransform().GetPos();
 					if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "tree") {
 						RenderEngine::GetInstance()->map->GetAllChildren()[j]->SetWasCut(true);
 						std::cout << "tree: " << j << " " << RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetWasCut()<<  std::endl;
+					}
+					if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "shop") {
+						RenderEngine::GetInstance()->GetStoreGUI()->SetEnabled(true);
+					}
+					if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "woodHouse") {
+						RenderEngine::GetInstance()->GetWarehouseGUI()->SetEnabled(true);
 					}
 				}
 				return PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
