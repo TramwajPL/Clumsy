@@ -230,6 +230,9 @@
     <ClInclude Include="src\Game\TurnSystem.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\TreeObject.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">
