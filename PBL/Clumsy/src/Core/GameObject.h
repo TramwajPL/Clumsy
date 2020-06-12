@@ -12,6 +12,7 @@ namespace Clumsy
 	class RenderEngine;
 	class PhysicsObjectComponent;
 	class RenderModelComponent;
+	class TurnClass;
 
 	class GameObject 
 	{
@@ -48,7 +49,8 @@ namespace Clumsy
 		void SetWasCut(bool bool1) { m_WasCut = &bool1; }*/
 		virtual bool GetWasCut() { return m_WasCut; }
 		virtual void SetWasCut(bool bool1) { }
-
+		virtual void UpdateTurn() {}
+		virtual void SetTurnClass(TurnClass* tc) {}
 		RenderModelComponent* m_Rmc;
 
 	protected:
