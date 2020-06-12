@@ -13,6 +13,7 @@
 #include "../GUI/Button.h"
 #include "../GUI/StoreGUI.h"
 #include "../GUI/WarehouseGUI.h"
+#include "../GUI/MenuGUI.h"
 
 #include "../Core/Game.h"
 #include "../Core/Timestep.h"
@@ -46,9 +47,9 @@ namespace Clumsy
 		particleTexture = loadTextureFromFile("../Clumsy/src/models/flame.png", GL_TRUE);
 		textShader = new Shader("../Clumsy/src/Shaders/text_VS.glsl", "../Clumsy/src/Shaders/text_FS.glsl");
 		buttonShader = new Shader("../Clumsy/src/Shaders/button_VS.glsl", "../Clumsy/src/Shaders/button_FS.glsl");
+
 		Effects = new PostProcessor(*m_Postprocessing, SCR_WIDTH, SCR_HEIGHT);
 		shaderCube = new Shader("../Clumsy/src/Shaders/cubeMap_VS.glsl", "../Clumsy/src/Shaders/cubeMap_FS.glsl");
-
 		shaderSkybox = new Shader("../Clumsy/src/Shaders/skybox_VS.glsl", "../Clumsy/src/Shaders/skybox_FS.glsl");
 
 		glEnable(GL_DEPTH_TEST);
@@ -127,6 +128,7 @@ namespace Clumsy
 		m_ButtonRestart = new Button(glm::vec2(-0.9f, 0.45f), " Restart", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
 		m_StoreGUI = new StoreGUI();
 		m_WarehouseGUI = new WarehouseGUI();
+		m_MenuGUI = new MenuGUI();
 
 
 		std::vector<std::string> faces
@@ -403,6 +405,19 @@ namespace Clumsy
 
 		m_StoreGUI->Render(buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 		m_WarehouseGUI->Render(buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
+		
+	}
+
+	void RenderEngine::RenderMainMenu()
+	{
+		glDisable(GL_DEPTH_TEST);
+
+		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
+		textShader->use();
+		textShader->setMat4("projection", projectionGUI);
+		buttonShader->use();
+
+		m_MenuGUI->Render(buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 	}
 
 	void RenderEngine::CleanUp()
@@ -457,6 +472,9 @@ namespace Clumsy
 			m_WarehouseGUI->SetEnabled(!m_WarehouseGUI->IsEnabled());
 		}
 
+		/*if (glfwGetKey(m_GLFWWindow, GLFW_KEY_M) == GLFW_PRESS) {
+			m_MenuGUI->SetEnabled(!m_MenuGUI->IsEnabled());
+		}*/
 	}
 
 	unsigned int RenderEngine::loadCubemap(std::vector<std::string> faces)

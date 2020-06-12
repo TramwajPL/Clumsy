@@ -24,6 +24,7 @@ namespace Clumsy
 	class Button;
 	class StoreGUI;
 	class WarehouseGUI;
+	class MenuGUI;
 	class ParticleGenerator;
 	class RenderModelComponent;
 
@@ -39,6 +40,7 @@ namespace Clumsy
 		Camera GetCamera() { return *m_Camera; }
 		void Render(GameObject object);
 		void RenderGUI();
+		void RenderMainMenu();
 		void AddLights(const BaseLight& light) { m_Lights.push_back(&light); }
 		const BaseLight& GetActiveLight() const { return *m_ActiveLight; }
 		void setFrustum(glm::mat4 viewProjection);
@@ -52,6 +54,7 @@ namespace Clumsy
 		Button* GetRestartButton() { return m_ButtonRestart; }
 		StoreGUI* GetStoreGUI() { return m_StoreGUI; }
 		WarehouseGUI* GetWarehouseGUI() { return m_WarehouseGUI; }
+		MenuGUI* GetMenuGUI() { return m_MenuGUI; }
 
 		bool isFrustumSet = false;
 		bool wasCameraMoved = true;
@@ -74,9 +77,13 @@ namespace Clumsy
 
 		//fields for objects for easier access
 		//GameObject* map = new GameObject();
-		TreeObject* map = new TreeObject();
+		GameObject* map = new GameObject();
 		std::vector<Transform> treeTransforms;
+<<<<<<< HEAD
 		Enemy* enemy;
+=======
+		bool wasCut = false;
+>>>>>>> development
 		
 		//movement
 		bool m_Movement = false;
@@ -139,6 +146,8 @@ namespace Clumsy
 		Button* m_ButtonRestart;
 		StoreGUI* m_StoreGUI;
 		WarehouseGUI* m_WarehouseGUI;
+		MenuGUI* m_MenuGUI;
+		
 
 		PostProcessor* Effects;
 		float m_ShakeTime;

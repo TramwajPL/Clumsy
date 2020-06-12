@@ -11,6 +11,8 @@ namespace Clumsy
 	class Shader;
 	class RenderEngine;
 	class PhysicsObjectComponent;
+	class RenderModelComponent;
+	class TurnClass;
 
 	class GameObject 
 	{
@@ -49,17 +51,27 @@ namespace Clumsy
 		virtual bool GetWasCut() { return m_WasCut; }
 		virtual void SetM_Tag(std::string tag) { m_Tag = tag; }
 
+<<<<<<< HEAD
 		virtual void SetWasCut(bool bool1) { }
 		//virtual void SetCollectedTreesCount(int newCount) { m_CountCollectedTrees = newCount; }
 		virtual void SetRenderEnemy(bool renderEnemy) { m_RenderEnemy = renderEnemy; }
 		virtual void checkIfRender(int collectedTrees) { } //enemy
 		
+=======
+		//virtual std::vector<Transform> getTreeTransform() { return m_TreeTransforms; }
+		//virtual void setTreeTransform(std::vector<Transform> newTransform) {}
+		virtual void UpdateTurn() {}
+		virtual void SetTurnClass(TurnClass* tc) {}
+		RenderModelComponent* m_Rmc;
+
+>>>>>>> development
 	protected:
 		int m_CountCollectedTrees;
 		bool m_WasCut = false;
 		bool m_RenderEnemy = false;
 		Transform m_Transform; 
 		std::string m_Tag = "";
+		//std::vector<Transform> m_TreeTransforms;
 	private:
 		
 		std::vector<glm::vec3> points;

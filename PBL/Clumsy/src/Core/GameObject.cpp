@@ -6,6 +6,7 @@
 #include "EntityComponent.h"
 #include "../RenderEngine/RenderEngine.h"
 #include "../Components/PhysicsObjectComponent.h"
+//#include "../Components/RenderModelComponent.h"
 
 namespace Clumsy
 {
@@ -21,7 +22,7 @@ namespace Clumsy
 	GameObject* GameObject::AddComponent(EntityComponent* component)
 	{
 		m_Components.push_back(component);
-		component->SetParent(*this);
+		component->SetParent(this);
 		return this;
 	}
 
@@ -108,6 +109,7 @@ namespace Clumsy
 
 	void GameObject::RenderAll(Shader& shader)
 	{
+<<<<<<< HEAD
 		//checkIfRender(GetCollectedTreesCount());
 		//std::cout << "Render tree count: " << m_CountCollectedTrees << std::endl;
 
@@ -122,6 +124,16 @@ namespace Clumsy
 			if (GetWasCut() == false) {
 
 				if (GetComponents().size() <= 1)
+=======
+		//if (GetWasCut() == false) {
+			if (GetComponents().size() <= 1)
+			{
+				Render(shader);
+			}
+			else
+			{
+				if (SetupAabb())
+>>>>>>> development
 				{
 					Render(shader);
 				}
@@ -161,7 +173,7 @@ namespace Clumsy
 					m_Children[i]->RenderAll(shader);
 				}
 			}
-		}
+		//}
 	}
 
 	void GameObject::Update()

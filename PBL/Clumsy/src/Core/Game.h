@@ -5,6 +5,7 @@
 #include "../RenderEngine/RenderEngine.h"
 #include "../RenderEngine/PostProcessor.h"
 #include "../PhysicsEngine/PhysicsEngine.h"
+#include "../GUI/MenuGUI.h"
 
 namespace Clumsy 
 {
@@ -20,8 +21,12 @@ namespace Clumsy
 
 		GameObject getRoot() { return m_Root; }
 		void SceneParser(GameObject* map, std::string filename);
+		std::vector<Transform> allTransformsM7;
+
 
 	private:
 		GameObject m_Root;
+		bool mainMenuControler = true;
+
 	};
 }

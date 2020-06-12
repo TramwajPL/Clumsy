@@ -22,13 +22,13 @@ namespace Clumsy
         {
             if (i == 0)
             {
-                players[i].isTurn = true;
-                players[i].wasTurnPrev = false;
+                players[i]->isTurn = true;
+                players[i]->wasTurnPrev = false;
             }
             else
             {
-                players[i].isTurn = false;
-                players[i].wasTurnPrev = false;
+                players[i]->isTurn = false;
+                players[i]->wasTurnPrev = false;
             }
         }
         m_TurnCounter++;
@@ -39,8 +39,8 @@ namespace Clumsy
         UpdateTurns();
         for (int i = 0; i < players.size(); i++)
         {
-            if (players[i].isTurn)
-                m_ActivePlayer = players[i].GetGameObject();
+            if (players[i]->isTurn)
+                m_ActivePlayer = players[i]->GetGameObject();
         }
     }
 
@@ -48,12 +48,12 @@ namespace Clumsy
     {
         for (int i = 0; i < players.size(); i++)
         {
-            if (!players[i].wasTurnPrev)
+            if (!players[i]->wasTurnPrev)
             {
-                players[i].isTurn = true;
+                players[i]->isTurn = true;
                 break;
             }
-            else if (i == players.size() - 1 && players[i].wasTurnPrev)
+            else if (i == players.size() - 1 && players[i]->wasTurnPrev)
             {
                 ResetTurns();
             }
@@ -67,10 +67,12 @@ namespace Clumsy
 
     void TurnSystem::AddPlayer(GameObject* player)
     {
-        players.push_back(TurnClass(player));
+        TurnClass* tc = new TurnClass(player);
+        players.push_back(tc);
+        player->SetTurnClass(tc);
     }
 
-    void TurnSystem::DeletePlayer(GameObject* player)
+    /*void TurnSystem::DeletePlayer(GameObject* player)
     {
         for (std::vector<TurnClass>::iterator b = players.begin(); b != players.end(); ++b)
         {
@@ -79,5 +81,5 @@ namespace Clumsy
                 b = players.erase(b);
             }
         }
-    }
+    }*/
 }
