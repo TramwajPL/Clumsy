@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Core/GameObject.h"
+#include "../Game/TurnClass.h"
 
 namespace Clumsy
 {
@@ -22,10 +23,32 @@ namespace Clumsy
 		void IncrementMaxWood() { maxWood++; }
 		void IncrementWoodCount() { woodCount++; }
 
+		void SetTurnClass(TurnClass* tc) { m_TurnClass = tc; }
+
+		void UpdateTurn()
+		{
+			isTurn = m_TurnClass->isTurn;
+			if (isTurn)
+			{
+				if (GetAvailableActions() <= 0)
+				{
+					isTurn = false;
+					m_TurnClass->isTurn = isTurn;
+					m_TurnClass->wasTurnPrev = true;
+					this->actionsCount = 0;
+				}
+			}
+			else
+				std::cout << " nie ma tury " << std::endl;
+		}
+
 	private:
-		int maxActions = 10;
+		int maxActions = 3;
 		int actionsCount = 0;
 		int maxWood = 5;
 		int woodCount = 0;
+
+		bool isTurn = false;
+		TurnClass* m_TurnClass = nullptr;
 	};
 }

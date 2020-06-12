@@ -6,6 +6,7 @@
 #include "EntityComponent.h"
 #include "../RenderEngine/RenderEngine.h"
 #include "../Components/PhysicsObjectComponent.h"
+//#include "../Components/RenderModelComponent.h"
 
 namespace Clumsy
 {
@@ -21,7 +22,7 @@ namespace Clumsy
 	GameObject* GameObject::AddComponent(EntityComponent* component)
 	{
 		m_Components.push_back(component);
-		component->SetParent(*this);
+		component->SetParent(this);
 		return this;
 	}
 
@@ -108,7 +109,8 @@ namespace Clumsy
 
 	void GameObject::RenderAll(Shader& shader)
 	{
-		if (GetWasCut() == false) {
+		if (GetRenderEnemy() == false && GetM_Tag() != "enemy")
+		{
 			if (GetComponents().size() <= 1)
 			{
 				Render(shader);
@@ -125,6 +127,28 @@ namespace Clumsy
 			for (int i = 0; i < m_Children.size(); i++)
 			{
 				m_Children[i]->RenderAll(shader);
+			}
+		}
+		else if (GetRenderEnemy() == true)
+		{
+			if (GetWasCut() == false) {
+				if (GetComponents().size() <= 1)
+				{
+					Render(shader);
+				}
+				else
+				{
+					if (SetupAabb())
+					{
+						RenderEngine::GetInstance()->m_Counter++;
+						Render(shader);
+					}
+				}
+
+				for (int i = 0; i < m_Children.size(); i++)
+				{
+					m_Children[i]->RenderAll(shader);
+				}
 			}
 		}
 	}

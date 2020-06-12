@@ -4,6 +4,7 @@
 #include <glm/gtx/string_cast.hpp>
 
 #include "MousePicker.h"
+#include "../Game/Player.h"
 #include "../Components/RenderModelComponent.h"
 
 namespace Clumsy
@@ -93,14 +94,29 @@ namespace Clumsy
 		{
 			checkCollisionResult = CheckCollision(&PhysicsEngine::GetInstance()->GetObject(i).GetCollider());
 			if (checkCollisionResult != -1) {
+				//vector of collider's position  
 				glm::vec3 vectorGameObject = PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
 				for (int j = 0; j < RenderEngine::GetInstance()->map->GetAllChildren().size(); j++) {
-					
 					glm::vec3 position = RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetTransform().GetPos();
-					if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "tree") {
-						RenderEngine::GetInstance()->map->GetAllChildren()[j]->SetWasCut(true);
-						std::cout << "tree: " << j << " " << RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetWasCut()<<  std::endl;
+					
+					//for (auto it = RenderEngine::GetInstance()->treeTransforms.begin(); it != RenderEngine::GetInstance()->treeTransforms.end();) {
+					//	if (vectorGameObject == it->GetPos()) {
+					//		RenderEngine::GetInstance()->treeTransforms.erase(it);
+					//	}
+					//}
+					for (int k = 0; k < RenderEngine::GetInstance()->treeTransforms.size(); k++) {
+						if (vectorGameObject == RenderEngine::GetInstance()->treeTransforms[k].GetPos()) {
+							RenderEngine::GetInstance()->wasCut = true;
+							RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + k);
+							countTrees++;
+							Clumsy::RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
+						}
 					}
+
+					//if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "tree") {
+					//	RenderEngine::GetInstance()->map->GetAllChildren()[j]->SetWasCut(true);
+					//	std::cout << "tree: " << j << " " << RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetWasCut()<<  std::endl;
+					//}
 				}
 				return PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
 			}
@@ -112,9 +128,22 @@ namespace Clumsy
 	{
 		if (event->GetEventId() == "move")
 		{
-			RenderModelComponent* rmc = (RenderModelComponent*)event->GetParameter();
-			glm::vec3 vec3 = GetPickedObject(rmc->m_Transform.GetPos());
-			rmc->m_Transform.SetPos(vec3);
+			Player* player = (Player*)event->GetParameter();
+			RenderModelComponent* rmc = player->m_Rmc;
+			glm::vec3* destination = &GetPickedObject(rmc->m_Transform.GetPos());
+			glm::vec3* currentpos = &rmc->m_Transform.GetPos();
+			if (destination != currentpos)
+			{
+				glm::vec3 delta = ((GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
+				Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
+				Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
+				Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
+				Clumsy::RenderEngine::GetInstance()->m_Movement = true;
+				player->IncrementActionCount();
+				player->UpdateTurn();
+				std::cout << "active player actions " << player->GetActionsCount() << std::endl;
+			}
 		}
 	}
+
 }

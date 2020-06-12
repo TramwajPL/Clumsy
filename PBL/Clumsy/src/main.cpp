@@ -6,13 +6,14 @@
 
 #include "Clumsy.h"
 
-const unsigned int SCR_WIDTH = 1920;
-//const unsigned int SCR_WIDTH = 1366;
-//const unsigned int SCR_HEIGHT = 768;//zmieniæ
-const unsigned int SCR_HEIGHT = 1080;//zmieniæ
+//const unsigned int SCR_WIDTH = 1920;
+const unsigned int SCR_WIDTH = 1366;
+const unsigned int SCR_HEIGHT = 768;//zmieniæ
+//const unsigned int SCR_HEIGHT = 1080;//zmieniæ
 
 Clumsy::GameObject* object1;
 Clumsy::RenderModelComponent* rmc;
+Clumsy::RenderModelComponent* enemyRmc; //enemy
 Clumsy::GameObject* boy;
 bool isScrolled = false;
 float iter = 0.0f;
@@ -35,18 +36,25 @@ public:
 
 		glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::quat rotBoy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f));
+		glm::quat rotEnemy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f));
 
 		float scale = 0.0001f;
 
 		Clumsy::Transform boyTransform(pos + 0.5f, rotBoy, 0.1f);
 		Clumsy::Transform boyTransform2(pos, rotBoy, 0.1f);
-
+		Clumsy::Transform enemyTransform(pos - 0.6f, rotEnemy, 0.01); //enemy
 
 		Clumsy::Model* model = new Clumsy::Model();
 		model->loadModel("../Clumsy/src/models/man/model.dae");
 
+		Clumsy::Model* enemyModel = new Clumsy::Model();
+		enemyModel->loadModel("../Clumsy/src/models/enemyModels/Idle/Idle.dae"); //enemy
+
 		boy = new Clumsy::Player(boyTransform);
 		Clumsy::Player* boy2 = new Clumsy::Player(boyTransform2);
+
+		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(enemyTransform); //enemy //ost zmiana
+		Clumsy::RenderEngine::GetInstance()->enemy->SetM_Tag("enemy"); //ost zmiana
 
 		Clumsy::PhysicsObject* ob1 = new Clumsy::PhysicsObject(
 			new Clumsy::BoundingSphere(boy->GetTransform().GetPos(), 0.1f), &boy->GetTransform());
@@ -54,25 +62,40 @@ public:
 		Clumsy::PhysicsObject* ob2 = new Clumsy::PhysicsObject(
 			new Clumsy::BoundingSphere(boy2->GetTransform().GetPos(), 0.1f), &boy2->GetTransform());
 
+		Clumsy::PhysicsObject* obEnemy = new Clumsy::PhysicsObject(
+			new Clumsy::BoundingSphere(Clumsy::RenderEngine::GetInstance()->enemy->GetTransform().GetPos(), 0.1f),
+			&Clumsy::RenderEngine::GetInstance()->enemy->GetTransform()); //enemy Collider //ost zmiana
+
 		Clumsy::PhysicsEngine::GetInstance()->AddObject(*ob1);
 		Clumsy::PhysicsEngine::GetInstance()->AddObject(*ob2);
+		Clumsy::PhysicsEngine::GetInstance()->AddObject(*obEnemy); //enemy add Physic Component
 
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent();
 		rmc = new Clumsy::RenderModelComponent(model, boy->GetTransform(), 90.0f);
-		AddToScene((boy)->AddComponent(rmc));
-		AddToScene((boy2)->AddComponent(new Clumsy::RenderModelComponent(model, boy2->GetTransform(), 90.0f)));
+		enemyRmc = new Clumsy::RenderModelComponent(enemyModel, Clumsy::RenderEngine::GetInstance()->enemy->GetTransform(), 90.0f); //enemy RMC //ost zmiana
+
+		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(model, boy->GetTransform(), 90.0f);
+		boy->m_Rmc = rmc1;
+		AddToScene((boy)->AddComponent(rmc1));
+
+		Clumsy::RenderModelComponent* rmc2 = new Clumsy::RenderModelComponent(model, boy2->GetTransform(), 90.0f);
+		boy2->m_Rmc = rmc2;
+		AddToScene((boy2)->AddComponent(rmc2));
+		AddToScene((Clumsy::RenderEngine::GetInstance()->enemy)->AddComponent(enemyRmc)); //enemy Add to scene //ost zmiana
 
 		boy->AddComponent(new Clumsy::PhysicsObjectComponent(ob1));
 		boy2->AddComponent(new Clumsy::PhysicsObjectComponent(ob2));
+		Clumsy::RenderEngine::GetInstance()->enemy->AddComponent(new Clumsy::PhysicsObjectComponent(obEnemy)); //enemy //ost zmiana
 
 		AddToScene((new Clumsy::GameObject())
 			->AddComponent(physicsEngineComponent));
 
-		Clumsy::GameObject* nature = new Clumsy::GameObject();
+		//Clumsy::GameObject* nature = new Clumsy::GameObject();
 
-		Clumsy::TurnSystem::GetInstance()->AddPlayer(nature);
+		//Clumsy::TurnSystem::GetInstance()->AddPlayer(nature);
 		Clumsy::TurnSystem::GetInstance()->AddPlayer(boy);
+		Clumsy::TurnSystem::GetInstance()->AddPlayer(boy2);
 
 		//Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
 	}
@@ -125,6 +148,10 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		{
 			Clumsy::RenderEngine::GetInstance()->GetWarehouseGUI()->HandleButtonClick(screenX, screenY);
 		}
+		else if (Clumsy::RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled()) 
+		{
+			Clumsy::RenderEngine::GetInstance()->GetMenuGUI()->HandleButtonClick(screenX, screenY, glfwWindow);
+		}
 		else
 		{
 			float screenX = 2.0f * xpos / SCR_WIDTH - 1.0f;
@@ -161,13 +188,8 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 				Clumsy::RenderEngine::GetInstance()->GetPostProcessor()->m_Shake = true;
 
 				// movement
-				glm::vec3* destination = &mp.GetPickedObject(rmc->m_Transform.GetPos());
-				glm::vec3* currentpos = &rmc->m_Transform.GetPos();
-				glm::vec3 delta = ((mp.GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
-				Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
-				Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
-				Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
-				Clumsy::RenderEngine::GetInstance()->m_Movement = true;
+				Clumsy::GameObject* player = Clumsy::TurnSystem::GetInstance()->GetActivePlayer();
+				Clumsy::EventSystem::GetInstance()->SendEvent("move", (void*)player);
 			}
 		}
 	}

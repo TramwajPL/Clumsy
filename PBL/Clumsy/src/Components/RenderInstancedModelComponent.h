@@ -72,10 +72,10 @@ namespace Clumsy {
 		}
 
 		virtual void Render(Shader& shader)
-
 		{
 
 			m_Model->Draw3(shader, amount);
+
 			//glActiveTexture(GL_TEXTURE0);
 			//std::cout << "Loaded textures: " << m_Model->textures_loaded.size() << std::endl;
 			//glBindTexture(GL_TEXTURE_2D, m_Model->textures_loaded[0].id); // note: we also made the textures_loaded vector public (instead of private) from the model class.

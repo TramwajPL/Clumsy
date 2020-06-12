@@ -7,17 +7,24 @@
 #include "../Components/RenderModelComponent.h"
 #include "../Components/PhysicsObjectComponent.h"
 #include "../Components/RenderInstancedModelComponent.h"
+#include "../Components/RenderInstancedTreesComponent.h"
 #include "../Game/TurnSystem.h"
+#include "../Game/TreeObject.h"
 
 namespace Clumsy 
 {	
 	void Game::Render()
 	{
-		RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();
-		RenderEngine::GetInstance()->Render(m_Root); 
-		RenderEngine::GetInstance()->GetPostProcessor()->EndRender();
-		RenderEngine::GetInstance()->GetPostProcessor()->Render(glfwGetTime());
-		RenderEngine::GetInstance()->RenderGUI();
+		if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
+			RenderEngine::GetInstance()->RenderMainMenu();
+		}
+		else {	
+			RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();
+			RenderEngine::GetInstance()->Render(m_Root); 
+			RenderEngine::GetInstance()->GetPostProcessor()->EndRender();
+			RenderEngine::GetInstance()->GetPostProcessor()->Render(glfwGetTime());
+			RenderEngine::GetInstance()->RenderGUI();
+		}
 	}
 
 	void Game::Update(float deltaTime)
@@ -89,6 +96,7 @@ namespace Clumsy
 									if (k.find("Pasture") != std::string::npos) {
 										m3->loadModel("../Clumsy/src/models/hexes/groundEarth_base_color.obj");
 										model3 = true;
+										m7->loadModel("../Clumsy/src/models/hexes/tree_Oliwiw.obj");
 									}
 									if (k.find("Desert") != std::string::npos) {
 										m4->loadModel("../Clumsy/src/models/hexes/Desert_ground_Albedo.obj");
@@ -142,16 +150,20 @@ namespace Clumsy
 							transform2.SetRotY(0.7f);//0
 							transform2.SetRotZ(0.7f);//0
 							transform2.SetRotW(0.0f);//1
-							transform2.SetScale(0.3f);
+							transform2.SetScale(0.1f);
+							
+							allTransformsM7.push_back(transform2);
+							RenderEngine::GetInstance()->treeTransforms.push_back(transform2);
 
 							glm::vec3 min2 = glm::vec3(transform2.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
 							glm::vec3 max2 = glm::vec3(transform2.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
 							PhysicsObject* pO2 = new PhysicsObject(new Aabb(min2, max2), &transform2);
 							PhysicsEngine::GetInstance()->AddObject(*pO2);
-							GameObject* tree = new GameObject(transform2);
+							TreeObject* tree = new TreeObject(transform2);
 							tree->SetM_Tag("tree");
-							m7->loadModel("../Clumsy/src/models/hexes/tree_Oliwiw.obj");
-							map->AddChild((tree)->AddComponent(new RenderModelComponent(m7, transform2, 180.0f))->AddComponent(new PhysicsObjectComponent(pO2)));
+							map->AddChild((tree)->AddComponent(new PhysicsObjectComponent(pO2)));
+							//m7->loadModel("../Clumsy/src/models/hexes/tree_Oliwiw.obj");
+							//map->AddChild((tree)->AddComponent(new RenderModelComponent(m7, transform2, 180.0f))->AddComponent(new PhysicsObjectComponent(pO2)));
 							model3 = false;
 						}
 
@@ -183,7 +195,6 @@ namespace Clumsy
 							transform.SetRotZ(0.7f);//0
 							transform.SetRotW(0.0f);//1
 							transform.SetScale(0.0001f);
-
 							allTransformsM5.push_back(transform);
 							glm::vec3 min = glm::vec3(transform.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
 							glm::vec3 max = glm::vec3(transform.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
@@ -220,6 +231,8 @@ namespace Clumsy
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m4, allTransformsM4));
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m5, allTransformsM5));
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m6, allTransformsM6));
+		map->AddComponent(new Clumsy::RenderInstancedTreesComponent(m7, allTransformsM7));
+		
     }
 
 	void Game::ProcessInput(int input) 
