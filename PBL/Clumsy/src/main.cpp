@@ -125,6 +125,10 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		{
 			Clumsy::RenderEngine::GetInstance()->GetWarehouseGUI()->HandleButtonClick(screenX, screenY);
 		}
+		else if (Clumsy::RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled()) 
+		{
+			Clumsy::RenderEngine::GetInstance()->GetMenuGUI()->HandleButtonClick(screenX, screenY, glfwWindow);
+		}
 		else
 		{
 			float screenX = 2.0f * xpos / SCR_WIDTH - 1.0f;

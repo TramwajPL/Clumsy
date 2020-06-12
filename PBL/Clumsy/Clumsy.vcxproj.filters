@@ -92,6 +92,9 @@
     <ClCompile Include="src\Game\TurnSystem.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\GUI\MenuGUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -230,6 +233,9 @@
     <ClInclude Include="src\Game\TurnSystem.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="src\GUI\MenuGUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">
@@ -302,6 +308,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="src\Shaders\cubeMap_FS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\main_menu_FS.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\main_menu_VS.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

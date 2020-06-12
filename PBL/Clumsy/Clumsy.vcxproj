@@ -32,6 +32,7 @@
     <ClCompile Include="src\Game\TurnSystem.cpp" />
     <ClCompile Include="src\GUI\Button.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
+    <ClCompile Include="src\GUI\MenuGUI.cpp" />
     <ClCompile Include="src\GUI\StoreGUI.cpp" />
     <ClCompile Include="src\GUI\WarehouseGUI.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -79,6 +80,7 @@
     <ClInclude Include="src\Game\TurnSystem.h" />
     <ClInclude Include="src\GUI\Button.h" />
     <ClInclude Include="src\GUI\GUI.h" />
+    <ClInclude Include="src\GUI\MenuGUI.h" />
     <ClInclude Include="src\GUI\StoreGUI.h" />
     <ClInclude Include="src\GUI\WarehouseGUI.h" />
     <ClInclude Include="src\Particles\ParticleGenerator.h" />
@@ -112,6 +114,8 @@
     <None Include="src\Shaders\debug_depth_quad_VS.glsl" />
     <None Include="src\Shaders\lights_FS.glsl" />
     <None Include="src\Shaders\lights_VS.glsl" />
+    <None Include="src\Shaders\main_menu_FS.glsl" />
+    <None Include="src\Shaders\main_menu_VS.glsl" />
     <None Include="src\Shaders\model_loadingFS.glsl" />
     <None Include="src\Shaders\model_loadingVS.glsl" />
     <None Include="src\Shaders\particle_FS.glsl" />

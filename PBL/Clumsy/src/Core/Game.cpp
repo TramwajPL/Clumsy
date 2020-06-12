@@ -13,11 +13,16 @@ namespace Clumsy
 {	
 	void Game::Render()
 	{
-		RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();
-		RenderEngine::GetInstance()->Render(m_Root); 
-		RenderEngine::GetInstance()->GetPostProcessor()->EndRender();
-		RenderEngine::GetInstance()->GetPostProcessor()->Render(glfwGetTime());
-		RenderEngine::GetInstance()->RenderGUI();
+		if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
+			RenderEngine::GetInstance()->RenderMainMenu();
+		}
+		else {	
+			RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();
+			RenderEngine::GetInstance()->Render(m_Root); 
+			RenderEngine::GetInstance()->GetPostProcessor()->EndRender();
+			RenderEngine::GetInstance()->GetPostProcessor()->Render(glfwGetTime());
+			RenderEngine::GetInstance()->RenderGUI();
+		}
 	}
 
 	void Game::Update(float deltaTime)

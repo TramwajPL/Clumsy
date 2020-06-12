@@ -5,6 +5,7 @@
 #include "../RenderEngine/RenderEngine.h"
 #include "../RenderEngine/PostProcessor.h"
 #include "../PhysicsEngine/PhysicsEngine.h"
+#include "../GUI/MenuGUI.h"
 
 namespace Clumsy 
 {
@@ -23,5 +24,6 @@ namespace Clumsy
 
 	private:
 		GameObject m_Root;
+		bool mainMenuControler = true;
 	};
 }
