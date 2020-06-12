@@ -21,9 +21,12 @@ namespace Clumsy
 
 		GameObject getRoot() { return m_Root; }
 		void SceneParser(GameObject* map, std::string filename);
+		std::vector<Transform> allTransformsM7;
+
 
 	private:
 		GameObject m_Root;
 		bool mainMenuControler = true;
+
 	};
 }

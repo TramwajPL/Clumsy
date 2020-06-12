@@ -7,6 +7,7 @@
 #include "../Components/RenderModelComponent.h"
 #include "../Components/PhysicsObjectComponent.h"
 #include "../Components/RenderInstancedModelComponent.h"
+#include "../Components/RenderInstancedTreesComponent.h"
 #include "../Game/TurnSystem.h"
 #include "../Game/TreeObject.h"
 
@@ -69,7 +70,6 @@ namespace Clumsy
 		std::vector<Transform> allTransformsM4;
 		std::vector<Transform> allTransformsM5;
 		std::vector<Transform> allTransformsM6;
-		std::vector<Transform> allTransformsM7;
 		Model* m3 = new Model();
 		Model* m4 = new Model();
 		Model* m5 = new Model();
@@ -151,7 +151,10 @@ namespace Clumsy
 							transform2.SetRotZ(0.7f);//0
 							transform2.SetRotW(0.0f);//1
 							transform2.SetScale(0.1f);
+							
 							allTransformsM7.push_back(transform2);
+							RenderEngine::GetInstance()->treeTransforms.push_back(transform2);
+
 							glm::vec3 min2 = glm::vec3(transform2.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
 							glm::vec3 max2 = glm::vec3(transform2.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
 							PhysicsObject* pO2 = new PhysicsObject(new Aabb(min2, max2), &transform2);
@@ -192,7 +195,6 @@ namespace Clumsy
 							transform.SetRotZ(0.7f);//0
 							transform.SetRotW(0.0f);//1
 							transform.SetScale(0.0001f);
-
 							allTransformsM5.push_back(transform);
 							glm::vec3 min = glm::vec3(transform.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
 							glm::vec3 max = glm::vec3(transform.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
@@ -229,7 +231,8 @@ namespace Clumsy
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m4, allTransformsM4));
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m5, allTransformsM5));
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m6, allTransformsM6));
-		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m7, allTransformsM7));
+		map->AddComponent(new Clumsy::RenderInstancedTreesComponent(m7, allTransformsM7));
+		
     }
 
 	void Game::ProcessInput(int input) 

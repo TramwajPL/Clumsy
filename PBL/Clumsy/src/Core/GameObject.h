@@ -47,11 +47,13 @@ namespace Clumsy
 		void SetWasCut(bool bool1) { m_WasCut = &bool1; }*/
 		virtual bool GetWasCut() { return m_WasCut; }
 		virtual void SetWasCut(bool bool1) { }
-
+		//virtual std::vector<Transform> getTreeTransform() { return m_TreeTransforms; }
+		//virtual void setTreeTransform(std::vector<Transform> newTransform) {}
 	protected:
 		bool m_WasCut = false;
 		Transform m_Transform; 
 		std::string m_Tag = "";
+		//std::vector<Transform> m_TreeTransforms;
 	private:
 		
 		std::vector<glm::vec3> points;

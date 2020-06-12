@@ -76,9 +76,10 @@ namespace Clumsy
 
 		//fields for objects for easier access
 		//GameObject* map = new GameObject();
-		TreeObject* map = new TreeObject();
+		GameObject* map = new GameObject();
 		std::vector<Transform> treeTransforms;
-
+		bool wasCut = false;
+		
 		//movement
 		bool m_Movement = false;
 		glm::vec3 GetDestination() { return m_Destination; }

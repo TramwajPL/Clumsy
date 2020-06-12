@@ -12,8 +12,8 @@ namespace Clumsy
 		BackgroundInit();
 
 		 //Buttons
-		Button* exitButton = new Button(glm::vec2(0.36f, 0.33f), "X", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.07f, 0.1f));
-		m_Buttons.push_back(exitButton);
+		//Button* exitButton = new Button(glm::vec2(0.36f, 0.33f), "X", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.07f, 0.1f));
+		//m_Buttons.push_back(exitButton);
 		Button* b1 = new Button(glm::vec2(-0.01f, 0.2f), "PLAY", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
 		m_Buttons.push_back(b1);
 		Button* b2 = new Button(glm::vec2(-0.01f, 0.05f), "EXIT", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
@@ -45,11 +45,10 @@ namespace Clumsy
 			}
 
 			// Render text
-			gui->RenderText(shaderText, m_Buttons[0]->GetText(), SCR_WIDTH - 625.0f, SCR_HEIGHT - 375.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
-			for (int i = 1; i < m_Buttons.size(); i++)
+			//gui->RenderText(shaderText, m_Buttons[0]->GetText(), SCR_WIDTH - 625.0f, SCR_HEIGHT - 375.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			for (int i = 0; i < m_Buttons.size(); i++)
 			{
-	
-				gui->RenderText(shaderText, m_Buttons[i]->GetText(), SCR_WIDTH - 1250, SCR_HEIGHT - 365 - 80 * i, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+				gui->RenderText(shaderText, m_Buttons[i]->GetText(), SCR_WIDTH - 1250, SCR_HEIGHT - 445 - 80 * i, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			}
 		}
 	}

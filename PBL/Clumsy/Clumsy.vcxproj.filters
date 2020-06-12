@@ -88,12 +88,14 @@
       <Filter>RenderEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\Particles\ParticleGenerator.cpp" />
-    <ClCompile Include="src\RenderEngine\Cube.cpp" />
     <ClCompile Include="src\Game\TurnSystem.cpp">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI\MenuGUI.cpp">
       <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderEngine\Cube.cpp">
+      <Filter>RenderEngine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -226,7 +228,6 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Particles\ParticleGenerator.h" />
-    <ClInclude Include="src\RenderEngine\Cube.h" />
     <ClInclude Include="src\Game\TurnClass.h">
       <Filter>Game</Filter>
     </ClInclude>
@@ -235,6 +236,15 @@
     </ClInclude>
     <ClInclude Include="src\GUI\MenuGUI.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\TreeObject.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\Cube.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Components\RenderInstancedTreesComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
