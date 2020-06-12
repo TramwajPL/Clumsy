@@ -149,7 +149,7 @@ namespace Clumsy
 							GameObject* tree = new GameObject(transform2);
 							tree->SetM_Tag("tree");
 							m7->loadModel("../Clumsy/src/models/hexes/tree_Oliwiw.obj");
-							map->AddChild((tree)->AddComponent(new RenderModelComponent(m7, transform2))->AddComponent(new PhysicsObjectComponent(pO2)));
+							map->AddChild((tree)->AddComponent(new RenderModelComponent(m7, transform2, 180.0f))->AddComponent(new PhysicsObjectComponent(pO2)));
 							model3 = false;
 						}
 

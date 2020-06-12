@@ -58,9 +58,9 @@ public:
 
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent();
-		rmc = new Clumsy::RenderModelComponent(model, boy->GetTransform());
+		rmc = new Clumsy::RenderModelComponent(model, boy->GetTransform(), 90.0f);
 		AddToScene((boy)->AddComponent(rmc));
-		AddToScene((boy2)->AddComponent(new Clumsy::RenderModelComponent(model, boy2->GetTransform())));
+		AddToScene((boy2)->AddComponent(new Clumsy::RenderModelComponent(model, boy2->GetTransform(), 90.0f)));
 
 		boy->AddComponent(new Clumsy::PhysicsObjectComponent(ob1));
 		boy2->AddComponent(new Clumsy::PhysicsObjectComponent(ob2));
