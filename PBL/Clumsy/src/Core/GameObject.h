@@ -55,12 +55,16 @@ namespace Clumsy
 		virtual void UpdateTurn() {}
 		virtual void SetTurnClass(TurnClass* tc) {}
 		RenderModelComponent* m_Rmc;
+		virtual void SetRenderEnemy(bool renderEnemy) { m_RenderEnemy = renderEnemy; }
+		virtual void checkIfRender(int collectedTrees) { } //enemy
+		virtual bool GetRenderEnemy() { return m_RenderEnemy; }
 
 	protected:
+		int m_CountCollectedTrees;
 		bool m_WasCut = false;
-		Transform m_Transform; 
+		bool m_RenderEnemy = false;
+		Transform m_Transform;
 		std::string m_Tag = "";
-		//std::vector<Transform> m_TreeTransforms;
 	private:
 		
 		std::vector<glm::vec3> points;
