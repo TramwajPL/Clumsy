@@ -8,6 +8,11 @@
 
 namespace Clumsy
 {
+	template<typename Base, typename T>
+	inline bool instanceof(const T*) {
+		return std::is_base_of<Base, T>::value;
+	}
+
 	void MousePicker::Update()
 	{
 		m_ViewMatrix = m_Camera->GetViewMatrix();
@@ -88,7 +93,15 @@ namespace Clumsy
 		{
 			checkCollisionResult = CheckCollision(&PhysicsEngine::GetInstance()->GetObject(i).GetCollider());
 			if (checkCollisionResult != -1) {
-				std::cout << i;
+				glm::vec3 vectorGameObject = PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
+				for (int j = 0; j < RenderEngine::GetInstance()->map->GetAllChildren().size(); j++) {
+					
+					glm::vec3 position = RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetTransform().GetPos();
+					if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "tree") {
+						RenderEngine::GetInstance()->map->GetAllChildren()[j]->SetWasCut(true);
+						std::cout << "tree: " << j << " " << RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetWasCut()<<  std::endl;
+					}
+				}
 				return PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
 			}
 		}

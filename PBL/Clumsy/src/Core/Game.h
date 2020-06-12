@@ -19,7 +19,7 @@ namespace Clumsy
 		void AddToScene(GameObject* child);
 
 		GameObject getRoot() { return m_Root; }
-		void SceneParser(GameObject* map);
+		void SceneParser(GameObject* map, std::string filename);
 
 	private:
 		GameObject m_Root;

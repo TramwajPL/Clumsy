@@ -91,6 +91,7 @@ namespace Clumsy
 			init = true;
 		}
         glUniform1i(glGetUniformLocation(shader.ID, "hasBones"), true);
+        glUniform1i(glGetUniformLocation(shader.ID, "instanced"), true);
 
         std::vector<aiMatrix4x4> transforms;
 
@@ -117,6 +118,7 @@ namespace Clumsy
         std::vector<aiMatrix4x4> transforms;
 
         glUniform1i(glGetUniformLocation(shader.ID, "hasBones"), false);
+        glUniform1i(glGetUniformLocation(shader.ID, "instanced"), false);
         for (int i = 0; i < meshes.size(); i++)
         {
             meshes[i].Draw(shader.ID);
@@ -128,6 +130,7 @@ namespace Clumsy
 		std::vector<aiMatrix4x4> transforms;
 
 		glUniform1i(glGetUniformLocation(shader.ID, "hasBones"), false);
+		glUniform1i(glGetUniformLocation(shader.ID, "instanced"), true);
 		for (int i = 0; i < meshes.size(); i++)
 		{
 			meshes[i].DrawInstanced(shader.ID, amount);
@@ -189,7 +192,6 @@ namespace Clumsy
 
     void Model::showNodeName(aiNode* node)
     {
-        std::cout << node->mName.data << std::endl;
         for (unsigned int i = 0; i < node->mNumChildren; i++)
         {
             showNodeName(node->mChildren[i]);
@@ -210,8 +212,6 @@ namespace Clumsy
 
     Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     {
-        std::cout << "bones: " << mesh->mNumBones << " vertices: " << mesh->mNumVertices << std::endl;
-
         std::vector<Vertex> vertices;
         std::vector<GLuint> indices;
         std::vector<Texture> textures;
@@ -303,14 +303,11 @@ namespace Clumsy
 
         // load bones
         if (mesh->HasBones()) {
-            std::cout << "elo" << std::endl;
             hasBones = true;
             for (unsigned int i = 0; i < mesh->mNumBones; i++)
             {
                 unsigned int bone_index = 0;
                 std::string bone_name(mesh->mBones[i]->mName.data);
-
-                std::cout << mesh->mBones[i]->mName.data << std::endl;
 
                 if (m_bone_mapping.find(bone_name) == m_bone_mapping.end())
                 {

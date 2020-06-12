@@ -10,7 +10,7 @@ namespace Clumsy {
 	class RenderModelComponent : public EntityComponent
 	{
 	public:
-		RenderModelComponent(Model* model, Transform transform) : m_Model(model), m_Transform(transform) 
+		RenderModelComponent(Model* model, Transform transform, float angle) : m_Model(model), m_Transform(transform), m_Angle(angle)
 		{
 			//delete constructor in EntityComponent.h
 		}
@@ -26,7 +26,7 @@ namespace Clumsy {
 			vec.x = m_Transform.GetRot()->x;
 			vec.y = m_Transform.GetRot()->y;
 			vec.z = m_Transform.GetRot()->z;
-			model = glm::rotate(model, glm::radians(90.0f), vec);
+			model = glm::rotate(model, glm::radians(m_Angle), vec);
 			model = glm::scale(model, glm::vec3(m_Transform.GetScale()));
 
 			shader.setMat4("model", model);
@@ -55,6 +55,7 @@ namespace Clumsy {
 		Transform m_Transform;
 
 	private:
+		float m_Angle;
 		Model* m_Model;
 	};
 }

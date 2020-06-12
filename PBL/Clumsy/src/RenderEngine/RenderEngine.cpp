@@ -299,7 +299,7 @@ namespace Clumsy
 		glm::mat4 lightProjection, lightView;
 		glm::mat4 lightSpaceMatrix;
 
-		float near_plane = 1.1f, far_plane = 1050.0f;
+		float near_plane = 100.1f, far_plane = 1050.0f;
 		lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
 		lightView = glm::lookAt(glm::vec3(20.0f, 40.0f, -20.0f), glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
 		lightSpaceMatrix = lightProjection * lightView;
@@ -359,8 +359,9 @@ namespace Clumsy
 			isFrustumSet = true;
 		}
 
+		
 		object.RenderAll(*m_Shader);
-
+		
 
 		if (isPlayed == true) {
 			glm::mat4 projectionParticles = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), static_cast<float>(SCR_HEIGHT), 0.0f, -1.0f, 1.0f);
