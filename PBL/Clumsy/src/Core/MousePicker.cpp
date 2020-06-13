@@ -135,7 +135,8 @@ namespace Clumsy
 			RenderModelComponent* rmc = player->m_Rmc;
 			glm::vec3* destination = &GetPickedObject(rmc->m_Transform.GetPos());
 			glm::vec3* currentpos = &rmc->m_Transform.GetPos();
-			if (destination != currentpos)
+			std::cout << "dlugosc wektora: " << glm::length(*currentpos - *destination) << std::endl;
+			if (glm::length(*currentpos - *destination) > 0.1f && glm::length(*currentpos - *destination) < 1.5f)
 			{
 				glm::vec3 delta = ((GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
 				Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
