@@ -196,12 +196,7 @@ namespace Clumsy
 							transform.SetRotW(0.0f);//1
 							transform.SetScale(0.0001f);
 							allTransformsM5.push_back(transform);
-							glm::vec3 min = glm::vec3(transform.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
-							glm::vec3 max = glm::vec3(transform.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
-							PhysicsObject* pO = new PhysicsObject(new Aabb(min, max), &transform);
-							PhysicsEngine::GetInstance()->AddObject(*pO);
-							map->AddChild((new Clumsy::GameObject(transform))
-								->AddComponent(new PhysicsObjectComponent(pO)));
+							map->AddChild(new Clumsy::GameObject(transform));
 							model5 = false;
 						}
 						if (model6) {
@@ -215,12 +210,7 @@ namespace Clumsy
 							transform.SetScale(0.0001f);
 
 							allTransformsM6.push_back(transform);
-							glm::vec3 min = glm::vec3(transform.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
-							glm::vec3 max = glm::vec3(transform.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
-							PhysicsObject* pO = new PhysicsObject(new Aabb(min, max), &transform);
-							PhysicsEngine::GetInstance()->AddObject(*pO);
-							map->AddChild((new Clumsy::GameObject(transform))
-								->AddComponent(new PhysicsObjectComponent(pO)));
+							map->AddChild(new Clumsy::GameObject(transform));
 							model6 = false;
 						}
 					}
