@@ -50,7 +50,7 @@ namespace Clumsy
 
 		Effects = new PostProcessor(*m_Postprocessing, SCR_WIDTH, SCR_HEIGHT);
 		shaderCube = new Shader("../Clumsy/src/Shaders/cubeMap_VS.glsl", "../Clumsy/src/Shaders/cubeMap_FS.glsl");
-		shaderSkybox = new Shader("../Clumsy/src/Shaders/skybox_VS.glsl", "../Clumsy/src/Shaders/skybox_FS.glsl");
+		
 
 		glEnable(GL_DEPTH_TEST);
 
@@ -59,59 +59,6 @@ namespace Clumsy
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		float skyboxVertices[] = {
-			// positions   
-
-			-1.0f, -1.0f, -1.0f,
-			 1.0f, -1.0f, -1.0f,
-			 1.0f,  1.0f, -1.0f,
-			 1.0f,  1.0f, -1.0f,
-			-1.0f,  1.0f, -1.0f,
-			-1.0f, -1.0f, -1.0f,
-			// Front face
-			-1.0f, -1.0f,  1.0f,
-			1.0f,  1.0f,  1.0f,
-			1.0f, -1.0f,  1.0f,
-			1.0f,  1.0f,  1.0f,
-			-1.0f, -1.0f,  1.0f,
-			-1.0f,  1.0f,  1.0f,
-			// Left face
-			-1.0f,  1.0f,  1.0f,
-			-1.0f, -1.0f, -1.0f,
-			-1.0f,  1.0f, -1.0f,
-			-1.0f, -1.0f, -1.0f,
-			-1.0f,  1.0f,  1.0f,
-			-1.0f, -1.0f,  1.0f,
-			// Right face
-			1.0f,  1.0f,  1.0f,
-			1.0f,  1.0f, -1.0f,
-			1.0f, -1.0f, -1.0f,
-			1.0f, -1.0f, -1.0f,
-			1.0f, -1.0f,  1.0f,
-			1.0f,  1.0f,  1.0f,
-			// Bottom face      
-			-1.0f, -1.0f, -1.0f,
-			 1.0f, -1.0f,  1.0f,
-			 1.0f, -1.0f, -1.0f,
-			 1.0f, -1.0f,  1.0f,
-			-1.0f, -1.0f, -1.0f,
-			-1.0f, -1.0f,  1.0f,
-			// Top face
-			-1.0f,  1.0f, -1.0f,
-			 1.0f,  1.0f, -1.0f,
-			 1.0f,  1.0f,  1.0f,
-			 1.0f,  1.0f,  1.0f,
-			-1.0f,  1.0f,  1.0f,
-			-1.0f,  1.0f, -1.0f,
-		};
-
-		glGenVertexArrays(1, &skyboxVAO);
-		glGenBuffers(1, &skyboxVBO);
-		glBindVertexArray(skyboxVAO);
-		glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 
 		m_Shader->use();
 		m_Shader->setInt("diffuseTexture", 0);
@@ -131,19 +78,7 @@ namespace Clumsy
 		m_MenuGUI = new MenuGUI();
 
 
-		std::vector<std::string> faces
-		{
-			("../Clumsy/src/models/skybox/bkg/lightblue/right.png"),
-			("../Clumsy/src/models/skybox/bkg/lightblue/left.png"),
-			("../Clumsy/src/models/skybox/bkg/lightblue/top.png"),
-			("../Clumsy/src/models/skybox/bkg/lightblue/bot.png"),
-			("../Clumsy/src/models/skybox/bkg/lightblue/front.png"),
-			("../Clumsy/src/models/skybox/bkg/lightblue/back.png"),
-		};
-		cubemapTexture = loadCubemap(faces);
 
-		shaderSkybox->use();
-		shaderSkybox->setInt("skybox", 0);
 		enemy = new Enemy();
 		enemy->SetM_Tag("enemy");
 	}
@@ -322,30 +257,6 @@ namespace Clumsy
 		projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		view = m_Camera->GetViewMatrix();
 
-		//glDepthMask(GL_FALSE);
-		glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
-		shaderSkybox->use();
-		glm::mat4 model1 = glm::mat4(1.0f);
-		model1 = glm::rotate(model1, glm::radians(130.0f), glm::vec3(0.0f, 0.5f, 0.5f));
-		model1 = glm::rotate(model1, glm::radians(20.0f), glm::vec3(0.0f, 0.0f, -0.5f));
-		model1 = glm::rotate(model1, glm::radians(20.0f), glm::vec3(0.2f, 0.4f, 0.6f));
-		model1 = glm::rotate(model1, glm::radians(90.0f), glm::vec3(0.2f, 0.4f, 0.6f));//taki przekrzywiony dotad
-		model1 = glm::rotate(model1, glm::radians(-20.0f), glm::vec3(0.0f, 0.0f, 0.7f));
-		model1 = glm::rotate(model1, glm::radians(-10.0f), glm::vec3(0.0f, 0.0f, 0.7f));
-		model1 = glm::rotate(model1, glm::radians(-10.0f), glm::vec3(0.0f, 0.0f, 0.5f));
-		model1 = glm::rotate(model1, glm::radians(-6.0f), glm::vec3(0.0f, 0.0f, 0.3f));
-		glm::mat4 view1 = glm::mat4(glm::mat3(m_Camera->GetViewMatrix())); // remove translation from the view matrix
-		shaderSkybox->setMat4("view", view1);
-		shaderSkybox->setMat4("projection", projection);
-		shaderSkybox->setMat4("model", model1);
-		// skybox cube
-		glFrontFace(GL_CCW);
-		glBindVertexArray(skyboxVAO);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		glBindVertexArray(0);
-		glDepthFunc(GL_LESS); // set depth function back to default
 
 		m_Shader->use();
 		m_Shader->use();
