@@ -127,22 +127,45 @@ namespace Clumsy
 			glm::vec3* currentpos = &rmc->m_Transform.GetPos();
 			if (glm::length(*currentpos - *destination) > 0.1f && glm::length(*currentpos - *destination) < 1.5f)
 			{
-				glm::vec3 delta = ((GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
-				Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
-				Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
-				Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
-				Clumsy::RenderEngine::GetInstance()->m_Movement = true;
-				player->IncrementActionCount();
-
-				for (int k = 0; k < RenderEngine::GetInstance()->treeTransforms.size(); k++) 
+				bool isThereATree = false;
+				int t;
+				for (int k = 0; k < RenderEngine::GetInstance()->treeTransforms.size(); k++)
 				{
-					if (*destination == RenderEngine::GetInstance()->treeTransforms[k].GetPos()) 
+					if (*destination == RenderEngine::GetInstance()->treeTransforms[k].GetPos())// && player->IsIncrementingWoodCountPossible())
 					{
-						RenderEngine::GetInstance()->wasCut = true;
-						RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + k);
-						countTrees++;
-						Clumsy::RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
+						isThereATree = true;
+						t = k;
+						break;
 					}
+				}
+
+				if (!isThereATree)
+				{
+					glm::vec3 delta = ((GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
+					Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
+					Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
+					Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
+					Clumsy::RenderEngine::GetInstance()->m_Movement = true;
+					player->IncrementActionCount();
+				}
+				else if (isThereATree && player->IsIncrementingWoodCountPossible())
+				{
+					glm::vec3 delta = ((GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
+					Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
+					Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
+					Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
+					Clumsy::RenderEngine::GetInstance()->m_Movement = true;
+					player->IncrementActionCount();
+
+					RenderEngine::GetInstance()->wasCut = true;
+					RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
+					countTrees++;
+					Clumsy::RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
+					player->IncrementWoodCount();
+				}
+				else
+				{
+					std::cout << "Nie mozesz sie poruszyc " << std::endl;
 				}
 			}
 		}

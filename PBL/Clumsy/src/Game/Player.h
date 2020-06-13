@@ -24,6 +24,11 @@ namespace Clumsy
 		void IncrementMaxWood() { maxWood++; }
 		void IncrementWoodCount() { woodCount++; }
 
+		bool IsIncrementingWoodCountPossible() 
+		{ 
+			return (woodCount < maxWood);
+		}
+
 		void SetTurnClass(TurnClass* tc) { m_TurnClass = tc; }
 
 		void UpdateTurn()
