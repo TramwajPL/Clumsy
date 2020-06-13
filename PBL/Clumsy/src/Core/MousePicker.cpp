@@ -4,6 +4,8 @@
 #include <glm/gtx/string_cast.hpp>
 
 #include "MousePicker.h"
+#include "../GUI/StoreGUI.h"
+#include "../GUI/WarehouseGUI.h"
 #include "../Game/Player.h"
 #include "../Components/RenderModelComponent.h"
 
@@ -107,6 +109,20 @@ namespace Clumsy
 							Clumsy::RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
 						}
 					}
+<<<<<<< HEAD
+=======
+					if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "shop") {
+						RenderEngine::GetInstance()->GetStoreGUI()->SetEnabled(true);
+					}
+					if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "woodHouse") {
+						RenderEngine::GetInstance()->GetWarehouseGUI()->SetEnabled(true);
+					}
+
+					//if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "tree") {
+					//	RenderEngine::GetInstance()->map->GetAllChildren()[j]->SetWasCut(true);
+					//	std::cout << "tree: " << j << " " << RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetWasCut()<<  std::endl;
+					//}
+>>>>>>> wujoBranch2
 				}
 				return PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
 			}
