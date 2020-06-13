@@ -11,12 +11,13 @@
 
 #include "../GUI/GUI.h"
 #include "../GUI/Button.h"
+#include "../GUI/MenuGUI.h"
 #include "../GUI/StoreGUI.h"
 #include "../GUI/WarehouseGUI.h"
-#include "../GUI/MenuGUI.h"
 
 #include "../Core/Game.h"
 #include "../Core/Timestep.h"
+#include "../Game/TurnSystem.h"
 #include "../Core/GameObject.h"
 #include "../Core/MousePicker.h"
 #include "../PhysicsEngine/Aabb.h"
@@ -306,11 +307,18 @@ namespace Clumsy
 			m_ButtonEndTurn->Render(buttonShader);
 			m_ButtonRestart->Render(buttonShader);
 
-			gui->RenderText(textShader, "Wood: ", 25.0f, SCR_HEIGHT - 100.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
-			gui->RenderText(textShader, "Actions: ", 25.0f, SCR_HEIGHT - 150.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(textShader, "Wood: ", 35.0f, SCR_HEIGHT - 100.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));			
+			gui->RenderText(textShader, "Actions: ", 25.0f, SCR_HEIGHT - 150.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));			
 			gui->RenderText(textShader, m_ButtonCameraOnPlayer->GetText(), 25.0f, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(textShader, m_ButtonEndTurn->GetText(), 25.0f, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(textShader, m_ButtonRestart->GetText(), 25.0f, SCR_HEIGHT - 300.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+
+			Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
+			if (player)
+			{
+				gui->RenderText(textShader, std::to_string(player->GetWoodCount()), 150.0f, SCR_HEIGHT - 100.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+				gui->RenderText(textShader, std::to_string(player->GetAvailableActions()), 150.0f, SCR_HEIGHT - 150.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			}
 		}
 
 		m_StoreGUI->Render(buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
