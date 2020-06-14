@@ -6,10 +6,10 @@
 
 #include "Clumsy.h"
 
-//const unsigned int SCR_WIDTH = 1920;
-const unsigned int SCR_WIDTH = 1366;
-const unsigned int SCR_HEIGHT = 768;//zmieniæ
-//const unsigned int SCR_HEIGHT = 1080;//zmieniæ
+const unsigned int SCR_WIDTH = 1920;
+//const unsigned int SCR_WIDTH = 1366;
+//const unsigned int SCR_HEIGHT = 768;//zmieniæ
+const unsigned int SCR_HEIGHT = 1080;//zmieniæ
 
 Clumsy::GameObject* object1;
 Clumsy::RenderModelComponent* rmc;
@@ -52,10 +52,12 @@ public:
 		Clumsy::Model* enemyModel = new Clumsy::Model();
 		enemyModel->loadModel("../Clumsy/src/models/enemyModels/Idle/Idle.dae"); //enemy
 
+		
+			
 		boy = new Clumsy::Player(boyTransform);
 		Clumsy::Player* boy2 = new Clumsy::Player(boyTransform2);
 
-		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(enemyTransform,3); //enemy //ost zmiana
+		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(enemyModel, enemyTransform,1); //enemy //ost zmiana
 		Clumsy::RenderEngine::GetInstance()->enemy->SetM_Tag("enemy"); //ost zmiana
 
 		Clumsy::PhysicsObject* ob1 = new Clumsy::PhysicsObject(

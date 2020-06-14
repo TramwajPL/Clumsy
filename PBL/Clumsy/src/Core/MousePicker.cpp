@@ -159,8 +159,20 @@ namespace Clumsy
 
 					RenderEngine::GetInstance()->wasCut = true;
 					RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
+
+					if (Clumsy::RenderEngine::GetInstance()->enemy->GetIsDead() == true &&
+						Clumsy::RenderEngine::GetInstance()->enemy->GetCondition() == true)
+					{
+						countTrees = 0; 
+						std::cout << "It is dead" << std::endl;
+						Clumsy::RenderEngine::GetInstance()->enemy->SetCondition(false);
+					}
 					countTrees++;
-					Clumsy::RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
+					Clumsy::RenderEngine::GetInstance()->enemy->checkIfRender(countTrees); // 3
+					Clumsy::RenderEngine::GetInstance()->enemy->chechIfDead(countTrees);//5
+					std::cout<< "Should be dead: " <<  Clumsy::RenderEngine::GetInstance()->enemy->GetShouldBeDead()<<std::endl;//5
+					Clumsy::RenderEngine::GetInstance()->enemy->SetAnimationModel(); //6
+					Clumsy::RenderEngine::GetInstance()->enemy->Die(countTrees);//8
 					player->IncrementWoodCount();
 				}
 				else
