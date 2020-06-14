@@ -9,7 +9,7 @@
 #include "../Game/Player.h"
 #include "../Game/TurnSystem.h"
 #include "../Components/RenderModelComponent.h"
-
+#include "../Game/Enemy.h"
 namespace Clumsy
 {
 	template<typename Base, typename T>
@@ -140,10 +140,11 @@ namespace Clumsy
 			Player* player = (Player*)event->GetParameter();
 			RenderModelComponent* rmc = player->m_Rmc;
 			glm::vec3* destination = &GetPickedObject(rmc->m_Transform.GetPos());
-			glm::vec3* currentpos = &rmc->m_Transform.GetPos();
+			glm::vec3* currentpos = &rmc->m_Transform.GetPos(); //pozycja playera
 			if (glm::length(*currentpos - *destination) > 0.1f && glm::length(*currentpos - *destination) < 1.5f)
 			{
 				bool isThereATree = false;
+				bool isThereEnemy = false;
 				int t;
 				for (int k = 0; k < RenderEngine::GetInstance()->treeTransforms.size(); k++)
 				{
@@ -153,6 +154,12 @@ namespace Clumsy
 						t = k;
 						break;
 					}
+				}
+				std::cout << "DESTINATION: " << glm::to_string(*destination) << std::endl;
+				std::cout << "DESTINATION: " << glm::to_string(RenderEngine::GetInstance()->enemy->GetPos()) <<std::endl;
+				if (destination->x - RenderEngine::GetInstance()->enemy->GetPos().x < 1.0 || destination->x - RenderEngine::GetInstance()->enemy->GetPos().x > -1.0)
+				{
+					isThereEnemy = true;
 				}
 
 				if (!isThereATree)
@@ -185,12 +192,13 @@ namespace Clumsy
 						Clumsy::RenderEngine::GetInstance()->enemy->SetCondition(false);
 					}
 					countTrees++;
-					Clumsy::RenderEngine::GetInstance()->enemy->checkIfRender(countTrees); // 3
-					Clumsy::RenderEngine::GetInstance()->enemy->chechIfDead(countTrees);//5
-					std::cout<< "Should be dead: " <<  Clumsy::RenderEngine::GetInstance()->enemy->GetShouldBeDead()<<std::endl;//5
-					Clumsy::RenderEngine::GetInstance()->enemy->SetAnimationModel(); //6
-					Clumsy::RenderEngine::GetInstance()->enemy->Die(countTrees);//8
+					Clumsy::RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
+					Clumsy::RenderEngine::GetInstance()->enemy->Die(countTrees);
 					player->IncrementWoodCount();
+				}
+				if (isThereEnemy)
+				{
+					Clumsy::RenderEngine::GetInstance()->enemy->Fight();
 				}
 				else
 				{
