@@ -15,7 +15,6 @@
 #include "../Core/GameObject.h"
 #include "../PhysicsEngine/Plane.h"
 #include "../Game/TreeObject.h"
-#include "../Game/Enemy.h"
 
 namespace Clumsy 
 {
@@ -23,6 +22,7 @@ namespace Clumsy
 	class GUI;
 	class Button;
 	class StoreGUI;
+	class Enemy;
 	class WarehouseGUI;
 	class MenuGUI;
 	class ParticleGenerator;

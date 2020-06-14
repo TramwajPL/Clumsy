@@ -83,6 +83,7 @@
     <ClInclude Include="src\Game\TreeObject.h" />
     <ClInclude Include="src\Game\TurnClass.h" />
     <ClInclude Include="src\Game\TurnSystem.h" />
+    <ClInclude Include="src\Game\Warehouse.h" />
     <ClInclude Include="src\GUI\Button.h" />
     <ClInclude Include="src\GUI\GUI.h" />
     <ClInclude Include="src\GUI\MenuGUI.h" />

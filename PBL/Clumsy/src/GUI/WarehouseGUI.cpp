@@ -4,6 +4,7 @@
 #include <glad/glad.h>
 
 #include "WarehouseGUI.h"
+#include "../Game/TurnSystem.h"
 #include "../RenderEngine/Shader.h"
 
 namespace Clumsy
@@ -42,7 +43,7 @@ namespace Clumsy
 			}
 
 			// Render text
-			gui->RenderText(shaderText, "Wood stored: ", SCR_WIDTH - 950.0f, SCR_HEIGHT - 550.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "Wood stored: " + std::to_string(m_Warehouse->GetWoodStored()), SCR_WIDTH - 950.0f, SCR_HEIGHT - 550.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(shaderText, m_Buttons[0]->GetText(), SCR_WIDTH - 625.0f, SCR_HEIGHT - 375.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			for (int i = 1; i < m_Buttons.size(); i++)
 			{
@@ -83,17 +84,30 @@ namespace Clumsy
 			&& screenY < (m_Buttons[0]->GetCorner().y + m_Buttons[0]->GetScale().y) && screenY > m_Buttons[0]->GetCorner().y)
 		{
 			m_Buttons[0]->OnClick();
-			m_Enabled = false;
+			m_Enabled = false;			
+			m_Player->IncrementActionCount();
 		}
 		else if (screenX > (m_Buttons[1]->GetCorner().x - (m_Buttons[1]->GetScale().x / 2)) && screenX < (m_Buttons[1]->GetCorner().x + (m_Buttons[1]->GetScale().x / 2))
 			&& screenY < (m_Buttons[1]->GetCorner().y + m_Buttons[1]->GetScale().y) && screenY > m_Buttons[1]->GetCorner().y)
 		{
 			m_Buttons[1]->OnClick();
+			Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
+			if (player && player->IsDecrementingWoodCountPossible())
+			{
+				m_Warehouse->StorePieceOfWood();
+				player->DecrementWoodCount();
+			}
 		}
 		else if (screenX > (m_Buttons[2]->GetCorner().x - (m_Buttons[2]->GetScale().x / 2)) && screenX < (m_Buttons[2]->GetCorner().x + (m_Buttons[2]->GetScale().x / 2))
 			&& screenY < (m_Buttons[2]->GetCorner().y + m_Buttons[2]->GetScale().y) && screenY > m_Buttons[2]->GetCorner().y)
 		{
 			m_Buttons[2]->OnClick();
+			Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
+			if (player && player->IsIncrementingWoodCountPossible() && m_Warehouse->IsThereAnyWood())
+			{
+				m_Warehouse->WithdrawPieceOfWood();
+				player->IncrementWoodCount();
+			}
 		}
 	}
 }
