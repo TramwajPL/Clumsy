@@ -57,6 +57,27 @@ namespace Clumsy
 		}
 	}
 
+	void Game::HandleEvent(Event* event)
+	{
+		if (event->GetEventId() == "hire")
+		{
+			glm::vec3 shopPos(RenderEngine::GetInstance()->GetStoreGUI()->GetActiveStore()->GetTransform().GetPos());
+			glm::quat rotBoy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f));
+			Transform transform(shopPos, rotBoy, 0.1f);
+			Player* boy = new Player(transform);
+			PhysicsObject* ob = new PhysicsObject(
+				new BoundingSphere(boy->GetTransform().GetPos(), 0.1f), &boy->GetTransform());
+			PhysicsEngine::GetInstance()->AddObject(*ob);
+			Model* model = new Model();
+			model->loadModel("../Clumsy/src/models/man/model.dae");
+			RenderModelComponent* rmc = new RenderModelComponent(model, boy->GetTransform(), 90.0f);
+			boy->m_Rmc = rmc;
+			AddToScene((boy)->AddComponent(rmc));
+			boy->AddComponent(new PhysicsObjectComponent(ob));
+			TurnSystem::GetInstance()->AddPlayer(boy);
+		}
+	}
+
 	void Game::AddToScene(GameObject* child)
 	{
 		m_Root.AddChild(child);

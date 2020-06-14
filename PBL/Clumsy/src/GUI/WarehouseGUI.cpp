@@ -103,7 +103,7 @@ namespace Clumsy
 		{
 			m_Buttons[2]->OnClick();
 			Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
-			if (player && player->IsIncrementingWoodCountPossible())
+			if (player && player->IsIncrementingWoodCountPossible() && m_Warehouse->IsThereAnyWood())
 			{
 				m_Warehouse->WithdrawPieceOfWood();
 				player->IncrementWoodCount();

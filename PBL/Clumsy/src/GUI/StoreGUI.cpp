@@ -4,6 +4,7 @@
 #include <glad/glad.h>
 
 #include "StoreGUI.h"
+#include "../EventSystem/EventSystem.h"
 
 namespace Clumsy
 {
@@ -131,9 +132,8 @@ namespace Clumsy
 			m_Buttons[4]->OnClick();
 			if (m_Player->GetWoodCount() >= 5)
 			{
-				// TODO nowy player
 				m_Player->PayInWood(5);
-
+				EventSystem::GetInstance()->SendEvent("hire");				
 			}
 		}
 	}

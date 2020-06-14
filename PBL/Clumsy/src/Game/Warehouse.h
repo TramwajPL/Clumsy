@@ -14,6 +14,8 @@ namespace Clumsy
 		void StorePieceOfWood() { m_WoodStored++; }
 		void WithdrawPieceOfWood() { m_WoodStored--; }
 
+		bool IsThereAnyWood() { return m_WoodStored > 0; }
+
 	private:
 		int m_WoodStored = 0;
 	};
