@@ -162,8 +162,6 @@ namespace Clumsy
 							TreeObject* tree = new TreeObject(transform2);
 							tree->SetM_Tag("tree");
 							map->AddChild((tree)->AddComponent(new PhysicsObjectComponent(pO2)));
-							//m7->loadModel("../Clumsy/src/models/hexes/tree_Oliwiw.obj");
-							//map->AddChild((tree)->AddComponent(new RenderModelComponent(m7, transform2, 180.0f))->AddComponent(new PhysicsObjectComponent(pO2)));
 							model3 = false;
 						}
 
@@ -240,20 +238,23 @@ namespace Clumsy
 		transformWoodHouse.SetRotW(0.0f);//1
 		transformWoodHouse.SetScale(0.04f);
 
+		mShop->loadModel("../Clumsy/src/models/shop/shop.obj");
+		// shop
 		glm::vec3 min2 = glm::vec3(transformShop.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
 		glm::vec3 max2 = glm::vec3(transformShop.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
 		PhysicsObject* pOShop = new PhysicsObject(new Aabb(min2, max2), &transformShop);
 		PhysicsEngine::GetInstance()->AddObject(*pOShop);
 		GameObject* shop = new GameObject(transformShop);
-		GameObject* woodHouse = new GameObject(transformWoodHouse);
 		shop->SetM_Tag("shop");
-		woodHouse->SetM_Tag("woodHouse");
-		mShop->loadModel("../Clumsy/src/models/shop/shop.obj");
 		map->AddChild((shop)->AddComponent(new RenderModelComponent(mShop, transformShop, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop)));
 
-		glm::vec3 minWood = glm::vec3(transformShop.GetPos() - glm::vec3(1.5f, 0.1f, 1.5f));
-		glm::vec3 maxWood = glm::vec3(transformShop.GetPos() + glm::vec3(1.5f, 0.1f, 1.5f));
+		// warehouse
+		glm::vec3 minWood = glm::vec3(transformWoodHouse.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
+		glm::vec3 maxWood = glm::vec3(transformWoodHouse.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
 		PhysicsObject* pOShop2 = new PhysicsObject(new Aabb(minWood, maxWood), &transformWoodHouse);
+		PhysicsEngine::GetInstance()->AddObject(*pOShop2);
+		GameObject* woodHouse = new GameObject(transformWoodHouse);
+		woodHouse->SetM_Tag("woodHouse");		
 		map->AddChild((woodHouse)->AddComponent(new RenderModelComponent(mShop, transformWoodHouse, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop2)));
 
 
