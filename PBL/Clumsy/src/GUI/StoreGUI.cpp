@@ -86,26 +86,55 @@ namespace Clumsy
 		{
 			m_Buttons[0]->OnClick();
 			m_Enabled = false;
+			m_Player->IncrementActionCount();
 		}
+		// increase wood capacity
 		else if (screenX > (m_Buttons[1]->GetCorner().x - (m_Buttons[1]->GetScale().x / 2)) && screenX < (m_Buttons[1]->GetCorner().x + (m_Buttons[1]->GetScale().x / 2))
 			&& screenY < (m_Buttons[1]->GetCorner().y + m_Buttons[1]->GetScale().y) && screenY > m_Buttons[1]->GetCorner().y)
 		{
 			m_Buttons[1]->OnClick();
+			if (m_Player->GetWoodCount() >= 2)
+			{
+				m_Player->IncrementMaxWood();
+				m_Player->PayInWood(2);
+
+			}
 		}
+		// increase number of actions
 		else if (screenX > (m_Buttons[2]->GetCorner().x - (m_Buttons[2]->GetScale().x / 2)) && screenX < (m_Buttons[2]->GetCorner().x + (m_Buttons[2]->GetScale().x / 2))
 			&& screenY < (m_Buttons[2]->GetCorner().y + m_Buttons[2]->GetScale().y) && screenY > m_Buttons[2]->GetCorner().y)
 		{
 			m_Buttons[2]->OnClick();
+			if (m_Player->GetWoodCount() >= 2)
+			{
+				m_Player->IncrementMaxActions();
+				m_Player->PayInWood(2);
+
+			}
 		}
+		// enable scorching ground
 		else if (screenX > (m_Buttons[3]->GetCorner().x - (m_Buttons[3]->GetScale().x / 2)) && screenX < (m_Buttons[3]->GetCorner().x + (m_Buttons[3]->GetScale().x / 2))
 			&& screenY < (m_Buttons[3]->GetCorner().y + m_Buttons[3]->GetScale().y) && screenY > m_Buttons[3]->GetCorner().y)
 		{
 			m_Buttons[3]->OnClick();
+			if (m_Player->GetWoodCount() >= 5)
+			{
+				// TODO wypalanko
+				m_Player->PayInWood(5);
+
+			}
 		}
+		// hire a lumberjack
 		else if (screenX > (m_Buttons[4]->GetCorner().x - (m_Buttons[4]->GetScale().x / 2)) && screenX < (m_Buttons[4]->GetCorner().x + (m_Buttons[4]->GetScale().x / 2))
 			&& screenY < (m_Buttons[4]->GetCorner().y + m_Buttons[4]->GetScale().y) && screenY > m_Buttons[4]->GetCorner().y)
 		{
 			m_Buttons[4]->OnClick();
+			if (m_Player->GetWoodCount() >= 5)
+			{
+				// TODO nowy player
+				m_Player->PayInWood(5);
+
+			}
 		}
 	}
 }
