@@ -129,11 +129,12 @@ namespace Clumsy {
 
 		virtual void Render(Shader& shader)
 		{
+			Update(RenderEngine::GetInstance()->treeTransforms);
+			//std::cout << "update... " << std::endl;
 			m_Model->Draw3(shader, amount);
-			if (RenderEngine::GetInstance()->wasCut == true) {
-				Update(RenderEngine::GetInstance()->treeTransforms);
-				RenderEngine::GetInstance()->wasCut = false;
-			}
+			//if (RenderEngine::GetInstance()->wasCut == true) {
+			//	RenderEngine::GetInstance()->wasCut = false;
+			//}
 		}
 
 

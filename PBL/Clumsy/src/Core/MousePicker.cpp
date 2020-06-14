@@ -158,7 +158,12 @@ namespace Clumsy
 					player->IncrementActionCount();
 
 					RenderEngine::GetInstance()->wasCut = true;
-					RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
+					//std::cout << "position of cut tree: " << to_string(RenderEngine::GetInstance()->treeTransforms.at(t).GetPos())  << std::endl;
+					RenderEngine::GetInstance()->cutTreesTransforms.push_back(RenderEngine::GetInstance()->treeTransforms.at(t));
+					RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);	
+					//std::cout << "Number of cut Trees: " << (RenderEngine::GetInstance()->cutTreesTransforms.size()) << std::endl;
+					//std::cout << "position of cut Tree: " << to_string(RenderEngine::GetInstance()->cutTreesTransforms.at(0).GetPos()) << std::endl;
+
 
 					if (Clumsy::RenderEngine::GetInstance()->enemy->GetIsDead() == true &&
 						Clumsy::RenderEngine::GetInstance()->enemy->GetCondition() == true)

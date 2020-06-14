@@ -81,6 +81,7 @@ namespace Clumsy
 		Enemy* enemy;
 		std::vector<Transform> treeTransforms;
 		bool wasCut = false;
+		std::vector<Transform> cutTreesTransforms;
 		
 		//movement
 		bool m_Movement = false;

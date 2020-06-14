@@ -31,6 +31,7 @@ namespace Clumsy {
 			{
 				SetIsDead(false);
 				SetRenderEnemy(true);
+				m_IsActive = true;
 			}
 		}
 
@@ -40,6 +41,7 @@ namespace Clumsy {
 			{
 				SetIsDead(true);
 				SetCondition(true);
+				m_IsActive = false;
 			}
 
 		}
@@ -81,6 +83,8 @@ namespace Clumsy {
 		void SetCondition(bool condition) { m_Condition = condition; }
 		void SetShouldBeDead(bool test) { m_ShouldBeDead = test; }
 		bool GetShouldBeDead() { return m_ShouldBeDead; }
+
+		bool getIfActive() { return m_IsActive;  }
 	private:
 		int m_MaxCollectedTrees;
 		bool m_Condition = false;
@@ -88,5 +92,6 @@ namespace Clumsy {
 		Clumsy::Model* enemyModel1;
 		Clumsy::Model* enemyModel2;
 		bool m_ShouldBeDead = false;
+		bool m_IsActive = false;
 	};
 }
