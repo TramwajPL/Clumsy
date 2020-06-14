@@ -6,10 +6,10 @@
 
 #include "Clumsy.h"
 
-const unsigned int SCR_WIDTH = 1920;
-//const unsigned int SCR_WIDTH = 1366;
-//const unsigned int SCR_HEIGHT = 768;//zmieniæ
-const unsigned int SCR_HEIGHT = 1080;//zmieniæ
+//const unsigned int SCR_WIDTH = 1920;
+const unsigned int SCR_WIDTH = 1366;
+const unsigned int SCR_HEIGHT = 768;//zmieniæ
+//const unsigned int SCR_HEIGHT = 1080;//zmieniæ
 
 Clumsy::GameObject* object1;
 Clumsy::RenderModelComponent* rmc;
@@ -42,8 +42,8 @@ public:
 
 		float scale = 0.0001f;
 
-		Clumsy::Transform boyTransform(pos + 0.5f, rotBoy, 0.1f);
-		Clumsy::Transform boyTransform2(pos, rotBoy, 0.1f);
+		Clumsy::Transform boyTransform(pos - 0.8f, rotBoy, 0.1f);
+		Clumsy::Transform boyTransform2(pos - 0.3f, rotBoy, 0.1f);
 		Clumsy::Transform enemyTransform(enemyPos, rotEnemy, 0.01); //enemy
 
 		Clumsy::Model* model = new Clumsy::Model();
@@ -57,7 +57,7 @@ public:
 		boy = new Clumsy::Player(boyTransform);
 		Clumsy::Player* boy2 = new Clumsy::Player(boyTransform2);
 
-		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(enemyModel, enemyTransform,1); //enemy //ost zmiana
+		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(enemyModel, enemyTransform,1); //enemy change how much we need to collect wood
 		Clumsy::RenderEngine::GetInstance()->enemy->SetM_Tag("enemy"); //ost zmiana
 
 		Clumsy::PhysicsObject* ob1 = new Clumsy::PhysicsObject(
@@ -79,7 +79,7 @@ public:
 		rmc = new Clumsy::RenderModelComponent(model, boy->GetTransform(), 90.0f);
 		enemyRmc = new Clumsy::RenderModelComponent(enemyModel, Clumsy::RenderEngine::GetInstance()->enemy->GetTransform(), 360.0f,true); //enemy RMC //ost zmiana
 
-		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(model, boy->GetTransform(), 90.0f);
+		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(model, boy->GetTransform(), 90);
 		boy->m_Rmc = rmc1;
 		AddToScene((boy)->AddComponent(rmc1));
 
@@ -204,6 +204,7 @@ int main()
 	Clumsy::RenderEngine::CreateInstance(glfwWindow, window, camera);
 	Clumsy::EventSystem::GetInstance()->SubscribeListener("scroll", Clumsy::AudioMaster::GetInstance());
 	Clumsy::EventSystem::GetInstance()->SubscribeListener("move", &mp);
+	Clumsy::EventSystem::GetInstance()->SubscribeListener("hire", &game);
 
 	glfwSetScrollCallback(glfwWindow, scroll_callback);
 	glfwSetMouseButtonCallback(glfwWindow, mouse_button_callback);

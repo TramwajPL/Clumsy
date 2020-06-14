@@ -7,8 +7,9 @@
 #include "../GUI/StoreGUI.h"
 #include "../GUI/WarehouseGUI.h"
 #include "../Game/Player.h"
+#include "../Game/TurnSystem.h"
 #include "../Components/RenderModelComponent.h"
-
+#include "../Game/Enemy.h"
 namespace Clumsy
 {
 	template<typename Base, typename T>
@@ -104,11 +105,26 @@ namespace Clumsy
 					
 					if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "shop") 
 					{
-						RenderEngine::GetInstance()->GetStoreGUI()->SetEnabled(true);
+						glm::vec3 destination = RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetPos();
+						if (glm::length(originalPosition - destination) > 0.1f && glm::length(originalPosition - destination) < 1.5f)
+						{
+							RenderEngine::GetInstance()->GetStoreGUI()->SetActiveStore(RenderEngine::GetInstance()->map->GetAllChildren()[j]);
+							Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
+							RenderEngine::GetInstance()->GetStoreGUI()->SetActivePlayer(player);
+							RenderEngine::GetInstance()->GetStoreGUI()->SetEnabled(true);
+						}
 					}
 					if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "woodHouse") 
 					{
-						RenderEngine::GetInstance()->GetWarehouseGUI()->SetEnabled(true);
+						glm::vec3 destination = RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetPos();
+						if (glm::length(originalPosition - destination) > 0.1f && glm::length(originalPosition - destination) < 1.5f)
+						{
+							Warehouse* warehouse = dynamic_cast<Warehouse*>(RenderEngine::GetInstance()->map->GetAllChildren()[j]);
+							RenderEngine::GetInstance()->GetWarehouseGUI()->SetActiveWarehouse(warehouse);
+							Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
+							RenderEngine::GetInstance()->GetWarehouseGUI()->SetActivePlayer(player);
+							RenderEngine::GetInstance()->GetWarehouseGUI()->SetEnabled(true);
+						}
 					}
 				}
 				return PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
@@ -124,19 +140,26 @@ namespace Clumsy
 			Player* player = (Player*)event->GetParameter();
 			RenderModelComponent* rmc = player->m_Rmc;
 			glm::vec3* destination = &GetPickedObject(rmc->m_Transform.GetPos());
-			glm::vec3* currentpos = &rmc->m_Transform.GetPos();
+			glm::vec3* currentpos = &rmc->m_Transform.GetPos(); //pozycja playera
 			if (glm::length(*currentpos - *destination) > 0.1f && glm::length(*currentpos - *destination) < 1.5f)
 			{
 				bool isThereATree = false;
+				bool isThereEnemy = false;
 				int t;
 				for (int k = 0; k < RenderEngine::GetInstance()->treeTransforms.size(); k++)
 				{
-					if (*destination == RenderEngine::GetInstance()->treeTransforms[k].GetPos())// && player->IsIncrementingWoodCountPossible())
+					if (*destination == RenderEngine::GetInstance()->treeTransforms[k].GetPos())
 					{
 						isThereATree = true;
 						t = k;
 						break;
 					}
+				}
+				std::cout << "DESTINATION: " << glm::to_string(*destination) << std::endl;
+				std::cout << "DESTINATION: " << glm::to_string(RenderEngine::GetInstance()->enemy->GetPos()) <<std::endl;
+				if (destination->x - RenderEngine::GetInstance()->enemy->GetPos().x < 1.0 || destination->x - RenderEngine::GetInstance()->enemy->GetPos().x > -1.0)
+				{
+					isThereEnemy = true;
 				}
 
 				if (!isThereATree)
@@ -146,7 +169,8 @@ namespace Clumsy
 					Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
 					Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
 					Clumsy::RenderEngine::GetInstance()->m_Movement = true;
-					player->IncrementActionCount();
+					if (!RenderEngine::GetInstance()->GetWarehouseGUI()->IsEnabled() && !RenderEngine::GetInstance()->GetStoreGUI()->IsEnabled())
+						player->IncrementActionCount();
 				}
 				else if (isThereATree && player->IsIncrementingWoodCountPossible())
 				{
@@ -173,12 +197,13 @@ namespace Clumsy
 						Clumsy::RenderEngine::GetInstance()->enemy->SetCondition(false);
 					}
 					countTrees++;
-					Clumsy::RenderEngine::GetInstance()->enemy->checkIfRender(countTrees); // 3
-					Clumsy::RenderEngine::GetInstance()->enemy->chechIfDead(countTrees);//5
-					std::cout<< "Should be dead: " <<  Clumsy::RenderEngine::GetInstance()->enemy->GetShouldBeDead()<<std::endl;//5
-					Clumsy::RenderEngine::GetInstance()->enemy->SetAnimationModel(); //6
-					Clumsy::RenderEngine::GetInstance()->enemy->Die(countTrees);//8
+					Clumsy::RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
+					Clumsy::RenderEngine::GetInstance()->enemy->Die(countTrees);
 					player->IncrementWoodCount();
+				}
+				if (isThereEnemy)
+				{
+					Clumsy::RenderEngine::GetInstance()->enemy->Fight();
 				}
 				else
 				{
