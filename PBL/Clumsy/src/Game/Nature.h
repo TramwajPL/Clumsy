@@ -40,7 +40,7 @@ namespace Clumsy
                     SpawnOneTree();
                 }
 
-                if (TurnSystem::GetInstance()->GetTurnCounter() % 2 == 0)
+                if (TurnSystem::GetInstance()->GetTurnCounter() % 2 == 2)
                 {
                     SpawnOneTree();
                 }
