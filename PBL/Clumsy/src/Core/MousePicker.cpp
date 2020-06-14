@@ -7,6 +7,7 @@
 #include "../GUI/StoreGUI.h"
 #include "../GUI/WarehouseGUI.h"
 #include "../Game/Player.h"
+#include "../Game/TurnSystem.h"
 #include "../Components/RenderModelComponent.h"
 
 namespace Clumsy
@@ -108,6 +109,10 @@ namespace Clumsy
 					}
 					if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "woodHouse") 
 					{
+						Warehouse* warehouse = dynamic_cast<Warehouse*>(RenderEngine::GetInstance()->map->GetAllChildren()[j]);
+						RenderEngine::GetInstance()->GetWarehouseGUI()->SetActiveWarehouse(warehouse);
+						Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
+						RenderEngine::GetInstance()->GetWarehouseGUI()->SetActivePlayer(player);
 						RenderEngine::GetInstance()->GetWarehouseGUI()->SetEnabled(true);
 					}
 				}
@@ -131,7 +136,7 @@ namespace Clumsy
 				int t;
 				for (int k = 0; k < RenderEngine::GetInstance()->treeTransforms.size(); k++)
 				{
-					if (*destination == RenderEngine::GetInstance()->treeTransforms[k].GetPos())// && player->IsIncrementingWoodCountPossible())
+					if (*destination == RenderEngine::GetInstance()->treeTransforms[k].GetPos())
 					{
 						isThereATree = true;
 						t = k;
@@ -146,7 +151,8 @@ namespace Clumsy
 					Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
 					Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
 					Clumsy::RenderEngine::GetInstance()->m_Movement = true;
-					player->IncrementActionCount();
+					if (!RenderEngine::GetInstance()->GetWarehouseGUI()->IsEnabled() && !RenderEngine::GetInstance()->GetStoreGUI()->IsEnabled())
+						player->IncrementActionCount();
 				}
 				else if (isThereATree && player->IsIncrementingWoodCountPossible())
 				{

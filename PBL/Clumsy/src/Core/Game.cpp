@@ -10,6 +10,7 @@
 #include "../Components/RenderInstancedTreesComponent.h"
 #include "../Game/TurnSystem.h"
 #include "../Game/TreeObject.h"
+#include "../Game/Warehouse.h"
 
 namespace Clumsy 
 {	
@@ -244,7 +245,7 @@ namespace Clumsy
 		glm::vec3 max2 = glm::vec3(transformShop.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
 		PhysicsObject* pOShop = new PhysicsObject(new Aabb(min2, max2), &transformShop);
 		PhysicsEngine::GetInstance()->AddObject(*pOShop);
-		GameObject* shop = new GameObject(transformShop);
+		Warehouse* shop = new Warehouse(transformShop);
 		shop->SetM_Tag("shop");
 		map->AddChild((shop)->AddComponent(new RenderModelComponent(mShop, transformShop, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop)));
 
@@ -253,7 +254,7 @@ namespace Clumsy
 		glm::vec3 maxWood = glm::vec3(transformWoodHouse.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
 		PhysicsObject* pOShop2 = new PhysicsObject(new Aabb(minWood, maxWood), &transformWoodHouse);
 		PhysicsEngine::GetInstance()->AddObject(*pOShop2);
-		GameObject* woodHouse = new GameObject(transformWoodHouse);
+		Warehouse* woodHouse = new Warehouse(transformWoodHouse);
 		woodHouse->SetM_Tag("woodHouse");		
 		map->AddChild((woodHouse)->AddComponent(new RenderModelComponent(mShop, transformWoodHouse, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop2)));
 
