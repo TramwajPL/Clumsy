@@ -26,14 +26,11 @@ namespace Clumsy {
 		{
 			if (collectedTrees == m_MaxCollectedTrees)
 			{
-<<<<<<< HEAD
 				SetIsDead(false);
 				SetRenderEnemy(true);
 				m_IsActive = true;
-=======
 				isEnemyDead = false;;
 				m_RenderEnemy = true;
->>>>>>> development
 			}
 		}
 
@@ -46,14 +43,12 @@ namespace Clumsy {
 		{
 			if (test == 4)
 			{
-<<<<<<< HEAD
 				SetIsDead(true);
 				SetCondition(true);
 				m_IsActive = false;
-=======
 				isEnemyDead = true;
 				m_Condition =  true;
->>>>>>> development
+
 			}
 
 		}
