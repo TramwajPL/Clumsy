@@ -62,10 +62,8 @@
 
 // GAME
 
-#include "Game/Enemy.h"
 #include "Game/Player.h"
 #include "Game/Nature.h"
-#include "Game/Warehouse.h"
 #include "Game/TurnSystem.h"
-
+#include "Game/Enemy.h"
 //////////////////

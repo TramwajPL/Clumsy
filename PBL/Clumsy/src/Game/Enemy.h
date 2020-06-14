@@ -1,7 +1,6 @@
 #pragma once
 #include "../Core/GameObject.h"
-#include "../RenderEngine/Model.h"
-#include "../RenderEngine/RenderEngine.h"
+#include "../RenderEngine//Model.h"
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -15,6 +14,10 @@ namespace Clumsy {
 		Enemy(Model* modelInitial, Transform transform, int maxCollectedTrees = 3) :
 			m_ModelInitial(modelInitial), m_MaxCollectedTrees(maxCollectedTrees), GameObject(transform)
 		{
+			enemyModel1 = new Clumsy::Model();
+			enemyModel2 = new Clumsy::Model();
+			enemyModel1->loadModel("../Clumsy/src/models/enemyModels/Idle/Idle.dae");
+			enemyModel2->loadModel("../Clumsy/src/models/enemyModels/Mutant Dying/Mutant Dying.dae");
 		}
 		Enemy() {}
 
@@ -26,45 +29,53 @@ namespace Clumsy {
 		{
 			if (collectedTrees == m_MaxCollectedTrees)
 			{
-<<<<<<< HEAD
 				SetIsDead(false);
 				SetRenderEnemy(true);
 				m_IsActive = true;
-=======
-				isEnemyDead = false;;
-				m_RenderEnemy = true;
->>>>>>> development
 			}
-		}
-
-		void Fight()
-		{
-			std::cout << "FIGHT!" << std::endl;
 		}
 
 		void Die(int test)
 		{
 			if (test == 4)
 			{
-<<<<<<< HEAD
 				SetIsDead(true);
 				SetCondition(true);
 				m_IsActive = false;
-=======
-				isEnemyDead = true;
-				m_Condition =  true;
->>>>>>> development
 			}
 
 		}
 
-		/*void chechIfDead(int test)
+		void chechIfDead(int test)
 		{
 			if (test == 2)
 			{
-				m_ShouldBeDead = true;
+				SetShouldBeDead(true);
+
+				////z opóŸnieniem
+				//auto f = std::async(std::launch::async, [&]() {
+				//	// Use sleep_for to wait specified time (or sleep_until).
+				//	std::this_thread::sleep_for(std::chrono::seconds{4});
+				//	// Do whatever you want.
+				//	Die();
+				//});
 			}
-		}*/
+		}
+
+		void SetAnimationModel()
+		{
+			//m_Model->loadModel("../Clumsy/src/models/enemyModels/Mutant Dying/Mutant Dying.dae");	
+			if (m_ShouldBeDead == true)
+			{
+				m_ModelInitial = enemyModel2;
+				std::cout << "WESZLO 1: " << std::endl;
+			}
+			else if (m_ShouldBeDead == false && isEnemyDead == false)
+			{
+				m_ModelInitial = enemyModel1;
+				std::cout << "WESZLO 2: " << std::endl;
+			}
+		}
 
 		bool GetIsDead() override { return isEnemyDead; }
 		void SetIsDead(bool dead) override { isEnemyDead = dead; }
@@ -78,6 +89,8 @@ namespace Clumsy {
 		int m_MaxCollectedTrees;
 		bool m_Condition = false;
 		Model* m_ModelInitial;
+		Clumsy::Model* enemyModel1;
+		Clumsy::Model* enemyModel2;
 		bool m_ShouldBeDead = false;
 		bool m_IsActive = false;
 	};

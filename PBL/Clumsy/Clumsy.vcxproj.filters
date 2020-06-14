@@ -255,9 +255,6 @@
     <ClInclude Include="src\Game\Nature.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Warehouse.h">
-      <Filter>Game</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">

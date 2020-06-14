@@ -21,16 +21,8 @@ namespace Clumsy
 		void UseAllActions() { actionsCount = maxActions; }
 		void IncrementMaxActions() { maxActions++; }
 		void IncrementActionCount() { actionsCount++; }
-		void IncrementWoodCount() { woodCount++; }
 		void IncrementMaxWood() { maxWood++; }
-		
-		void DecrementWoodCount() { woodCount--; }
-		void PayInWood(int price) { woodCount -= price; }
-
-		bool IsDecrementingWoodCountPossible()
-		{
-			return (woodCount > 0);
-		}
+		void IncrementWoodCount() { woodCount++; }
 
 		bool IsIncrementingWoodCountPossible() 
 		{ 

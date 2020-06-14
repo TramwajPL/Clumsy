@@ -12,10 +12,16 @@ namespace Clumsy
 		BackgroundInit();
 
 		 //Buttons
+		//Button* exitButton = new Button(glm::vec2(0.36f, 0.33f), "X", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.07f, 0.1f));
+		//m_Buttons.push_back(exitButton);
 		Button* b1 = new Button(glm::vec2(-0.01f, 0.2f), "PLAY", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
 		m_Buttons.push_back(b1);
 		Button* b2 = new Button(glm::vec2(-0.01f, 0.05f), "EXIT", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
 		m_Buttons.push_back(b2);
+		//Button* b3 = new Button(glm::vec2(-0.01f, -0.1f), "Enable scorching ground (5 wood)", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
+		//m_Buttons.push_back(b3);
+		//Button* b4 = new Button(glm::vec2(-0.01f, -0.25f), "Hire a lumberjack (5 wood)", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
+		//m_Buttons.push_back(b4);
 
 		gui = new GUI();
 	}
@@ -39,6 +45,7 @@ namespace Clumsy
 			}
 
 			// Render text
+			//gui->RenderText(shaderText, m_Buttons[0]->GetText(), SCR_WIDTH - 625.0f, SCR_HEIGHT - 375.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			for (int i = 0; i < m_Buttons.size(); i++)
 			{
 				gui->RenderText(shaderText, m_Buttons[i]->GetText(), SCR_WIDTH - 1250, SCR_HEIGHT - 445 - 80 * i, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
@@ -86,5 +93,21 @@ namespace Clumsy
 			m_Enabled = false;
 			m_Buttons[1]->OnClick();
 		}
+		/*else if (screenX > (m_Buttons[2]->GetCorner().x - (m_Buttons[2]->GetScale().x / 2)) && screenX < (m_Buttons[2]->GetCorner().x + (m_Buttons[2]->GetScale().x / 2))
+			&& screenY < (m_Buttons[2]->GetCorner().y + m_Buttons[2]->GetScale().y) && screenY > m_Buttons[2]->GetCorner().y)
+		{
+			m_Buttons[2]->OnClick();
+			glfwSetWindowShouldClose(glfwWindow, true);
+		}*/
+		//else if (screenX > (m_Buttons[3]->GetCorner().x - (m_Buttons[3]->GetScale().x / 2)) && screenX < (m_Buttons[3]->GetCorner().x + (m_Buttons[3]->GetScale().x / 2))
+		//	&& screenY < (m_Buttons[3]->GetCorner().y + m_Buttons[3]->GetScale().y) && screenY > m_Buttons[3]->GetCorner().y)
+		//{
+		//	m_Buttons[3]->OnClick();
+		//}
+		//else if (screenX > (m_Buttons[4]->GetCorner().x - (m_Buttons[4]->GetScale().x / 2)) && screenX < (m_Buttons[4]->GetCorner().x + (m_Buttons[4]->GetScale().x / 2))
+		//	&& screenY < (m_Buttons[4]->GetCorner().y + m_Buttons[4]->GetScale().y) && screenY > m_Buttons[4]->GetCorner().y)
+		//{
+		//	m_Buttons[4]->OnClick();
+		//}
 	}
 }

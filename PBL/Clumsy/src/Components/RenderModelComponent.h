@@ -10,8 +10,7 @@ namespace Clumsy {
 	class RenderModelComponent : public EntityComponent
 	{
 	public:
-		RenderModelComponent(Model* model, Transform transform, float angle, bool isEnemy = false) :
-			m_Model(model), m_Transform(transform), m_Angle(angle), m_IsEnemy(isEnemy)
+		RenderModelComponent(Model* model, Transform transform, float angle, bool isEnemy = false) : m_Model(model), m_Transform(transform), m_Angle(angle), m_IsEnemy(isEnemy)
 		{
 		}
 

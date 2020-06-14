@@ -4,8 +4,6 @@
 
 #include "GUI.h"
 #include "Button.h"
-#include "../Game/Player.h"
-#include "../Game/Warehouse.h"
 
 namespace Clumsy
 {
@@ -16,8 +14,7 @@ namespace Clumsy
 		~WarehouseGUI() {}
 		void Render(Shader* shader, Shader* shaderText, int SCR_WIDTH, int SCR_HEIGHT);
 		void BackgroundInit();
-		void SetActiveWarehouse(Warehouse* warehouse) { m_Warehouse = warehouse; }
-		void SetActivePlayer(Player* player) { m_Player = player; }
+
 		bool IsEnabled() { return m_Enabled; }
 		void SetEnabled(bool doopy) { m_Enabled = doopy; }
 
@@ -28,7 +25,5 @@ namespace Clumsy
 		GUI* gui;
 		unsigned int VBO, VAO;
 		bool m_Enabled = false;
-		Warehouse* m_Warehouse;
-		Player* m_Player;
 	};
 }
