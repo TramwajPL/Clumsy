@@ -10,6 +10,7 @@
 #include "../Components/RenderInstancedTreesComponent.h"
 #include "../Game/TurnSystem.h"
 #include "../Game/TreeObject.h"
+#include "../Game/Warehouse.h"
 
 namespace Clumsy 
 {	
@@ -53,6 +54,27 @@ namespace Clumsy
 					RenderEngine::GetInstance()->m_Movement = false;
 				}
 			}
+		}
+	}
+
+	void Game::HandleEvent(Event* event)
+	{
+		if (event->GetEventId() == "hire")
+		{
+			glm::vec3 shopPos(RenderEngine::GetInstance()->GetStoreGUI()->GetActiveStore()->GetTransform().GetPos());
+			glm::quat rotBoy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f));
+			Transform transform(shopPos, rotBoy, 0.1f);
+			Player* boy = new Player(transform);
+			PhysicsObject* ob = new PhysicsObject(
+				new BoundingSphere(boy->GetTransform().GetPos(), 0.1f), &boy->GetTransform());
+			PhysicsEngine::GetInstance()->AddObject(*ob);
+			Model* model = new Model();
+			model->loadModel("../Clumsy/src/models/man/model.dae");
+			RenderModelComponent* rmc = new RenderModelComponent(model, boy->GetTransform(), 90.0f);
+			boy->m_Rmc = rmc;
+			AddToScene((boy)->AddComponent(rmc));
+			boy->AddComponent(new PhysicsObjectComponent(ob));
+			TurnSystem::GetInstance()->AddPlayer(boy);
 		}
 	}
 
@@ -162,8 +184,6 @@ namespace Clumsy
 							TreeObject* tree = new TreeObject(transform2);
 							tree->SetM_Tag("tree");
 							map->AddChild((tree)->AddComponent(new PhysicsObjectComponent(pO2)));
-							//m7->loadModel("../Clumsy/src/models/hexes/tree_Oliwiw.obj");
-							//map->AddChild((tree)->AddComponent(new RenderModelComponent(m7, transform2, 180.0f))->AddComponent(new PhysicsObjectComponent(pO2)));
 							model3 = false;
 						}
 
@@ -196,12 +216,7 @@ namespace Clumsy
 							transform.SetRotW(0.0f);//1
 							transform.SetScale(0.0001f);
 							allTransformsM5.push_back(transform);
-							glm::vec3 min = glm::vec3(transform.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
-							glm::vec3 max = glm::vec3(transform.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
-							PhysicsObject* pO = new PhysicsObject(new Aabb(min, max), &transform);
-							PhysicsEngine::GetInstance()->AddObject(*pO);
-							map->AddChild((new Clumsy::GameObject(transform))
-								->AddComponent(new PhysicsObjectComponent(pO)));
+							map->AddChild(new Clumsy::GameObject(transform));
 							model5 = false;
 						}
 						if (model6) {
@@ -215,12 +230,7 @@ namespace Clumsy
 							transform.SetScale(0.0001f);
 
 							allTransformsM6.push_back(transform);
-							glm::vec3 min = glm::vec3(transform.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
-							glm::vec3 max = glm::vec3(transform.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
-							PhysicsObject* pO = new PhysicsObject(new Aabb(min, max), &transform);
-							PhysicsEngine::GetInstance()->AddObject(*pO);
-							map->AddChild((new Clumsy::GameObject(transform))
-								->AddComponent(new PhysicsObjectComponent(pO)));
+							map->AddChild(new Clumsy::GameObject(transform));
 							model6 = false;
 						}
 					}
@@ -250,20 +260,23 @@ namespace Clumsy
 		transformWoodHouse.SetRotW(0.0f);//1
 		transformWoodHouse.SetScale(0.04f);
 
+		mShop->loadModel("../Clumsy/src/models/shop/shop.obj");
+		// shop
 		glm::vec3 min2 = glm::vec3(transformShop.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
 		glm::vec3 max2 = glm::vec3(transformShop.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
 		PhysicsObject* pOShop = new PhysicsObject(new Aabb(min2, max2), &transformShop);
 		PhysicsEngine::GetInstance()->AddObject(*pOShop);
-		GameObject* shop = new GameObject(transformShop);
-		GameObject* woodHouse = new GameObject(transformWoodHouse);
+		Warehouse* shop = new Warehouse(transformShop);
 		shop->SetM_Tag("shop");
-		woodHouse->SetM_Tag("woodHouse");
-		mShop->loadModel("../Clumsy/src/models/shop/shop.obj");
 		map->AddChild((shop)->AddComponent(new RenderModelComponent(mShop, transformShop, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop)));
 
-		glm::vec3 minWood = glm::vec3(transformShop.GetPos() - glm::vec3(1.5f, 0.1f, 1.5f));
-		glm::vec3 maxWood = glm::vec3(transformShop.GetPos() + glm::vec3(1.5f, 0.1f, 1.5f));
+		// warehouse
+		glm::vec3 minWood = glm::vec3(transformWoodHouse.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
+		glm::vec3 maxWood = glm::vec3(transformWoodHouse.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
 		PhysicsObject* pOShop2 = new PhysicsObject(new Aabb(minWood, maxWood), &transformWoodHouse);
+		PhysicsEngine::GetInstance()->AddObject(*pOShop2);
+		Warehouse* woodHouse = new Warehouse(transformWoodHouse);
+		woodHouse->SetM_Tag("woodHouse");		
 		map->AddChild((woodHouse)->AddComponent(new RenderModelComponent(mShop, transformWoodHouse, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop2)));
 
 

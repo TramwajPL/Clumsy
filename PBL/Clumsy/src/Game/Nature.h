@@ -32,27 +32,31 @@ namespace Clumsy
             }
             if (isTurn)
             {
-                //Enemy spawns random number of trees (when he exists)
-                if (enemyOnBoard)
-                {
-                    if (callsController > 0)
-                    {
-                        SpawnTrees();
-                        callsController--;
-                    }
+                std::cout << "turn... " << std::endl;
 
+                //ENEMY SPAWNS ONE TREE EVERY ONE TURN
+                if (Clumsy::RenderEngine::GetInstance()->enemy->getIfActive()) {
+
+                    SpawnOneTree();
                 }
-                //Spawn one tree every 4 turns
-                if (callsController2 > 0 && TurnSystem::GetInstance()->GetTurnCounter() % 4 == 2)
+
+                if (TurnSystem::GetInstance()->GetTurnCounter() % 2 == 2)
                 {
-                    if (TurnSystem::GetInstance()->GetTurnCounter() > 5)
-                    {
-                        SpawnTrees2();
-                    }
-                    //TreePositionIndicator();
-                    callsController2--;
+                    SpawnOneTree();
                 }
+
+                ////Spawn one tree every 4 turns
+                //if (callsController2 > 0 && TurnSystem::GetInstance()->GetTurnCounter() % 4 == 2)
+                //{
+                //    if (TurnSystem::GetInstance()->GetTurnCounter() > 5)
+                //    {
+                //        SpawnTrees2();
+                //    }
+                //    //TreePositionIndicator();
+                //    callsController2--;
+                //}
                 std::cout << " Nature time! " << std::endl;
+                std::cout << "Tura nr: " << TurnSystem::GetInstance()->GetTurnCounter() << std::endl;
                 isTurn = false;
                 m_TurnClass->isTurn = isTurn;
                 m_TurnClass->wasTurnPrev = true;
@@ -82,6 +86,16 @@ namespace Clumsy
                 }
             }*/
         }
+
+        void SpawnOneTree(){
+
+            if (RenderEngine::GetInstance()->cutTreesTransforms.size() > 0) {
+                int RandomTreeToSpawn = rand() % RenderEngine::GetInstance()->cutTreesTransforms.size();
+                RenderEngine::GetInstance()->treeTransforms.push_back(RenderEngine::GetInstance()->cutTreesTransforms.at(RandomTreeToSpawn));
+                RenderEngine::GetInstance()->cutTreesTransforms.erase(RenderEngine::GetInstance()->cutTreesTransforms.begin() + RandomTreeToSpawn);
+
+            }
+           }
 
         void SpawnTrees2()
         {

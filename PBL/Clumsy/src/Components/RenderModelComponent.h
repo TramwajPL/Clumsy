@@ -10,7 +10,8 @@ namespace Clumsy {
 	class RenderModelComponent : public EntityComponent
 	{
 	public:
-		RenderModelComponent(Model* model, Transform transform, float angle) : m_Model(model), m_Transform(transform), m_Angle(angle)
+		RenderModelComponent(Model* model, Transform transform, float angle, bool isEnemy = false) :
+			m_Model(model), m_Transform(transform), m_Angle(angle), m_IsEnemy(isEnemy)
 		{
 		}
 
@@ -26,6 +27,11 @@ namespace Clumsy {
 			vec.y = m_Transform.GetRot()->y;
 			vec.z = m_Transform.GetRot()->z;
 			model = glm::rotate(model, glm::radians(m_Angle), vec);
+			if (m_IsEnemy == true)
+			{
+				model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f,1.0f,0.0f));
+				model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f,1.0f,0.0f));
+			}
 			model = glm::scale(model, glm::vec3(m_Transform.GetScale()));
 
 			shader.setMat4("model", model);
@@ -56,5 +62,6 @@ namespace Clumsy {
 	private:
 		float m_Angle;
 		Model* m_Model;
+		bool m_IsEnemy;
 	};
 }

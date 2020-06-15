@@ -6,10 +6,12 @@
 #include "../RenderEngine/PostProcessor.h"
 #include "../PhysicsEngine/PhysicsEngine.h"
 #include "../GUI/MenuGUI.h"
+#include "../GUI/StoreGUI.h"
+#include "../EventSystem/Listener.h"
 
 namespace Clumsy 
 {
-	class Game
+	class Game : public Listener
 	{
 	public:
 		virtual void Init() {} 
@@ -18,6 +20,8 @@ namespace Clumsy
 		void Update(float deltaTime);
 		void ProcessInput(int input);
 		void AddToScene(GameObject* child);
+
+		void HandleEvent(Event* event);
 
 		GameObject getRoot() { return m_Root; }
 		void SceneParser(GameObject* map, std::string filename);

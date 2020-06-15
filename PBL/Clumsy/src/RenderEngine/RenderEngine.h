@@ -15,7 +15,6 @@
 #include "../Core/GameObject.h"
 #include "../PhysicsEngine/Plane.h"
 #include "../Game/TreeObject.h"
-#include "../Game/Enemy.h"
 
 namespace Clumsy 
 {
@@ -23,6 +22,7 @@ namespace Clumsy
 	class GUI;
 	class Button;
 	class StoreGUI;
+	class Enemy;
 	class WarehouseGUI;
 	class MenuGUI;
 	class ParticleGenerator;
@@ -81,6 +81,7 @@ namespace Clumsy
 		Enemy* enemy;
 		std::vector<Transform> treeTransforms;
 		bool wasCut = false;
+		std::vector<Transform> cutTreesTransforms;
 		
 		//movement
 		bool m_Movement = false;
@@ -115,9 +116,7 @@ namespace Clumsy
 		Shader* buttonShader;
 		Shader* particleShader;
 		Shader* shaderCube;
-		Shader* shaderSkybox;
 
-		unsigned int skyboxVAO, skyboxVBO, cubemapTexture;
 
 		glm::mat4 projection;
 		glm::mat4 view;

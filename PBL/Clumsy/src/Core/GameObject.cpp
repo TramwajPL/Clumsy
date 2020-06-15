@@ -129,7 +129,7 @@ namespace Clumsy
 				m_Children[i]->RenderAll(shader);
 			}
 		}
-		else if (GetRenderEnemy() == true)
+		else if (GetRenderEnemy() == true && GetIsDead() == false)
 		{
 			if (GetWasCut() == false) {
 				if (GetComponents().size() <= 1)

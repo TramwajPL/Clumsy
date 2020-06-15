@@ -24,7 +24,7 @@ namespace Clumsy
 		
 		Transform GetTransform();
 		void SetPos(glm::vec3 vect) { m_Transform.SetPos(vect); }
-		glm::vec3 GetPos() { m_Transform.GetPos(); }
+		glm::vec3 GetPos() { return m_Transform.GetPos(); }
 
 		GameObject* AddComponent(EntityComponent* component);
 		void AddChild(GameObject* child);
@@ -58,13 +58,15 @@ namespace Clumsy
 		virtual void SetRenderEnemy(bool renderEnemy) { m_RenderEnemy = renderEnemy; }
 		virtual void checkIfRender(int collectedTrees) { } //enemy
 		virtual bool GetRenderEnemy() { return m_RenderEnemy; }
-
+		virtual bool GetIsDead() { return isEnemyDead; }
+		virtual void SetIsDead(bool dead) { isEnemyDead = dead; }
 	protected:
 		int m_CountCollectedTrees;
 		bool m_WasCut = false;
 		bool m_RenderEnemy = false;
 		Transform m_Transform;
 		std::string m_Tag = "";
+		bool isEnemyDead = false;
 	private:
 		
 		std::vector<glm::vec3> points;
