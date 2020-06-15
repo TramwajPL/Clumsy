@@ -302,13 +302,13 @@ namespace Clumsy
 		textShader->use();
 		textShader->setMat4("projection", projectionGUI);
 
-		gui->RenderText(textShader, "Wood: ", 35.0f, SCR_HEIGHT - 100.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
-		gui->RenderText(textShader, "Actions: ", 25.0f, SCR_HEIGHT - 150.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f)); 
 		Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
 		if (player)
 		{
-			gui->RenderText(textShader, std::to_string(player->GetWoodCount()), 150.0f, SCR_HEIGHT - 100.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
-			gui->RenderText(textShader, std::to_string(player->GetAvailableActions()), 150.0f, SCR_HEIGHT - 150.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(textShader, "Wood: " + std::to_string(player->GetWoodCount()) + " / " + std::to_string(player->GetMaxWood()), 
+				25.0f, SCR_HEIGHT - 100.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(textShader, "Actions: " + std::to_string(player->GetAvailableActions()), 
+				25.0f, SCR_HEIGHT - 150.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 		}
 
 		if (!m_StoreGUI->IsEnabled() && !m_WarehouseGUI->IsEnabled())
