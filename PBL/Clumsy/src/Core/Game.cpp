@@ -8,6 +8,8 @@
 #include "../Components/PhysicsObjectComponent.h"
 #include "../Components/RenderInstancedModelComponent.h"
 #include "../Components/RenderInstancedTreesComponent.h"
+#include "../Components/RenderInstancedGround.h"
+#include "../Components/RenderInstancedBurnedGroundComponent.h"
 #include "../Game/TurnSystem.h"
 #include "../Game/TreeObject.h"
 #include "../Game/Warehouse.h"
@@ -97,6 +99,7 @@ namespace Clumsy
 		Model* m5 = new Model();
 		Model* m6 = new Model();
 		Model* m7 = new Model();
+		Model* mBurned = new Model();
 		bool model3 = false;
 		bool model4 = false;
 		bool model5 = false;
@@ -119,6 +122,7 @@ namespace Clumsy
 										m3->loadModel("../Clumsy/src/models/hexes/groundEarth_base_color.obj");
 										model3 = true;
 										m7->loadModel("../Clumsy/src/models/hexes/tree_Oliwiw.obj");
+										mBurned->loadModel("../Clumsy/src/models/hexes/Burned_ground.obj");
 									}
 									if (k.find("Desert") != std::string::npos) {
 										m4->loadModel("../Clumsy/src/models/hexes/Desert_ground_Albedo.obj");
@@ -157,6 +161,7 @@ namespace Clumsy
 							transform.SetRotW(0.0f);
 							transform.SetScale(0.0001f);
 
+							RenderEngine::GetInstance()->ground.push_back(transform);
 							allTransformsM3.push_back(transform);
 							glm::vec3 min = glm::vec3(transform.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
 							glm::vec3 max = glm::vec3(transform.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
@@ -279,8 +284,8 @@ namespace Clumsy
 		woodHouse->SetM_Tag("woodHouse");		
 		map->AddChild((woodHouse)->AddComponent(new RenderModelComponent(mShop, transformWoodHouse, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop2)));
 
-
-		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m3, allTransformsM3));
+		map->AddComponent(new Clumsy::RenderInstancedBurnedGroundComponent(mBurned, RenderEngine::GetInstance()->groundBurned));
+		map->AddComponent(new Clumsy::RenderInstancedGround(m3, allTransformsM3));
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m4, allTransformsM4));
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m5, allTransformsM5));
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m6, allTransformsM6));

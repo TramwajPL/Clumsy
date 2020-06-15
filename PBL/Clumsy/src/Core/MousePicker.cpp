@@ -181,12 +181,31 @@ namespace Clumsy
 					Clumsy::RenderEngine::GetInstance()->m_Movement = true;
 					player->IncrementActionCount();
 
-					RenderEngine::GetInstance()->wasCut = true;
-					//std::cout << "position of cut tree: " << to_string(RenderEngine::GetInstance()->treeTransforms.at(t).GetPos())  << std::endl;
-					RenderEngine::GetInstance()->cutTreesTransforms.push_back(RenderEngine::GetInstance()->treeTransforms.at(t));
-					RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);	
-					//std::cout << "Number of cut Trees: " << (RenderEngine::GetInstance()->cutTreesTransforms.size()) << std::endl;
-					//std::cout << "position of cut Tree: " << to_string(RenderEngine::GetInstance()->cutTreesTransforms.at(0).GetPos()) << std::endl;
+					if (player->getCanBurn() == false) {
+						RenderEngine::GetInstance()->wasCut = true;
+						RenderEngine::GetInstance()->cutTreesTransforms.push_back(RenderEngine::GetInstance()->treeTransforms.at(t));
+						RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
+					}
+
+					else if (player->getCanBurn() == true) {
+						RenderEngine::GetInstance()->wasCut = true;
+						//RenderEngine::GetInstance()->cutTreesTransforms.push_back(RenderEngine::GetInstance()->treeTransforms.at(t));
+						RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
+
+						for (int k = 0; k < RenderEngine::GetInstance()->ground.size(); k++)
+						{
+							if (*destination == RenderEngine::GetInstance()->ground[k].GetPos())
+							{
+								RenderEngine::GetInstance()->groundBurned.push_back(RenderEngine::GetInstance()->ground.at(k));
+								//RenderEngine::GetInstance()->groundBurned.push_back(*destination);
+								//std::cout << "burned ground position: " << to_string(RenderEngine::GetInstance()->groundBurned[0].GetPos()) << std::endl;
+								RenderEngine::GetInstance()->ground.erase(RenderEngine::GetInstance()->ground.begin() + k);
+								//std::cout << "burned ground position: " << to_string(RenderEngine::GetInstance()->ground.begin() + t) << std::endl;
+							}
+						}
+
+
+					}
 
 
 					if (Clumsy::RenderEngine::GetInstance()->enemy->GetIsDead() == true &&

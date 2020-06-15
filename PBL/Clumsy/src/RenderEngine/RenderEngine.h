@@ -82,6 +82,8 @@ namespace Clumsy
 		std::vector<Transform> treeTransforms;
 		bool wasCut = false;
 		std::vector<Transform> cutTreesTransforms;
+		std::vector<Transform> ground;
+		std::vector<Transform> groundBurned;
 		
 		//movement
 		bool m_Movement = false;
@@ -116,6 +118,7 @@ namespace Clumsy
 		Shader* buttonShader;
 		Shader* particleShader;
 		Shader* shaderCube;
+		Shader* mainMenuShader;
 
 
 		glm::mat4 projection;

@@ -26,11 +26,11 @@
 #include "../Components/RenderModelComponent.h"
 #include "../Particles/ParticleGenerator.h"
 
-//const unsigned int SCR_WIDTH = 1920;
-//const unsigned int SCR_HEIGHT = 1080;
+const unsigned int SCR_WIDTH = 1920;
+const unsigned int SCR_HEIGHT = 1080;
 
-const unsigned int SCR_WIDTH = 1366;
-const unsigned int SCR_HEIGHT = 768;//zmienic
+//const unsigned int SCR_WIDTH = 1366;
+//const unsigned int SCR_HEIGHT = 768;//zmienic
 
 namespace Clumsy
 {
@@ -52,7 +52,8 @@ namespace Clumsy
 
 		Effects = new PostProcessor(*m_Postprocessing, SCR_WIDTH, SCR_HEIGHT);
 		shaderCube = new Shader("../Clumsy/src/Shaders/cubeMap_VS.glsl", "../Clumsy/src/Shaders/cubeMap_FS.glsl");
-		
+		mainMenuShader = new Shader("../Clumsy/src/Shaders/main_menu_VS.glsl", "../Clumsy/src/Shaders/main_menu_FS.glsl");
+
 
 		glEnable(GL_DEPTH_TEST);
 
@@ -335,9 +336,10 @@ namespace Clumsy
 		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
 		textShader->use();
 		textShader->setMat4("projection", projectionGUI);
-		buttonShader->use();
+		//mainMenuShader->use();
 
-		m_MenuGUI->Render(buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
+
+		m_MenuGUI->Render(mainMenuShader, buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 	}
 
 	void RenderEngine::CleanUp()
