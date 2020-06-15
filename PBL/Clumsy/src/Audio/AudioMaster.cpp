@@ -14,12 +14,17 @@ namespace Clumsy
 
     void AudioMaster::PlayAmbientMusic()
     {
-        m_SoundEngine->play2D("../Clumsy/src/Audio/ophelia.mp3", true);
+        m_SoundEngine->play2D("../Clumsy/src/Audio/forest.mp3", true);
     }
 
     void AudioMaster::PlayBell()
     {
         m_SoundEngine->play2D("../Clumsy/src/Audio/bell.wav", false);
+    }
+
+    void AudioMaster::PlayWalk()
+    {
+        m_SoundEngine->play2D("../Clumsy/src/Audio/walk.wav", false);
     }
 
     void AudioMaster::Drop()
@@ -38,6 +43,10 @@ namespace Clumsy
 		{
 			PlayBell();
 		}
+        if (event->GetEventId() == "move")
+        {
+            PlayWalk();
+        }
 		
 	}
 }

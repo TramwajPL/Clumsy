@@ -11,6 +11,7 @@ namespace Clumsy
 		static AudioMaster* GetInstance();
 		void PlayAmbientMusic();
 		void PlayBell();
+		void PlayWalk();
 		void Drop();
 		void HandleEvent(Event* event);
 
