@@ -70,9 +70,7 @@ namespace Clumsy
 			PhysicsObject* ob = new PhysicsObject(
 				new BoundingSphere(boy->GetTransform().GetPos(), 0.1f), &boy->GetTransform());
 			PhysicsEngine::GetInstance()->AddObject(*ob);
-			Model* model = new Model();
-			model->loadModel("../Clumsy/src/models/man/model.dae");
-			RenderModelComponent* rmc = new RenderModelComponent(model, boy->GetTransform(), 90.0f);
+			RenderModelComponent* rmc = new RenderModelComponent(playerModel, boy->GetTransform(), 90.0f);
 			boy->m_Rmc = rmc;
 			AddToScene((boy)->AddComponent(rmc));
 			boy->AddComponent(new PhysicsObjectComponent(ob));

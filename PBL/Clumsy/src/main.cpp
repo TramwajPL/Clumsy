@@ -46,8 +46,8 @@ public:
 		Clumsy::Transform boyTransform2(pos - 0.3f, rotBoy, 0.1f);
 		Clumsy::Transform enemyTransform(enemyPos, rotEnemy, 0.01); //enemy
 
-		Clumsy::Model* model = new Clumsy::Model();
-		model->loadModel("../Clumsy/src/models/man/model.dae");
+		playerModel = new Clumsy::Model();
+		playerModel->loadModel("../Clumsy/src/models/man/model.dae");
 
 		Clumsy::Model* enemyModel = new Clumsy::Model();
 		enemyModel->loadModel("../Clumsy/src/models/enemyModels/Idle/Idle.dae"); //enemy
@@ -76,14 +76,14 @@ public:
 
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent();
-		rmc = new Clumsy::RenderModelComponent(model, boy->GetTransform(), 90.0f);
+		rmc = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90.0f);
 		enemyRmc = new Clumsy::RenderModelComponent(enemyModel, Clumsy::RenderEngine::GetInstance()->enemy->GetTransform(), 360.0f,true); //enemy RMC //ost zmiana
 
-		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(model, boy->GetTransform(), 90);
+		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90);
 		boy->m_Rmc = rmc1;
 		AddToScene((boy)->AddComponent(rmc1));
 
-		Clumsy::RenderModelComponent* rmc2 = new Clumsy::RenderModelComponent(model, boy2->GetTransform(), 90.0f);
+		Clumsy::RenderModelComponent* rmc2 = new Clumsy::RenderModelComponent(this->playerModel, boy2->GetTransform(), 90.0f);
 		boy2->m_Rmc = rmc2;
 		AddToScene((boy2)->AddComponent(rmc2));
 		AddToScene((Clumsy::RenderEngine::GetInstance()->enemy)->AddComponent(enemyRmc)); //enemy Add to scene //ost zmiana
