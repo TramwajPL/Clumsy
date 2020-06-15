@@ -13,6 +13,7 @@
 #include "../Game/TurnSystem.h"
 #include "../Game/TreeObject.h"
 #include "../Game/Warehouse.h"
+#include "../GUI/WarehouseGUI.h"
 
 namespace Clumsy 
 {	
@@ -34,6 +35,7 @@ namespace Clumsy
 	{
 		TurnSystem::GetInstance()->Update();
 		m_Root.UpdateAll();
+		RenderEngine::GetInstance()->GetWarehouseGUI()->Update(deltaTime);
 		if (RenderEngine::GetInstance()->GetShakeTime() > 0.0f)
 		{
 			RenderEngine::GetInstance()->SetShakeTime(RenderEngine::GetInstance()->GetShakeTime() - deltaTime);

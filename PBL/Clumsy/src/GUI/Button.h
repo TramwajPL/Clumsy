@@ -21,12 +21,20 @@ namespace Clumsy
 
 		void SetEnabled(bool doopy) { m_Enabled = doopy; }
 
+		void Update(float deltaTime);
+		bool m_Ok = false;
+		bool m_Fail = false;
+		float m_EffectTime = 0;
+
 	private:
 		glm::vec2 m_Corner;
 		glm::vec2 m_Scale;
 		std::string m_Text;
 		glm::vec3 m_Color;
+		glm::vec3 m_OkColor;
+		glm::vec3 m_FailColor;
 		unsigned int VBO, VAO;
 		bool m_Enabled = false;
+
 	};
 }
