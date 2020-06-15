@@ -93,48 +93,78 @@ namespace Clumsy
 		else if (screenX > (m_Buttons[1]->GetCorner().x - (m_Buttons[1]->GetScale().x / 2)) && screenX < (m_Buttons[1]->GetCorner().x + (m_Buttons[1]->GetScale().x / 2))
 			&& screenY < (m_Buttons[1]->GetCorner().y + m_Buttons[1]->GetScale().y) && screenY > m_Buttons[1]->GetCorner().y)
 		{
+			m_Buttons[1]->m_EffectTime = 0.2f;
 			m_Buttons[1]->OnClick();
 			if (m_Player->GetWoodCount() >= 2)
 			{
 				m_Player->IncrementMaxWood();
 				m_Player->PayInWood(2);
-
+				m_Buttons[1]->m_Ok = true;
+			}
+			else
+			{
+				m_Buttons[1]->m_Fail = true;
 			}
 		}
 		// increase number of actions
 		else if (screenX > (m_Buttons[2]->GetCorner().x - (m_Buttons[2]->GetScale().x / 2)) && screenX < (m_Buttons[2]->GetCorner().x + (m_Buttons[2]->GetScale().x / 2))
 			&& screenY < (m_Buttons[2]->GetCorner().y + m_Buttons[2]->GetScale().y) && screenY > m_Buttons[2]->GetCorner().y)
 		{
+			m_Buttons[2]->m_EffectTime = 0.2f;
 			m_Buttons[2]->OnClick();
 			if (m_Player->GetWoodCount() >= 2)
 			{
 				m_Player->IncrementMaxActions();
 				m_Player->PayInWood(2);
-
+				m_Buttons[2]->m_Ok = true;
+			}
+			else
+			{
+				m_Buttons[2]->m_Fail = true;
 			}
 		}
 		// enable scorching ground
 		else if (screenX > (m_Buttons[3]->GetCorner().x - (m_Buttons[3]->GetScale().x / 2)) && screenX < (m_Buttons[3]->GetCorner().x + (m_Buttons[3]->GetScale().x / 2))
 			&& screenY < (m_Buttons[3]->GetCorner().y + m_Buttons[3]->GetScale().y) && screenY > m_Buttons[3]->GetCorner().y)
 		{
+			m_Buttons[3]->m_EffectTime = 0.2f;
 			m_Buttons[3]->OnClick();
 			if (m_Player->GetWoodCount() >= 1)
 			{
 				// TODO wypalanko
 				m_Player->PayInWood(1);
 				m_Player->enableBurn();
+				m_Buttons[3]->m_Ok = true;
+			}
+			else
+			{
+				m_Buttons[3]->m_Fail = true;
 			}
 		}
 		// hire a lumberjack
 		else if (screenX > (m_Buttons[4]->GetCorner().x - (m_Buttons[4]->GetScale().x / 2)) && screenX < (m_Buttons[4]->GetCorner().x + (m_Buttons[4]->GetScale().x / 2))
 			&& screenY < (m_Buttons[4]->GetCorner().y + m_Buttons[4]->GetScale().y) && screenY > m_Buttons[4]->GetCorner().y)
 		{
+			m_Buttons[4]->m_EffectTime = 0.2f;
 			m_Buttons[4]->OnClick();
 			if (m_Player->GetWoodCount() >= 5)
 			{
 				m_Player->PayInWood(5);
-				EventSystem::GetInstance()->SendEvent("hire");				
+				EventSystem::GetInstance()->SendEvent("hire");
+				m_Buttons[4]->m_Ok = true;
 			}
+			else
+			{
+				m_Buttons[4]->m_Fail = true;
+			}
+		}
+	}
+
+	void StoreGUI::Update(float deltaTime)
+	{
+		for (int i = 1; i < m_Buttons.size(); i++)
+		{
+			m_Buttons[i]->Update(deltaTime);
 		}
 	}
 }

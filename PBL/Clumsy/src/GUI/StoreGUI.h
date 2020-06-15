@@ -21,6 +21,7 @@ namespace Clumsy
 
 		GameObject* GetActiveStore() { return m_Store; }
 		void HandleButtonClick(float screenX, float screenY);
+		void Update(float deltaTime);
 
 	private:
 		std::vector<Button*> m_Buttons;

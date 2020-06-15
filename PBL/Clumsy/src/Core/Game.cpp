@@ -36,6 +36,7 @@ namespace Clumsy
 		TurnSystem::GetInstance()->Update();
 		m_Root.UpdateAll();
 		RenderEngine::GetInstance()->GetWarehouseGUI()->Update(deltaTime);
+		RenderEngine::GetInstance()->GetStoreGUI()->Update(deltaTime);
 		if (RenderEngine::GetInstance()->GetShakeTime() > 0.0f)
 		{
 			RenderEngine::GetInstance()->SetShakeTime(RenderEngine::GetInstance()->GetShakeTime() - deltaTime);
