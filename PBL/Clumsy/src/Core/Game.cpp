@@ -272,8 +272,11 @@ namespace Clumsy
 		PhysicsObject* pOShop = new PhysicsObject(new Aabb(min2, max2), &transformShop);
 		PhysicsEngine::GetInstance()->AddObject(*pOShop);
 		Warehouse* shop = new Warehouse(transformShop);
+		GameObject* landShop = new GameObject(transformShop);
 		shop->SetM_Tag("shop");
 		map->AddChild((shop)->AddComponent(new RenderModelComponent(mShop, transformShop, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop)));
+	/*	transformShop.SetScale(0.01f);
+		map->AddChild((landShop)->AddComponent(new RenderModelComponent(m4, transformShop, 90.0f)));*/
 
 		// warehouse
 		glm::vec3 minWood = glm::vec3(transformWoodHouse.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));

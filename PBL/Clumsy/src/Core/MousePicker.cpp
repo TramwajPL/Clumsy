@@ -4,6 +4,7 @@
 #include <glm/gtx/string_cast.hpp>
 
 #include "MousePicker.h"
+#include "../Audio/AudioMaster.h"
 #include "../GUI/StoreGUI.h"
 #include "../GUI/WarehouseGUI.h"
 #include "../Game/Player.h"
@@ -145,6 +146,7 @@ namespace Clumsy
 			{
 				bool isThereATree = false;
 				bool isThereEnemy = false;
+				bool isTherePlayer = false;
 				int t;
 				for (int k = 0; k < RenderEngine::GetInstance()->treeTransforms.size(); k++)
 				{
@@ -161,6 +163,10 @@ namespace Clumsy
 				{
 					isThereEnemy = true;
 				}
+				if (destination->x - RenderEngine::GetInstance()->enemy->GetPos().x < 1.0 || destination->x - RenderEngine::GetInstance()->enemy->GetPos().x > -1.0)
+				{
+					isThereEnemy = true;
+				}
 
 				if (!isThereATree)
 				{
@@ -171,6 +177,8 @@ namespace Clumsy
 					Clumsy::RenderEngine::GetInstance()->m_Movement = true;
 					if (!RenderEngine::GetInstance()->GetWarehouseGUI()->IsEnabled() && !RenderEngine::GetInstance()->GetStoreGUI()->IsEnabled())
 						player->IncrementActionCount();
+
+					AudioMaster::GetInstance()->PlayWalk();
 				}
 				else if (isThereATree && player->IsIncrementingWoodCountPossible())
 				{
@@ -180,6 +188,8 @@ namespace Clumsy
 					Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
 					Clumsy::RenderEngine::GetInstance()->m_Movement = true;
 					player->IncrementActionCount();
+
+					AudioMaster::GetInstance()->PlayWalk();
 
 					if (player->getCanBurn() == false) {
 						RenderEngine::GetInstance()->wasCut = true;

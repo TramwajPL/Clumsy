@@ -56,6 +56,8 @@ public:
 			
 		boy = new Clumsy::Player(boyTransform);
 		Clumsy::Player* boy2 = new Clumsy::Player(boyTransform2);
+		boy->SetM_Tag("player");
+		boy2->SetM_Tag("player");
 
 		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(enemyModel, enemyTransform,1); //enemy change how much we need to collect wood
 		Clumsy::RenderEngine::GetInstance()->enemy->SetM_Tag("enemy"); //ost zmiana
@@ -101,7 +103,7 @@ public:
 		Clumsy::TurnSystem::GetInstance()->AddPlayer(boy);
 		Clumsy::TurnSystem::GetInstance()->AddPlayer(boy2);
 
-		//Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
+		Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
 	}
 
 private:
