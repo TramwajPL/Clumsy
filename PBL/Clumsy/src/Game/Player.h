@@ -54,12 +54,20 @@ namespace Clumsy
 			}
 		}
 
+		bool getCanBurn() {
+			return canBurn;
+		}
+
+		void enableBurn() {
+			canBurn = true;
+		}
+
 	private:
 		int maxActions = 3;
 		int actionsCount = 0;
 		int maxWood = 5;
 		int woodCount = 0;
-
+		bool canBurn = false;
 		bool isTurn = false;
 		TurnClass* m_TurnClass = nullptr;
 	};

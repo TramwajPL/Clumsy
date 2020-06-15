@@ -61,6 +61,8 @@
     <ClInclude Include="src\Components\MoveComponent.h" />
     <ClInclude Include="src\Components\PhysicsEngineComponent.h" />
     <ClInclude Include="src\Components\PhysicsObjectComponent.h" />
+    <ClInclude Include="src\Components\RenderInstancedBurnedGroundComponent.h" />
+    <ClInclude Include="src\Components\RenderInstancedGround.h" />
     <ClInclude Include="src\Components\RenderInstancedModelComponent.h" />
     <ClInclude Include="src\Components\RenderInstancedTreesComponent.h" />
     <ClInclude Include="src\Components\RenderModelComponent.h" />

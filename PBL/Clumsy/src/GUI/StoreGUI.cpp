@@ -118,11 +118,11 @@ namespace Clumsy
 			&& screenY < (m_Buttons[3]->GetCorner().y + m_Buttons[3]->GetScale().y) && screenY > m_Buttons[3]->GetCorner().y)
 		{
 			m_Buttons[3]->OnClick();
-			if (m_Player->GetWoodCount() >= 5)
+			if (m_Player->GetWoodCount() >= 1)
 			{
 				// TODO wypalanko
-				m_Player->PayInWood(5);
-
+				m_Player->PayInWood(1);
+				m_Player->enableBurn();
 			}
 		}
 		// hire a lumberjack

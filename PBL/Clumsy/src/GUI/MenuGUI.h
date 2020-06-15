@@ -11,7 +11,7 @@ namespace Clumsy {
 	public:
 		MenuGUI();
 		~MenuGUI();
-		void Render(Shader* shader, Shader* shaderText, int SCR_WIDTH, int SCR_HEIGHT);
+		void Render(Shader* shader, Shader* shaderButton, Shader* shaderText, int SCR_WIDTH, int SCR_HEIGHT);
 		void BackgroundInit();
 
 		bool IsEnabled() { return m_Enabled; }
@@ -21,7 +21,9 @@ namespace Clumsy {
 	private:
 		std::vector<Button*> m_Buttons;
 		GUI* gui;
-		unsigned int VBO, VAO;
+		unsigned int VBO, VAO, EBO ;
+		int width, height, nrChannels;
+		unsigned int texture;
 		bool m_Enabled = true;
 	};
 
