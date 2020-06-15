@@ -89,7 +89,7 @@ public:
 		Clumsy::TurnSystem::GetInstance()->AddPlayer(nature);
 		Clumsy::TurnSystem::GetInstance()->AddPlayer(boy);
 
-		//Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
+		Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
 	}
 
 private:
