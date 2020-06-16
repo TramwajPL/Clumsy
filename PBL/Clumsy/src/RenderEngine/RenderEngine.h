@@ -99,6 +99,7 @@ namespace Clumsy
 		void SetCurrentPlayer(RenderModelComponent* rmc) { m_CurrentPlayer = rmc; }
 		void SetDeltaMove(glm::vec3 delta) { m_DeltaMove = delta; }
 		Shader* GetShaderText() { return textShader; }
+		Shader* GetShaderButton() { return buttonShader; }
 
 		Camera* getCamera() {
 			return m_Camera;
@@ -175,6 +176,9 @@ namespace Clumsy
 		PokemonGUI* m_PokemonGUI;
 		
 		TexturedRect* m_TexturedRect;
+		TexturedRect* m_PokemonRect;
+		TexturedRect* m_PokemonEnemy;
+		TexturedRect* m_PokemonPlayer;
 
 		PostProcessor* Effects;
 		float m_ShakeTime;

@@ -4,13 +4,14 @@
 #include "Button.h"
 #include "glfw3.h"
 #include <vector>
+#include "DestructionBar.h"
 
 namespace Clumsy {
 	class PokemonGUI {
 	public:
 		enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST };
 
-		PokemonGUI();
+		PokemonGUI(Shader* buttonShader);
 		~PokemonGUI();
 
 		void Render(Shader* shader, Shader* shaderButton, Shader* shaderText, int SCR_WIDTH, int SCR_HEIGHT);
@@ -21,6 +22,7 @@ namespace Clumsy {
 
 		void HandleButtonClick(float screenX, float screenY);
 		void HandleBattle();
+		BattleState getBattleState() { return m_BattleState; }
 
 		std::string m_textString;
 		bool m_BattleCommences = true;
@@ -38,5 +40,9 @@ namespace Clumsy {
 		int width, height, nrChannels;
 		unsigned int texture;
 		bool m_Enabled = true;
+		DestructionBar* backEnemy;
+		DestructionBar* backPlayer;
+		DestructionBar* Enemy;
+		DestructionBar* Player;
 	};
 }

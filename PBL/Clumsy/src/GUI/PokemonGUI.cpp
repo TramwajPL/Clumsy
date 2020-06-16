@@ -5,13 +5,16 @@
 
 #include "PokemonGUI.h"
 #include "../RenderEngine/RenderEngine.h"
+#include "../RenderEngine/TexturedRect.h"
 #include <thread>
 
 namespace Clumsy {
-	PokemonGUI::PokemonGUI()
+	PokemonGUI::PokemonGUI(Shader* buttonShader)
 	{
 		BackgroundInit();
 
+		backEnemy = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), buttonShader);
+		Enemy = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), buttonShader);
 		//Buttons
 		Button* b1 = new Button(glm::vec2(0.2f, -0.5f), "ATTACK", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.3f, 0.3f));
 		m_Buttons.push_back(b1);
@@ -28,9 +31,16 @@ namespace Clumsy {
 		m_SCRHEIGHT = SCR_HEIGHT;
 		if (m_Enabled)
 		{
-			glEnable(GL_TEXTURE_2D);
+			//std::cout << "nieeeeeee" << std::endl;
+			glDisable(GL_CULL_FACE);
+			RenderEngine::GetInstance()->GetShaderButton()->use();
+			backEnemy->Render(glm::vec3(0.3, 0.13f, 0.3f));
+			Enemy->Render(glm::vec3(0.1, 0.13f, 0.3f));
+			glEnable(GL_CULL_FACE);
+
+			glEnable(GL_TEXTURE_2D);/*
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT);*/
 
 			// bind Texture
 			glBindTexture(GL_TEXTURE_2D, texture);
@@ -48,6 +58,8 @@ namespace Clumsy {
 
 			// Render text
 			gui->RenderText(RenderEngine::GetInstance()->GetShaderText(), m_textString, m_SCRWIDTH - 1650.0f, m_SCRHEIGHT - 820.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(RenderEngine::GetInstance()->GetShaderText(), "Lumberjack", m_SCRWIDTH - 1500.0f, m_SCRHEIGHT - 375.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(RenderEngine::GetInstance()->GetShaderText(), "Ent", m_SCRWIDTH - 570.0f, m_SCRHEIGHT - 170.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(m_Shader, m_Buttons[0]->GetText(), m_SCRWIDTH - 840, m_SCRHEIGHT - 820, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(m_Shader, m_Buttons[1]->GetText(), m_SCRWIDTH - 430, m_SCRHEIGHT - 820, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 		}
@@ -102,7 +114,19 @@ namespace Clumsy {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		// load image, create texture and generate mipmaps
 		// The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
-		/*unsigned char* data = stbi_load(std::string("../Clumsy/src/models/container.jpg").c_str(), &width, &height, &nrChannels, 0);
+		stbi_set_flip_vertically_on_load(true);
+
+		glGenTextures(1, &texture);
+		glBindTexture(GL_TEXTURE_2D, texture); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
+		// set the texture wrapping parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		// set texture filtering parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		// load image, create texture and generate mipmaps
+		// The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
+		unsigned char* data = stbi_load(std::string("../Clumsy/src/models/battle.png").c_str(), &width, &height, &nrChannels, 0);
 		if (data)
 		{
 			std::cout << "Ladowana tekstura" << std::endl;
@@ -113,7 +137,8 @@ namespace Clumsy {
 		{
 			std::cout << "Failed to load texture" << std::endl;
 		}
-		stbi_image_free(data);*/
+		stbi_image_free(data);
+		stbi_set_flip_vertically_on_load(false);
 	}
 
 	void PokemonGUI::HandleButtonClick(float screenX, float screenY)
@@ -158,8 +183,6 @@ namespace Clumsy {
 			if (m_BattleState == START) 
 			{
 				m_textString = "Watch out! An enemy approaches: ";
-				
-				std::cout << "dupcia" << std::endl;
 				m_BattleState = PLAYERTURN;
 			}
 
