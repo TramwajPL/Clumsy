@@ -111,10 +111,10 @@ namespace Clumsy
 		bool m_MoveTooFar = false;
 		bool m_TooMuchWood = false;
 
-<<<<<<< HEAD
+
 		void AddCube(Cube* c) { m_Cubes.push_back(c); }
 		void UpdateCubes();
-=======
+
 		float GetScaleUp() { return m_ScaleUp; }
 		void  IncreaseScaleUp() { m_ScaleUp += 0.1f; }
 		void  SetScaleUp(float newScale) { m_ScaleUp = newScale; }
@@ -124,7 +124,7 @@ namespace Clumsy
 
 		float GetXScaleBackground() {}
 		void  SetXScaleBackground(float newScale) { m_XScaleBackground = newScale; }
->>>>>>> development
+
 
 	private:
 		//Bar
