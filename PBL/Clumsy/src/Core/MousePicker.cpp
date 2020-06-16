@@ -11,6 +11,8 @@
 #include "../Game/TurnSystem.h"
 #include "../Components/RenderModelComponent.h"
 #include "../Game/Enemy.h"
+#include "../GUI/DestructionBar.h"
+
 namespace Clumsy
 {
 	template<typename Base, typename T>
@@ -201,7 +203,10 @@ namespace Clumsy
 						RenderEngine::GetInstance()->wasCut = true;
 						//RenderEngine::GetInstance()->cutTreesTransforms.push_back(RenderEngine::GetInstance()->treeTransforms.at(t));
 						RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
-
+						if ((RenderEngine::GetInstance()->GetBackgroundBar()->GetScale().x - 0.0001) > RenderEngine::GetInstance()->GetDestructionBar()->GetScale().x)
+						{
+							RenderEngine::GetInstance()->IncreaseScaleUp();
+						}
 						for (int k = 0; k < RenderEngine::GetInstance()->ground.size(); k++)
 						{
 							if (*destination == RenderEngine::GetInstance()->ground[k].GetPos())

@@ -103,6 +103,9 @@
     <ClCompile Include="src\GUI\PokemonGUI.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\GUI\DestructionBar.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -268,6 +271,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="src\GUI\PokemonGUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUI\DestructionBar.h">
       <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>

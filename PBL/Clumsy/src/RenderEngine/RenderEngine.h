@@ -105,17 +105,26 @@ namespace Clumsy
 
 		bool isPlayed = false;
 
-		float GetScaleUp() { return m_ScaleUp; }
-
 		float m_MoveFailTime;
 		bool m_MoveTooFar = false;
 		bool m_TooMuchWood = false;
+
+		float GetScaleUp() { return m_ScaleUp; }
+		void  IncreaseScaleUp() { m_ScaleUp += 0.1f; }
+		void  SetScaleUp(float newScale) { m_ScaleUp = newScale; }
+		DestructionBar* GetDestructionBar() { return destructionBar; }
+		DestructionBar* GetBackgroundBar() { return background; }
+
+
+		float GetXScaleBackground() {}
+		void  SetXScaleBackground(float newScale) { m_XScaleBackground = newScale; }
 
 	private:
 		//Bar
 		DestructionBar* background;
 		DestructionBar* destructionBar;
 		float m_ScaleUp = 0.0f;
+		float m_XScaleBackground = 1.0f; //default
 
 		//void Run();
 		void CleanUp();
