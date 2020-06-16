@@ -6,6 +6,7 @@
 #include "PokemonGUI.h"
 #include "../RenderEngine/RenderEngine.h"
 #include "../RenderEngine/TexturedRect.h"
+#include "../Game/Enemy.h"
 #include <thread>
 
 namespace Clumsy {
@@ -217,6 +218,7 @@ namespace Clumsy {
 
 			if (m_BattleState == WON)
 			{
+				Clumsy::RenderEngine::GetInstance()->enemy->Die();
 				m_textString = "You won!!!";
 				std::this_thread::sleep_for(std::chrono::seconds(2));
 				m_BattleCommences = false;

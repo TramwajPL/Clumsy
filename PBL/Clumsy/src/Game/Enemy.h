@@ -2,6 +2,7 @@
 #include "../Core/GameObject.h"
 #include "../RenderEngine/Model.h"
 #include "../RenderEngine/RenderEngine.h"
+#include "../GUI/PokemonGUI.h"
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -36,21 +37,20 @@ namespace Clumsy {
 
 		void Fight()
 		{
+			RenderEngine::GetInstance()->GetPokemonGUI()->SetEnabled(true);
+			RenderEngine::GetInstance()->GetPokemonGUI()->m_BattleCommences = true;
 			std::cout << "FIGHT!" << std::endl;
 		}
 
-		void Die(int test)
+		void Die()
 		{
-			if (test == 4)
+			if (RenderEngine::GetInstance()->GetPokemonGUI()->getBattleState() == PokemonGUI::BattleState::WON)
 			{
-				SetIsDead(true);
-				SetCondition(true);
+				std::cout << "umrzyj" << std::endl;
 				m_IsActive = false;
 				isEnemyDead = true;
 				m_Condition =  true;
-
 			}
-
 		}
 
 		/*void chechIfDead(int test)

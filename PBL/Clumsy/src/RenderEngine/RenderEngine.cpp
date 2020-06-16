@@ -82,7 +82,7 @@ namespace Clumsy
 		m_StoreGUI = new StoreGUI();
 		m_WarehouseGUI = new WarehouseGUI();
 		m_MenuGUI = new MenuGUI();
-		//m_PokemonGUI = new PokemonGUI(buttonShader);
+		m_PokemonGUI = new PokemonGUI(buttonShader);
 	    m_TexturedRect = new TexturedRect("../Clumsy/src/models/tutek1.jpg", glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec3(-0.5f, 0.5f, 0.0f));
 	    m_PokemonRect = new TexturedRect("../Clumsy/src/models/battle2.jpg", glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(1.0f, -1.0f, 0.0f), glm::vec3(-1.0f, -1.0f, 0.0f), glm::vec3(-1.0f, 1.0f, 0.0f));
 	    m_PokemonEnemy = new TexturedRect("../Clumsy/src/models/ent.jpg", glm::vec3(0.7f, 0.8f, 0.0f), glm::vec3(0.7f, 0.4f, 0.0f), glm::vec3(0.5f, 0.4f, 0.0f), glm::vec3(0.5f, 0.8f, 0.0f));

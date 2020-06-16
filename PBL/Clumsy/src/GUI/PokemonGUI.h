@@ -25,7 +25,7 @@ namespace Clumsy {
 		BattleState getBattleState() { return m_BattleState; }
 
 		std::string m_textString;
-		bool m_BattleCommences = true;
+		bool m_BattleCommences = false;
 	private:
 		bool m_AttackButtonClickable = false;
 		bool m_HealButtonClickable = false;
@@ -39,7 +39,7 @@ namespace Clumsy {
 		unsigned int VBO, VAO, EBO;
 		int width, height, nrChannels;
 		unsigned int texture;
-		bool m_Enabled = true;
+		bool m_Enabled = false;
 		DestructionBar* backEnemy;
 		DestructionBar* backPlayer;
 		DestructionBar* Enemy;
