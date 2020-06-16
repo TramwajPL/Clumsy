@@ -105,7 +105,7 @@
     </ClCompile>
     <ClCompile Include="src\GUI\DestructionBar.cpp" />
     <ClCompile Include="src\RenderEngine\TexturedRect.cpp">
-      <Filter>GUI</Filter>
+      <Filter>RenderEngine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -276,7 +276,7 @@
     </ClInclude>
     <ClInclude Include="src\GUI\DestructionBar.h" />
     <ClInclude Include="src\RenderEngine\TexturedRect.h">
-      <Filter>GUI</Filter>
+      <Filter>RenderEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

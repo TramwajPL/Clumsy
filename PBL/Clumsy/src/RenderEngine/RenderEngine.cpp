@@ -8,7 +8,7 @@
 
 #include "Model.h"
 #include "RenderEngine.h"
-#include "../GUI/TexturedRect.h"
+#include "TexturedRect.h"
 
 #include "../GUI/GUI.h"
 #include "../GUI/Button.h"
@@ -319,7 +319,7 @@ namespace Clumsy
 		// fail info
 		if (m_MoveTooFar)
 		{
-			//m_TexturedRect->Render(mainMenuShader);
+			m_TexturedRect->Render(mainMenuShader);
 			gui->RenderText(textShader, "I can't go that far at once!", SCR_WIDTH / 2 - 200.0f, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 		}
 		if (m_TooMuchWood)
