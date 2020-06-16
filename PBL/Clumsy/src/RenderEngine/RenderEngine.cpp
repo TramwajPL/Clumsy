@@ -12,6 +12,7 @@
 #include "../GUI/GUI.h"
 #include "../GUI/Button.h"
 #include "../GUI/MenuGUI.h"
+#include "../GUI/PokemonGUI.h"
 #include "../GUI/StoreGUI.h"
 #include "../GUI/WarehouseGUI.h"
 #include "../Game/Enemy.h"
@@ -79,6 +80,7 @@ namespace Clumsy
 		m_StoreGUI = new StoreGUI();
 		m_WarehouseGUI = new WarehouseGUI();
 		m_MenuGUI = new MenuGUI();
+		m_PokemonGUI = new PokemonGUI();
 
 
 
@@ -340,6 +342,18 @@ namespace Clumsy
 
 
 		m_MenuGUI->Render(mainMenuShader, buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
+	}
+
+	void RenderEngine::RenderPokemonGUI()
+	{
+		glDisable(GL_DEPTH_TEST);
+
+		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
+		textShader->use();
+		textShader->setMat4("projection", projectionGUI);
+		//mainMenuShader->use();
+
+		m_PokemonGUI->Render(mainMenuShader, buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 	}
 
 	void RenderEngine::CleanUp()

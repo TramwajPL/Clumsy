@@ -57,6 +57,7 @@
 #include "GUI/Button.h"
 #include "GUI/StoreGUI.h"
 #include "GUI/WarehouseGUI.h"
+#include "GUI/PokemonGUI.h"
 
 //////////////////
 

@@ -34,6 +34,7 @@
     <ClCompile Include="src\GUI\Button.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
     <ClCompile Include="src\GUI\MenuGUI.cpp" />
+    <ClCompile Include="src\GUI\PokemonGUI.cpp" />
     <ClCompile Include="src\GUI\StoreGUI.cpp" />
     <ClCompile Include="src\GUI\WarehouseGUI.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -89,6 +90,7 @@
     <ClInclude Include="src\GUI\Button.h" />
     <ClInclude Include="src\GUI\GUI.h" />
     <ClInclude Include="src\GUI\MenuGUI.h" />
+    <ClInclude Include="src\GUI\PokemonGUI.h" />
     <ClInclude Include="src\GUI\StoreGUI.h" />
     <ClInclude Include="src\GUI\WarehouseGUI.h" />
     <ClInclude Include="src\Particles\ParticleGenerator.h" />

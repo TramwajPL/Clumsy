@@ -14,14 +14,18 @@
 #include "../Game/TreeObject.h"
 #include "../Game/Warehouse.h"
 #include "../GUI/WarehouseGUI.h"
+#include "../GUI/PokemonGUI.h"
 
 namespace Clumsy 
 {	
 	void Game::Render()
 	{
-		if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
-			RenderEngine::GetInstance()->RenderMainMenu();
+		if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
+			RenderEngine::GetInstance()->RenderPokemonGUI();
 		}
+		/*if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
+			RenderEngine::GetInstance()->RenderMainMenu();
+		}*/
 		else {	
 			RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();
 			RenderEngine::GetInstance()->Render(m_Root); 
