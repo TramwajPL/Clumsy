@@ -27,6 +27,7 @@ namespace Clumsy
 	class MenuGUI;
 	class ParticleGenerator;
 	class RenderModelComponent;
+	class DestructionBar;
 
 	class RenderEngine
 	{
@@ -99,8 +100,15 @@ namespace Clumsy
 		}
 
 		bool isPlayed = false;
+
+		float GetScaleUp() { return m_ScaleUp; }
+
 	private:
-		
+		//Bar
+		DestructionBar* background;
+		DestructionBar* destructionBar;
+		float m_ScaleUp = 0.0f;
+
 		//void Run();
 		void CleanUp();
 		GLFWwindow* m_GLFWWindow;
