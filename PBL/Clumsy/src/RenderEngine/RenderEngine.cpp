@@ -311,11 +311,11 @@ namespace Clumsy
 		// fail info
 		if (m_MoveTooFar)
 		{
-			gui->RenderText(textShader, "I can't go that far at once!", SCR_WIDTH / 2 - 50.0f, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(textShader, "I can't go that far at once!", SCR_WIDTH / 2 - 200.0f, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 		}
 		if (m_TooMuchWood)
 		{
-			gui->RenderText(textShader, "Not enough space for wood!", SCR_WIDTH / 2 - 50.0f, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(textShader, "Not enough space for wood!", SCR_WIDTH / 2 - 225.0f, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 		}
 
 		Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
