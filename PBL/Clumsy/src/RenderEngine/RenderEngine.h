@@ -25,6 +25,7 @@ namespace Clumsy
 	class Enemy;
 	class WarehouseGUI;
 	class MenuGUI;
+	class PokemonGUI;
 	class ParticleGenerator;
 	class RenderModelComponent;
 	class DestructionBar;
@@ -42,6 +43,7 @@ namespace Clumsy
 		void Render(GameObject object);
 		void RenderGUI();
 		void RenderMainMenu();
+		void RenderPokemonGUI();
 		void AddLights(const BaseLight& light) { m_Lights.push_back(&light); }
 		const BaseLight& GetActiveLight() const { return *m_ActiveLight; }
 		void setFrustum(glm::mat4 viewProjection);
@@ -56,6 +58,7 @@ namespace Clumsy
 		StoreGUI* GetStoreGUI() { return m_StoreGUI; }
 		WarehouseGUI* GetWarehouseGUI() { return m_WarehouseGUI; }
 		MenuGUI* GetMenuGUI() { return m_MenuGUI; }
+		PokemonGUI* GetPokemonGUI() { return m_PokemonGUI; }
 
 		bool isFrustumSet = false;
 		bool wasCameraMoved = true;
@@ -94,6 +97,7 @@ namespace Clumsy
 		void SetDestination(glm::vec3 pos) { m_Destination = pos; }
 		void SetCurrentPlayer(RenderModelComponent* rmc) { m_CurrentPlayer = rmc; }
 		void SetDeltaMove(glm::vec3 delta) { m_DeltaMove = delta; }
+		Shader* GetShaderText() { return textShader; }
 
 		Camera* getCamera() {
 			return m_Camera;
@@ -158,6 +162,7 @@ namespace Clumsy
 		StoreGUI* m_StoreGUI;
 		WarehouseGUI* m_WarehouseGUI;
 		MenuGUI* m_MenuGUI;
+		PokemonGUI* m_PokemonGUI;
 		
 
 		PostProcessor* Effects;

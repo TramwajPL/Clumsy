@@ -100,7 +100,7 @@
     <ClCompile Include="src\Game\Enemy.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\GUI\DestructionBar.cpp">
+    <ClCompile Include="src\GUI\PokemonGUI.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -267,7 +267,7 @@
     <ClInclude Include="src\Components\RenderInstancedBurnedGroundComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="src\GUI\DestructionBar.h">
+    <ClInclude Include="src\GUI\PokemonGUI.h">
       <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
