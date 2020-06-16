@@ -29,6 +29,7 @@ namespace Clumsy
 	class ParticleGenerator;
 	class RenderModelComponent;
 	class DestructionBar;
+	class TexturedRect;
 
 	class RenderEngine
 	{
@@ -173,6 +174,7 @@ namespace Clumsy
 		MenuGUI* m_MenuGUI;
 		PokemonGUI* m_PokemonGUI;
 		
+		TexturedRect* m_TexturedRect;
 
 		PostProcessor* Effects;
 		float m_ShakeTime;

@@ -103,8 +103,9 @@
     <ClCompile Include="src\GUI\PokemonGUI.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\GUI\DestructionBar.cpp">
-      <Filter>GUI</Filter>
+    <ClCompile Include="src\GUI\DestructionBar.cpp" />
+    <ClCompile Include="src\RenderEngine\TexturedRect.cpp">
+      <Filter>RenderEngine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -273,8 +274,9 @@
     <ClInclude Include="src\GUI\PokemonGUI.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\GUI\DestructionBar.h">
-      <Filter>GUI</Filter>
+    <ClInclude Include="src\GUI\DestructionBar.h" />
+    <ClInclude Include="src\RenderEngine\TexturedRect.h">
+      <Filter>RenderEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
