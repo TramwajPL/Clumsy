@@ -103,6 +103,10 @@ namespace Clumsy
 
 		float GetScaleUp() { return m_ScaleUp; }
 
+		float m_MoveFailTime;
+		bool m_MoveTooFar = false;
+		bool m_TooMuchWood = false;
+
 	private:
 		//Bar
 		DestructionBar* background;

@@ -27,11 +27,11 @@
 #include "../Particles/ParticleGenerator.h"
 #include "../GUI/DestructionBar.h"
 
-//const unsigned int SCR_WIDTH = 1920;
-//const unsigned int SCR_HEIGHT = 1080;
+const unsigned int SCR_WIDTH = 1920;
+const unsigned int SCR_HEIGHT = 1080;
 
-const unsigned int SCR_WIDTH = 1366;
-const unsigned int SCR_HEIGHT = 768;//zmienic
+//const unsigned int SCR_WIDTH = 1366;
+//const unsigned int SCR_HEIGHT = 768;//zmienic
 
 namespace Clumsy
 {
@@ -307,6 +307,16 @@ namespace Clumsy
 		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
 		textShader->use();
 		textShader->setMat4("projection", projectionGUI);
+
+		// fail info
+		if (m_MoveTooFar)
+		{
+			gui->RenderText(textShader, "I can't go that far at once!", SCR_WIDTH / 2 - 50.0f, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+		}
+		if (m_TooMuchWood)
+		{
+			gui->RenderText(textShader, "Not enough space for wood!", SCR_WIDTH / 2 - 50.0f, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+		}
 
 		Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
 		if (player)
