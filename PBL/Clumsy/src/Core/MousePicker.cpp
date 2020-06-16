@@ -100,6 +100,13 @@ namespace Clumsy
 		{
 			checkCollisionResult = CheckCollision(&PhysicsEngine::GetInstance()->GetObject(i).GetCollider());
 			if (checkCollisionResult != -1) {
+				if (a == true) {
+					//RenderEngine::GetInstance()->m_FirstInstruction = true;
+					RenderEngine::GetInstance()->m_FirstInstructionTime = 0.5f;
+					RenderEngine::GetInstance()->m_SecondInstructionTime = 10.5f;
+					RenderEngine::GetInstance()->m_ThirdInstructionTime = 20.5f;
+					a = false;
+				}
 				//vector of collider's position  
 				glm::vec3 vectorGameObject = PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
 				for (int j = 0; j < RenderEngine::GetInstance()->map->GetAllChildren().size(); j++) 
@@ -169,6 +176,7 @@ namespace Clumsy
 				{
 					isThereEnemy = true;
 				}
+		
 
 				if (!isThereATree)
 				{
@@ -255,6 +263,7 @@ namespace Clumsy
 				RenderEngine::GetInstance()->m_MoveFailTime = 0.8f;
 			}
 		}
+
 	}
 
 }

@@ -43,5 +43,6 @@ namespace Clumsy
 		glm::mat4 m_ViewMatrix;
 		Window* m_Window;
 		Camera* m_Camera;
+		bool a = true, b = true, c = true, d = true;
 	};
 }

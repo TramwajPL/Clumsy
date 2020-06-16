@@ -110,6 +110,18 @@ namespace Clumsy
 		bool m_MoveTooFar = false;
 		bool m_TooMuchWood = false;
 
+		bool m_SecondInstruction = true;
+		float m_SecondInstructionTime;
+
+		bool m_ThirdInstruction = true;
+		float m_ThirdInstructionTime;
+
+		bool m_FirstInstruction = true;
+		float m_FirstInstructionTime;
+
+		//bool m_FirstInstruction = true;
+		//float m_FirstInstructionTime;
+
 		float GetScaleUp() { return m_ScaleUp; }
 		void  IncreaseScaleUp() { m_ScaleUp += 0.1f; }
 		void  SetScaleUp(float newScale) { m_ScaleUp = newScale; }
@@ -175,6 +187,8 @@ namespace Clumsy
 		PokemonGUI* m_PokemonGUI;
 		
 		TexturedRect* m_TexturedRect;
+		TexturedRect* m_Instruction2;
+		TexturedRect* m_Instruction3;
 
 		PostProcessor* Effects;
 		float m_ShakeTime;

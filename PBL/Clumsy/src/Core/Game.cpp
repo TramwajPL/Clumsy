@@ -23,7 +23,7 @@ namespace Clumsy
 		if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderPokemonGUI();
 		}
-		/*if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
+	/*	if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderMainMenu();
 		}*/
 		else {	
@@ -50,6 +50,23 @@ namespace Clumsy
 			{
 				Clumsy::RenderEngine::GetInstance()->m_MoveTooFar = false;
 				Clumsy::RenderEngine::GetInstance()->m_TooMuchWood = false;
+			}
+		}
+		//first instruction
+		if (RenderEngine::GetInstance()->m_ThirdInstructionTime > 0.0f)
+		{
+			RenderEngine::GetInstance()->m_FirstInstructionTime -= deltaTime;
+			RenderEngine::GetInstance()->m_SecondInstructionTime -= deltaTime;
+			RenderEngine::GetInstance()->m_ThirdInstructionTime -= deltaTime;
+			if (RenderEngine::GetInstance()->m_FirstInstructionTime <= 0.0f)
+			{
+				Clumsy::RenderEngine::GetInstance()-> m_FirstInstruction = false;
+			} 
+			if (RenderEngine::GetInstance()->m_SecondInstructionTime <= 0.0f) {
+				Clumsy::RenderEngine::GetInstance()->m_SecondInstruction = false;
+			}	
+			if (RenderEngine::GetInstance()->m_ThirdInstructionTime <= 0.0f) {
+				Clumsy::RenderEngine::GetInstance()->m_ThirdInstruction = false;
 			}
 		}
 		// shake

@@ -83,7 +83,10 @@ namespace Clumsy
 		m_WarehouseGUI = new WarehouseGUI();
 		m_MenuGUI = new MenuGUI();
 		m_PokemonGUI = new PokemonGUI();
-	    m_TexturedRect = new TexturedRect("../Clumsy/src/models/tutek1.jpg", glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec3(-0.5f, 0.5f, 0.0f));
+	    m_TexturedRect = new TexturedRect("../Clumsy/src/models/tutek1.jpg", glm::vec3(0.9f, 0.9f, 0.0f), glm::vec3(0.9, 0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, 0.9f, 0.0f));
+		
+		m_Instruction2 = new TexturedRect("../Clumsy/src/models/tutek2.jpg", glm::vec3(0.9f, 0.9f, 0.0f), glm::vec3(0.9, 0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, 0.9f, 0.0f));
+		m_Instruction3 = new TexturedRect("../Clumsy/src/models/tutek3.jpg", glm::vec3(0.9f, 0.9f, 0.0f), glm::vec3(0.9, 0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, 0.9f, 0.0f));
 
 
 
@@ -282,7 +285,7 @@ namespace Clumsy
 			setFrustum(comboMatrix);
 			isFrustumSet = true;
 		}
-
+		
 		
 		object.RenderAll(*m_Shader);
 		
@@ -315,11 +318,21 @@ namespace Clumsy
 		textShader->setMat4("projection", projectionGUI);
 		
 		mainMenuShader->use();
-
+	
+		if (m_ThirdInstruction)
+		{
+			if (m_FirstInstruction && m_SecondInstruction) {
+				m_TexturedRect->Render(mainMenuShader);
+			} else if (m_FirstInstruction == false && m_SecondInstruction == true) {
+				m_Instruction2->Render(mainMenuShader);
+			}
+			else {
+				m_Instruction3->Render(mainMenuShader);
+			}
+		}
 		// fail info
 		if (m_MoveTooFar)
 		{
-			m_TexturedRect->Render(mainMenuShader);
 			gui->RenderText(textShader, "I can't go that far at once!", SCR_WIDTH / 2 - 200.0f, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 		}
 		if (m_TooMuchWood)
