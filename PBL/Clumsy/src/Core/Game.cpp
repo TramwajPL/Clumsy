@@ -21,16 +21,15 @@ namespace Clumsy
 {	
 	void Game::Render()
 	{
-<<<<<<< HEAD
 		if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderPokemonGUI();
 		}
 	/*	if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderMainMenu();
-=======
+
 		/*if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->GetPokemonGUI()->SetEnabled(false);
->>>>>>> development
+
 		}*/
 		if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderMainMenu();
