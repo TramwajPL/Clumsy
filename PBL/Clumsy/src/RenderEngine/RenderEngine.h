@@ -27,11 +27,9 @@ namespace Clumsy
 	class MenuGUI;
 	class ParticleGenerator;
 	class RenderModelComponent;
-<<<<<<< HEAD
 	class Instruction;
-=======
 	class DestructionBar;
->>>>>>> development
+
 
 	class RenderEngine
 	{

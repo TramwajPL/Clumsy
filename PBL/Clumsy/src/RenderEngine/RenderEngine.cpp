@@ -30,11 +30,11 @@
 #include "../Particles/ParticleGenerator.h"
 #include "../GUI/DestructionBar.h"
 
-//const unsigned int SCR_WIDTH = 1920;
-//const unsigned int SCR_HEIGHT = 1080;
+const unsigned int SCR_WIDTH = 1920;
+const unsigned int SCR_HEIGHT = 1080;
 
-const unsigned int SCR_WIDTH = 1366;
-const unsigned int SCR_HEIGHT = 768;//zmienic
+//const unsigned int SCR_WIDTH = 1366;
+//const unsigned int SCR_HEIGHT = 768;//zmienic
 
 namespace Clumsy
 {
@@ -85,16 +85,14 @@ namespace Clumsy
 		m_WarehouseGUI = new WarehouseGUI();
 		m_MenuGUI = new MenuGUI();
 
-<<<<<<< HEAD
 		instruction1 = new Instruction("../Clumsy/src/models/container.jpg", mainMenuShader);
 
 		//enemy = new Enemy();
 		//enemy->SetM_Tag("enemy");
-=======
+
 		background = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), buttonShader);
 		destructionBar = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), buttonShader);
 
->>>>>>> development
 	}
 
 	TextureClass RenderEngine::loadTextureFromFile(const char* file, bool alpha)
