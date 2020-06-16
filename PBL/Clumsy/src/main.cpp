@@ -71,11 +71,15 @@ public:
 
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent();
-		rmc = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90.0f);
+		//rmc = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90.0f);
 		enemyRmc = new Clumsy::RenderModelComponent(enemyModel, Clumsy::RenderEngine::GetInstance()->enemy->GetTransform(), 360.0f,true); //enemy RMC //ost zmiana
 
 		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90);
 		boy->m_Rmc = rmc1;
+		Clumsy::Cube* c1 = new Clumsy::Cube(boyTransform);
+		c1->SetPlayer(rmc1);
+		Clumsy::RenderEngine::GetInstance()->AddCube(c1);
+
 		AddToScene((boy)->AddComponent(rmc1));
 		AddToScene((Clumsy::RenderEngine::GetInstance()->enemy)->AddComponent(enemyRmc)); //enemy Add to scene //ost zmiana
 

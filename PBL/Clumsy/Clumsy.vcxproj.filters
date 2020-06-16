@@ -104,9 +104,6 @@
       <Filter>GUI</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI\DestructionBar.cpp" />
-    <ClCompile Include="src\RenderEngine\TexturedRect.cpp">
-      <Filter>RenderEngine</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -122,9 +119,6 @@
     </ClInclude>
     <ClInclude Include="src\Core\CoreEngine.h">
       <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Components\MoveComponent.h">
-      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="src\Components\PhysicsEngineComponent.h">
       <Filter>Components</Filter>
@@ -275,9 +269,6 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="src\GUI\DestructionBar.h" />
-    <ClInclude Include="src\RenderEngine\TexturedRect.h">
-      <Filter>RenderEngine</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">

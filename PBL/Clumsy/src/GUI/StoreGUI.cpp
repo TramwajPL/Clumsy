@@ -131,7 +131,7 @@ namespace Clumsy
 			m_Buttons[3]->OnClick();
 			if (m_Player->GetWoodCount() >= 5)
 			{
-				// TODO wypalanko
+				// wypalanko
 				m_Player->PayInWood(5);
 				m_Player->enableBurn();
 				m_Buttons[3]->m_Ok = true;

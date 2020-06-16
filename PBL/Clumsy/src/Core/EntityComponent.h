@@ -15,7 +15,7 @@ namespace Clumsy
 		void SetParent(GameObject* parent) { m_Parent = parent; }
 		
 		GameObject* GetParent() { return m_Parent; }
-		Transform GetParentTransform() { return m_Parent->GetTransform(); }
+		Transform* GetParentTransform() { return &m_Parent->GetTransform(); }
 		
 		virtual void Render(Shader& shader) {}
 		virtual void Update() {}
