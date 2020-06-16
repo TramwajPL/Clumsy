@@ -304,7 +304,7 @@ namespace Clumsy
 	{
 		glDisable(GL_CULL_FACE);
 		buttonShader->use();
-		background->Render(glm::vec3(1.0, 0.13f, 0.3f));
+		background->Render(glm::vec3(m_XScaleBackground, 0.13f, 0.3f));
 		destructionBar->Render(glm::vec3(m_ScaleUp, 0.13f, 0.3f));
 		glEnable(GL_CULL_FACE);
 
@@ -433,22 +433,6 @@ namespace Clumsy
 			m_WarehouseGUI->SetEnabled(!m_WarehouseGUI->IsEnabled());
 		}
 
-		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_I) == GLFW_PRESS) {
-			if ((background->GetScale().x - 0.0001) > destructionBar->GetScale().x)
-			{
-				std::cout << "Scale of x of destruction bar: " << destructionBar->GetScale().x << std::endl;
-				std::cout << "Scale of x of background bar: " << background->GetScale().x << std::endl;
-				m_ScaleUp += 0.01f;
-			}
-			else
-			{
-				std::cout << "STOP" << std::endl;
-			}
-		}
-
-		/*if (glfwGetKey(m_GLFWWindow, GLFW_KEY_M) == GLFW_PRESS) {
-			m_MenuGUI->SetEnabled(!m_MenuGUI->IsEnabled());
-		}*/
 	}
 
 	unsigned int RenderEngine::loadCubemap(std::vector<std::string> faces)

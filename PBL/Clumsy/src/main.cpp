@@ -31,6 +31,7 @@ public:
 
 	virtual void Init()
 	{
+		Clumsy::RenderEngine::GetInstance()->SetXScaleBackground(1.0); //zmiana wielkoœci paska pod spodem (zielonego) czerwony zawsze dochodzi  tylko do jego koñca
 		std::string filename = "Test.unity";
 		SceneParser(Clumsy::RenderEngine::GetInstance()->map, filename);
 
