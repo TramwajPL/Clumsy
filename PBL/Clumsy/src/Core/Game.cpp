@@ -15,6 +15,7 @@
 #include "../Game/Warehouse.h"
 #include "../GUI/WarehouseGUI.h"
 #include "../GUI/PokemonGUI.h"
+#include "../Audio/AudioMaster.h"
 
 namespace Clumsy 
 {	
@@ -39,6 +40,7 @@ namespace Clumsy
 	{
 		TurnSystem::GetInstance()->Update();
 		m_Root.UpdateAll();
+		RenderEngine::GetInstance()->UpdateCubes();
 		// gui buttons change colors
 		RenderEngine::GetInstance()->GetWarehouseGUI()->Update(deltaTime);
 		RenderEngine::GetInstance()->GetStoreGUI()->Update(deltaTime);
@@ -99,6 +101,10 @@ namespace Clumsy
 			AddToScene((boy)->AddComponent(rmc));
 			boy->AddComponent(new PhysicsObjectComponent(ob));
 			TurnSystem::GetInstance()->AddPlayer(boy);
+
+			Clumsy::Cube* c1 = new Clumsy::Cube(transform);
+			c1->SetPlayer(rmc);
+			Clumsy::RenderEngine::GetInstance()->AddCube(c1);
 		}
 	}
 

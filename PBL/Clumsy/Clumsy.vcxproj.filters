@@ -103,6 +103,7 @@
     <ClCompile Include="src\GUI\PokemonGUI.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\GUI\DestructionBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -118,9 +119,6 @@
     </ClInclude>
     <ClInclude Include="src\Core\CoreEngine.h">
       <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Components\MoveComponent.h">
-      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="src\Components\PhysicsEngineComponent.h">
       <Filter>Components</Filter>
@@ -270,6 +268,7 @@
     <ClInclude Include="src\GUI\PokemonGUI.h">
       <Filter>GUI</Filter>
     </ClInclude>
+    <ClInclude Include="src\GUI\DestructionBar.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">

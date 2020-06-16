@@ -52,6 +52,8 @@ namespace Clumsy
 		textShader = new Shader("../Clumsy/src/Shaders/text_VS.glsl", "../Clumsy/src/Shaders/text_FS.glsl");
 		buttonShader = new Shader("../Clumsy/src/Shaders/button_VS.glsl", "../Clumsy/src/Shaders/button_FS.glsl");
 
+		shaderCube = new Shader("../Clumsy/src/Shaders/cubeMap_VS.glsl", "../Clumsy/src/Shaders/cubeMap_FS.glsl");
+
 		Effects = new PostProcessor(*m_Postprocessing, SCR_WIDTH, SCR_HEIGHT);
 		shaderCube = new Shader("../Clumsy/src/Shaders/cubeMap_VS.glsl", "../Clumsy/src/Shaders/cubeMap_FS.glsl");
 		mainMenuShader = new Shader("../Clumsy/src/Shaders/main_menu_VS.glsl", "../Clumsy/src/Shaders/main_menu_FS.glsl");
@@ -278,10 +280,13 @@ namespace Clumsy
 			setFrustum(comboMatrix);
 			isFrustumSet = true;
 		}
-
-		
+				
 		object.RenderAll(*m_Shader);
 		
+		for (int i = 0; i < m_Cubes.size(); i++)
+		{
+			m_Cubes[i]->Render(shaderCube);
+		}
 
 		if (isPlayed == true) {
 			glm::mat4 projectionParticles = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), static_cast<float>(SCR_HEIGHT), 0.0f, -1.0f, 1.0f);
@@ -471,6 +476,12 @@ namespace Clumsy
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
 		return textureID;
+	}
+
+	void RenderEngine::UpdateCubes()
+	{
+		for (int i = 0; i < m_Cubes.size(); i++)
+			m_Cubes[i]->Update();
 	}
 
 }

@@ -129,10 +129,10 @@ namespace Clumsy
 		{
 			m_Buttons[3]->m_EffectTime = 0.2f;
 			m_Buttons[3]->OnClick();
-			if (m_Player->GetWoodCount() >= 1)
+			if (m_Player->GetWoodCount() >= 5)
 			{
-				// TODO wypalanko
-				m_Player->PayInWood(1);
+				// wypalanko
+				m_Player->PayInWood(5);
 				m_Player->enableBurn();
 				m_Buttons[3]->m_Ok = true;
 			}

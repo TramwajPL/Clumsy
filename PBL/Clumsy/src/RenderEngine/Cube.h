@@ -1,21 +1,30 @@
 #pragma once
 #include <glm/glm.hpp>
+
 #include "Shader.h"
+#include "../Core/GameObject.h"
+#include "../Game/TurnSystem.h"
 
-namespace Clumsy {
+namespace Clumsy 
+{
+	class RenderModelComponent;
+	class Transform;
 
-	class RenderEngine;
-
-	class Cube {
+	class Cube : public GameObject 
+	{
 	public:
 
-		Cube(glm::vec3 cubeTranslate, glm::vec3 cubeScale);
-		void Render(Shader* shaderCube, unsigned int cubemapTexture);
+        Cube(Transform transform);
+
+		void Render(Shader* shaderCube);
+		void Update();
+		void SetPlayer(RenderModelComponent* rmc);
+
+		bool m_Render = false;
 
 	private:
-
-		glm::vec3 m_CubeTranslate;
-		glm::vec3 m_CubeScale;
+		RenderModelComponent* m_Player;
+		glm::vec3 m_Scale = glm::vec3(0.15f);
 		unsigned int cubeVAO, cubeVBO;
 
 	};

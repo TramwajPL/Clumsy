@@ -15,6 +15,7 @@
 #include "../Core/GameObject.h"
 #include "../PhysicsEngine/Plane.h"
 #include "../Game/TreeObject.h"
+#include "../RenderEngine/Cube.h"
 
 namespace Clumsy 
 {
@@ -111,6 +112,9 @@ namespace Clumsy
 		bool m_MoveTooFar = false;
 		bool m_TooMuchWood = false;
 
+		void AddCube(Cube* c) { m_Cubes.push_back(c); }
+		void UpdateCubes();
+
 	private:
 		//Bar
 		DestructionBar* background;
@@ -135,7 +139,6 @@ namespace Clumsy
 		Shader* particleShader;
 		Shader* shaderCube;
 		Shader* mainMenuShader;
-
 
 		glm::mat4 projection;
 		glm::mat4 view;
@@ -172,5 +175,8 @@ namespace Clumsy
 		glm::vec3 m_Destination;
 		RenderModelComponent* m_CurrentPlayer;
 		glm::vec3 m_DeltaMove;
+
+
+		std::vector<Cube*> m_Cubes;
 	};
 }
