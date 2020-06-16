@@ -168,13 +168,10 @@ namespace Clumsy
 				}
 				std::cout << "DESTINATION: " << glm::to_string(*destination) << std::endl;
 				std::cout << "DESTINATION: " << glm::to_string(RenderEngine::GetInstance()->enemy->GetPos()) <<std::endl;
-				if (destination->x - RenderEngine::GetInstance()->enemy->GetPos().x < 1.0 || destination->x - RenderEngine::GetInstance()->enemy->GetPos().x > -1.0)
+				std::cout << glm::length(RenderEngine::GetInstance()->enemy->GetPos() - *destination) << std::endl;
+				if (glm::length(RenderEngine::GetInstance()->enemy->GetPos() - *destination) < 1.5f)
 				{
-					isThereEnemy = true;
-				}
-				if (destination->x - RenderEngine::GetInstance()->enemy->GetPos().x < 1.0 || destination->x - RenderEngine::GetInstance()->enemy->GetPos().x > -1.0)
-				{
-					isThereEnemy = true;
+					RenderEngine::GetInstance()->enemy->Fight();
 				}
 		
 
@@ -238,7 +235,6 @@ namespace Clumsy
 					}
 					countTrees++;
 					Clumsy::RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
-					Clumsy::RenderEngine::GetInstance()->enemy->Die(countTrees);
 					player->IncrementWoodCount();
 				}
 				else if (isThereATree && !player->IsIncrementingWoodCountPossible())
