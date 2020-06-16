@@ -39,10 +39,13 @@ namespace Clumsy
 			// bind Texture
 			glBindTexture(GL_TEXTURE_2D, texture);
 
+			glDisable(GL_CULL_FACE);
 			// render container
 			shader->use();
 			glBindVertexArray(VAO);
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+			glEnable(GL_CULL_FACE);
 
 			// Render buttons
 			for (int i = 0; i < m_Buttons.size(); i++)
