@@ -55,6 +55,7 @@
     <ClCompile Include="src\RenderEngine\RenderUtil.cpp" />
     <ClCompile Include="src\RenderEngine\Shader.cpp" />
     <ClCompile Include="src\RenderEngine\TextureClass.cpp" />
+    <ClCompile Include="src\RenderEngine\TexturedRect.cpp" />
     <ClCompile Include="src\RenderEngine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +115,7 @@
     <ClInclude Include="src\RenderEngine\RenderUtil.h" />
     <ClInclude Include="src\RenderEngine\Shader.h" />
     <ClInclude Include="src\RenderEngine\TextureClass.h" />
+    <ClInclude Include="src\RenderEngine\TexturedRect.h" />
     <ClInclude Include="src\RenderEngine\Window.h" />
   </ItemGroup>
   <ItemGroup>

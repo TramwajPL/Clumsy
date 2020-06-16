@@ -8,6 +8,7 @@
 
 #include "Model.h"
 #include "RenderEngine.h"
+#include "TexturedRect.h"
 
 #include "../GUI/GUI.h"
 #include "../GUI/Button.h"
@@ -84,6 +85,9 @@ namespace Clumsy
 		m_WarehouseGUI = new WarehouseGUI();
 		m_MenuGUI = new MenuGUI();
 		m_PokemonGUI = new PokemonGUI();
+	    m_TexturedRect = new TexturedRect("../Clumsy/src/models/tutek1.jpg", glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec3(-0.5f, 0.5f, 0.0f));
+
+
 
 		background = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), buttonShader);
 		destructionBar = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), buttonShader);
@@ -305,7 +309,7 @@ namespace Clumsy
 	{
 		glDisable(GL_CULL_FACE);
 		buttonShader->use();
-		background->Render(glm::vec3(1.0, 0.13f, 0.3f));
+		background->Render(glm::vec3(m_XScaleBackground, 0.13f, 0.3f));
 		destructionBar->Render(glm::vec3(m_ScaleUp, 0.13f, 0.3f));
 		glEnable(GL_CULL_FACE);
 
@@ -314,16 +318,20 @@ namespace Clumsy
 		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
 		textShader->use();
 		textShader->setMat4("projection", projectionGUI);
+		
+		mainMenuShader->use();
 
 		// fail info
 		if (m_MoveTooFar)
 		{
+			m_TexturedRect->Render(mainMenuShader);
 			gui->RenderText(textShader, "I can't go that far at once!", SCR_WIDTH / 2 - 200.0f, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 		}
 		if (m_TooMuchWood)
 		{
 			gui->RenderText(textShader, "Not enough space for wood!", SCR_WIDTH / 2 - 225.0f, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 		}
+
 
 		Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
 		if (player)
@@ -430,22 +438,6 @@ namespace Clumsy
 			m_WarehouseGUI->SetEnabled(!m_WarehouseGUI->IsEnabled());
 		}
 
-		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_I) == GLFW_PRESS) {
-			if ((background->GetScale().x - 0.0001) > destructionBar->GetScale().x)
-			{
-				std::cout << "Scale of x of destruction bar: " << destructionBar->GetScale().x << std::endl;
-				std::cout << "Scale of x of background bar: " << background->GetScale().x << std::endl;
-				m_ScaleUp += 0.01f;
-			}
-			else
-			{
-				std::cout << "STOP" << std::endl;
-			}
-		}
-
-		/*if (glfwGetKey(m_GLFWWindow, GLFW_KEY_M) == GLFW_PRESS) {
-			m_MenuGUI->SetEnabled(!m_MenuGUI->IsEnabled());
-		}*/
 	}
 
 	unsigned int RenderEngine::loadCubemap(std::vector<std::string> faces)

@@ -30,6 +30,7 @@ namespace Clumsy
 	class ParticleGenerator;
 	class RenderModelComponent;
 	class DestructionBar;
+	class TexturedRect;
 
 	class RenderEngine
 	{
@@ -106,20 +107,31 @@ namespace Clumsy
 
 		bool isPlayed = false;
 
-		float GetScaleUp() { return m_ScaleUp; }
-
 		float m_MoveFailTime;
 		bool m_MoveTooFar = false;
 		bool m_TooMuchWood = false;
 
+<<<<<<< HEAD
 		void AddCube(Cube* c) { m_Cubes.push_back(c); }
 		void UpdateCubes();
+=======
+		float GetScaleUp() { return m_ScaleUp; }
+		void  IncreaseScaleUp() { m_ScaleUp += 0.1f; }
+		void  SetScaleUp(float newScale) { m_ScaleUp = newScale; }
+		DestructionBar* GetDestructionBar() { return destructionBar; }
+		DestructionBar* GetBackgroundBar() { return background; }
+
+
+		float GetXScaleBackground() {}
+		void  SetXScaleBackground(float newScale) { m_XScaleBackground = newScale; }
+>>>>>>> development
 
 	private:
 		//Bar
 		DestructionBar* background;
 		DestructionBar* destructionBar;
 		float m_ScaleUp = 0.0f;
+		float m_XScaleBackground = 1.0f; //default
 
 		//void Run();
 		void CleanUp();
@@ -167,6 +179,7 @@ namespace Clumsy
 		MenuGUI* m_MenuGUI;
 		PokemonGUI* m_PokemonGUI;
 		
+		TexturedRect* m_TexturedRect;
 
 		PostProcessor* Effects;
 		float m_ShakeTime;
