@@ -20,19 +20,25 @@ namespace Clumsy
 {	
 	void Game::Render()
 	{
-		if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
-			RenderEngine::GetInstance()->RenderPokemonGUI();
-		}
-		/*if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
-			RenderEngine::GetInstance()->RenderMainMenu();
+		/*if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
+			RenderEngine::GetInstance()->GetPokemonGUI()->SetEnabled(false);
 		}*/
+		if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
+			RenderEngine::GetInstance()->RenderMainMenu();
+		}
 		else {	
 			RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();
 			RenderEngine::GetInstance()->Render(m_Root); 
 			RenderEngine::GetInstance()->GetPostProcessor()->EndRender();
 			RenderEngine::GetInstance()->GetPostProcessor()->Render(glfwGetTime());
 			RenderEngine::GetInstance()->RenderGUI();
+			/*if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
+				RenderEngine::GetInstance()->GetPokemonGUI()->SetEnabled(false);
+			}*/
 		}
+		/*if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
+			RenderEngine::GetInstance()->GetPokemonGUI()->SetEnabled(false);
+		}*/
 	}
 
 	void Game::Update(float deltaTime)
@@ -77,10 +83,10 @@ namespace Clumsy
 				}
 			}
 		}
-		if (RenderEngine::GetInstance()->GetPokemonGUI()->m_BattleCommences) 
+		/*if (RenderEngine::GetInstance()->GetPokemonGUI()->m_BattleCommences) 
 		{
 			RenderEngine::GetInstance()->GetPokemonGUI()->HandleBattle();
-		}
+		}*/
 	}
 
 	void Game::HandleEvent(Event* event)
