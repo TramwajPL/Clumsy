@@ -28,6 +28,7 @@ namespace Clumsy
 	class PokemonGUI;
 	class ParticleGenerator;
 	class RenderModelComponent;
+	class DestructionBar;
 
 	class RenderEngine
 	{
@@ -103,8 +104,19 @@ namespace Clumsy
 		}
 
 		bool isPlayed = false;
+
+		float GetScaleUp() { return m_ScaleUp; }
+
+		float m_MoveFailTime;
+		bool m_MoveTooFar = false;
+		bool m_TooMuchWood = false;
+
 	private:
-		
+		//Bar
+		DestructionBar* background;
+		DestructionBar* destructionBar;
+		float m_ScaleUp = 0.0f;
+
 		//void Run();
 		void CleanUp();
 		GLFWwindow* m_GLFWWindow;

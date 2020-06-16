@@ -213,8 +213,6 @@ namespace Clumsy
 								//std::cout << "burned ground position: " << to_string(RenderEngine::GetInstance()->ground.begin() + t) << std::endl;
 							}
 						}
-
-
 					}
 
 
@@ -230,7 +228,13 @@ namespace Clumsy
 					Clumsy::RenderEngine::GetInstance()->enemy->Die(countTrees);
 					player->IncrementWoodCount();
 				}
-				if (isThereEnemy)
+				else if (isThereATree && !player->IsIncrementingWoodCountPossible())
+				{
+					// full wood
+					RenderEngine::GetInstance()->m_TooMuchWood = true;
+					RenderEngine::GetInstance()->m_MoveFailTime = 0.8f;
+				}
+				else if (isThereEnemy)
 				{
 					Clumsy::RenderEngine::GetInstance()->enemy->Fight();
 				}
@@ -238,6 +242,12 @@ namespace Clumsy
 				{
 					std::cout << "Nie mozesz sie poruszyc " << std::endl;
 				}
+			}
+			else if (glm::length(*currentpos - *destination) >= 1.5f)
+			{
+				// too far
+				RenderEngine::GetInstance()->m_MoveTooFar = true;
+				RenderEngine::GetInstance()->m_MoveFailTime = 0.8f;
 			}
 		}
 	}

@@ -39,14 +39,27 @@ namespace Clumsy
 	{
 		TurnSystem::GetInstance()->Update();
 		m_Root.UpdateAll();
+		// gui buttons change colors
 		RenderEngine::GetInstance()->GetWarehouseGUI()->Update(deltaTime);
 		RenderEngine::GetInstance()->GetStoreGUI()->Update(deltaTime);
+		// move fail
+		if (RenderEngine::GetInstance()->m_MoveFailTime > 0.0f)
+		{
+			RenderEngine::GetInstance()->m_MoveFailTime -= deltaTime;
+			if (RenderEngine::GetInstance()->m_MoveFailTime <= 0.0f)
+			{
+				Clumsy::RenderEngine::GetInstance()->m_MoveTooFar = false;
+				Clumsy::RenderEngine::GetInstance()->m_TooMuchWood = false;
+			}
+		}
+		// shake
 		if (RenderEngine::GetInstance()->GetShakeTime() > 0.0f)
 		{
 			RenderEngine::GetInstance()->SetShakeTime(RenderEngine::GetInstance()->GetShakeTime() - deltaTime);
 			if (RenderEngine::GetInstance()->GetShakeTime() <= 0.0f)
 				Clumsy::RenderEngine::GetInstance()->GetPostProcessor()->m_Shake = false;
 		}
+		//movement
 		if (RenderEngine::GetInstance()->m_Movement)
 		{
 			glm::vec3 currentPos = RenderEngine::GetInstance()->GetCurrentPlayer()->m_Transform.GetPos();

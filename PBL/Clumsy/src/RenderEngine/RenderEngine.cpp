@@ -26,6 +26,7 @@
 #include "../Core/EntityComponent.h"
 #include "../Components/RenderModelComponent.h"
 #include "../Particles/ParticleGenerator.h"
+#include "../GUI/DestructionBar.h"
 
 const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1080;
@@ -82,10 +83,9 @@ namespace Clumsy
 		m_MenuGUI = new MenuGUI();
 		m_PokemonGUI = new PokemonGUI();
 
+		background = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), buttonShader);
+		destructionBar = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), buttonShader);
 
-
-		//enemy = new Enemy();
-		//enemy->SetM_Tag("enemy");
 	}
 
 	TextureClass RenderEngine::loadTextureFromFile(const char* file, bool alpha)
@@ -298,11 +298,27 @@ namespace Clumsy
 
 	void RenderEngine::RenderGUI()
 	{
+		glDisable(GL_CULL_FACE);
+		buttonShader->use();
+		background->Render(glm::vec3(1.0, 0.13f, 0.3f));
+		destructionBar->Render(glm::vec3(m_ScaleUp, 0.13f, 0.3f));
+		glEnable(GL_CULL_FACE);
+
 		glDisable(GL_DEPTH_TEST);
 
 		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
 		textShader->use();
 		textShader->setMat4("projection", projectionGUI);
+
+		// fail info
+		if (m_MoveTooFar)
+		{
+			gui->RenderText(textShader, "I can't go that far at once!", SCR_WIDTH / 2 - 200.0f, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+		}
+		if (m_TooMuchWood)
+		{
+			gui->RenderText(textShader, "Not enough space for wood!", SCR_WIDTH / 2 - 225.0f, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+		}
 
 		Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
 		if (player)
@@ -329,6 +345,7 @@ namespace Clumsy
 		m_StoreGUI->Render(buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 		m_WarehouseGUI->Render(buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 		
+	
 	}
 
 	void RenderEngine::RenderMainMenu()
@@ -406,6 +423,19 @@ namespace Clumsy
 
 		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_P) == GLFW_PRESS) {
 			m_WarehouseGUI->SetEnabled(!m_WarehouseGUI->IsEnabled());
+		}
+
+		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_I) == GLFW_PRESS) {
+			if ((background->GetScale().x - 0.0001) > destructionBar->GetScale().x)
+			{
+				std::cout << "Scale of x of destruction bar: " << destructionBar->GetScale().x << std::endl;
+				std::cout << "Scale of x of background bar: " << background->GetScale().x << std::endl;
+				m_ScaleUp += 0.01f;
+			}
+			else
+			{
+				std::cout << "STOP" << std::endl;
+			}
 		}
 
 		/*if (glfwGetKey(m_GLFWWindow, GLFW_KEY_M) == GLFW_PRESS) {
