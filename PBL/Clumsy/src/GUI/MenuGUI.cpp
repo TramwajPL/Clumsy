@@ -102,6 +102,8 @@ namespace Clumsy
 
 		// load and create a texture 
 		// -------------------------
+		stbi_set_flip_vertically_on_load(true);
+
 		glGenTextures(1, &texture);
 		glBindTexture(GL_TEXTURE_2D, texture); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
 		// set the texture wrapping parameters
@@ -112,7 +114,7 @@ namespace Clumsy
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		// load image, create texture and generate mipmaps
 		// The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
-		unsigned char* data = stbi_load(std::string("../Clumsy/src/models/container.jpg").c_str(), &width, &height, &nrChannels, 0);
+		unsigned char* data = stbi_load(std::string("../Clumsy/src/models/Background.jpg").c_str(), &width, &height, &nrChannels, 0);
 		if (data)
 		{
 			std::cout << "Ladowana tekstura" << std::endl;
@@ -124,6 +126,7 @@ namespace Clumsy
 			std::cout << "Failed to load texture" << std::endl;
 		}
 		stbi_image_free(data);
+		stbi_set_flip_vertically_on_load(false);
 
 	}
 
