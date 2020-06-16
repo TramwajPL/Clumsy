@@ -21,6 +21,7 @@ namespace Clumsy
 		bool IsEnabled() { return m_Enabled; }
 		void SetEnabled(bool doopy) { m_Enabled = doopy; }
 
+		void Update(float deltaTime);
 		void HandleButtonClick(float screenX, float screenY);
 
 	private:

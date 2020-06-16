@@ -13,6 +13,7 @@
 #include "../Game/TurnSystem.h"
 #include "../Game/TreeObject.h"
 #include "../Game/Warehouse.h"
+#include "../GUI/WarehouseGUI.h"
 
 namespace Clumsy 
 {	
@@ -34,6 +35,8 @@ namespace Clumsy
 	{
 		TurnSystem::GetInstance()->Update();
 		m_Root.UpdateAll();
+		RenderEngine::GetInstance()->GetWarehouseGUI()->Update(deltaTime);
+		RenderEngine::GetInstance()->GetStoreGUI()->Update(deltaTime);
 		if (RenderEngine::GetInstance()->GetShakeTime() > 0.0f)
 		{
 			RenderEngine::GetInstance()->SetShakeTime(RenderEngine::GetInstance()->GetShakeTime() - deltaTime);
@@ -70,9 +73,7 @@ namespace Clumsy
 			PhysicsObject* ob = new PhysicsObject(
 				new BoundingSphere(boy->GetTransform().GetPos(), 0.1f), &boy->GetTransform());
 			PhysicsEngine::GetInstance()->AddObject(*ob);
-			Model* model = new Model();
-			model->loadModel("../Clumsy/src/models/man/model.dae");
-			RenderModelComponent* rmc = new RenderModelComponent(model, boy->GetTransform(), 90.0f);
+			RenderModelComponent* rmc = new RenderModelComponent(playerModel, boy->GetTransform(), 90.0f);
 			boy->m_Rmc = rmc;
 			AddToScene((boy)->AddComponent(rmc));
 			boy->AddComponent(new PhysicsObjectComponent(ob));
@@ -272,8 +273,11 @@ namespace Clumsy
 		PhysicsObject* pOShop = new PhysicsObject(new Aabb(min2, max2), &transformShop);
 		PhysicsEngine::GetInstance()->AddObject(*pOShop);
 		Warehouse* shop = new Warehouse(transformShop);
+		GameObject* landShop = new GameObject(transformShop);
 		shop->SetM_Tag("shop");
 		map->AddChild((shop)->AddComponent(new RenderModelComponent(mShop, transformShop, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop)));
+	/*	transformShop.SetScale(0.01f);
+		map->AddChild((landShop)->AddComponent(new RenderModelComponent(m4, transformShop, 90.0f)));*/
 
 		// warehouse
 		glm::vec3 minWood = glm::vec3(transformWoodHouse.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));

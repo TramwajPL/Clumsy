@@ -6,10 +6,10 @@
 
 #include "Clumsy.h"
 
-const unsigned int SCR_WIDTH = 1920;
-//const unsigned int SCR_WIDTH = 1366;
-//const unsigned int SCR_HEIGHT = 768;//zmieniæ
-const unsigned int SCR_HEIGHT = 1080;//zmieniæ
+//const unsigned int SCR_WIDTH = 1920;
+const unsigned int SCR_WIDTH = 1366;
+const unsigned int SCR_HEIGHT = 768;//zmieniæ
+//const unsigned int SCR_HEIGHT = 1080;//zmieniæ
 
 Clumsy::GameObject* object1;
 Clumsy::RenderModelComponent* rmc;
@@ -34,28 +34,26 @@ public:
 		std::string filename = "Test.unity";
 		SceneParser(Clumsy::RenderEngine::GetInstance()->map, filename);
 
-		glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
+		glm::vec3 pos = glm::vec3(0.2f, -1.5f, 0.0f);
 		glm::vec3 enemyPos = glm::vec3(-0.5f, 0.0f, 0.0f);
+
 		glm::quat rotBoy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f));
+
 		glm::quat rotEnemy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f));
-		rotEnemy = glm::rotate(rotEnemy,glm::radians(180.f), glm::vec3(0.0f, 0.0f, 1.0f) * rotEnemy);
+		rotEnemy = glm::rotate(rotEnemy, glm::radians(180.f), glm::vec3(0.0f, 0.0f, 1.0f) * rotEnemy);
 
 		float scale = 0.0001f;
 
-		Clumsy::Transform boyTransform(pos - 0.8f, rotBoy, 0.1f);
-		Clumsy::Transform boyTransform2(pos - 0.3f, rotBoy, 0.1f);
+		Clumsy::Transform boyTransform(pos, rotBoy, 0.1f);
 		Clumsy::Transform enemyTransform(enemyPos, rotEnemy, 0.01); //enemy
 
-		Clumsy::Model* model = new Clumsy::Model();
-		model->loadModel("../Clumsy/src/models/man/model.dae");
+		playerModel = new Clumsy::Model();
+		playerModel->loadModel("../Clumsy/src/models/man/model.dae");
 
 		Clumsy::Model* enemyModel = new Clumsy::Model();
-		enemyModel->loadModel("../Clumsy/src/models/enemyModels/Idle/Idle.dae"); //enemy
-
-		
+		enemyModel->loadModel("../Clumsy/src/models/enemyModels/Idle/Idle.dae"); //enemy		
 			
 		boy = new Clumsy::Player(boyTransform);
-		Clumsy::Player* boy2 = new Clumsy::Player(boyTransform2);
 
 		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(enemyModel, enemyTransform,1); //enemy change how much we need to collect wood
 		Clumsy::RenderEngine::GetInstance()->enemy->SetM_Tag("enemy"); //ost zmiana
@@ -63,33 +61,24 @@ public:
 		Clumsy::PhysicsObject* ob1 = new Clumsy::PhysicsObject(
 			new Clumsy::BoundingSphere(boy->GetTransform().GetPos(), 0.1f), &boy->GetTransform());
 
-		Clumsy::PhysicsObject* ob2 = new Clumsy::PhysicsObject(
-			new Clumsy::BoundingSphere(boy2->GetTransform().GetPos(), 0.1f), &boy2->GetTransform());
-
 		Clumsy::PhysicsObject* obEnemy = new Clumsy::PhysicsObject(
 			new Clumsy::BoundingSphere(Clumsy::RenderEngine::GetInstance()->enemy->GetTransform().GetPos(), 0.1f),
 			&Clumsy::RenderEngine::GetInstance()->enemy->GetTransform()); //enemy Collider //ost zmiana
 
 		Clumsy::PhysicsEngine::GetInstance()->AddObject(*ob1);
-		Clumsy::PhysicsEngine::GetInstance()->AddObject(*ob2);
 		Clumsy::PhysicsEngine::GetInstance()->AddObject(*obEnemy); //enemy add Physic Component
 
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent();
-		rmc = new Clumsy::RenderModelComponent(model, boy->GetTransform(), 90.0f);
+		rmc = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90.0f);
 		enemyRmc = new Clumsy::RenderModelComponent(enemyModel, Clumsy::RenderEngine::GetInstance()->enemy->GetTransform(), 360.0f,true); //enemy RMC //ost zmiana
 
-		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(model, boy->GetTransform(), 90);
+		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90);
 		boy->m_Rmc = rmc1;
 		AddToScene((boy)->AddComponent(rmc1));
-
-		Clumsy::RenderModelComponent* rmc2 = new Clumsy::RenderModelComponent(model, boy2->GetTransform(), 90.0f);
-		boy2->m_Rmc = rmc2;
-		AddToScene((boy2)->AddComponent(rmc2));
 		AddToScene((Clumsy::RenderEngine::GetInstance()->enemy)->AddComponent(enemyRmc)); //enemy Add to scene //ost zmiana
 
 		boy->AddComponent(new Clumsy::PhysicsObjectComponent(ob1));
-		boy2->AddComponent(new Clumsy::PhysicsObjectComponent(ob2));
 		Clumsy::RenderEngine::GetInstance()->enemy->AddComponent(new Clumsy::PhysicsObjectComponent(obEnemy)); //enemy //ost zmiana
 
 		AddToScene((new Clumsy::GameObject())
@@ -99,9 +88,8 @@ public:
 
 		Clumsy::TurnSystem::GetInstance()->AddPlayer(nature);
 		Clumsy::TurnSystem::GetInstance()->AddPlayer(boy);
-		Clumsy::TurnSystem::GetInstance()->AddPlayer(boy2);
 
-		//Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
+		Clumsy::AudioMaster::GetInstance()->PlayAmbientMusic();
 	}
 
 private:

@@ -79,7 +79,7 @@ namespace Clumsy
 	}
 
 	void WarehouseGUI::HandleButtonClick(float screenX, float screenY)
-	{
+	{		
 		if (screenX > (m_Buttons[0]->GetCorner().x - (m_Buttons[0]->GetScale().x / 2)) && screenX < (m_Buttons[0]->GetCorner().x + (m_Buttons[0]->GetScale().x / 2))
 			&& screenY < (m_Buttons[0]->GetCorner().y + m_Buttons[0]->GetScale().y) && screenY > m_Buttons[0]->GetCorner().y)
 		{
@@ -91,23 +91,43 @@ namespace Clumsy
 			&& screenY < (m_Buttons[1]->GetCorner().y + m_Buttons[1]->GetScale().y) && screenY > m_Buttons[1]->GetCorner().y)
 		{
 			m_Buttons[1]->OnClick();
+			m_Buttons[1]->m_EffectTime = 0.2f;
 			Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
 			if (player && player->IsDecrementingWoodCountPossible())
 			{
 				m_Warehouse->StorePieceOfWood();
 				player->DecrementWoodCount();
+				m_Buttons[1]->m_Ok = true;
+			}
+			else
+			{
+				m_Buttons[1]->m_Fail = true;
 			}
 		}
 		else if (screenX > (m_Buttons[2]->GetCorner().x - (m_Buttons[2]->GetScale().x / 2)) && screenX < (m_Buttons[2]->GetCorner().x + (m_Buttons[2]->GetScale().x / 2))
 			&& screenY < (m_Buttons[2]->GetCorner().y + m_Buttons[2]->GetScale().y) && screenY > m_Buttons[2]->GetCorner().y)
 		{
 			m_Buttons[2]->OnClick();
+			m_Buttons[2]->m_EffectTime = 0.2f;
 			Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
 			if (player && player->IsIncrementingWoodCountPossible() && m_Warehouse->IsThereAnyWood())
 			{
 				m_Warehouse->WithdrawPieceOfWood();
 				player->IncrementWoodCount();
+				m_Buttons[2]->m_Ok = true;
 			}
+			else
+			{
+				m_Buttons[2]->m_Fail = true;
+			}
+		}
+	}
+
+	void WarehouseGUI::Update(float deltaTime)
+	{
+		for (int i = 1; i < m_Buttons.size(); i++)
+		{
+			m_Buttons[i]->Update(deltaTime);
 		}
 	}
 }

@@ -32,6 +32,7 @@
     <ClCompile Include="src\Game\Enemy.cpp" />
     <ClCompile Include="src\Game\TurnSystem.cpp" />
     <ClCompile Include="src\GUI\Button.cpp" />
+    <ClCompile Include="src\GUI\DestructionBar.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
     <ClCompile Include="src\GUI\Instruction.cpp" />
     <ClCompile Include="src\GUI\MenuGUI.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="src\Game\TurnSystem.h" />
     <ClInclude Include="src\Game\Warehouse.h" />
     <ClInclude Include="src\GUI\Button.h" />
+    <ClInclude Include="src\GUI\DestructionBar.h" />
     <ClInclude Include="src\GUI\GUI.h" />
     <ClInclude Include="src\GUI\Instruction.h" />
     <ClInclude Include="src\GUI\MenuGUI.h" />

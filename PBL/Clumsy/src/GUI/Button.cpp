@@ -23,6 +23,10 @@ namespace Clumsy
 			0.5f, -0.5f, 0.0f,  // top left //really: bootm right
 			0.5f, 0.5f, 0.0f, // top right 
 		};
+
+		m_OkColor = glm::vec3(0.2f, 0.72f, 0.16f);
+		m_FailColor = glm::vec3(0.8f, 0.06f, 0.06f);
+
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
 
@@ -45,7 +49,18 @@ namespace Clumsy
 		model = glm::translate(model, glm::vec3(m_Corner, 0.0f));
 		model = glm::scale(model, glm::vec3(m_Scale, 0.0f));
 		shader->setMat4("model",model);
-		shader->setVec3("Color", m_Color);
+		if (m_Ok)
+		{
+			shader->setVec3("Color", m_OkColor);
+		}
+		else if (m_Fail)
+		{
+			shader->setVec3("Color", m_FailColor);
+		}
+		else
+		{
+			shader->setVec3("Color", m_Color);
+		}
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}
 
@@ -58,5 +73,18 @@ namespace Clumsy
 	{
 		glDeleteVertexArrays(1, &VAO); 
 		glDeleteBuffers(1, &VBO); 
+	}
+
+	void Button::Update(float deltaTime)
+	{
+		if (m_EffectTime > 0.0f)
+		{
+			m_EffectTime -= deltaTime;
+			if (m_EffectTime <= 0.0f)
+			{
+				m_Ok = false;
+				m_Fail = false;
+			}
+		}
 	}
 }
