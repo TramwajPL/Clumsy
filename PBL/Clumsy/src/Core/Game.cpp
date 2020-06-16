@@ -64,6 +64,10 @@ namespace Clumsy
 				}
 			}
 		}
+		if (RenderEngine::GetInstance()->GetPokemonGUI()->m_BattleCommences) 
+		{
+			RenderEngine::GetInstance()->GetPokemonGUI()->HandleBattle();
+		}
 	}
 
 	void Game::HandleEvent(Event* event)

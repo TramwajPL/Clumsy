@@ -4,6 +4,8 @@
 #include <stb_image.h>
 
 #include "PokemonGUI.h"
+#include "../RenderEngine/RenderEngine.h"
+#include <thread>
 
 namespace Clumsy {
 	PokemonGUI::PokemonGUI()
@@ -11,9 +13,9 @@ namespace Clumsy {
 		BackgroundInit();
 
 		//Buttons
-		Button* b1 = new Button(glm::vec2(-0.01f, 0.2f), "Attack", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
+		Button* b1 = new Button(glm::vec2(0.2f, -0.5f), "ATTACK", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.3f, 0.3f));
 		m_Buttons.push_back(b1);
-		Button* b2 = new Button(glm::vec2(-0.01f, 0.05f), "Heal", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
+		Button* b2 = new Button(glm::vec2(0.6f, -0.5f), "HEAL", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.3f, 0.3f));
 		m_Buttons.push_back(b2);
 
 		gui = new GUI();
@@ -21,7 +23,7 @@ namespace Clumsy {
 
 	void PokemonGUI::Render(Shader* shader, Shader* shaderButton, Shader* shaderText, int SCR_WIDTH, int SCR_HEIGHT)
 	{
-		m_Shader = shader;
+		m_Shader = shaderText;
 		m_SCRWIDTH = SCR_WIDTH;
 		m_SCRHEIGHT = SCR_HEIGHT;
 		if (m_Enabled)
@@ -45,10 +47,9 @@ namespace Clumsy {
 			}
 
 			// Render text
-			for (int i = 0; i < m_Buttons.size(); i++)
-			{
-				gui->RenderText(shader, m_Buttons[i]->GetText(), m_SCRWIDTH - 1250, m_SCRHEIGHT - 445 - 80 * i, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
-			}
+			gui->RenderText(RenderEngine::GetInstance()->GetShaderText(), m_textString, m_SCRWIDTH - 1650.0f, m_SCRHEIGHT - 820.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(m_Shader, m_Buttons[0]->GetText(), m_SCRWIDTH - 840, m_SCRHEIGHT - 820, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(m_Shader, m_Buttons[1]->GetText(), m_SCRWIDTH - 430, m_SCRHEIGHT - 820, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 		}
 	}
 
@@ -115,60 +116,88 @@ namespace Clumsy {
 		stbi_image_free(data);*/
 	}
 
-	void PokemonGUI::HandleButtonClick(float screenX, float screenY, GLFWwindow* glfwWindow)
+	void PokemonGUI::HandleButtonClick(float screenX, float screenY)
 	{
 		if (screenX > (m_Buttons[0]->GetCorner().x - (m_Buttons[0]->GetScale().x / 2)) && screenX < (m_Buttons[0]->GetCorner().x + (m_Buttons[0]->GetScale().x / 2))
-			&& screenY < (m_Buttons[0]->GetCorner().y + m_Buttons[0]->GetScale().y) && screenY > m_Buttons[0]->GetCorner().y)
+			&& screenY < (m_Buttons[0]->GetCorner().y + m_Buttons[0]->GetScale().y) && screenY > m_Buttons[0]->GetCorner().y
+			&& m_AttackButtonClickable)
 		{
-			m_EnemyHp - m_AttackValue;
-			if (m_EnemyHp <= 0)
+			m_EnemyHp -= m_AttackValue;
+			std::cout << m_EnemyHp << std::endl;
+			if (m_EnemyHp <= 0) {
 				m_BattleState = WON;
-			m_BattleState = ENEMYTURN;
-			m_Buttons[0]->OnClick();
+				m_AttackButtonClickable = false;
+				m_HealButtonClickable = false;
+			}
+			else {
+				m_BattleState = ENEMYTURN;
+				m_Buttons[0]->OnClick();
+				m_AttackButtonClickable = false;
+				m_HealButtonClickable = false;
+			}
 		}
 		else if (screenX > (m_Buttons[1]->GetCorner().x - (m_Buttons[1]->GetScale().x / 2)) && screenX < (m_Buttons[1]->GetCorner().x + (m_Buttons[1]->GetScale().x / 2))
-			&& screenY < (m_Buttons[1]->GetCorner().y + m_Buttons[1]->GetScale().y) && screenY > m_Buttons[1]->GetCorner().y)
+			&& screenY < (m_Buttons[1]->GetCorner().y + m_Buttons[1]->GetScale().y) && screenY > m_Buttons[1]->GetCorner().y
+			&& m_HealButtonClickable)
 		{
-			m_PlayerHP + m_HealValue;
+			m_PlayerHP += m_HealValue;
 			if (m_PlayerHP > 100)
 				m_PlayerHP = 100;
 			m_BattleState = ENEMYTURN;
 			m_Buttons[1]->OnClick();
+			m_AttackButtonClickable = false;
+			m_HealButtonClickable = false;
 		}
 	}
 
-	void PokemonGUI::HandleBattle(float screenX, float screenY, GLFWwindow* glfwWindow)
+	void PokemonGUI::HandleBattle()
 	{
-		while (m_BattleCommences) 
+		if (m_BattleCommences) 
 		{
+			std::this_thread::sleep_for(std::chrono::seconds(1));
 			if (m_BattleState == START) 
 			{
-				gui->RenderText(m_Shader, "Watch out! An enemy approaches: ", m_SCRWIDTH - 950.0f, m_SCRHEIGHT - 550.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+				m_textString = "Watch out! An enemy approaches: ";
+				
+				std::cout << "dupcia" << std::endl;
 				m_BattleState = PLAYERTURN;
 			}
 
 			if (m_BattleState == PLAYERTURN) 
 			{
-				HandleButtonClick(screenX, screenY, glfwWindow);
+				m_textString = "Its your turn! Attack or Heal!";
+				m_AttackButtonClickable = true;
+				m_HealButtonClickable = true;
 			}
 
 			if (m_BattleState == ENEMYTURN) 
 			{
+				m_textString = "Now the enemy attacks...";
 				m_PlayerHP - m_EnemyAttackValue;
 				if (m_PlayerHP <= 0) 
 				{
 					m_BattleState = LOST;
 				}
+				else
+				{
+					m_BattleState = PLAYERTURN;
+				}
 			}
 
 			if (m_BattleState == LOST) 
 			{
+				m_textString = "You lost ;(";
+				std::this_thread::sleep_for(std::chrono::seconds(2));
 				m_BattleCommences = false;
+				SetEnabled(false);
 			}
 
 			if (m_BattleState == WON)
 			{
+				m_textString = "You won!!!";
+				std::this_thread::sleep_for(std::chrono::seconds(2));
 				m_BattleCommences = false;
+				SetEnabled(false);
 			}
 		}
 	}

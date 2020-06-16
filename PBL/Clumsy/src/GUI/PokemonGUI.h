@@ -19,10 +19,14 @@ namespace Clumsy {
 		bool IsEnabled() { return m_Enabled; }
 		void SetEnabled(bool doopy) { m_Enabled = doopy; }
 
-		void HandleButtonClick(float screenX, float screenY, GLFWwindow* glfwWindow);
-		void HandleBattle(float screenX, float screenY, GLFWwindow* glfwWindow);
-	private:
+		void HandleButtonClick(float screenX, float screenY);
+		void HandleBattle();
+
+		std::string m_textString;
 		bool m_BattleCommences = true;
+	private:
+		bool m_AttackButtonClickable = false;
+		bool m_HealButtonClickable = false;
 		int m_PlayerHP = 100, m_EnemyHp = 100, m_AttackValue = 50, m_HealValue = 50, m_EnemyAttackValue = 10;
 		int m_SCRWIDTH;
 		int m_SCRHEIGHT;

@@ -96,6 +96,7 @@ namespace Clumsy
 		void SetDestination(glm::vec3 pos) { m_Destination = pos; }
 		void SetCurrentPlayer(RenderModelComponent* rmc) { m_CurrentPlayer = rmc; }
 		void SetDeltaMove(glm::vec3 delta) { m_DeltaMove = delta; }
+		Shader* GetShaderText() { return textShader; }
 
 		Camera* getCamera() {
 			return m_Camera;
