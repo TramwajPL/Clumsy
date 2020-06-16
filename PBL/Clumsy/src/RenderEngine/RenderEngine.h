@@ -27,6 +27,7 @@ namespace Clumsy
 	class MenuGUI;
 	class ParticleGenerator;
 	class RenderModelComponent;
+	class Instruction;
 
 	class RenderEngine
 	{
@@ -147,6 +148,7 @@ namespace Clumsy
 		WarehouseGUI* m_WarehouseGUI;
 		MenuGUI* m_MenuGUI;
 		
+		Instruction* instruction1;
 
 		PostProcessor* Effects;
 		float m_ShakeTime;

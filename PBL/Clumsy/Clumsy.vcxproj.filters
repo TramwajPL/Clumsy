@@ -100,6 +100,9 @@
     <ClCompile Include="src\Game\Enemy.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\GUI\Instruction.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -263,6 +266,9 @@
     </ClInclude>
     <ClInclude Include="src\Components\RenderInstancedBurnedGroundComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUI\Instruction.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

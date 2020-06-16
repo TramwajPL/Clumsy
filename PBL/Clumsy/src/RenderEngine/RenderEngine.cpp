@@ -14,6 +14,9 @@
 #include "../GUI/MenuGUI.h"
 #include "../GUI/StoreGUI.h"
 #include "../GUI/WarehouseGUI.h"
+
+#include "../GUI/Instruction.h"
+
 #include "../Game/Enemy.h"
 
 #include "../Core/Game.h"
@@ -52,6 +55,7 @@ namespace Clumsy
 
 		Effects = new PostProcessor(*m_Postprocessing, SCR_WIDTH, SCR_HEIGHT);
 		shaderCube = new Shader("../Clumsy/src/Shaders/cubeMap_VS.glsl", "../Clumsy/src/Shaders/cubeMap_FS.glsl");
+		
 		mainMenuShader = new Shader("../Clumsy/src/Shaders/main_menu_VS.glsl", "../Clumsy/src/Shaders/main_menu_FS.glsl");
 
 
@@ -80,7 +84,7 @@ namespace Clumsy
 		m_WarehouseGUI = new WarehouseGUI();
 		m_MenuGUI = new MenuGUI();
 
-
+		instruction1 = new Instruction("../Clumsy/src/models/container.jpg", mainMenuShader);
 
 		//enemy = new Enemy();
 		//enemy->SetM_Tag("enemy");
@@ -321,6 +325,9 @@ namespace Clumsy
 			gui->RenderText(textShader, m_ButtonCameraOnPlayer->GetText(), 25.0f, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(textShader, m_ButtonEndTurn->GetText(), 25.0f, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(textShader, m_ButtonRestart->GetText(), 25.0f, SCR_HEIGHT - 300.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+
+			mainMenuShader->use();
+			instruction1->Render();
 						
 		}
 

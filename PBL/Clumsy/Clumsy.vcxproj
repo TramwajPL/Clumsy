@@ -33,6 +33,7 @@
     <ClCompile Include="src\Game\TurnSystem.cpp" />
     <ClCompile Include="src\GUI\Button.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
+    <ClCompile Include="src\GUI\Instruction.cpp" />
     <ClCompile Include="src\GUI\MenuGUI.cpp" />
     <ClCompile Include="src\GUI\StoreGUI.cpp" />
     <ClCompile Include="src\GUI\WarehouseGUI.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="src\Game\Warehouse.h" />
     <ClInclude Include="src\GUI\Button.h" />
     <ClInclude Include="src\GUI\GUI.h" />
+    <ClInclude Include="src\GUI\Instruction.h" />
     <ClInclude Include="src\GUI\MenuGUI.h" />
     <ClInclude Include="src\GUI\StoreGUI.h" />
     <ClInclude Include="src\GUI\WarehouseGUI.h" />
