@@ -169,13 +169,20 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 				&& screenY < (centerButton.y + scale1.y) && screenY > centerButton.y)
 			{
 				Clumsy::RenderEngine::GetInstance()->GetCenterButton()->OnClick();
-				std::cout << "Is played: " << Clumsy::RenderEngine::GetInstance()->isPlayed << std::endl;
+				Clumsy::Player* player = dynamic_cast<Clumsy::Player*>(Clumsy::TurnSystem::GetInstance()->GetActivePlayer());
+				if (player)
+				{
+					glm::vec3 position = player->m_Rmc->m_Transform.GetPos();
+					Clumsy::RenderEngine::GetInstance()->getCamera()->MoveToPosition(position.x, position.z);
+				}
 			}
 			else if (screenX > (endTurnButton.x - (scale2.x / 2)) && screenX < (endTurnButton.x + (scale2.x / 2))
 				&& screenY < (endTurnButton.y + scale2.y) && screenY > endTurnButton.y)
 			{
 				Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->OnClick();
-				Clumsy::RenderEngine::GetInstance()->isPlayed = true;
+				Clumsy::Player* player = dynamic_cast<Clumsy::Player*>(Clumsy::TurnSystem::GetInstance()->GetActivePlayer());
+				if (player)
+					player->UseAllActions();
 			}
 			else if (screenX > (restartButton.x - (scale3.x / 2)) && screenX < (restartButton.x + (scale3.x / 2))
 				&& screenY < (restartButton.y + scale3.y) && screenY > restartButton.y)

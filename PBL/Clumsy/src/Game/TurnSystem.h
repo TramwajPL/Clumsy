@@ -16,7 +16,6 @@ namespace Clumsy
 		int GetTurnCounter() { return m_TurnCounter; }
 		GameObject* GetActivePlayer();
 		void AddPlayer(GameObject* player);
-		//void DeletePlayer(GameObject* player);
 
 		static TurnSystem* GetInstance();
 
