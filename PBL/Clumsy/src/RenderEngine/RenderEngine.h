@@ -137,7 +137,12 @@ namespace Clumsy
 
 
 		float GetXScaleBackground() {}
-		void  SetXScaleBackground(float newScale) { m_XScaleBackground = newScale; }
+		void  SetXScaleBackground(float newScale) 
+		{ 
+			newScale /= 10;
+			std::cout << "New Scale: " << newScale << std::endl;
+			m_XScaleBackground = newScale; 
+		}
 
 
 	private:

@@ -100,8 +100,8 @@ namespace Clumsy
 
 
 
-		background = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), buttonShader);
-		destructionBar = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), buttonShader);
+		background = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.14f, 0.52f, 0.25f), buttonShader);
+		destructionBar = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.52f, 0.18f, 0.14f), buttonShader);
 
 	}
 
