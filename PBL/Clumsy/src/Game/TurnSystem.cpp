@@ -61,6 +61,11 @@ namespace Clumsy
         }
     }
 
+    std::vector<TurnClass*> TurnSystem::GetPlayers()
+    {
+        return players;
+    }
+
     GameObject* TurnSystem::GetActivePlayer()
     {
         return m_ActivePlayer;

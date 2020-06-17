@@ -166,9 +166,6 @@ namespace Clumsy
 						break;
 					}
 				}
-				/*std::cout << "DESTINATION: " << glm::to_string(*destination) << std::endl;
-				std::cout << "DESTINATION: " << glm::to_string(RenderEngine::GetInstance()->enemy->GetPos()) <<std::endl;
-				std::cout << glm::length(RenderEngine::GetInstance()->enemy->GetPos() - *destination) << std::endl;*/
 				if (glm::length(RenderEngine::GetInstance()->enemy->GetPos() - *destination) < 1.5f && Clumsy::RenderEngine::GetInstance()->enemy->getIfActive())
 				{
 					RenderEngine::GetInstance()->enemy->Fight();
@@ -206,7 +203,6 @@ namespace Clumsy
 
 					else if (player->getCanBurn() == true) {
 						RenderEngine::GetInstance()->wasCut = true;
-						//RenderEngine::GetInstance()->cutTreesTransforms.push_back(RenderEngine::GetInstance()->treeTransforms.at(t));
 						RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
 						if ((RenderEngine::GetInstance()->GetBackgroundBar()->GetScale().x - 0.0001) > RenderEngine::GetInstance()->GetDestructionBar()->GetScale().x)
 						{
@@ -217,10 +213,7 @@ namespace Clumsy
 							if (*destination == RenderEngine::GetInstance()->ground[k].GetPos())
 							{
 								RenderEngine::GetInstance()->groundBurned.push_back(RenderEngine::GetInstance()->ground.at(k));
-								//RenderEngine::GetInstance()->groundBurned.push_back(*destination);
-								//std::cout << "burned ground position: " << to_string(RenderEngine::GetInstance()->groundBurned[0].GetPos()) << std::endl;
 								RenderEngine::GetInstance()->ground.erase(RenderEngine::GetInstance()->ground.begin() + k);
-								//std::cout << "burned ground position: " << to_string(RenderEngine::GetInstance()->ground.begin() + t) << std::endl;
 							}
 						}
 					}
@@ -230,7 +223,6 @@ namespace Clumsy
 						Clumsy::RenderEngine::GetInstance()->enemy->GetCondition() == true)
 					{
 						countTrees = 0; 
-						//std::cout << "It is dead" << std::endl;
 						Clumsy::RenderEngine::GetInstance()->enemy->SetCondition(false);
 					}
 					countTrees++;

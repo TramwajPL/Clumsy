@@ -121,9 +121,6 @@ namespace Clumsy
 		bool m_FirstInstruction = true;
 		float m_FirstInstructionTime;
 
-		//bool m_FirstInstruction = true;
-		//float m_FirstInstructionTime;
-
 
 		void AddCube(Cube* c) { m_Cubes.push_back(c); }
 		void UpdateCubes();
