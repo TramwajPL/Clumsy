@@ -36,8 +36,12 @@ namespace Clumsy
 
                 //ENEMY SPAWNS ONE TREE EVERY ONE TURN
                 if (Clumsy::RenderEngine::GetInstance()->enemy->getIfActive()) {
-
-                    SpawnOneTree();
+					int randomNumber = (rand() % 5) + 1; //range from 1 to 10
+					for (int i = 0; i < randomNumber ; i++)
+					{
+						std::cout << "Randow number of TREEEEES: " << randomNumber<<  std::endl;
+						SpawnOneTree();
+					}
                 }
 
                 if (TurnSystem::GetInstance()->GetTurnCounter() % 2 == 2)
@@ -93,7 +97,6 @@ namespace Clumsy
                 int RandomTreeToSpawn = rand() % RenderEngine::GetInstance()->cutTreesTransforms.size();
                 RenderEngine::GetInstance()->treeTransforms.push_back(RenderEngine::GetInstance()->cutTreesTransforms.at(RandomTreeToSpawn));
                 RenderEngine::GetInstance()->cutTreesTransforms.erase(RenderEngine::GetInstance()->cutTreesTransforms.begin() + RandomTreeToSpawn);
-
             }
            }
 

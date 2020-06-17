@@ -6,10 +6,10 @@
 
 #include "Clumsy.h"
 
-const unsigned int SCR_WIDTH = 1920;
-//const unsigned int SCR_WIDTH = 1366;
-//const unsigned int SCR_HEIGHT = 768;//zmieniæ
-const unsigned int SCR_HEIGHT = 1080;//zmieniæ
+//const unsigned int SCR_WIDTH = 1920;
+const unsigned int SCR_WIDTH = 1366;
+const unsigned int SCR_HEIGHT = 768;//zmieniæ
+//const unsigned int SCR_HEIGHT = 1080;//zmieniæ
 
 Clumsy::GameObject* object1;
 Clumsy::RenderModelComponent* rmc;
@@ -56,7 +56,7 @@ public:
 			
 		boy = new Clumsy::Player(boyTransform);
 
-		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(enemyModel, enemyTransform,1); //enemy change how much we need to collect wood
+		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(enemyModel, enemyTransform); //enemy change how much we need to collect wood
 		Clumsy::RenderEngine::GetInstance()->enemy->SetM_Tag("enemy"); //ost zmiana
 
 		Clumsy::PhysicsObject* ob1 = new Clumsy::PhysicsObject(
@@ -205,6 +205,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 
 int main()
 {
+	srand(time(NULL));
 	Clumsy::RenderEngine::CreateInstance(glfwWindow, window, camera);
 	Clumsy::EventSystem::GetInstance()->SubscribeListener("scroll", Clumsy::AudioMaster::GetInstance());
 	Clumsy::EventSystem::GetInstance()->SubscribeListener("move", &mp);

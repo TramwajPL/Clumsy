@@ -166,10 +166,10 @@ namespace Clumsy
 						break;
 					}
 				}
-				std::cout << "DESTINATION: " << glm::to_string(*destination) << std::endl;
+				/*std::cout << "DESTINATION: " << glm::to_string(*destination) << std::endl;
 				std::cout << "DESTINATION: " << glm::to_string(RenderEngine::GetInstance()->enemy->GetPos()) <<std::endl;
-				std::cout << glm::length(RenderEngine::GetInstance()->enemy->GetPos() - *destination) << std::endl;
-				if (glm::length(RenderEngine::GetInstance()->enemy->GetPos() - *destination) < 1.5f)
+				std::cout << glm::length(RenderEngine::GetInstance()->enemy->GetPos() - *destination) << std::endl;*/
+				if (glm::length(RenderEngine::GetInstance()->enemy->GetPos() - *destination) < 1.5f && Clumsy::RenderEngine::GetInstance()->enemy->getIfActive())
 				{
 					RenderEngine::GetInstance()->enemy->Fight();
 				}
@@ -230,7 +230,7 @@ namespace Clumsy
 						Clumsy::RenderEngine::GetInstance()->enemy->GetCondition() == true)
 					{
 						countTrees = 0; 
-						std::cout << "It is dead" << std::endl;
+						//std::cout << "It is dead" << std::endl;
 						Clumsy::RenderEngine::GetInstance()->enemy->SetCondition(false);
 					}
 					countTrees++;
@@ -249,7 +249,7 @@ namespace Clumsy
 				}
 				else
 				{
-					std::cout << "Nie mozesz sie poruszyc " << std::endl;
+					//std::cout << "Nie mozesz sie poruszyc " << std::endl;
 				}
 			}
 			else if (glm::length(*currentpos - *destination) >= 1.5f)

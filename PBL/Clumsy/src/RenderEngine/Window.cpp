@@ -38,8 +38,8 @@ namespace Clumsy
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-		//GLFWwindow* window = glfwCreateWindow(width, height, "Disaster", NULL, NULL);
-		GLFWwindow* window = glfwCreateWindow(width, height, "Disaster", glfwGetPrimaryMonitor(), NULL);
+		GLFWwindow* window = glfwCreateWindow(width, height, "Disaster", NULL, NULL);
+		//GLFWwindow* window = glfwCreateWindow(width, height, "Disaster", glfwGetPrimaryMonitor(), NULL);
 		if (window == NULL)
 		{
 			std::cout << "Failed to create GLFW window" << std::endl;
