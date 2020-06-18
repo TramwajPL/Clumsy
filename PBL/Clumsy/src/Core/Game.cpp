@@ -317,7 +317,7 @@ namespace Clumsy
 		transformShop.SetRotY(0.7f);//0
 		transformShop.SetRotZ(0.7f);//0
 		transformShop.SetRotW(0.0f);//1
-		transformShop.SetScale(0.04f);
+		transformShop.SetScale(0.07f);
 
 		transformWoodHouse.SetPosX(-.950f);
 		transformWoodHouse.SetPosY(-1.0f);
@@ -326,7 +326,7 @@ namespace Clumsy
 		transformWoodHouse.SetRotY(0.7f);//0
 		transformWoodHouse.SetRotZ(0.7f);//0
 		transformWoodHouse.SetRotW(0.0f);//1
-		transformWoodHouse.SetScale(0.04f);
+		transformWoodHouse.SetScale(0.07f);
 
 		mShop->loadModel("../Clumsy/src/models/shop/shop.obj");
 		// shop
