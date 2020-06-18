@@ -240,7 +240,14 @@ namespace Clumsy
 							transform2.SetRotY(0.7f);//0
 							transform2.SetRotZ(0.7f);//0
 							transform2.SetRotW(0.0f);//1
-							transform2.SetScale(0.1f);
+							transform2.Rotate(glm::vec3(1.0f, 0.0f, 1.0f), 90.0f);
+
+							transform2.SetScale(0.08f);
+							float i;
+							i = (rand() % 8) + 1;
+							i /= 100.0f;
+							i += transform2.GetScale();
+							transform2.SetScale(i);
 							
 							allTransformsM7.push_back(transform2);
 							RenderEngine::GetInstance()->treeTransforms.push_back(transform2);
