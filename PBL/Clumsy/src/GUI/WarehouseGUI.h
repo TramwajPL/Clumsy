@@ -14,7 +14,7 @@ namespace Clumsy
 	public:
 		WarehouseGUI();
 		~WarehouseGUI() {}
-		void Render(Shader* shader, Shader* shaderText, int SCR_WIDTH, int SCR_HEIGHT);
+		void Render(Shader* shader, Shader* shaderButton, Shader* shaderText, int SCR_WIDTH, int SCR_HEIGHT);
 		void BackgroundInit();
 		void SetActiveWarehouse(Warehouse* warehouse) { m_Warehouse = warehouse; }
 		void SetActivePlayer(Player* player) { m_Player = player; }
@@ -27,7 +27,9 @@ namespace Clumsy
 	private:
 		std::vector<Button*> m_Buttons;
 		GUI* gui;
-		unsigned int VBO, VAO;
+		Button* button;
+		unsigned int VBO, VAO, EBO, texture;
+		int width, height, nrChannels;
 		bool m_Enabled = false;
 		Warehouse* m_Warehouse;
 		Player* m_Player;

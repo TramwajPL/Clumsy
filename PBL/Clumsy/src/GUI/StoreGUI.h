@@ -12,7 +12,7 @@ namespace Clumsy
 	public:
 		StoreGUI();
 		~StoreGUI();
-		void Render(Shader* shader, Shader* shaderText, int SCR_WIDTH, int SCR_HEIGHT);
+		void Render(Shader* shader, Shader* shaderButton, Shader* shaderText, int SCR_WIDTH, int SCR_HEIGHT);
 		void BackgroundInit();
 		void SetActiveStore(GameObject* store) { m_Store = store; }
 		void SetActivePlayer(Player* player) { m_Player = player; }
@@ -26,7 +26,8 @@ namespace Clumsy
 	private:
 		std::vector<Button*> m_Buttons;
 		GUI* gui;
-		unsigned int VBO, VAO;
+		unsigned int VBO, VAO, EBO, texture;
+		int width, height, nrChannels;
 		bool m_Enabled = false;
 
 		GameObject* m_Store;
