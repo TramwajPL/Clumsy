@@ -241,7 +241,6 @@ namespace Clumsy
 							transform2.SetRotY(0.7f);//0
 							transform2.SetRotZ(0.7f);//0
 							transform2.SetRotW(0.0f);//1
-							transform2.Rotate(glm::vec3(1.0f, 0.0f, 1.0f), 90.0f);
 
 							transform2.SetScale(0.08f);
 							float i;
