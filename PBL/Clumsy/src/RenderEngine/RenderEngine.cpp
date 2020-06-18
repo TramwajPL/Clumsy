@@ -354,6 +354,10 @@ namespace Clumsy
 		{
 			gui->RenderText(textShader, "Not enough space for wood!", SCR_WIDTH / 2 - 225.0f, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 		}
+		if (m_TileOccupied)
+		{
+			gui->RenderText(textShader, "Tile already occupied!", SCR_WIDTH / 2 - 185.0f, SCR_HEIGHT - 300.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+		}
 
 
 		Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());

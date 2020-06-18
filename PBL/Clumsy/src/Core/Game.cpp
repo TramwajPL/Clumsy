@@ -70,6 +70,7 @@ namespace Clumsy
 			{
 				Clumsy::RenderEngine::GetInstance()->m_MoveTooFar = false;
 				Clumsy::RenderEngine::GetInstance()->m_TooMuchWood = false;
+				Clumsy::RenderEngine::GetInstance()->m_TileOccupied = false;
 			}
 		}
 		//first instruction

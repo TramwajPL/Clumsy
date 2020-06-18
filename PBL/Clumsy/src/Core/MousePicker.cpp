@@ -180,6 +180,8 @@ namespace Clumsy
 						if (glm::length(other->m_Rmc->m_Transform.GetPos() - *destination) < 0.8f)
 						{
 							isTherePlayer = true;
+							RenderEngine::GetInstance()->m_TileOccupied = true;
+							RenderEngine::GetInstance()->m_MoveFailTime = 0.8f;
 							std::cout << "tile occupied" << std::endl;
 							break;
 						}
@@ -232,7 +234,6 @@ namespace Clumsy
 								}
 							}
 						}
-
 
 						if (Clumsy::RenderEngine::GetInstance()->enemy->GetIsDead() == true &&
 							Clumsy::RenderEngine::GetInstance()->enemy->GetCondition() == true)

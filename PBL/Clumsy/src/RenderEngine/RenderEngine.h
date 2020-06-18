@@ -114,6 +114,7 @@ namespace Clumsy
 		float m_MoveFailTime;
 		bool m_MoveTooFar = false;
 		bool m_TooMuchWood = false;
+		bool m_TileOccupied = false;
 
 		bool m_SecondInstruction = true;
 		float m_SecondInstructionTime;
