@@ -154,7 +154,7 @@ namespace Clumsy
 		else if (screenX > (m_Buttons[2]->GetCorner().x - (m_Buttons[2]->GetScale().x / 2)) && screenX < (m_Buttons[2]->GetCorner().x + (m_Buttons[2]->GetScale().x / 2))
 			&& screenY < (m_Buttons[2]->GetCorner().y + m_Buttons[2]->GetScale().y) && screenY > m_Buttons[2]->GetCorner().y)
 		{
-			m_Enabled = false;
+			glfwSetWindowShouldClose(glfwWindow, true);
 			m_Buttons[2]->OnClick();
 		}
 	}
