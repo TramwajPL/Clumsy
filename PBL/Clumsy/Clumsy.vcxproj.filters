@@ -104,6 +104,10 @@
       <Filter>GUI</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI\DestructionBar.cpp" />
+    <ClCompile Include="src\RenderEngine\TexturedRect.cpp" />
+    <ClCompile Include="src\GUI\CreditsGUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -269,6 +273,10 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="src\GUI\DestructionBar.h" />
+    <ClInclude Include="src\RenderEngine\TexturedRect.h" />
+    <ClInclude Include="src\GUI\CreditsGUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">
