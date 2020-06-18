@@ -19,6 +19,7 @@ namespace Clumsy {
 
 		void HandleButtonClick(float screenX, float screenY);
 	private:
+		Button* b2;
 		std::vector<Button*> m_Buttons;
 		GUI* gui;
 		unsigned int VBO, VAO, EBO;

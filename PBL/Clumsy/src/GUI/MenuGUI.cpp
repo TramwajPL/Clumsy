@@ -146,8 +146,8 @@ namespace Clumsy
 		else if (screenX > (m_Buttons[1]->GetCorner().x - (m_Buttons[1]->GetScale().x / 2)) && screenX < (m_Buttons[1]->GetCorner().x + (m_Buttons[1]->GetScale().x / 2))
 			&& screenY < (m_Buttons[1]->GetCorner().y + m_Buttons[1]->GetScale().y) && screenY > m_Buttons[1]->GetCorner().y)
 		{
-			RenderEngine::GetInstance()->GetCreditsGUI()->SetEnabled(true);
 			m_Enabled = false;
+			RenderEngine::GetInstance()->GetCreditsGUI()->SetEnabled(true);
 			m_Buttons[1]->OnClick();
 		}
 

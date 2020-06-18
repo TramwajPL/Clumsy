@@ -5,7 +5,8 @@
 #include <stb_image.h>
 
 #include "CreditsGUI.h"
-
+#include "MenuGUI.h"
+#include "../RenderEngine/RenderEngine.h"
 namespace Clumsy
 {
 	CreditsGUI::CreditsGUI()
@@ -16,6 +17,7 @@ namespace Clumsy
 		Button* b1 = new Button(glm::vec2(-0.01f, -0.5f), "BACK", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
 		m_Buttons.push_back(b1);
 
+		b2 = new Button(glm::vec2(-0.01f, 0.8f), "", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 2.0f));
 
 		gui = new GUI();
 	}
@@ -46,18 +48,25 @@ namespace Clumsy
 				m_Buttons[i]->Render(shaderButton);
 			}
 
+			b2->Render(shaderButton);
+
 			// Render text
 			for (int i = 0; i < m_Buttons.size(); i++)
 			{
-				gui->RenderText(shaderText, m_Buttons[i]->GetText(), SCR_WIDTH - 1250, SCR_HEIGHT - 1000, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+				gui->RenderText(shaderText, m_Buttons[i]->GetText(), SCR_WIDTH - 1250, SCR_HEIGHT - 825, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			}
 
-			gui->RenderText(shaderText, "Disaster Team: " , SCR_WIDTH/2, SCR_HEIGHT - 100.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
-			gui->RenderText(shaderText, "Bernacik Wiktor " , SCR_WIDTH / 2, SCR_HEIGHT - 150.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
-			gui->RenderText(shaderText, "Frontczak Oliwia " , SCR_WIDTH / 2, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
-			gui->RenderText(shaderText, "Kozera Jan " , SCR_WIDTH / 2, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
-			gui->RenderText(shaderText, "Kozera Stanislaw " , SCR_WIDTH / 2, SCR_HEIGHT - 300.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
-			gui->RenderText(shaderText, "Strawiak Justyna " , SCR_WIDTH / 2, SCR_HEIGHT - 350.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "Disaster Team: " , SCR_WIDTH/2 - 240, SCR_HEIGHT - 100.0f, 1.3f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "Bernacik Wiktor " , SCR_WIDTH / 2 - 170, SCR_HEIGHT - 150.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "Frontczak Oliwia " , SCR_WIDTH / 2 - 170, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "Kozera Jan " , SCR_WIDTH / 2 - 170, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "Kozera Stanislaw " , SCR_WIDTH / 2 - 170, SCR_HEIGHT - 300.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "Strawiak Justyna " , SCR_WIDTH / 2 - 170, SCR_HEIGHT - 350.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "Background: " , SCR_WIDTH / 2 - 240, SCR_HEIGHT - 450.0f, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "https://i.imgur.com/YrcqG.jpg" , SCR_WIDTH / 2 - 240, SCR_HEIGHT - 480.0f, 0.4f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "Music: ", SCR_WIDTH / 2 - 240, SCR_HEIGHT - 530.0f, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "", SCR_WIDTH / 2 - 240, SCR_HEIGHT - 560.0f, 0.4f, glm::vec3(1.0f, 1.0f, 1.0f));
+
 
 
 		}
@@ -137,6 +146,7 @@ namespace Clumsy
 		{
 			m_Buttons[0]->OnClick();
 			m_Enabled = false;
+			RenderEngine::GetInstance()->GetMenuGUI()->SetEnabled(true);
 		}
 
 	}
