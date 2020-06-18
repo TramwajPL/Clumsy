@@ -149,6 +149,10 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		{
 			Clumsy::RenderEngine::GetInstance()->GetMenuGUI()->HandleButtonClick(screenX, screenY, glfwWindow);
 		}
+		else if (Clumsy::RenderEngine::GetInstance()->GetCreditsGUI()->IsEnabled())
+		{
+			Clumsy::RenderEngine::GetInstance()->GetCreditsGUI()->HandleButtonClick(screenX, screenY);
+		}
 		else if (Clumsy::RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled()) 
 		{
 			Clumsy::RenderEngine::GetInstance()->GetPokemonGUI()->HandleButtonClick(screenX, screenY);

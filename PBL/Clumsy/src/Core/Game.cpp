@@ -34,6 +34,11 @@ namespace Clumsy
 		if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderMainMenu();
 		}
+
+		else if (RenderEngine::GetInstance()->GetCreditsGUI()->IsEnabled() == true) {
+			RenderEngine::GetInstance()->GetMenuGUI()->SetEnabled(false);
+			RenderEngine::GetInstance()->RenderCreditsGUI();
+		}
 		else {	
 			RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();
 			RenderEngine::GetInstance()->Render(m_Root); 

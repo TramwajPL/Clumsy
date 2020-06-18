@@ -8,6 +8,8 @@
 #include "../GUI/MenuGUI.h"
 #include "../GUI/StoreGUI.h"
 #include "../EventSystem/Listener.h"
+#include "../GUI/CreditsGUI.h"
+
 
 namespace Clumsy 
 {
