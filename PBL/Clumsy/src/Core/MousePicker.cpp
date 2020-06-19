@@ -166,7 +166,7 @@ namespace Clumsy
 						break;
 					}
 				}
-				if (glm::length(RenderEngine::GetInstance()->enemy->GetPos() - *destination) < 1.5f && Clumsy::RenderEngine::GetInstance()->enemy->getIfActive())
+				if (glm::length(RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.GetPos() - *destination) < 1.5f && Clumsy::RenderEngine::GetInstance()->enemy->getIfActive())
 				{
 					RenderEngine::GetInstance()->enemy->Fight();
 				}

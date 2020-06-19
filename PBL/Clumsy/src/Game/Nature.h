@@ -37,13 +37,7 @@ namespace Clumsy
                 if (Clumsy::RenderEngine::GetInstance()->enemy->getIfActive()) 
                 {
                     // movement
-                    bool moved = false;
-                    int chance = 0;
-                    while (!moved || chance < 5)
-                    {
-                        moved = EntMovement();
-                        chance++;
-                    }
+                    EntMovement();
                     // respawn
 					int randomNumber = (rand() % 5) + 1;
 					for (int i = 0; i < randomNumber ; i++)
@@ -93,29 +87,31 @@ namespace Clumsy
             }
         }
 
-        bool EntMovement()
+        void EntMovement()
         {
-            if (RenderEngine::GetInstance()->groundSand.size() > 0)
+           for (int i = 0; i < 5; i++)
+           {
+               if (EnemyMoved(RenderEngine::GetInstance()->groundSand))
+               {
+                   return;
+               }
+               else if (EnemyMoved(RenderEngine::GetInstance()->cutTreesTransforms))
+               {
+                   return;
+               }
+               else if (EnemyMoved(RenderEngine::GetInstance()->groundBurned))
+               {
+                   return;
+               }
+           }
+        }
+
+        bool EnemyMoved(std::vector<Transform> vec)
+        {
+            if (vec.size() > 0)
             {
-                int number = rand() % RenderEngine::GetInstance()->groundSand.size();
-                glm::vec3* destination = &RenderEngine::GetInstance()->groundSand[number].GetPos();
-                std::cout << "destination ent " << glm::to_string(*destination) << std::endl;
-                glm::vec3* currentpos = &RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.GetPos();
-                std::cout << "position ent " << glm::to_string(*currentpos) << std::endl;
-                if (glm::length(*currentpos - *destination) < 2.5f)
-                {
-                    // move
-                    glm::vec3 delta = (*destination - *currentpos) * glm::vec3(0.1f);
-                    Clumsy::RenderEngine::GetInstance()->SetEnemyDestination(*destination);
-                    Clumsy::RenderEngine::GetInstance()->SetEnemyDeltaMove(delta);
-                    Clumsy::RenderEngine::GetInstance()->m_EnemyMovement = true;
-                    return true;
-                }
-            }
-            else if (RenderEngine::GetInstance()->cutTreesTransforms.size() > 0)
-            {
-                int number = rand() % RenderEngine::GetInstance()->cutTreesTransforms.size();
-                glm::vec3* destination = &RenderEngine::GetInstance()->cutTreesTransforms[number].GetPos();
+                int number = rand() % vec.size();
+                glm::vec3* destination = &vec[number].GetPos();
                 std::cout << "destination ent " << glm::to_string(*destination) << std::endl;
                 glm::vec3* currentpos = &RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.GetPos();
                 std::cout << "position ent " << glm::to_string(*currentpos) << std::endl;
