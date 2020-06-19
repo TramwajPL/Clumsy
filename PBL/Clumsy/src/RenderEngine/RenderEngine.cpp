@@ -17,7 +17,6 @@
 #include "../GUI/StoreGUI.h"
 #include "../GUI/WarehouseGUI.h"
 
-#include "../GUI/Instruction.h"
 
 #include "../GUI/CreditsGUI.h"
 #include "../Game/Enemy.h"
@@ -391,8 +390,6 @@ namespace Clumsy
 			gui->RenderText(textShader, m_ButtonEndTurn->GetText(), 25.0f, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(textShader, m_ButtonRestart->GetText(), 25.0f, SCR_HEIGHT - 300.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 
-			mainMenuShader->use();
-			instruction1->Render();
 						
 		}
 

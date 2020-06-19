@@ -100,9 +100,10 @@
     <ClCompile Include="src\Game\Enemy.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\GUI\Instruction.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
+    <ClCompile Include="src\GUI\CreditsGUI.cpp" />
+    <ClCompile Include="src\GUI\DestructionBar.cpp" />
+    <ClCompile Include="src\GUI\PokemonGUI.cpp" />
+    <ClCompile Include="src\RenderEngine\TexturedRect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -118,9 +119,6 @@
     </ClInclude>
     <ClInclude Include="src\Core\CoreEngine.h">
       <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Components\MoveComponent.h">
-      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="src\Components\PhysicsEngineComponent.h">
       <Filter>Components</Filter>
@@ -267,9 +265,10 @@
     <ClInclude Include="src\Components\RenderInstancedBurnedGroundComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="src\GUI\Instruction.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
+    <ClInclude Include="src\GUI\CreditsGUI.h" />
+    <ClInclude Include="src\GUI\DestructionBar.h" />
+    <ClInclude Include="src\GUI\PokemonGUI.h" />
+    <ClInclude Include="src\RenderEngine\TexturedRect.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">

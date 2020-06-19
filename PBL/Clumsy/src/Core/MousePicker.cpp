@@ -210,17 +210,21 @@ namespace Clumsy
 						Clumsy::RenderEngine::GetInstance()->m_Movement = true;
 						player->IncrementActionCount();
 
-						AudioMaster::GetInstance()->PlayWalk();
+						//AudioMaster::GetInstance()->PlayWalk();
+						
+
 
 						if (player->getCanBurn() == false) {
 							RenderEngine::GetInstance()->wasCut = true;
 							RenderEngine::GetInstance()->cutTreesTransforms.push_back(RenderEngine::GetInstance()->treeTransforms.at(t));
 							RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
+							AudioMaster::GetInstance()->PlayChainsaw();
 						}
 
 						else if (player->getCanBurn() == true) {
 							RenderEngine::GetInstance()->wasCut = true;
 							RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
+							AudioMaster::GetInstance()->PlayFire();
 							if ((RenderEngine::GetInstance()->GetBackgroundBar()->GetScale().x - 0.0001) > RenderEngine::GetInstance()->GetDestructionBar()->GetScale().x)
 							{
 								RenderEngine::GetInstance()->IncreaseScaleUp();
@@ -254,6 +258,9 @@ namespace Clumsy
 					else if (isThereEnemy)
 					{
 						Clumsy::RenderEngine::GetInstance()->enemy->Fight();
+						AudioMaster::GetInstance()->PlayShout();
+						AudioMaster::GetInstance()->PlayChainsaw();
+
 					}
 					else
 					{

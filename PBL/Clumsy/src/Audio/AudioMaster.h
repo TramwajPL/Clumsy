@@ -12,6 +12,9 @@ namespace Clumsy
 		void PlayAmbientMusic();
 		void PlayBell();
 		void PlayWalk();
+		void PlayChainsaw();
+		void PlayShout();
+		void PlayFire();
 		void Drop();
 		void HandleEvent(Event* event);
 

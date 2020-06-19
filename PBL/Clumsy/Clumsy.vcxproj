@@ -35,7 +35,6 @@
     <ClCompile Include="src\GUI\CreditsGUI.cpp" />
     <ClCompile Include="src\GUI\DestructionBar.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
-    <ClCompile Include="src\GUI\Instruction.cpp" />
     <ClCompile Include="src\GUI\MenuGUI.cpp" />
     <ClCompile Include="src\GUI\PokemonGUI.cpp" />
     <ClCompile Include="src\GUI\StoreGUI.cpp" />
@@ -94,7 +93,6 @@
     <ClInclude Include="src\GUI\CreditsGUI.h" />
     <ClInclude Include="src\GUI\DestructionBar.h" />
     <ClInclude Include="src\GUI\GUI.h" />
-    <ClInclude Include="src\GUI\Instruction.h" />
     <ClInclude Include="src\GUI\MenuGUI.h" />
     <ClInclude Include="src\GUI\PokemonGUI.h" />
     <ClInclude Include="src\GUI\StoreGUI.h" />
