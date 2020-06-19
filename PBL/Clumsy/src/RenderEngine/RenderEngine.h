@@ -93,6 +93,7 @@ namespace Clumsy
 		std::vector<Transform> cutTreesTransforms;
 		std::vector<Transform> ground;
 		std::vector<Transform> groundBurned;
+		std::vector<Transform> groundSand;
 		
 		//movement
 		bool m_Movement = false;
@@ -102,6 +103,14 @@ namespace Clumsy
 		void SetDestination(glm::vec3 pos) { m_Destination = pos; }
 		void SetCurrentPlayer(RenderModelComponent* rmc) { m_CurrentPlayer = rmc; }
 		void SetDeltaMove(glm::vec3 delta) { m_DeltaMove = delta; }
+
+		//enemy movement
+		bool m_EnemyMovement = false;
+		void SetEnemyDestination(glm::vec3 pos) { m_EnemyDestination = pos; }
+		void SetEnemyDeltaMove(glm::vec3 delta) { m_EnemyDeltaMove = delta; }
+		glm::vec3 GetEnemyDeltaMove() { return m_EnemyDeltaMove; }
+		glm::vec3 GetEnemyDestination() { return m_EnemyDestination; }
+
 		Shader* GetShaderText() { return textShader; }
 		Shader* GetShaderButton() { return buttonShader; }
 
@@ -218,6 +227,9 @@ namespace Clumsy
 		RenderModelComponent* m_CurrentPlayer;
 		glm::vec3 m_DeltaMove;
 
+		//enemy movement
+		glm::vec3 m_EnemyDestination;
+		glm::vec3 m_EnemyDeltaMove;
 
 		std::vector<Cube*> m_Cubes;
 	};

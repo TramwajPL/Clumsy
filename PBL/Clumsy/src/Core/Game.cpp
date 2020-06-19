@@ -12,6 +12,7 @@
 #include "../Components/RenderInstancedBurnedGroundComponent.h"
 #include "../Game/TurnSystem.h"
 #include "../Game/TreeObject.h"
+#include "../Game/Enemy.h"
 #include "../Game/Warehouse.h"
 #include "../GUI/WarehouseGUI.h"
 #include "../GUI/PokemonGUI.h"
@@ -24,13 +25,6 @@ namespace Clumsy
 		if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderPokemonGUI();
 		}
-	/*	if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
-			RenderEngine::GetInstance()->RenderMainMenu();
-
-		/*if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
-			RenderEngine::GetInstance()->GetPokemonGUI()->SetEnabled(false);
-
-		}*/
 		if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderMainMenu();
 		}
@@ -112,6 +106,24 @@ namespace Clumsy
 				{
 					RenderEngine::GetInstance()->GetCurrentPlayer()->m_Transform.SetPos(destination);
 					RenderEngine::GetInstance()->m_Movement = false;
+				}
+			}
+		}
+		//enemy movement
+		if (RenderEngine::GetInstance()->m_EnemyMovement)
+		{
+			glm::vec3 currentPos = RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.GetPos();
+			glm::vec3 delta = RenderEngine::GetInstance()->GetEnemyDeltaMove();
+			glm::vec3 destination = RenderEngine::GetInstance()->GetEnemyDestination();
+			if (glm::length(currentPos - destination) > 0.001f)
+			{
+				glm::vec3 pos = RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.GetPos();
+				glm::vec3 newpos = pos + delta;
+				RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.SetPos(newpos);
+				if (glm::length(pos - destination) <= 0.001f)
+				{
+					RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.SetPos(destination);
+					RenderEngine::GetInstance()->m_EnemyMovement = false;
 				}
 			}
 		}
@@ -272,6 +284,7 @@ namespace Clumsy
 							transform.SetRotW(0.0f);//1
 							transform.SetScale(0.0001f);
 
+							RenderEngine::GetInstance()->groundSand.push_back(transform);
 							allTransformsM4.push_back(transform);
 							glm::vec3 min = glm::vec3(transform.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
 							glm::vec3 max = glm::vec3(transform.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));

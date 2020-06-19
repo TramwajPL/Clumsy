@@ -218,7 +218,8 @@ namespace Clumsy
 							RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
 						}
 
-						else if (player->getCanBurn() == true) {
+						else if (player->getCanBurn() == true) 
+						{
 							RenderEngine::GetInstance()->wasCut = true;
 							RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
 							if ((RenderEngine::GetInstance()->GetBackgroundBar()->GetScale().x - 0.0001) > RenderEngine::GetInstance()->GetDestructionBar()->GetScale().x)
