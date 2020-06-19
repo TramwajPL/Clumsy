@@ -202,9 +202,7 @@ namespace Clumsy
 		PokemonGUI* m_PokemonGUI;
 		CreditsGUI* m_CreditsGUI;
 		
-<<<<<<< HEAD
 		Instruction* instruction1;
-=======
 		TexturedRect* m_TexturedRect;
 
 		TexturedRect* m_Instruction2;
@@ -213,8 +211,6 @@ namespace Clumsy
 		TexturedRect* m_PokemonRect;
 		TexturedRect* m_PokemonEnemy;
 		TexturedRect* m_PokemonPlayer;
-
->>>>>>> development
 
 		PostProcessor* Effects;
 		float m_ShakeTime;
