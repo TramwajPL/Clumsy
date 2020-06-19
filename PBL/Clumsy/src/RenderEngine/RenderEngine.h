@@ -29,9 +29,11 @@ namespace Clumsy
 	class PokemonGUI;
 	class ParticleGenerator;
 	class RenderModelComponent;
+	class Instruction;
 	class DestructionBar;
 	class TexturedRect;
 	class CreditsGUI;
+
 
 	class RenderEngine
 	{
@@ -209,6 +211,7 @@ namespace Clumsy
 		PokemonGUI* m_PokemonGUI;
 		CreditsGUI* m_CreditsGUI;
 		
+		Instruction* instruction1;
 		TexturedRect* m_TexturedRect;
 
 		TexturedRect* m_Instruction2;
@@ -217,7 +220,6 @@ namespace Clumsy
 		TexturedRect* m_PokemonRect;
 		TexturedRect* m_PokemonEnemy;
 		TexturedRect* m_PokemonPlayer;
-
 
 		PostProcessor* Effects;
 		float m_ShakeTime;

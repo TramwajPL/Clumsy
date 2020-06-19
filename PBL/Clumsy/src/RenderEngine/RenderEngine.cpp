@@ -16,6 +16,8 @@
 #include "../GUI/PokemonGUI.h"
 #include "../GUI/StoreGUI.h"
 #include "../GUI/WarehouseGUI.h"
+
+
 #include "../GUI/CreditsGUI.h"
 #include "../Game/Enemy.h"
 
@@ -58,6 +60,7 @@ namespace Clumsy
 
 		Effects = new PostProcessor(*m_Postprocessing, SCR_WIDTH, SCR_HEIGHT);
 		shaderCube = new Shader("../Clumsy/src/Shaders/cubeMap_VS.glsl", "../Clumsy/src/Shaders/cubeMap_FS.glsl");
+		
 		mainMenuShader = new Shader("../Clumsy/src/Shaders/main_menu_VS.glsl", "../Clumsy/src/Shaders/main_menu_FS.glsl");
 
 
@@ -101,6 +104,13 @@ namespace Clumsy
 
 
 
+	
+
+		//enemy = new Enemy();
+		//enemy->SetM_Tag("enemy");
+
+		background = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), buttonShader);
+		destructionBar = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), buttonShader);
 
 		background = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.14f, 0.52f, 0.25f), buttonShader);
 		destructionBar = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.52f, 0.18f, 0.14f), buttonShader);
@@ -379,6 +389,7 @@ namespace Clumsy
 			gui->RenderText(textShader, m_ButtonCameraOnPlayer->GetText(), 25.0f, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(textShader, m_ButtonEndTurn->GetText(), 25.0f, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(textShader, m_ButtonRestart->GetText(), 25.0f, SCR_HEIGHT - 300.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+
 						
 		}
 
