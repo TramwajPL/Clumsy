@@ -8,15 +8,21 @@
 
 #include "Model.h"
 #include "RenderEngine.h"
+#include "TexturedRect.h"
 
 #include "../GUI/GUI.h"
 #include "../GUI/Button.h"
 #include "../GUI/MenuGUI.h"
+#include "../GUI/PokemonGUI.h"
 #include "../GUI/StoreGUI.h"
 #include "../GUI/WarehouseGUI.h"
+<<<<<<< HEAD
 
 #include "../GUI/Instruction.h"
 
+=======
+#include "../GUI/CreditsGUI.h"
+>>>>>>> development
 #include "../Game/Enemy.h"
 
 #include "../Core/Game.h"
@@ -33,8 +39,8 @@
 const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1080;
 
-//const unsigned int SCR_WIDTH = 1366;
-//const unsigned int SCR_HEIGHT = 768;//zmienic
+/*const unsigned int SCR_WIDTH = 1366;
+const unsigned int SCR_HEIGHT = 768;//zmienic*/
 
 namespace Clumsy
 {
@@ -53,6 +59,8 @@ namespace Clumsy
 		particleTexture = loadTextureFromFile("../Clumsy/src/models/flame.png", GL_TRUE);
 		textShader = new Shader("../Clumsy/src/Shaders/text_VS.glsl", "../Clumsy/src/Shaders/text_FS.glsl");
 		buttonShader = new Shader("../Clumsy/src/Shaders/button_VS.glsl", "../Clumsy/src/Shaders/button_FS.glsl");
+
+		shaderCube = new Shader("../Clumsy/src/Shaders/cubeMap_VS.glsl", "../Clumsy/src/Shaders/cubeMap_FS.glsl");
 
 		Effects = new PostProcessor(*m_Postprocessing, SCR_WIDTH, SCR_HEIGHT);
 		shaderCube = new Shader("../Clumsy/src/Shaders/cubeMap_VS.glsl", "../Clumsy/src/Shaders/cubeMap_FS.glsl");
@@ -78,13 +86,29 @@ namespace Clumsy
 		particles1 = new ParticleGenerator(particleShader, particleTexture, 500, 650.0f, 100.0f);
 
 		gui = new GUI();
-		m_ButtonCameraOnPlayer = new Button(glm::vec2(-0.9f, 0.65f), " Center", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
-		m_ButtonEndTurn = new Button(glm::vec2(-0.9f, 0.55f), "End Turn", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
-		m_ButtonRestart = new Button(glm::vec2(-0.9f, 0.45f), " Restart", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.15f, 0.08f));
+		m_ButtonCameraOnPlayer = new Button(glm::vec2(-0.88f, 0.65f), "Find Player", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.2f, 0.08f));
+		m_ButtonEndTurn = new Button(glm::vec2(-0.88f, 0.55f), "End Turn", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.2f, 0.08f));
+		m_ButtonRestart = new Button(glm::vec2(-0.88f, 0.45f), " Restart", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.2f, 0.08f));
 		m_StoreGUI = new StoreGUI();
 		m_WarehouseGUI = new WarehouseGUI();
 		m_MenuGUI = new MenuGUI();
+		m_CreditsGUI = new CreditsGUI();
 
+		//m_PokemonGUI = new PokemonGUI();
+	    m_TexturedRect = new TexturedRect("../Clumsy/src/models/tutek1.jpg", glm::vec3(0.9f, 0.9f, 0.0f), glm::vec3(0.9, 0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, 0.9f, 0.0f));
+		
+		m_Instruction2 = new TexturedRect("../Clumsy/src/models/tutek2.jpg", glm::vec3(0.9f, 0.9f, 0.0f), glm::vec3(0.9, 0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, 0.9f, 0.0f));
+		m_Instruction3 = new TexturedRect("../Clumsy/src/models/tutek3.jpg", glm::vec3(0.9f, 0.9f, 0.0f), glm::vec3(0.9, 0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, 0.9f, 0.0f));
+
+		m_PokemonGUI = new PokemonGUI(buttonShader);
+	   // m_TexturedRect = new TexturedRect("../Clumsy/src/models/tutek1.jpg", glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec3(-0.5f, 0.5f, 0.0f));
+	    m_PokemonRect = new TexturedRect("../Clumsy/src/models/battle2.jpg", glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(1.0f, -1.0f, 0.0f), glm::vec3(-1.0f, -1.0f, 0.0f), glm::vec3(-1.0f, 1.0f, 0.0f));
+	    m_PokemonEnemy = new TexturedRect("../Clumsy/src/models/ent.jpg", glm::vec3(0.7f, 0.8f, 0.0f), glm::vec3(0.7f, 0.4f, 0.0f), glm::vec3(0.5f, 0.4f, 0.0f), glm::vec3(0.5f, 0.8f, 0.0f));
+	    m_PokemonPlayer = new TexturedRect("../Clumsy/src/models/lumberjack.jpg", glm::vec3(-0.6f, 0.4f, 0.0f), glm::vec3(-0.6f, 0.0f, 0.0f), glm::vec3(-0.8f, 0.0f, 0.0f), glm::vec3(-0.8f, 0.4f, 0.0f));
+
+
+
+<<<<<<< HEAD
 		instruction1 = new Instruction("../Clumsy/src/models/container.jpg", mainMenuShader);
 
 		//enemy = new Enemy();
@@ -92,6 +116,11 @@ namespace Clumsy
 
 		background = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), buttonShader);
 		destructionBar = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), buttonShader);
+=======
+
+		background = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.14f, 0.52f, 0.25f), buttonShader);
+		destructionBar = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.52f, 0.18f, 0.14f), buttonShader);
+>>>>>>> development
 
 	}
 
@@ -286,9 +315,12 @@ namespace Clumsy
 			isFrustumSet = true;
 		}
 
-		
 		object.RenderAll(*m_Shader);
 		
+		for (int i = 0; i < m_Cubes.size(); i++)
+		{
+			m_Cubes[i]->Render(shaderCube);
+		}
 
 		if (isPlayed == true) {
 			glm::mat4 projectionParticles = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), static_cast<float>(SCR_HEIGHT), 0.0f, -1.0f, 1.0f);
@@ -307,7 +339,7 @@ namespace Clumsy
 	{
 		glDisable(GL_CULL_FACE);
 		buttonShader->use();
-		background->Render(glm::vec3(1.0, 0.13f, 0.3f));
+		background->Render(glm::vec3(m_XScaleBackground, 0.13f, 0.3f));
 		destructionBar->Render(glm::vec3(m_ScaleUp, 0.13f, 0.3f));
 		glEnable(GL_CULL_FACE);
 
@@ -316,6 +348,34 @@ namespace Clumsy
 		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
 		textShader->use();
 		textShader->setMat4("projection", projectionGUI);
+		
+		mainMenuShader->use();
+	
+		if (m_ThirdInstruction)
+		{
+			if (m_FirstInstruction && m_SecondInstruction) {
+				m_TexturedRect->Render(mainMenuShader);
+			} else if (m_FirstInstruction == false && m_SecondInstruction == true) {
+				m_Instruction2->Render(mainMenuShader);
+			}
+			else {
+				m_Instruction3->Render(mainMenuShader);
+			}
+		}
+		// fail info
+		if (m_MoveTooFar)
+		{
+			gui->RenderText(textShader, "I can't go that far at once!", SCR_WIDTH / 2 - 200.0f, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+		}
+		if (m_TooMuchWood)
+		{
+			gui->RenderText(textShader, "Not enough space for wood!", SCR_WIDTH / 2 - 225.0f, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+		}
+		if (m_TileOccupied)
+		{
+			gui->RenderText(textShader, "Tile already occupied!", SCR_WIDTH / 2 - 185.0f, SCR_HEIGHT - 300.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
+		}
+
 
 		Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
 		if (player)
@@ -342,8 +402,8 @@ namespace Clumsy
 						
 		}
 
-		m_StoreGUI->Render(buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
-		m_WarehouseGUI->Render(buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
+		m_StoreGUI->Render(mainMenuShader ,buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
+		m_WarehouseGUI->Render(mainMenuShader ,buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 		
 	
 	}
@@ -359,6 +419,34 @@ namespace Clumsy
 
 
 		m_MenuGUI->Render(mainMenuShader, buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
+	}
+
+	void RenderEngine::RenderCreditsGUI() {
+		glDisable(GL_DEPTH_TEST);
+
+		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
+		textShader->use();
+		textShader->setMat4("projection", projectionGUI);
+		//mainMenuShader->use();
+
+
+		m_CreditsGUI->Render(mainMenuShader, buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
+	
+	}
+
+	void RenderEngine::RenderPokemonGUI()
+	{
+		glDisable(GL_DEPTH_TEST);
+
+		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
+		textShader->use();
+		textShader->setMat4("projection", projectionGUI);
+		//mainMenuShader->use();
+
+		m_PokemonRect->Render(mainMenuShader);
+		m_PokemonPlayer->Render(mainMenuShader);
+		m_PokemonEnemy->Render(mainMenuShader);
+		m_PokemonGUI->Render(mainMenuShader, buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 	}
 
 	void RenderEngine::CleanUp()
@@ -413,22 +501,6 @@ namespace Clumsy
 			m_WarehouseGUI->SetEnabled(!m_WarehouseGUI->IsEnabled());
 		}
 
-		if (glfwGetKey(m_GLFWWindow, GLFW_KEY_I) == GLFW_PRESS) {
-			if ((background->GetScale().x - 0.0001) > destructionBar->GetScale().x)
-			{
-				std::cout << "Scale of x of destruction bar: " << destructionBar->GetScale().x << std::endl;
-				std::cout << "Scale of x of background bar: " << background->GetScale().x << std::endl;
-				m_ScaleUp += 0.01f;
-			}
-			else
-			{
-				std::cout << "STOP" << std::endl;
-			}
-		}
-
-		/*if (glfwGetKey(m_GLFWWindow, GLFW_KEY_M) == GLFW_PRESS) {
-			m_MenuGUI->SetEnabled(!m_MenuGUI->IsEnabled());
-		}*/
 	}
 
 	unsigned int RenderEngine::loadCubemap(std::vector<std::string> faces)
@@ -459,6 +531,12 @@ namespace Clumsy
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
 		return textureID;
+	}
+
+	void RenderEngine::UpdateCubes()
+	{
+		for (int i = 0; i < m_Cubes.size(); i++)
+			m_Cubes[i]->Update();
 	}
 
 }

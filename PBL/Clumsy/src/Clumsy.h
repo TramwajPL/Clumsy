@@ -14,7 +14,6 @@
 
 ////////////////
 
-#include "Components/MoveComponent.h"
 #include "Components/PhysicsObjectComponent.h"
 #include "Components/PhysicsEngineComponent.h"
 
@@ -57,6 +56,7 @@
 #include "GUI/Button.h"
 #include "GUI/StoreGUI.h"
 #include "GUI/WarehouseGUI.h"
+#include "GUI/PokemonGUI.h"
 
 //////////////////
 

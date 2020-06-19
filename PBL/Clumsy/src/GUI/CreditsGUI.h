@@ -2,35 +2,32 @@
 
 #include "GUI.h"
 #include "Button.h"
+#include "glfw3.h"
 
-#include "../Game/Player.h"
+namespace Clumsy {
 
-namespace Clumsy
-{
-	class StoreGUI
-	{
+	class CreditsGUI {
+
 	public:
-		StoreGUI();
-		~StoreGUI();
+		CreditsGUI();
+		~CreditsGUI();
 		void Render(Shader* shader, Shader* shaderButton, Shader* shaderText, int SCR_WIDTH, int SCR_HEIGHT);
 		void BackgroundInit();
-		void SetActiveStore(GameObject* store) { m_Store = store; }
-		void SetActivePlayer(Player* player) { m_Player = player; }
+
 		bool IsEnabled() { return m_Enabled; }
 		void SetEnabled(bool doopy) { m_Enabled = doopy; }
 
-		GameObject* GetActiveStore() { return m_Store; }
 		void HandleButtonClick(float screenX, float screenY);
-		void Update(float deltaTime);
-
 	private:
+		Button* b2;
 		std::vector<Button*> m_Buttons;
 		GUI* gui;
-		unsigned int VBO, VAO, EBO, texture;
+		unsigned int VBO, VAO, EBO;
 		int width, height, nrChannels;
+		unsigned int texture;
 		bool m_Enabled = false;
-
-		GameObject* m_Store;
-		Player* m_Player;
 	};
+
+
+
 }

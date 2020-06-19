@@ -2,10 +2,10 @@
 #include "../Core/GameObject.h"
 #include "../RenderEngine/Model.h"
 #include "../RenderEngine/RenderEngine.h"
+#include "../GUI/PokemonGUI.h"
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
-#include <chrono>
-#include <thread>
-#include <future>
 
 namespace Clumsy {
 
@@ -24,10 +24,17 @@ namespace Clumsy {
 
 		void checkIfRender(int collectedTrees) override
 		{
-			if (collectedTrees == m_MaxCollectedTrees)
+			int randomNumber = (rand() % 20) + 1; 
+			//std::cout << "Collected Trees: " << collectedTrees << std::endl;
+			//std::cout << "Random number: " << randomNumber << std::endl;
+			if (collectedTrees > randomNumber && collectedTrees > 10)
 			{
-				SetIsDead(false);
-				SetRenderEnemy(true);
+				m_IsActive = true;
+				isEnemyDead = false;;
+				m_RenderEnemy = true;
+			}
+			else if (collectedTrees > 10 && randomNumber > collectedTrees)
+			{
 				m_IsActive = true;
 				isEnemyDead = false;;
 				m_RenderEnemy = true;
@@ -36,21 +43,20 @@ namespace Clumsy {
 
 		void Fight()
 		{
+			RenderEngine::GetInstance()->GetPokemonGUI()->SetEnabled(true);
+			RenderEngine::GetInstance()->GetPokemonGUI()->m_BattleCommences = true;
 			std::cout << "FIGHT!" << std::endl;
 		}
 
-		void Die(int test)
+		void Die()
 		{
-			if (test == 4)
+			if (RenderEngine::GetInstance()->GetPokemonGUI()->getBattleState() == PokemonGUI::BattleState::WON)
 			{
-				SetIsDead(true);
-				SetCondition(true);
+				std::cout << "umrzyj" << std::endl;
 				m_IsActive = false;
 				isEnemyDead = true;
 				m_Condition =  true;
-
 			}
-
 		}
 
 		/*void chechIfDead(int test)

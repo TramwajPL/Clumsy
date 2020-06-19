@@ -32,10 +32,12 @@
     <ClCompile Include="src\Game\Enemy.cpp" />
     <ClCompile Include="src\Game\TurnSystem.cpp" />
     <ClCompile Include="src\GUI\Button.cpp" />
+    <ClCompile Include="src\GUI\CreditsGUI.cpp" />
     <ClCompile Include="src\GUI\DestructionBar.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
     <ClCompile Include="src\GUI\Instruction.cpp" />
     <ClCompile Include="src\GUI\MenuGUI.cpp" />
+    <ClCompile Include="src\GUI\PokemonGUI.cpp" />
     <ClCompile Include="src\GUI\StoreGUI.cpp" />
     <ClCompile Include="src\GUI\WarehouseGUI.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -55,12 +57,12 @@
     <ClCompile Include="src\RenderEngine\RenderUtil.cpp" />
     <ClCompile Include="src\RenderEngine\Shader.cpp" />
     <ClCompile Include="src\RenderEngine\TextureClass.cpp" />
+    <ClCompile Include="src\RenderEngine\TexturedRect.cpp" />
     <ClCompile Include="src\RenderEngine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Audio\AudioMaster.h" />
     <ClInclude Include="src\Clumsy.h" />
-    <ClInclude Include="src\Components\MoveComponent.h" />
     <ClInclude Include="src\Components\PhysicsEngineComponent.h" />
     <ClInclude Include="src\Components\PhysicsObjectComponent.h" />
     <ClInclude Include="src\Components\RenderInstancedBurnedGroundComponent.h" />
@@ -89,10 +91,12 @@
     <ClInclude Include="src\Game\TurnSystem.h" />
     <ClInclude Include="src\Game\Warehouse.h" />
     <ClInclude Include="src\GUI\Button.h" />
+    <ClInclude Include="src\GUI\CreditsGUI.h" />
     <ClInclude Include="src\GUI\DestructionBar.h" />
     <ClInclude Include="src\GUI\GUI.h" />
     <ClInclude Include="src\GUI\Instruction.h" />
     <ClInclude Include="src\GUI\MenuGUI.h" />
+    <ClInclude Include="src\GUI\PokemonGUI.h" />
     <ClInclude Include="src\GUI\StoreGUI.h" />
     <ClInclude Include="src\GUI\WarehouseGUI.h" />
     <ClInclude Include="src\Particles\ParticleGenerator.h" />
@@ -115,6 +119,7 @@
     <ClInclude Include="src\RenderEngine\RenderUtil.h" />
     <ClInclude Include="src\RenderEngine\Shader.h" />
     <ClInclude Include="src\RenderEngine\TextureClass.h" />
+    <ClInclude Include="src\RenderEngine\TexturedRect.h" />
     <ClInclude Include="src\RenderEngine\Window.h" />
   </ItemGroup>
   <ItemGroup>

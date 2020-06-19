@@ -63,7 +63,11 @@ namespace Clumsy
             return Pitch;
         }
 
-
+        void MoveToPosition(float x, float z)
+        {
+            Position.x = x;
+            Position.z = z - 8.0f;
+        }
 
         // Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
         void ProcessKeyboard(Camera_Movement direction, float deltaTime)

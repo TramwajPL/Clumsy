@@ -1,6 +1,7 @@
 #pragma once
 #include "../pch.h"
 #include <cstdlib>
+#include <glm/gtx/string_cast.hpp>
 #include "../Game/TurnSystem.h"
 #include "../Core/GameObject.h"
 
@@ -33,28 +34,20 @@ namespace Clumsy
             if (isTurn)
             {
                 std::cout << "turn... " << std::endl;
-
-                //ENEMY SPAWNS ONE TREE EVERY ONE TURN
-                if (Clumsy::RenderEngine::GetInstance()->enemy->getIfActive()) {
-
-                    SpawnOneTree();
+                if (Clumsy::RenderEngine::GetInstance()->enemy->getIfActive()) 
+                {
+					int randomNumber = (rand() % 5) + 1;
+					for (int i = 0; i < randomNumber ; i++)
+					{
+						std::cout << "Randow number of TREEEEES: " << randomNumber<<  std::endl;
+						SpawnOneTree();
+					}
                 }
 
-                if (TurnSystem::GetInstance()->GetTurnCounter() % 2 == 2)
+                if (TurnSystem::GetInstance()->GetTurnCounter() % 2 == 0)
                 {
                     SpawnOneTree();
                 }
-
-                ////Spawn one tree every 4 turns
-                //if (callsController2 > 0 && TurnSystem::GetInstance()->GetTurnCounter() % 4 == 2)
-                //{
-                //    if (TurnSystem::GetInstance()->GetTurnCounter() > 5)
-                //    {
-                //        SpawnTrees2();
-                //    }
-                //    //TreePositionIndicator();
-                //    callsController2--;
-                //}
                 std::cout << " Nature time! " << std::endl;
                 std::cout << "Tura nr: " << TurnSystem::GetInstance()->GetTurnCounter() << std::endl;
                 isTurn = false;
@@ -63,60 +56,35 @@ namespace Clumsy
             }
 		}
 
-        void SpawnTrees()
+        void SpawnOneTree()
         {
-            /*if (listOfPosition.Count > 0)
+            if (RenderEngine::GetInstance()->cutTreesTransforms.size() > 0) 
             {
-                int currentPosition = Random.Range(0, listOfPosition.Count);
-                Vector3 randomTreePosition = listOfPosition[currentPosition];
-                if (randomTreePosition.x != player.transform.position.x && randomTreePosition.z != player.transform.position.z)
-                {
-                    Transform treeTrans = Instantiate(hexTreePrefab, randomTreePosition, transform.rotation);
-                    if (emptiedHexes[currentPosition] != null)
-                    {
-                        treeTrans.parent = emptiedHexes[currentPosition].transform;
-                        hexTreePrefab.tag = "hover";
-                        listOfPosition.RemoveAt(currentPosition);
-                        emptiedHexes.RemoveAt(currentPosition);
-                    }
-                    else
-                    {
-                        Debug.Log("Blad");
-                    }
-                }
-            }*/
-        }
-
-        void SpawnOneTree(){
-
-            if (RenderEngine::GetInstance()->cutTreesTransforms.size() > 0) {
                 int RandomTreeToSpawn = rand() % RenderEngine::GetInstance()->cutTreesTransforms.size();
-                RenderEngine::GetInstance()->treeTransforms.push_back(RenderEngine::GetInstance()->cutTreesTransforms.at(RandomTreeToSpawn));
-                RenderEngine::GetInstance()->cutTreesTransforms.erase(RenderEngine::GetInstance()->cutTreesTransforms.begin() + RandomTreeToSpawn);
-
-            }
-           }
-
-        void SpawnTrees2()
-        {
-           /* if (treePosition != null)
-            {
-                if (glowingHex != null)
+                // check if tile occupied
+                bool occupied = false;
+                for (int i = 0; i < TurnSystem::GetInstance()->GetPlayers().size(); i++)
                 {
-                    glowingHex.GetComponent<TreeIndicator>().particle.Stop();
-
-                    Vector3 treePos = (Vector3)treePosition;
-                    if (treePos.x != player.transform.position.x && treePos.z != player.transform.position.z)
+                    Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetPlayers()[i]->GetGameObject());
+                    if (player)
                     {
-                        Transform treeTrans = Instantiate(hexTreePrefab, treePos, transform.rotation);
-                        treeTrans.parent = glowingHex.transform;
-                        hexTreePrefab.tag = "hover";
-                        treePosition = null;
+                        if (glm::length(player->m_Rmc->m_Transform.GetPos() - RenderEngine::GetInstance()->cutTreesTransforms[RandomTreeToSpawn].GetPos()) < 0.1f
+                            || glm::length(RenderEngine::GetInstance()->GetDestination() - RenderEngine::GetInstance()->cutTreesTransforms[RandomTreeToSpawn].GetPos()) < 0.1f)
+                        {
+                            occupied = true;
+                            std::cout << "bez drzewa!" << std::endl;
+                            break;
+                        }
                     }
                 }
-            }*/
+                if (!occupied)
+                {
+                    RenderEngine::GetInstance()->treeTransforms.push_back(RenderEngine::GetInstance()->cutTreesTransforms.at(RandomTreeToSpawn));
+                    RenderEngine::GetInstance()->cutTreesTransforms.erase(RenderEngine::GetInstance()->cutTreesTransforms.begin() + RandomTreeToSpawn);
+                }
+            }
         }
-
+        
 	private:
 		bool isTurn = false;
 		bool enemyOnBoard = false;

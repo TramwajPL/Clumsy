@@ -14,13 +14,30 @@
 #include "../Game/TreeObject.h"
 #include "../Game/Warehouse.h"
 #include "../GUI/WarehouseGUI.h"
+#include "../GUI/PokemonGUI.h"
+#include "../Audio/AudioMaster.h"
 
 namespace Clumsy 
 {	
 	void Game::Render()
 	{
+		if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
+			RenderEngine::GetInstance()->RenderPokemonGUI();
+		}
+	/*	if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
+			RenderEngine::GetInstance()->RenderMainMenu();
+
+		/*if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
+			RenderEngine::GetInstance()->GetPokemonGUI()->SetEnabled(false);
+
+		}*/
 		if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderMainMenu();
+		}
+
+		else if (RenderEngine::GetInstance()->GetCreditsGUI()->IsEnabled() == true) {
+			RenderEngine::GetInstance()->GetMenuGUI()->SetEnabled(false);
+			RenderEngine::GetInstance()->RenderCreditsGUI();
 		}
 		else {	
 			RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();
@@ -28,21 +45,59 @@ namespace Clumsy
 			RenderEngine::GetInstance()->GetPostProcessor()->EndRender();
 			RenderEngine::GetInstance()->GetPostProcessor()->Render(glfwGetTime());
 			RenderEngine::GetInstance()->RenderGUI();
+			if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
+				RenderEngine::GetInstance()->RenderPokemonGUI();
+			}
 		}
+		/*if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
+			RenderEngine::GetInstance()->GetPokemonGUI()->SetEnabled(false);
+		}*/
 	}
 
 	void Game::Update(float deltaTime)
 	{
 		TurnSystem::GetInstance()->Update();
 		m_Root.UpdateAll();
+		RenderEngine::GetInstance()->UpdateCubes();
+		// gui buttons change colors
 		RenderEngine::GetInstance()->GetWarehouseGUI()->Update(deltaTime);
 		RenderEngine::GetInstance()->GetStoreGUI()->Update(deltaTime);
+		// move fail
+		if (RenderEngine::GetInstance()->m_MoveFailTime > 0.0f)
+		{
+			RenderEngine::GetInstance()->m_MoveFailTime -= deltaTime;
+			if (RenderEngine::GetInstance()->m_MoveFailTime <= 0.0f)
+			{
+				Clumsy::RenderEngine::GetInstance()->m_MoveTooFar = false;
+				Clumsy::RenderEngine::GetInstance()->m_TooMuchWood = false;
+				Clumsy::RenderEngine::GetInstance()->m_TileOccupied = false;
+			}
+		}
+		//first instruction
+		if (RenderEngine::GetInstance()->m_ThirdInstructionTime > 0.0f)
+		{
+			RenderEngine::GetInstance()->m_FirstInstructionTime -= deltaTime;
+			RenderEngine::GetInstance()->m_SecondInstructionTime -= deltaTime;
+			RenderEngine::GetInstance()->m_ThirdInstructionTime -= deltaTime;
+			if (RenderEngine::GetInstance()->m_FirstInstructionTime <= 0.0f)
+			{
+				Clumsy::RenderEngine::GetInstance()-> m_FirstInstruction = false;
+			} 
+			if (RenderEngine::GetInstance()->m_SecondInstructionTime <= 0.0f) {
+				Clumsy::RenderEngine::GetInstance()->m_SecondInstruction = false;
+			}	
+			if (RenderEngine::GetInstance()->m_ThirdInstructionTime <= 0.0f) {
+				Clumsy::RenderEngine::GetInstance()->m_ThirdInstruction = false;
+			}
+		}
+		// shake
 		if (RenderEngine::GetInstance()->GetShakeTime() > 0.0f)
 		{
 			RenderEngine::GetInstance()->SetShakeTime(RenderEngine::GetInstance()->GetShakeTime() - deltaTime);
 			if (RenderEngine::GetInstance()->GetShakeTime() <= 0.0f)
 				Clumsy::RenderEngine::GetInstance()->GetPostProcessor()->m_Shake = false;
 		}
+		//movement
 		if (RenderEngine::GetInstance()->m_Movement)
 		{
 			glm::vec3 currentPos = RenderEngine::GetInstance()->GetCurrentPlayer()->m_Transform.GetPos();
@@ -59,6 +114,10 @@ namespace Clumsy
 					RenderEngine::GetInstance()->m_Movement = false;
 				}
 			}
+		}
+		if (RenderEngine::GetInstance()->GetPokemonGUI()->m_BattleCommences) 
+		{
+			RenderEngine::GetInstance()->GetPokemonGUI()->HandleBattle();
 		}
 	}
 
@@ -78,6 +137,10 @@ namespace Clumsy
 			AddToScene((boy)->AddComponent(rmc));
 			boy->AddComponent(new PhysicsObjectComponent(ob));
 			TurnSystem::GetInstance()->AddPlayer(boy);
+
+			Clumsy::Cube* c1 = new Clumsy::Cube(transform);
+			c1->SetPlayer(rmc);
+			Clumsy::RenderEngine::GetInstance()->AddCube(c1);
 		}
 	}
 
@@ -178,7 +241,13 @@ namespace Clumsy
 							transform2.SetRotY(0.7f);//0
 							transform2.SetRotZ(0.7f);//0
 							transform2.SetRotW(0.0f);//1
-							transform2.SetScale(0.1f);
+
+							transform2.SetScale(0.08f);
+							float i;
+							i = (rand() % 8) + 1;
+							i /= 100.0f;
+							i += transform2.GetScale();
+							transform2.SetScale(i);
 							
 							allTransformsM7.push_back(transform2);
 							RenderEngine::GetInstance()->treeTransforms.push_back(transform2);
@@ -255,7 +324,7 @@ namespace Clumsy
 		transformShop.SetRotY(0.7f);//0
 		transformShop.SetRotZ(0.7f);//0
 		transformShop.SetRotW(0.0f);//1
-		transformShop.SetScale(0.04f);
+		transformShop.SetScale(0.07f);
 
 		transformWoodHouse.SetPosX(-.950f);
 		transformWoodHouse.SetPosY(-1.0f);
@@ -264,7 +333,7 @@ namespace Clumsy
 		transformWoodHouse.SetRotY(0.7f);//0
 		transformWoodHouse.SetRotZ(0.7f);//0
 		transformWoodHouse.SetRotW(0.0f);//1
-		transformWoodHouse.SetScale(0.04f);
+		transformWoodHouse.SetScale(0.07f);
 
 		mShop->loadModel("../Clumsy/src/models/shop/shop.obj");
 		// shop

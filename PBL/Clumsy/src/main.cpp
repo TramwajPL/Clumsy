@@ -31,6 +31,7 @@ public:
 
 	virtual void Init()
 	{
+		Clumsy::RenderEngine::GetInstance()->SetXScaleBackground(10); //zmiana wielkoœci paska pod spodem (zielonego) czerwony zawsze dochodzi  tylko do jego koñca
 		std::string filename = "Test.unity";
 		SceneParser(Clumsy::RenderEngine::GetInstance()->map, filename);
 
@@ -55,7 +56,7 @@ public:
 			
 		boy = new Clumsy::Player(boyTransform);
 
-		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(enemyModel, enemyTransform,1); //enemy change how much we need to collect wood
+		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(enemyModel, enemyTransform); //enemy change how much we need to collect wood
 		Clumsy::RenderEngine::GetInstance()->enemy->SetM_Tag("enemy"); //ost zmiana
 
 		Clumsy::PhysicsObject* ob1 = new Clumsy::PhysicsObject(
@@ -70,11 +71,15 @@ public:
 
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent();
-		rmc = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90.0f);
+		//rmc = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90.0f);
 		enemyRmc = new Clumsy::RenderModelComponent(enemyModel, Clumsy::RenderEngine::GetInstance()->enemy->GetTransform(), 360.0f,true); //enemy RMC //ost zmiana
 
 		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90);
 		boy->m_Rmc = rmc1;
+		Clumsy::Cube* c1 = new Clumsy::Cube(boyTransform);
+		c1->SetPlayer(rmc1);
+		Clumsy::RenderEngine::GetInstance()->AddCube(c1);
+
 		AddToScene((boy)->AddComponent(rmc1));
 		AddToScene((Clumsy::RenderEngine::GetInstance()->enemy)->AddComponent(enemyRmc)); //enemy Add to scene //ost zmiana
 
@@ -144,6 +149,14 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		{
 			Clumsy::RenderEngine::GetInstance()->GetMenuGUI()->HandleButtonClick(screenX, screenY, glfwWindow);
 		}
+		else if (Clumsy::RenderEngine::GetInstance()->GetCreditsGUI()->IsEnabled())
+		{
+			Clumsy::RenderEngine::GetInstance()->GetCreditsGUI()->HandleButtonClick(screenX, screenY);
+		}
+		else if (Clumsy::RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled()) 
+		{
+			Clumsy::RenderEngine::GetInstance()->GetPokemonGUI()->HandleButtonClick(screenX, screenY);
+		}
 		else
 		{
 			float screenX = 2.0f * xpos / SCR_WIDTH - 1.0f;
@@ -160,13 +173,20 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 				&& screenY < (centerButton.y + scale1.y) && screenY > centerButton.y)
 			{
 				Clumsy::RenderEngine::GetInstance()->GetCenterButton()->OnClick();
-				std::cout << "Is played: " << Clumsy::RenderEngine::GetInstance()->isPlayed << std::endl;
+				Clumsy::Player* player = dynamic_cast<Clumsy::Player*>(Clumsy::TurnSystem::GetInstance()->GetActivePlayer());
+				if (player)
+				{
+					glm::vec3 position = player->m_Rmc->m_Transform.GetPos();
+					Clumsy::RenderEngine::GetInstance()->getCamera()->MoveToPosition(position.x, position.z);
+				}
 			}
 			else if (screenX > (endTurnButton.x - (scale2.x / 2)) && screenX < (endTurnButton.x + (scale2.x / 2))
 				&& screenY < (endTurnButton.y + scale2.y) && screenY > endTurnButton.y)
 			{
 				Clumsy::RenderEngine::GetInstance()->GetEndTurnButton()->OnClick();
-				Clumsy::RenderEngine::GetInstance()->isPlayed = true;
+				Clumsy::Player* player = dynamic_cast<Clumsy::Player*>(Clumsy::TurnSystem::GetInstance()->GetActivePlayer());
+				if (player)
+					player->UseAllActions();
 			}
 			else if (screenX > (restartButton.x - (scale3.x / 2)) && screenX < (restartButton.x + (scale3.x / 2))
 				&& screenY < (restartButton.y + scale3.y) && screenY > restartButton.y)
@@ -189,6 +209,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 
 int main()
 {
+	srand(time(NULL));
 	Clumsy::RenderEngine::CreateInstance(glfwWindow, window, camera);
 	Clumsy::EventSystem::GetInstance()->SubscribeListener("scroll", Clumsy::AudioMaster::GetInstance());
 	Clumsy::EventSystem::GetInstance()->SubscribeListener("move", &mp);

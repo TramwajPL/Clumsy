@@ -15,6 +15,7 @@
 #include "../Core/GameObject.h"
 #include "../PhysicsEngine/Plane.h"
 #include "../Game/TreeObject.h"
+#include "../RenderEngine/Cube.h"
 
 namespace Clumsy 
 {
@@ -25,10 +26,13 @@ namespace Clumsy
 	class Enemy;
 	class WarehouseGUI;
 	class MenuGUI;
+	class PokemonGUI;
 	class ParticleGenerator;
 	class RenderModelComponent;
 	class Instruction;
 	class DestructionBar;
+	class TexturedRect;
+	class CreditsGUI;
 
 
 	class RenderEngine
@@ -44,6 +48,8 @@ namespace Clumsy
 		void Render(GameObject object);
 		void RenderGUI();
 		void RenderMainMenu();
+		void RenderCreditsGUI();
+		void RenderPokemonGUI();
 		void AddLights(const BaseLight& light) { m_Lights.push_back(&light); }
 		const BaseLight& GetActiveLight() const { return *m_ActiveLight; }
 		void setFrustum(glm::mat4 viewProjection);
@@ -58,6 +64,8 @@ namespace Clumsy
 		StoreGUI* GetStoreGUI() { return m_StoreGUI; }
 		WarehouseGUI* GetWarehouseGUI() { return m_WarehouseGUI; }
 		MenuGUI* GetMenuGUI() { return m_MenuGUI; }
+		PokemonGUI* GetPokemonGUI() { return m_PokemonGUI; }
+		CreditsGUI* GetCreditsGUI() { return m_CreditsGUI; }
 
 		bool isFrustumSet = false;
 		bool wasCameraMoved = true;
@@ -96,6 +104,8 @@ namespace Clumsy
 		void SetDestination(glm::vec3 pos) { m_Destination = pos; }
 		void SetCurrentPlayer(RenderModelComponent* rmc) { m_CurrentPlayer = rmc; }
 		void SetDeltaMove(glm::vec3 delta) { m_DeltaMove = delta; }
+		Shader* GetShaderText() { return textShader; }
+		Shader* GetShaderButton() { return buttonShader; }
 
 		Camera* getCamera() {
 			return m_Camera;
@@ -103,13 +113,47 @@ namespace Clumsy
 
 		bool isPlayed = false;
 
+		float m_MoveFailTime;
+		bool m_MoveTooFar = false;
+		bool m_TooMuchWood = false;
+		bool m_TileOccupied = false;
+
+		bool m_SecondInstruction = true;
+		float m_SecondInstructionTime;
+
+		bool m_ThirdInstruction = true;
+		float m_ThirdInstructionTime;
+
+		bool m_FirstInstruction = true;
+		float m_FirstInstructionTime;
+
+
+		void AddCube(Cube* c) { m_Cubes.push_back(c); }
+		void UpdateCubes();
+
+
 		float GetScaleUp() { return m_ScaleUp; }
+		void  IncreaseScaleUp() { m_ScaleUp += 0.1f; }
+		void  SetScaleUp(float newScale) { m_ScaleUp = newScale; }
+		DestructionBar* GetDestructionBar() { return destructionBar; }
+		DestructionBar* GetBackgroundBar() { return background; }
+
+
+		float GetXScaleBackground() {}
+		void  SetXScaleBackground(float newScale) 
+		{ 
+			newScale /= 10;
+			std::cout << "New Scale: " << newScale << std::endl;
+			m_XScaleBackground = newScale; 
+		}
+
 
 	private:
 		//Bar
 		DestructionBar* background;
 		DestructionBar* destructionBar;
 		float m_ScaleUp = 0.0f;
+		float m_XScaleBackground = 1.0f; //default
 
 		//void Run();
 		void CleanUp();
@@ -129,7 +173,6 @@ namespace Clumsy
 		Shader* particleShader;
 		Shader* shaderCube;
 		Shader* mainMenuShader;
-
 
 		glm::mat4 projection;
 		glm::mat4 view;
@@ -156,8 +199,22 @@ namespace Clumsy
 		StoreGUI* m_StoreGUI;
 		WarehouseGUI* m_WarehouseGUI;
 		MenuGUI* m_MenuGUI;
+		PokemonGUI* m_PokemonGUI;
+		CreditsGUI* m_CreditsGUI;
 		
+<<<<<<< HEAD
 		Instruction* instruction1;
+=======
+		TexturedRect* m_TexturedRect;
+
+		TexturedRect* m_Instruction2;
+		TexturedRect* m_Instruction3;
+
+		TexturedRect* m_PokemonRect;
+		TexturedRect* m_PokemonEnemy;
+		TexturedRect* m_PokemonPlayer;
+
+>>>>>>> development
 
 		PostProcessor* Effects;
 		float m_ShakeTime;
@@ -166,5 +223,8 @@ namespace Clumsy
 		glm::vec3 m_Destination;
 		RenderModelComponent* m_CurrentPlayer;
 		glm::vec3 m_DeltaMove;
+
+
+		std::vector<Cube*> m_Cubes;
 	};
 }
