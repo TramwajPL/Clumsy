@@ -27,6 +27,7 @@
 #include "../Core/EntityComponent.h"
 #include "../Components/RenderModelComponent.h"
 #include "../Particles/ParticleGenerator.h"
+#include "ParticleSystem.h"
 #include "../GUI/DestructionBar.h"
 
 //const unsigned int SCR_WIDTH = 1920;
@@ -74,8 +75,10 @@ namespace Clumsy
 		debugDepthQuadShader->use();
 		debugDepthQuadShader->setInt("depthMap", 0);
 
-		particles = new ParticleGenerator(particleShader, particleTexture, 500, 780.0f, 100.0f);
-		particles1 = new ParticleGenerator(particleShader, particleTexture, 500, 650.0f, 100.0f);
+	/*	particles = new ParticleGenerator(particleShader, particleTexture, 800, -0.5f, 0.0f, 0.0f);
+		particles1 = new ParticleGenerator(particleShader, particleTexture, 800, -0.8f, 0.0f, 0.0f);*/
+
+		particleSystem = new ParticleSystem(particleShader, particleTexture);
 
 		gui = new GUI();
 		m_ButtonCameraOnPlayer = new Button(glm::vec2(-0.88f, 0.65f), "Find Player", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.2f, 0.08f));
@@ -304,16 +307,16 @@ namespace Clumsy
 		}
 
 		if (isPlayed == true) {
-			glm::mat4 projectionParticles = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), static_cast<float>(SCR_HEIGHT), 0.0f, -1.0f, 1.0f);
-			particleShader->use();
-			particleShader->SetInteger("sprite", 0, GL_TRUE);
-			particleShader->setMat4("projection", projectionParticles);
-			particles->Update(timestep.GetSeconds(), 2);
-			particles->Draw();
-
-			particles1->Update(timestep.GetSeconds(), 2);
-			particles1->Draw();
+			particleSystem->GenerateNewParticles(timestep.GetSeconds(), m_TreePosition);
+			fireTime += timestep.GetSeconds();
+			if (fireTime >= fireMaxTime)
+			{
+				isPlayed = false;
+				fireTime = 0;
+			}
 		}
+		particleSystem->Update(timestep.GetSeconds(), view, projection);
+		particleSystem->Render(view, projection); //?
 	}
 
 	void RenderEngine::RenderGUI()

@@ -208,6 +208,10 @@ namespace Clumsy
 						RenderEngine::GetInstance()->wasCut = true;
 						//RenderEngine::GetInstance()->cutTreesTransforms.push_back(RenderEngine::GetInstance()->treeTransforms.at(t));
 						RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
+
+						Clumsy::RenderEngine::GetInstance()->SetFireTreePosition(*destination); //FIRE
+						Clumsy::RenderEngine::GetInstance()->isPlayed = true;
+
 						if ((RenderEngine::GetInstance()->GetBackgroundBar()->GetScale().x - 0.0001) > RenderEngine::GetInstance()->GetDestructionBar()->GetScale().x)
 						{
 							RenderEngine::GetInstance()->IncreaseScaleUp();
