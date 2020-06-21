@@ -39,8 +39,8 @@ namespace Clumsy
 					int randomNumber = (rand() % 5) + 1; //range from 1 to 10
 					for (int i = 0; i < randomNumber ; i++)
 					{
-						std::cout << "Randow number of TREEEEES: " << randomNumber<<  std::endl;
-						SpawnOneTree();
+						//std::cout << "Randow number of TREEEEES: " << randomNumber<<  std::endl;
+						SpawnOneTreeEnemy();
 					}
                 }
 
@@ -97,8 +97,21 @@ namespace Clumsy
                 int RandomTreeToSpawn = rand() % RenderEngine::GetInstance()->cutTreesTransforms.size();
                 RenderEngine::GetInstance()->treeTransforms.push_back(RenderEngine::GetInstance()->cutTreesTransforms.at(RandomTreeToSpawn));
                 RenderEngine::GetInstance()->cutTreesTransforms.erase(RenderEngine::GetInstance()->cutTreesTransforms.begin() + RandomTreeToSpawn);
+				
             }
            }
+
+
+		void SpawnOneTreeEnemy() {
+
+			if (RenderEngine::GetInstance()->cutTreesTransforms.size() > 0) {
+				int RandomTreeToSpawn = rand() % RenderEngine::GetInstance()->cutTreesTransforms.size();
+				RenderEngine::GetInstance()->treeTransforms.push_back(RenderEngine::GetInstance()->cutTreesTransforms.at(RandomTreeToSpawn));
+				RenderEngine::GetInstance()->SetSpawnTreePosition(RenderEngine::GetInstance()->cutTreesTransforms.at(RandomTreeToSpawn));
+				RenderEngine::GetInstance()->enemySpawn = true;
+				RenderEngine::GetInstance()->cutTreesTransforms.erase(RenderEngine::GetInstance()->cutTreesTransforms.begin() + RandomTreeToSpawn);
+			}
+		}
 
         void SpawnTrees2()
         {

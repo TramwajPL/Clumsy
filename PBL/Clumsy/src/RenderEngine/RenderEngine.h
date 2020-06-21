@@ -106,6 +106,7 @@ namespace Clumsy
 		}
 
 		bool isPlayed = false;
+		bool enemySpawn = false;
 
 		float m_MoveFailTime;
 		bool m_MoveTooFar = false;
@@ -141,7 +142,9 @@ namespace Clumsy
 		}
 
 		void SetFireTreePosition(Transform newTreePosition) { m_TreePosition = newTreePosition; }
+		void SetSpawnTreePosition(Transform newTreePosition) { m_TreeSpawnPosition.push_back(newTreePosition); }
 		ParticleSystem* particleSystem;
+		ParticleSystem* greenParticle;
 	private:
 		//Bar
 		DestructionBar* background;
@@ -151,8 +154,14 @@ namespace Clumsy
 
 		//Fire tree
 		Transform m_TreePosition;
+		std::vector<Transform> m_TreeSpawnPosition;
 		float fireTime; 
 		float fireMaxTime = 1.5f;
+
+		//Enemy spawn particles
+		float particleTime;
+		float particleMaxTime = 1.5f;
+
 		//void Run();
 		void CleanUp();
 		GLFWwindow* m_GLFWWindow;
@@ -176,6 +185,7 @@ namespace Clumsy
 		glm::mat4 view;
 		Cube* Cube1;
 		TextureClass particleTexture;
+		TextureClass greenParticleTexture;
 		ParticleGenerator* particles;
 		ParticleGenerator* particles1;
 

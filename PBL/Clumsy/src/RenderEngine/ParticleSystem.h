@@ -37,8 +37,6 @@ namespace Clumsy {
 
 		void GenerateNewParticles(GLfloat delta, Transform& position);
 
-		void ResetLife();
-
 	private:
 		
 		Particle ParticlesContainer[MaxParticles];

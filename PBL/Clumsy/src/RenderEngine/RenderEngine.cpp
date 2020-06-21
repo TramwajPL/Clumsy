@@ -51,6 +51,7 @@ namespace Clumsy
 		debugDepthQuadShader = new Shader("../Clumsy/src/Shaders/debug_depth_quad_VS.glsl", "../Clumsy/src/Shaders/debug_depth_quad_FS.glsl");
 		particleShader = new Shader("../Clumsy/src/Shaders/particle_VS.glsl", "../Clumsy/src/Shaders/particle_FS.glsl");
 		particleTexture = loadTextureFromFile("../Clumsy/src/models/flame.png", GL_TRUE);
+		greenParticleTexture = loadTextureFromFile("../Clumsy/src/models/greenParticle.png", GL_TRUE);
 		textShader = new Shader("../Clumsy/src/Shaders/text_VS.glsl", "../Clumsy/src/Shaders/text_FS.glsl");
 		buttonShader = new Shader("../Clumsy/src/Shaders/button_VS.glsl", "../Clumsy/src/Shaders/button_FS.glsl");
 
@@ -79,6 +80,7 @@ namespace Clumsy
 		particles1 = new ParticleGenerator(particleShader, particleTexture, 800, -0.8f, 0.0f, 0.0f);*/
 
 		particleSystem = new ParticleSystem(particleShader, particleTexture);
+		greenParticle = new ParticleSystem(particleShader, greenParticleTexture);
 
 		gui = new GUI();
 		m_ButtonCameraOnPlayer = new Button(glm::vec2(-0.88f, 0.65f), "Find Player", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.2f, 0.08f));
@@ -317,6 +319,22 @@ namespace Clumsy
 		}
 		particleSystem->Update(timestep.GetSeconds(), view, projection);
 		particleSystem->Render(view, projection); //?
+
+		if (enemySpawn == true) {
+			for (int i = 0; i < m_TreeSpawnPosition.size(); i++)
+			{
+				greenParticle->GenerateNewParticles(timestep.GetSeconds(), m_TreeSpawnPosition[i]);
+			}
+			particleTime += timestep.GetSeconds();
+			if (particleTime >= particleMaxTime)
+			{
+				enemySpawn = false;
+				particleTime = 0;
+			}
+		}
+
+		greenParticle->Update(timestep.GetSeconds(), view, projection);
+		greenParticle->Render(view, projection); //?
 	}
 
 	void RenderEngine::RenderGUI()

@@ -38,13 +38,6 @@ namespace Clumsy {
 		return 0;
 	}
 
-	/*void ParticleSystem::ResetLife()
-	{
-		for (int i = 0; i < MaxParticles; i++) 
-		{
-
-		}
-	}*/
 
 	void ParticleSystem::SortParticles() {
 		std::sort(&ParticlesContainer[0], &ParticlesContainer[MaxParticles]);
