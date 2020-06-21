@@ -322,7 +322,7 @@ namespace Clumsy
 		particleSystem->Update(timestep.GetSeconds(), view, projection);
 		particleSystem->Render(view, projection);
 
-		if (enemySpawn == true) {
+		if (enemySpawn == true && isPlayed == false) {
 			for (int i = 0; i < m_TreeSpawnPosition.size(); i++)
 			{
 				greenParticle->GenerateNewParticles(timestep.GetSeconds(), m_TreeSpawnPosition[i]);
