@@ -16,11 +16,11 @@ namespace Clumsy
 		BackgroundInit();
 
 		 //Buttons
-		Button* b1 = new Button(glm::vec2(-0.01f, 0.2f), "PLAY", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
+		Button* b1 = new Button(glm::vec2(-0.01f, 0.2f), "PLAY", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(0.7f, 0.1f));
 		m_Buttons.push_back(b1);
-		Button* b2 = new Button(glm::vec2(-0.01f, 0.05f), "CREDITS", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
+		Button* b2 = new Button(glm::vec2(-0.01f, 0.05f), "CREDITS", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(0.7f, 0.1f));
 		m_Buttons.push_back(b2);
-		Button* b3 = new Button(glm::vec2(-0.01f, -0.10f), "EXIT", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
+		Button* b3 = new Button(glm::vec2(-0.01f, -0.10f), "EXIT", glm::vec3(0.f, 0.0f, 0.0f), glm::vec2(0.7f, 0.1f));
 		m_Buttons.push_back(b3);
 
 		gui = new GUI();

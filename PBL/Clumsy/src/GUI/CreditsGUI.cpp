@@ -14,10 +14,10 @@ namespace Clumsy
 		BackgroundInit();
 
 		//Buttons
-		Button* b1 = new Button(glm::vec2(-0.01f, -0.5f), "BACK", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
+		Button* b1 = new Button(glm::vec2(-0.01f, -0.5f), "BACK", glm::vec3(0.f, 0.0f, 0.0f), glm::vec2(0.7f, 0.1f));
 		m_Buttons.push_back(b1);
 
-		b2 = new Button(glm::vec2(-0.01f, 0.8f), "", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 2.0f));
+		b2 = new Button(glm::vec2(-0.01f, 0.8f), "", glm::vec3(0.f, 0.0f, 0.0f), glm::vec2(0.7f, 2.0f));
 
 		gui = new GUI();
 	}

@@ -14,15 +14,15 @@ namespace Clumsy
 		BackgroundInit();
 
 		// Buttons
-		Button* exitButton = new Button(glm::vec2(0.36f, 0.33f), "X", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.07f, 0.1f));
+		Button* exitButton = new Button(glm::vec2(0.36f, 0.33f), "X", glm::vec3(0.f, 0.0f, 0.0f), glm::vec2(0.07f, 0.1f));
 		m_Buttons.push_back(exitButton);
-		Button* b1 = new Button(glm::vec2(-0.01f, 0.2f), "Increase wood capacity (2 wood)", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
+		Button* b1 = new Button(glm::vec2(-0.01f, 0.2f), "Increase wood capacity (2 wood)", glm::vec3(0.f, 0.0f, 0.0f), glm::vec2(0.7f, 0.1f));
 		m_Buttons.push_back(b1);
-		Button* b2 = new Button(glm::vec2(-0.01f, 0.05f), "Increase number of actions (2 wood)", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
+		Button* b2 = new Button(glm::vec2(-0.01f, 0.05f), "Increase number of actions (2 wood)", glm::vec3(0.f, 0.0f, 0.0f), glm::vec2(0.7f, 0.1f));
 		m_Buttons.push_back(b2);
-		Button* b3 = new Button(glm::vec2(-0.01f, -0.1f), "Enable scorching ground (5 wood)", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
+		Button* b3 = new Button(glm::vec2(-0.01f, -0.1f), "Enable scorching ground (5 wood)", glm::vec3(0.f, 0.0f, 0.0f), glm::vec2(0.7f, 0.1f));
 		m_Buttons.push_back(b3);
-		Button* b4 = new Button(glm::vec2(-0.01f, -0.25f), "Hire a lumberjack (5 wood)", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.7f, 0.1f));
+		Button* b4 = new Button(glm::vec2(-0.01f, -0.25f), "Hire a lumberjack (5 wood)", glm::vec3(0.f, 0.0f, 0.0f), glm::vec2(0.7f, 0.1f));
 		m_Buttons.push_back(b4);
 
 		gui = new GUI();
