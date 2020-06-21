@@ -247,6 +247,10 @@ namespace Clumsy
 							RenderEngine::GetInstance()->enemy->SetCondition(false);
 						}
 						countTrees++;
+						if (countTrees == 1) {
+							EventSystem::GetInstance()->SendEvent("Level2");
+						}
+
 						RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
 						player->IncrementWoodCount();
 					}

@@ -19,7 +19,8 @@ namespace Clumsy
 		
 		virtual void Render(Shader& shader) {}
 		virtual void Update() {}
-		virtual void ProcessInput(int input) {}
+		void Delete() { delete this; }
+		//virtual void ProcessInput(int input) {}
 
 	private:
 		GameObject* m_Parent; 

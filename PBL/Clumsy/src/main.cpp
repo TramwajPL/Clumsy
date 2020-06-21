@@ -26,17 +26,21 @@ Clumsy::TurnSystem* Clumsy::TurnSystem::m_Instance = 0;
 class TestGame : public Clumsy::Game
 {
 public:
-	TestGame(GLFWwindow* window) :
-		m_GLFWWindow(window) {}
+	TestGame(GLFWwindow* window, glm::vec3 playerPosition, glm::vec3 enemyPosition, std::string filename) :
+		m_GLFWWindow(window),
+		m_PlayerPos(playerPosition),
+		m_EnemyPos(enemyPosition),
+		m_Path(filename)
+	{}
 
 	virtual void Init()
 	{
 		Clumsy::RenderEngine::GetInstance()->SetXScaleBackground(10); //zmiana wielkoœci paska pod spodem (zielonego) czerwony zawsze dochodzi  tylko do jego koñca
-		std::string filename = "Test.unity";
+		std::string filename = m_Path;
 		SceneParser(Clumsy::RenderEngine::GetInstance()->map, filename);
 
-		glm::vec3 pos = glm::vec3(0.2f, -1.5f, 0.0f);
-		glm::vec3 enemyPos = glm::vec3(-0.5f, 0.0f, 0.0f);
+		glm::vec3 pos = m_PlayerPos;
+		glm::vec3 enemyPos = m_EnemyPos;
 
 		glm::quat rotBoy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f));
 
@@ -101,6 +105,8 @@ public:
 
 private:
 	GLFWwindow* m_GLFWWindow;
+	std::string m_Path;
+	glm::vec3 m_PlayerPos, m_EnemyPos;
 };
 
 
@@ -118,7 +124,8 @@ glm::vec3 v2 = glm::vec3(0.0f, 0.0f, -2.0f) + glm::vec3(1.0f, 1.0f, 1.0f);
 Clumsy::Aabb a1(v1, v2);
 
 GLFWwindow* glfwWindow = window->GetGLFWWindow();
-TestGame game(glfwWindow);
+TestGame game(glfwWindow, glm::vec3(0.2f, -1.5f, 0.0f), glm::vec3(-0.5f, 0.0f, 0.0f), "Test.unity");
+TestGame Level2(glfwWindow, glm::vec3(0.2f, -1.5f, 0.0f), glm::vec3(-0.5f, 0.0f, 0.0f), "Test.unity");
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
@@ -221,11 +228,16 @@ int main()
 	glfwSetScrollCallback(glfwWindow, scroll_callback);
 	glfwSetMouseButtonCallback(glfwWindow, mouse_button_callback);
 
-	Clumsy::CoreEngine coreEngine(60.0f, window, &game);
+	Clumsy::CoreEngine coreEngine(60.0f, window, &game, &Level2);
 
 	std::cout << game.getRoot().GetAllChildren().size() << std::endl;
+	Clumsy::EventSystem::GetInstance()->SubscribeListener("Level2", &coreEngine);
+
 
 	coreEngine.Start();
+
+
+
 	window->~Window();
 	Clumsy::AudioMaster::GetInstance()->Drop();
 	return 0;

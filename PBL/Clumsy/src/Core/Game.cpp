@@ -379,9 +379,9 @@ namespace Clumsy
 		
     }
 
-	void Game::ProcessInput(int input) 
-	{
-		m_Root.ProcessInputAll(input);
-	}
+	//void Game::ProcessInput(int input) 
+	//{
+	//	//m_Root.ProcessInputAll(input);
+	//}
 
 }

@@ -22,7 +22,7 @@ namespace Clumsy
 		virtual void Move() {}
 		void Render();
 		void Update(float deltaTime);
-		void ProcessInput(int input);
+		//void ProcessInput(int input);
 		void AddToScene(GameObject* child);
 
 		void HandleEvent(Event* event);
@@ -30,6 +30,7 @@ namespace Clumsy
 		GameObject getRoot() { return m_Root; }
 		void SceneParser(GameObject* map, std::string filename);
 		std::vector<Transform> allTransformsM7;
+
 
 	protected:
 		Model* playerModel;

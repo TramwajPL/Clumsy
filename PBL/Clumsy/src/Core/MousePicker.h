@@ -8,6 +8,7 @@
 #include "../RenderEngine/Camera.h"
 #include "../RenderEngine/RenderEngine.h"
 #include "../EventSystem/Listener.h"
+#include "../EventSystem/EventSystem.h"
 #include "../PhysicsEngine/PhysicsEngine.h"
 #include "../Components/PhysicsObjectComponent.h"
 
@@ -35,6 +36,10 @@ namespace Clumsy
 
 		glm::vec3 GetPickedObject(glm::vec3 originalPosition);
 		void HandleEvent(Event* event);
+
+		int GetCountTrees() {
+			return countTrees;
+		}
 
 	private:
 		int countTrees = 0;

@@ -40,8 +40,8 @@ namespace Clumsy
 		void Update();
 		void UpdateAll();
 
-		void ProcessInput(int input);
-		void ProcessInputAll(int input);
+		//void ProcessInput(int input);
+		//void ProcessInputAll(int input);
 		std::string GetM_Tag() { return m_Tag; }
 		virtual void SetM_Tag(std::string tag) { m_Tag = tag; }
 	
@@ -60,6 +60,10 @@ namespace Clumsy
 		virtual bool GetRenderEnemy() { return m_RenderEnemy; }
 		virtual bool GetIsDead() { return isEnemyDead; }
 		virtual void SetIsDead(bool dead) { isEnemyDead = dead; }
+
+		void Delete();
+		void DeleteAll();
+	
 	protected:
 		int m_CountCollectedTrees;
 		bool m_WasCut = false;

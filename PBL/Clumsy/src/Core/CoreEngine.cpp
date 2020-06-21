@@ -27,15 +27,14 @@ namespace Clumsy
 
 			EventSystem::GetInstance()->ProcessEvents();
 
-			m_Game->ProcessInput(m_Window->GetInput());
+			//m_Game->ProcessInput(m_Window->GetInput());
 
-			m_Game->Update(m_FrameTime);
+			//m_Game->Update(m_FrameTime);
 
 
 			glFrontFace(GL_CCW);
 
 			m_Game->Render();
-
 
 			glFrontFace(GL_CW);
 
@@ -51,4 +50,14 @@ namespace Clumsy
 		m_IsRunning = false;
 	}	
 	
+	void CoreEngine::HandleEvent(Event* event)
+	{
+		if (event->GetEventId() == "Level2")
+		{
+			SetGame(m_Level2);
+
+		}
+
+
+	}
 }

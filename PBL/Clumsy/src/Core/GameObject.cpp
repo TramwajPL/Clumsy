@@ -171,23 +171,41 @@ namespace Clumsy
 		}
 	}
 
-	void GameObject::ProcessInput(int input)
+	void GameObject::Delete()
 	{
-		m_Transform.Update();
-
-		for (int i = 0; i < m_Components.size(); i++) 
+		for (int i = 0; i < m_Components.size(); i++)
 		{
-			m_Components[i]->ProcessInput(input);
+			m_Components[i]->Delete();
 		}
 	}
 
-	void GameObject::ProcessInputAll(int input)
+	void GameObject::DeleteAll()
 	{
-		ProcessInput(input);
+		Delete();
 
-		for (int i = 0; i < m_Children.size(); i++) 
+		for (int i = 0; i < m_Children.size(); i++)
 		{
-			m_Children[i]->ProcessInputAll(input);
+			m_Children[i]->DeleteAll();
 		}
 	}
+
+	//void GameObject::ProcessInput(int input)
+	//{
+	//	m_Transform.Update();
+
+	//	for (int i = 0; i < m_Components.size(); i++) 
+	//	{
+	//		m_Components[i]->ProcessInput(input);
+	//	}
+	//}
+
+	//void GameObject::ProcessInputAll(int input)
+	//{
+	//	ProcessInput(input);
+
+	//	for (int i = 0; i < m_Children.size(); i++) 
+	//	{
+	//		m_Children[i]->ProcessInputAll(input);
+	//	}
+	//}
 }
