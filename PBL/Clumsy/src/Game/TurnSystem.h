@@ -17,7 +17,7 @@ namespace Clumsy
 		std::vector<TurnClass*> GetPlayers();
 		GameObject* GetActivePlayer();
 		void AddPlayer(GameObject* player);
-
+		void DeletePlayers();
 		static TurnSystem* GetInstance();
 
 	private:

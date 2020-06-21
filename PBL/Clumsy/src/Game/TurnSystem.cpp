@@ -78,14 +78,8 @@ namespace Clumsy
         player->SetTurnClass(tc);
     }
 
-    /*void TurnSystem::DeletePlayer(GameObject* player)
+    void TurnSystem::DeletePlayers()
     {
-        for (std::vector<TurnClass>::iterator b = players.begin(); b != players.end(); ++b)
-        {
-            if (b->GetGameObject() == player)
-            {
-                b = players.erase(b);
-            }
-        }
-    }*/
+        players.clear();
+    }
 }

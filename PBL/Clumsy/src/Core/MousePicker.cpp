@@ -219,6 +219,7 @@ namespace Clumsy
 						}
 						else if (player->getCanBurn() == true) 
 						{
+							RenderEngine::GetInstance()->TreeBurnt();
 							RenderEngine::GetInstance()->wasCut = true;
 							RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
 
@@ -226,9 +227,13 @@ namespace Clumsy
 							Clumsy::RenderEngine::GetInstance()->isPlayed = true;
 							AudioMaster::GetInstance()->PlayFire();
 
-							if ((RenderEngine::GetInstance()->GetBackgroundBar()->GetScale().x - 0.0001) > RenderEngine::GetInstance()->GetDestructionBar()->GetScale().x)
+							if ((RenderEngine::GetInstance()->GetBackgroundBar()->GetScale().x) > RenderEngine::GetInstance()->GetDestructionBar()->GetScale().x)
 							{
+
 								RenderEngine::GetInstance()->IncreaseScaleUp();
+								if (RenderEngine::GetInstance()->GetBurntTrees() == 10) {
+									EventSystem::GetInstance()->SendEvent("Level2");
+								}
 							}
 							for (int k = 0; k < RenderEngine::GetInstance()->ground.size(); k++)
 							{
@@ -247,9 +252,6 @@ namespace Clumsy
 							RenderEngine::GetInstance()->enemy->SetCondition(false);
 						}
 						countTrees++;
-						if (countTrees == 1) {
-							EventSystem::GetInstance()->SendEvent("Level2");
-						}
 
 						RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
 						player->IncrementWoodCount();

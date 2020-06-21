@@ -27,13 +27,15 @@ namespace Clumsy
 		void SetGame(Game* game) {
 			m_Game->getRoot().DeleteAll();
 			RenderEngine::GetInstance()->m_Cubes.clear();
-			TurnSystem::GetInstance()->GetPlayers().clear();
+			TurnSystem::GetInstance()->DeletePlayers();
+			RenderEngine::GetInstance()->boys.clear();
 			PhysicsEngine::GetInstance()->m_Objects.clear();
 			RenderEngine::GetInstance()->treeTransforms.clear();
 			RenderEngine::GetInstance()->cutTreesTransforms.clear();
 			RenderEngine::GetInstance()->ground.clear();
 			RenderEngine::GetInstance()->groundBurned.clear();
 			RenderEngine::GetInstance()->groundSand.clear();
+			RenderEngine::GetInstance()->GetBackgroundBar().x = 0;
 			m_Game = game;
 			m_Game->Init();
 

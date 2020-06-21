@@ -156,14 +156,19 @@ namespace Clumsy
 			m_XScaleBackground = newScale; 
 		}
 
+		void TreeBurnt() { burntTrees++; }
+		int GetBurntTrees() { return burntTrees; }
+		void SetBurntToZero() { burntTrees = 0; }
 		void SetFireTreePosition(Transform newTreePosition) { m_TreePosition = newTreePosition; }
 		void SetSpawnTreePosition(Transform newTreePosition) { m_TreeSpawnPosition.push_back(newTreePosition); }
 		ParticleSystem* particleSystem;
 		ParticleSystem* greenParticle;
 
+		std::vector<Player*> boys;
 		std::vector<Cube*> m_Cubes;
 	private:
 		//Bar
+		int burntTrees = 0;
 		DestructionBar* background;
 		DestructionBar* destructionBar;
 		float m_ScaleUp = 0.0f;

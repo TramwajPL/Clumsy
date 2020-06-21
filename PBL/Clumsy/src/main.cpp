@@ -58,7 +58,8 @@ public:
 		Clumsy::Model* enemyModel = new Clumsy::Model();
 		enemyModel->loadModel("../Clumsy/src/models/enemyModels/Idle/Idle.dae"); //enemy		
 			
-		Clumsy::GameObject* boy = new Clumsy::Player(boyTransform);
+		Clumsy::Player* boy = new Clumsy::Player(boyTransform);
+		Clumsy::RenderEngine::GetInstance()->boys.push_back(boy);
 
 		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(enemyModel, enemyTransform); //enemy change how much we need to collect wood
 		Clumsy::RenderEngine::GetInstance()->enemy->SetM_Tag("enemy"); //ost zmiana
