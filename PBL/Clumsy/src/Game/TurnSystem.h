@@ -14,6 +14,7 @@ namespace Clumsy
 		void Update();
 		void UpdateTurns();
 		int GetTurnCounter() { return m_TurnCounter; }
+		std::vector<TurnClass*> GetPlayers();
 		GameObject* GetActivePlayer();
 		void AddPlayer(GameObject* player);
 

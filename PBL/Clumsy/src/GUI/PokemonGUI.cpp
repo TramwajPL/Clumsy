@@ -14,8 +14,10 @@ namespace Clumsy {
 	{
 		BackgroundInit();
 
-		backEnemy = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), buttonShader);
-		Enemy = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), buttonShader);
+		backPlayer = new DestructionBar(glm::vec3(-0.56f, 0.23f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), buttonShader);
+		Player = new DestructionBar(glm::vec3(-0.56f, 0.23f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), buttonShader);
+		backEnemy = new DestructionBar(glm::vec3(0.16f, 0.63f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), buttonShader);
+		Enemy = new DestructionBar(glm::vec3(0.16f, 0.63f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), buttonShader);
 		//Buttons
 		Button* b1 = new Button(glm::vec2(0.2f, -0.5f), "ATTACK", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.3f, 0.3f));
 		m_Buttons.push_back(b1);
@@ -35,8 +37,10 @@ namespace Clumsy {
 			//std::cout << "nieeeeeee" << std::endl;
 			glDisable(GL_CULL_FACE);
 			RenderEngine::GetInstance()->GetShaderButton()->use();
-			backEnemy->Render(glm::vec3(0.3, 0.13f, 0.3f));
-			Enemy->Render(glm::vec3(0.1, 0.13f, 0.3f));
+			backPlayer->Render(glm::vec3(0.3, 0.03f, 0.3f));
+			Player->Render(scalePlayer);
+			backEnemy->Render(glm::vec3(0.3, 0.03f, 0.3f));
+			Enemy->Render(scaleEnemy);
 			glEnable(GL_CULL_FACE);
 
 			glEnable(GL_TEXTURE_2D);/*
@@ -149,6 +153,10 @@ namespace Clumsy {
 			&& m_AttackButtonClickable)
 		{
 			m_EnemyHp -= m_AttackValue;
+			scaleEnemy.x += 0.15f;
+			if (scaleEnemy.x >= 0.3f) {
+				scaleEnemy.x = 0.3f;
+			}
 			std::cout << m_EnemyHp << std::endl;
 			if (m_EnemyHp <= 0) {
 				m_BattleState = WON;
@@ -167,6 +175,10 @@ namespace Clumsy {
 			&& m_HealButtonClickable)
 		{
 			m_PlayerHP += m_HealValue;
+			scalePlayer.x -= 0.15f;
+			if (scalePlayer.x <= 0.0f) {
+				scalePlayer.x = 0.0f;
+			}
 			if (m_PlayerHP > 100)
 				m_PlayerHP = 100;
 			m_BattleState = ENEMYTURN;
@@ -198,6 +210,7 @@ namespace Clumsy {
 			{
 				m_textString = "Now the enemy attacks...";
 				m_PlayerHP - m_EnemyAttackValue;
+				scalePlayer.x += 0.03f;
 				if (m_PlayerHP <= 0) 
 				{
 					m_BattleState = LOST;

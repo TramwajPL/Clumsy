@@ -72,7 +72,7 @@ public:
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent();
 		//rmc = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90.0f);
-		enemyRmc = new Clumsy::RenderModelComponent(enemyModel, Clumsy::RenderEngine::GetInstance()->enemy->GetTransform(), 360.0f,true); //enemy RMC //ost zmiana
+		enemyRmc = new Clumsy::RenderModelComponent(enemyModel, Clumsy::RenderEngine::GetInstance()->enemy->GetTransform(), 360.0f, true); //enemy RMC //ost zmiana
 
 		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90);
 		boy->m_Rmc = rmc1;
@@ -81,6 +81,8 @@ public:
 		Clumsy::RenderEngine::GetInstance()->AddCube(c1);
 
 		AddToScene((boy)->AddComponent(rmc1));
+
+		Clumsy::RenderEngine::GetInstance()->enemy->m_Rmc = enemyRmc;
 		AddToScene((Clumsy::RenderEngine::GetInstance()->enemy)->AddComponent(enemyRmc)); //enemy Add to scene //ost zmiana
 
 		boy->AddComponent(new Clumsy::PhysicsObjectComponent(ob1));
@@ -148,6 +150,10 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		else if (Clumsy::RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled()) 
 		{
 			Clumsy::RenderEngine::GetInstance()->GetMenuGUI()->HandleButtonClick(screenX, screenY, glfwWindow);
+		}
+		else if (Clumsy::RenderEngine::GetInstance()->GetCreditsGUI()->IsEnabled())
+		{
+			Clumsy::RenderEngine::GetInstance()->GetCreditsGUI()->HandleButtonClick(screenX, screenY);
 		}
 		else if (Clumsy::RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled()) 
 		{

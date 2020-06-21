@@ -59,13 +59,6 @@ namespace Clumsy {
 			}
 		}
 
-		/*void chechIfDead(int test)
-		{
-			if (test == 2)
-			{
-				m_ShouldBeDead = true;
-			}
-		}*/
 
 		bool GetIsDead() override { return isEnemyDead; }
 		void SetIsDead(bool dead) override { isEnemyDead = dead; }

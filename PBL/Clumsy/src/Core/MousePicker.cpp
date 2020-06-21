@@ -166,95 +166,110 @@ namespace Clumsy
 						break;
 					}
 				}
-				/*std::cout << "DESTINATION: " << glm::to_string(*destination) << std::endl;
-				std::cout << "DESTINATION: " << glm::to_string(RenderEngine::GetInstance()->enemy->GetPos()) <<std::endl;
-				std::cout << glm::length(RenderEngine::GetInstance()->enemy->GetPos() - *destination) << std::endl;*/
-				if (glm::length(RenderEngine::GetInstance()->enemy->GetPos() - *destination) < 1.5f && Clumsy::RenderEngine::GetInstance()->enemy->getIfActive())
+				if (glm::length(RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.GetPos() - *destination) < 1.5f && Clumsy::RenderEngine::GetInstance()->enemy->getIfActive())
 				{
 					RenderEngine::GetInstance()->enemy->Fight();
 				}
-		
 
-				if (!isThereATree)
+				// check if tile occupied
+				for (int i = 0; i < TurnSystem::GetInstance()->GetPlayers().size(); i++)
 				{
-					glm::vec3 delta = ((GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
-					Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
-					Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
-					Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
-					Clumsy::RenderEngine::GetInstance()->m_Movement = true;
-					if (!RenderEngine::GetInstance()->GetWarehouseGUI()->IsEnabled() && !RenderEngine::GetInstance()->GetStoreGUI()->IsEnabled())
-						player->IncrementActionCount();
-
-					AudioMaster::GetInstance()->PlayWalk();
-				}
-				else if (isThereATree && player->IsIncrementingWoodCountPossible())
-				{
-					glm::vec3 delta = ((GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
-					Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
-					Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
-					Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
-					Clumsy::RenderEngine::GetInstance()->m_Movement = true;
-					player->IncrementActionCount();
-
-					AudioMaster::GetInstance()->PlayWalk();
-
-					if (player->getCanBurn() == false) {
-						RenderEngine::GetInstance()->wasCut = true;
-						RenderEngine::GetInstance()->cutTreesTransforms.push_back(RenderEngine::GetInstance()->treeTransforms.at(t));
-						RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
-					}
-
-					else if (player->getCanBurn() == true) {
-						RenderEngine::GetInstance()->wasCut = true;
-						//RenderEngine::GetInstance()->cutTreesTransforms.push_back(RenderEngine::GetInstance()->treeTransforms.at(t));
-						RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
-
-						Clumsy::RenderEngine::GetInstance()->SetFireTreePosition(*destination); //FIRE
-						Clumsy::RenderEngine::GetInstance()->isPlayed = true;
-
-						if ((RenderEngine::GetInstance()->GetBackgroundBar()->GetScale().x - 0.0001) > RenderEngine::GetInstance()->GetDestructionBar()->GetScale().x)
+					Player* other = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetPlayers()[i]->GetGameObject());
+					if (other)
+					{
+						if (glm::length(other->m_Rmc->m_Transform.GetPos() - *destination) < 0.8f)
 						{
-							RenderEngine::GetInstance()->IncreaseScaleUp();
+							isTherePlayer = true;
+							RenderEngine::GetInstance()->m_TileOccupied = true;
+							RenderEngine::GetInstance()->m_MoveFailTime = 0.8f;
+							std::cout << "tile occupied" << std::endl;
+							break;
 						}
-						for (int k = 0; k < RenderEngine::GetInstance()->ground.size(); k++)
+					}
+				}
+				if (!isTherePlayer)
+				{
+					if (!isThereATree)
+					{
+						glm::vec3 delta = ((GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
+						Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
+						Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
+						Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
+						Clumsy::RenderEngine::GetInstance()->m_Movement = true;
+						if (!RenderEngine::GetInstance()->GetWarehouseGUI()->IsEnabled() && !RenderEngine::GetInstance()->GetStoreGUI()->IsEnabled())
+							player->IncrementActionCount();
+
+						AudioMaster::GetInstance()->PlayWalk();
+					}
+					else if (isThereATree && player->IsIncrementingWoodCountPossible())
+					{
+						glm::vec3 delta = ((GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
+						Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
+						Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
+						Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
+						Clumsy::RenderEngine::GetInstance()->m_Movement = true;
+						player->IncrementActionCount();
+						//AudioMaster::GetInstance()->PlayWalk();
+
+						if (player->getCanBurn() == false) {
+							RenderEngine::GetInstance()->wasCut = true;
+							RenderEngine::GetInstance()->cutTreesTransforms.push_back(RenderEngine::GetInstance()->treeTransforms.at(t));
+							RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
+							AudioMaster::GetInstance()->PlayChainsaw();
+						}
+						else if (player->getCanBurn() == true) 
 						{
-							if (*destination == RenderEngine::GetInstance()->ground[k].GetPos())
+							RenderEngine::GetInstance()->wasCut = true;
+							RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
+
+							Clumsy::RenderEngine::GetInstance()->SetFireTreePosition(*destination); //FIRE
+							Clumsy::RenderEngine::GetInstance()->isPlayed = true;
+							AudioMaster::GetInstance()->PlayFire();
+
+							if ((RenderEngine::GetInstance()->GetBackgroundBar()->GetScale().x - 0.0001) > RenderEngine::GetInstance()->GetDestructionBar()->GetScale().x)
 							{
-								RenderEngine::GetInstance()->groundBurned.push_back(RenderEngine::GetInstance()->ground.at(k));
-								//RenderEngine::GetInstance()->groundBurned.push_back(*destination);
-								//std::cout << "burned ground position: " << to_string(RenderEngine::GetInstance()->groundBurned[0].GetPos()) << std::endl;
-								RenderEngine::GetInstance()->ground.erase(RenderEngine::GetInstance()->ground.begin() + k);
-								//std::cout << "burned ground position: " << to_string(RenderEngine::GetInstance()->ground.begin() + t) << std::endl;
+								RenderEngine::GetInstance()->IncreaseScaleUp();
+							}
+							for (int k = 0; k < RenderEngine::GetInstance()->ground.size(); k++)
+							{
+								if (*destination == RenderEngine::GetInstance()->ground[k].GetPos())
+								{
+									RenderEngine::GetInstance()->groundBurned.push_back(RenderEngine::GetInstance()->ground.at(k));
+									RenderEngine::GetInstance()->ground.erase(RenderEngine::GetInstance()->ground.begin() + k);
+								}
 							}
 						}
+
+						if (RenderEngine::GetInstance()->enemy->GetIsDead() == true &&
+							RenderEngine::GetInstance()->enemy->GetCondition() == true)
+						{
+							countTrees = 0;
+							RenderEngine::GetInstance()->enemy->SetCondition(false);
+						}
+						countTrees++;
+						RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
+						player->IncrementWoodCount();
 					}
-
-
-					if (Clumsy::RenderEngine::GetInstance()->enemy->GetIsDead() == true &&
-						Clumsy::RenderEngine::GetInstance()->enemy->GetCondition() == true)
+					else if (isThereATree && !player->IsIncrementingWoodCountPossible())
 					{
-						countTrees = 0; 
-						//std::cout << "It is dead" << std::endl;
-						Clumsy::RenderEngine::GetInstance()->enemy->SetCondition(false);
+						// full wood
+						RenderEngine::GetInstance()->m_TooMuchWood = true;
+						RenderEngine::GetInstance()->m_MoveFailTime = 0.8f;
 					}
-					countTrees++;
-					Clumsy::RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
-					player->IncrementWoodCount();
+					else if (isThereEnemy)
+					{
+						RenderEngine::GetInstance()->enemy->Fight();
+						AudioMaster::GetInstance()->PlayShout();
+						AudioMaster::GetInstance()->PlayChainsaw();
+
+					}
+					else
+					{
+						//std::cout << "Nie mozesz sie poruszyc " << std::endl;
+					}
 				}
-				else if (isThereATree && !player->IsIncrementingWoodCountPossible())
-				{
-					// full wood
-					RenderEngine::GetInstance()->m_TooMuchWood = true;
-					RenderEngine::GetInstance()->m_MoveFailTime = 0.8f;
-				}
-				else if (isThereEnemy)
-				{
-					Clumsy::RenderEngine::GetInstance()->enemy->Fight();
-				}
-				else
-				{
-					//std::cout << "Nie mozesz sie poruszyc " << std::endl;
-				}
+
+				
 			}
 			else if (glm::length(*currentpos - *destination) >= 1.5f)
 			{

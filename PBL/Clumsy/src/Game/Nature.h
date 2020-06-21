@@ -1,6 +1,7 @@
 #pragma once
 #include "../pch.h"
 #include <cstdlib>
+#include <glm/gtx/string_cast.hpp>
 #include "../Game/TurnSystem.h"
 #include "../Core/GameObject.h"
 
@@ -33,31 +34,22 @@ namespace Clumsy
             if (isTurn)
             {
                 std::cout << "turn... " << std::endl;
-
-                //ENEMY SPAWNS ONE TREE EVERY ONE TURN
-                if (Clumsy::RenderEngine::GetInstance()->enemy->getIfActive()) {
-					int randomNumber = (rand() % 5) + 1; //range from 1 to 10
+                if (Clumsy::RenderEngine::GetInstance()->enemy->getIfActive()) 
+                {
+                    // movement
+                    EntMovement();
+                    // respawn
+					int randomNumber = (rand() % 5) + 1;
 					for (int i = 0; i < randomNumber ; i++)
 					{
 						SpawnOneTreeEnemy();
 					}
                 }
 
-                if (TurnSystem::GetInstance()->GetTurnCounter() % 2 == 2)
+                if (TurnSystem::GetInstance()->GetTurnCounter() % 2 == 0)
                 {
                     SpawnOneTree();
                 }
-
-                ////Spawn one tree every 4 turns
-                //if (callsController2 > 0 && TurnSystem::GetInstance()->GetTurnCounter() % 4 == 2)
-                //{
-                //    if (TurnSystem::GetInstance()->GetTurnCounter() > 5)
-                //    {
-                //        SpawnTrees2();
-                //    }
-                //    //TreePositionIndicator();
-                //    callsController2--;
-                //}
                 std::cout << " Nature time! " << std::endl;
                 std::cout << "Tura nr: " << TurnSystem::GetInstance()->GetTurnCounter() << std::endl;
                 isTurn = false;
@@ -66,40 +58,53 @@ namespace Clumsy
             }
 		}
 
-        void SpawnTrees()
+        void SpawnOneTree()
         {
-            /*if (listOfPosition.Count > 0)
+            if (RenderEngine::GetInstance()->cutTreesTransforms.size() > 0) 
             {
-                int currentPosition = Random.Range(0, listOfPosition.Count);
-                Vector3 randomTreePosition = listOfPosition[currentPosition];
-                if (randomTreePosition.x != player.transform.position.x && randomTreePosition.z != player.transform.position.z)
+                int RandomTreeToSpawn = rand() % RenderEngine::GetInstance()->cutTreesTransforms.size();
+                // check if tile occupied
+                bool occupied = false;
+                for (int i = 0; i < TurnSystem::GetInstance()->GetPlayers().size(); i++)
                 {
-                    Transform treeTrans = Instantiate(hexTreePrefab, randomTreePosition, transform.rotation);
-                    if (emptiedHexes[currentPosition] != null)
+                    Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetPlayers()[i]->GetGameObject());
+                    if (player)
                     {
-                        treeTrans.parent = emptiedHexes[currentPosition].transform;
-                        hexTreePrefab.tag = "hover";
-                        listOfPosition.RemoveAt(currentPosition);
-                        emptiedHexes.RemoveAt(currentPosition);
-                    }
-                    else
-                    {
-                        Debug.Log("Blad");
+                        if (glm::length(player->m_Rmc->m_Transform.GetPos() - RenderEngine::GetInstance()->cutTreesTransforms[RandomTreeToSpawn].GetPos()) < 0.1f
+                            || glm::length(RenderEngine::GetInstance()->GetDestination() - RenderEngine::GetInstance()->cutTreesTransforms[RandomTreeToSpawn].GetPos()) < 0.1f)
+                        {
+                            occupied = true;
+                            std::cout << "bez drzewa!" << std::endl;
+                            break;
+                        }
                     }
                 }
-            }*/
+                if (!occupied)
+                {
+                    RenderEngine::GetInstance()->treeTransforms.push_back(RenderEngine::GetInstance()->cutTreesTransforms.at(RandomTreeToSpawn));
+                    RenderEngine::GetInstance()->cutTreesTransforms.erase(RenderEngine::GetInstance()->cutTreesTransforms.begin() + RandomTreeToSpawn);
+                }
+            }
         }
 
-        void SpawnOneTree(){
-
-            if (RenderEngine::GetInstance()->cutTreesTransforms.size() > 0) {
-                int RandomTreeToSpawn = rand() % RenderEngine::GetInstance()->cutTreesTransforms.size();
-                RenderEngine::GetInstance()->treeTransforms.push_back(RenderEngine::GetInstance()->cutTreesTransforms.at(RandomTreeToSpawn));
-                RenderEngine::GetInstance()->cutTreesTransforms.erase(RenderEngine::GetInstance()->cutTreesTransforms.begin() + RandomTreeToSpawn);
-				
-            }
+        void EntMovement()
+        {
+           for (int i = 0; i < 5; i++)
+           {
+               if (EnemyMoved(RenderEngine::GetInstance()->groundSand))
+               {
+                   return;
+               }
+               else if (EnemyMoved(RenderEngine::GetInstance()->cutTreesTransforms))
+               {
+                   return;
+               }
+               else if (EnemyMoved(RenderEngine::GetInstance()->groundBurned))
+               {
+                   return;
+               }
            }
-
+        }
 
 		void SpawnOneTreeEnemy() {
 
@@ -112,26 +117,28 @@ namespace Clumsy
 			}
 		}
 
-        void SpawnTrees2()
+        bool EnemyMoved(std::vector<Transform> vec)
         {
-           /* if (treePosition != null)
+            if (vec.size() > 0)
             {
-                if (glowingHex != null)
+                int number = rand() % vec.size();
+                glm::vec3* destination = &vec[number].GetPos();
+                std::cout << "destination ent " << glm::to_string(*destination) << std::endl;
+                glm::vec3* currentpos = &RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.GetPos();
+                std::cout << "position ent " << glm::to_string(*currentpos) << std::endl;
+                if (glm::length(*currentpos - *destination) < 2.5f)
                 {
-                    glowingHex.GetComponent<TreeIndicator>().particle.Stop();
-
-                    Vector3 treePos = (Vector3)treePosition;
-                    if (treePos.x != player.transform.position.x && treePos.z != player.transform.position.z)
-                    {
-                        Transform treeTrans = Instantiate(hexTreePrefab, treePos, transform.rotation);
-                        treeTrans.parent = glowingHex.transform;
-                        hexTreePrefab.tag = "hover";
-                        treePosition = null;
-                    }
+                    // move
+                    glm::vec3 delta = (*destination - *currentpos) * glm::vec3(0.1f);
+                    Clumsy::RenderEngine::GetInstance()->SetEnemyDestination(*destination);
+                    Clumsy::RenderEngine::GetInstance()->SetEnemyDeltaMove(delta);
+                    Clumsy::RenderEngine::GetInstance()->m_EnemyMovement = true;
+                    return true;
                 }
-            }*/
+            }
+            return false;
         }
-
+        
 	private:
 		bool isTurn = false;
 		bool enemyOnBoard = false;

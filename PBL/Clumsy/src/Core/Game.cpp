@@ -12,6 +12,7 @@
 #include "../Components/RenderInstancedBurnedGroundComponent.h"
 #include "../Game/TurnSystem.h"
 #include "../Game/TreeObject.h"
+#include "../Game/Enemy.h"
 #include "../Game/Warehouse.h"
 #include "../GUI/WarehouseGUI.h"
 #include "../GUI/PokemonGUI.h"
@@ -24,15 +25,13 @@ namespace Clumsy
 		if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderPokemonGUI();
 		}
-	/*	if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
-			RenderEngine::GetInstance()->RenderMainMenu();
-
-		/*if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
-			RenderEngine::GetInstance()->GetPokemonGUI()->SetEnabled(false);
-
-		}*/
 		if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderMainMenu();
+		}
+
+		else if (RenderEngine::GetInstance()->GetCreditsGUI()->IsEnabled() == true) {
+			RenderEngine::GetInstance()->GetMenuGUI()->SetEnabled(false);
+			RenderEngine::GetInstance()->RenderCreditsGUI();
 		}
 		else {	
 			RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();
@@ -65,6 +64,7 @@ namespace Clumsy
 			{
 				Clumsy::RenderEngine::GetInstance()->m_MoveTooFar = false;
 				Clumsy::RenderEngine::GetInstance()->m_TooMuchWood = false;
+				Clumsy::RenderEngine::GetInstance()->m_TileOccupied = false;
 			}
 		}
 		//first instruction
@@ -106,6 +106,24 @@ namespace Clumsy
 				{
 					RenderEngine::GetInstance()->GetCurrentPlayer()->m_Transform.SetPos(destination);
 					RenderEngine::GetInstance()->m_Movement = false;
+				}
+			}
+		}
+		//enemy movement
+		if (RenderEngine::GetInstance()->m_EnemyMovement)
+		{
+			glm::vec3 currentPos = RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.GetPos();
+			glm::vec3 delta = RenderEngine::GetInstance()->GetEnemyDeltaMove();
+			glm::vec3 destination = RenderEngine::GetInstance()->GetEnemyDestination();
+			if (glm::length(currentPos - destination) > 0.001f)
+			{
+				glm::vec3 pos = RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.GetPos();
+				glm::vec3 newpos = pos + delta;
+				RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.SetPos(newpos);
+				if (glm::length(pos - destination) <= 0.001f)
+				{
+					RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.SetPos(destination);
+					RenderEngine::GetInstance()->m_EnemyMovement = false;
 				}
 			}
 		}
@@ -235,7 +253,13 @@ namespace Clumsy
 							transform2.SetRotY(0.7f);//0
 							transform2.SetRotZ(0.7f);//0
 							transform2.SetRotW(0.0f);//1
-							transform2.SetScale(0.1f);
+
+							transform2.SetScale(0.08f);
+							float i;
+							i = (rand() % 8) + 1;
+							i /= 100.0f;
+							i += transform2.GetScale();
+							transform2.SetScale(i);
 							
 							allTransformsM7.push_back(transform2);
 							RenderEngine::GetInstance()->treeTransforms.push_back(transform2);
@@ -260,6 +284,7 @@ namespace Clumsy
 							transform.SetRotW(0.0f);//1
 							transform.SetScale(0.0001f);
 
+							RenderEngine::GetInstance()->groundSand.push_back(transform);
 							allTransformsM4.push_back(transform);
 							glm::vec3 min = glm::vec3(transform.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
 							glm::vec3 max = glm::vec3(transform.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
@@ -312,7 +337,7 @@ namespace Clumsy
 		transformShop.SetRotY(0.7f);//0
 		transformShop.SetRotZ(0.7f);//0
 		transformShop.SetRotW(0.0f);//1
-		transformShop.SetScale(0.04f);
+		transformShop.SetScale(0.07f);
 
 		transformWoodHouse.SetPosX(-.950f);
 		transformWoodHouse.SetPosY(-1.0f);
@@ -321,7 +346,7 @@ namespace Clumsy
 		transformWoodHouse.SetRotY(0.7f);//0
 		transformWoodHouse.SetRotZ(0.7f);//0
 		transformWoodHouse.SetRotW(0.0f);//1
-		transformWoodHouse.SetScale(0.04f);
+		transformWoodHouse.SetScale(0.07f);
 
 		mShop->loadModel("../Clumsy/src/models/shop/shop.obj");
 		// shop

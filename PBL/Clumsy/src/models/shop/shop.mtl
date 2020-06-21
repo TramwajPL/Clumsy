@@ -12,7 +12,7 @@ newmtl ______3_001
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-map_Kd Desert_ground_Albedo.png
+map_Kd Clay_ground_Albedo.png
 
 newmtl _____
 	Ns 10.0000
@@ -25,7 +25,7 @@ newmtl _____
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-map_Kd Desert_ground_Albedo.png
+map_Kd Clay_ground_Albedo.png
 
 newmtl ______
 	Ns 10.0000

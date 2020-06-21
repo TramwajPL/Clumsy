@@ -24,6 +24,8 @@ namespace Clumsy {
 		void HandleBattle();
 		BattleState getBattleState() { return m_BattleState; }
 
+		glm::vec3 scaleEnemy{ 0.0, 0.03f, 0.3f };
+		glm::vec3 scalePlayer{ 0.0, 0.03f, 0.3f };
 		std::string m_textString;
 		bool m_BattleCommences = false;
 	private:

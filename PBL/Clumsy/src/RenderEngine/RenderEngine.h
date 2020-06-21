@@ -30,8 +30,11 @@ namespace Clumsy
 	class ParticleGenerator;
 	class ParticleSystem;
 	class RenderModelComponent;
+	class Instruction;
 	class DestructionBar;
 	class TexturedRect;
+	class CreditsGUI;
+
 
 	class RenderEngine
 	{
@@ -46,6 +49,7 @@ namespace Clumsy
 		void Render(GameObject object);
 		void RenderGUI();
 		void RenderMainMenu();
+		void RenderCreditsGUI();
 		void RenderPokemonGUI();
 		void AddLights(const BaseLight& light) { m_Lights.push_back(&light); }
 		const BaseLight& GetActiveLight() const { return *m_ActiveLight; }
@@ -62,6 +66,7 @@ namespace Clumsy
 		WarehouseGUI* GetWarehouseGUI() { return m_WarehouseGUI; }
 		MenuGUI* GetMenuGUI() { return m_MenuGUI; }
 		PokemonGUI* GetPokemonGUI() { return m_PokemonGUI; }
+		CreditsGUI* GetCreditsGUI() { return m_CreditsGUI; }
 
 		bool isFrustumSet = false;
 		bool wasCameraMoved = true;
@@ -89,6 +94,7 @@ namespace Clumsy
 		std::vector<Transform> cutTreesTransforms;
 		std::vector<Transform> ground;
 		std::vector<Transform> groundBurned;
+		std::vector<Transform> groundSand;
 		
 		//movement
 		bool m_Movement = false;
@@ -98,6 +104,14 @@ namespace Clumsy
 		void SetDestination(glm::vec3 pos) { m_Destination = pos; }
 		void SetCurrentPlayer(RenderModelComponent* rmc) { m_CurrentPlayer = rmc; }
 		void SetDeltaMove(glm::vec3 delta) { m_DeltaMove = delta; }
+
+		//enemy movement
+		bool m_EnemyMovement = false;
+		void SetEnemyDestination(glm::vec3 pos) { m_EnemyDestination = pos; }
+		void SetEnemyDeltaMove(glm::vec3 delta) { m_EnemyDeltaMove = delta; }
+		glm::vec3 GetEnemyDeltaMove() { return m_EnemyDeltaMove; }
+		glm::vec3 GetEnemyDestination() { return m_EnemyDestination; }
+
 		Shader* GetShaderText() { return textShader; }
 		Shader* GetShaderButton() { return buttonShader; }
 
@@ -111,6 +125,7 @@ namespace Clumsy
 		float m_MoveFailTime;
 		bool m_MoveTooFar = false;
 		bool m_TooMuchWood = false;
+		bool m_TileOccupied = false;
 
 		bool m_SecondInstruction = true;
 		float m_SecondInstructionTime;
@@ -208,7 +223,9 @@ namespace Clumsy
 		WarehouseGUI* m_WarehouseGUI;
 		MenuGUI* m_MenuGUI;
 		PokemonGUI* m_PokemonGUI;
+		CreditsGUI* m_CreditsGUI;
 		
+		Instruction* instruction1;
 		TexturedRect* m_TexturedRect;
 
 		TexturedRect* m_Instruction2;
@@ -218,7 +235,6 @@ namespace Clumsy
 		TexturedRect* m_PokemonEnemy;
 		TexturedRect* m_PokemonPlayer;
 
-
 		PostProcessor* Effects;
 		float m_ShakeTime;
 
@@ -227,6 +243,9 @@ namespace Clumsy
 		RenderModelComponent* m_CurrentPlayer;
 		glm::vec3 m_DeltaMove;
 
+		//enemy movement
+		glm::vec3 m_EnemyDestination;
+		glm::vec3 m_EnemyDeltaMove;
 
 		std::vector<Cube*> m_Cubes;
 	};
