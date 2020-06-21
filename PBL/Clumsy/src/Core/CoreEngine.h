@@ -18,7 +18,6 @@ namespace Clumsy
 			m_Level2(level2)
 		{
 			m_Game->Init();
-		
 		}
 		unsigned int loadCubemap(std::vector<std::string> faces);
 
