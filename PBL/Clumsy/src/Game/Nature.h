@@ -39,7 +39,6 @@ namespace Clumsy
 					int randomNumber = (rand() % 5) + 1; //range from 1 to 10
 					for (int i = 0; i < randomNumber ; i++)
 					{
-						//std::cout << "Randow number of TREEEEES: " << randomNumber<<  std::endl;
 						SpawnOneTreeEnemy();
 					}
                 }

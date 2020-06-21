@@ -87,7 +87,6 @@
     <ClCompile Include="src\RenderEngine\TextureClass.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Particles\ParticleGenerator.cpp" />
     <ClCompile Include="src\Game\TurnSystem.cpp">
       <Filter>Game</Filter>
     </ClCompile>
@@ -235,7 +234,6 @@
     <ClInclude Include="src\Game\Player.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Particles\ParticleGenerator.h" />
     <ClInclude Include="src\Game\TurnClass.h">
       <Filter>Game</Filter>
     </ClInclude>

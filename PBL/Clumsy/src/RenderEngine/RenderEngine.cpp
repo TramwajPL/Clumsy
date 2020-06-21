@@ -26,15 +26,14 @@
 #include "../PhysicsEngine/Aabb.h"
 #include "../Core/EntityComponent.h"
 #include "../Components/RenderModelComponent.h"
-#include "../Particles/ParticleGenerator.h"
 #include "ParticleSystem.h"
 #include "../GUI/DestructionBar.h"
 
-//const unsigned int SCR_WIDTH = 1920;
-//const unsigned int SCR_HEIGHT = 1080;
+const unsigned int SCR_WIDTH = 1920;
+const unsigned int SCR_HEIGHT = 1080;
 
-const unsigned int SCR_WIDTH = 1366;
-const unsigned int SCR_HEIGHT = 768;//zmienic
+//const unsigned int SCR_WIDTH = 1366;
+//const unsigned int SCR_HEIGHT = 768;//zmienic
 
 namespace Clumsy
 {
@@ -76,9 +75,6 @@ namespace Clumsy
 		debugDepthQuadShader->use();
 		debugDepthQuadShader->setInt("depthMap", 0);
 
-	/*	particles = new ParticleGenerator(particleShader, particleTexture, 800, -0.5f, 0.0f, 0.0f);
-		particles1 = new ParticleGenerator(particleShader, particleTexture, 800, -0.8f, 0.0f, 0.0f);*/
-
 		particleSystem = new ParticleSystem(particleShader, particleTexture);
 		greenParticle = new ParticleSystem(particleShader, greenParticleTexture);
 
@@ -101,8 +97,6 @@ namespace Clumsy
 	    m_PokemonRect = new TexturedRect("../Clumsy/src/models/battle2.jpg", glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(1.0f, -1.0f, 0.0f), glm::vec3(-1.0f, -1.0f, 0.0f), glm::vec3(-1.0f, 1.0f, 0.0f));
 	    m_PokemonEnemy = new TexturedRect("../Clumsy/src/models/ent.jpg", glm::vec3(0.7f, 0.8f, 0.0f), glm::vec3(0.7f, 0.4f, 0.0f), glm::vec3(0.5f, 0.4f, 0.0f), glm::vec3(0.5f, 0.8f, 0.0f));
 	    m_PokemonPlayer = new TexturedRect("../Clumsy/src/models/lumberjack.jpg", glm::vec3(-0.6f, 0.4f, 0.0f), glm::vec3(-0.6f, 0.0f, 0.0f), glm::vec3(-0.8f, 0.0f, 0.0f), glm::vec3(-0.8f, 0.4f, 0.0f));
-
-
 
 
 		background = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.14f, 0.52f, 0.25f), buttonShader);
@@ -318,7 +312,7 @@ namespace Clumsy
 			}
 		}
 		particleSystem->Update(timestep.GetSeconds(), view, projection);
-		particleSystem->Render(view, projection); //?
+		particleSystem->Render(view, projection);
 
 		if (enemySpawn == true) {
 			for (int i = 0; i < m_TreeSpawnPosition.size(); i++)
