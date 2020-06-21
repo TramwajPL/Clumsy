@@ -181,12 +181,13 @@ namespace Clumsy
 
 	void GameObject::DeleteAll()
 	{
-		Delete();
 
 		for (int i = 0; i < m_Children.size(); i++)
 		{
 			m_Children[i]->DeleteAll();
 		}
+
+		Delete();
 	}
 
 	//void GameObject::ProcessInput(int input)

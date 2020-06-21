@@ -33,6 +33,7 @@ namespace Clumsy
 			RenderEngine::GetInstance()->groundBurned.clear();
 			RenderEngine::GetInstance()->groundSand.clear();
 			m_Game->Init();
+
 		}
 
 		void HandleEvent(Event* event);
