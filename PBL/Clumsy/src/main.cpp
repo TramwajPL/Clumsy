@@ -8,8 +8,8 @@
 
 const unsigned int SCR_WIDTH = 1920;
 //const unsigned int SCR_WIDTH = 1366;
-//const unsigned int SCR_HEIGHT = 768;//zmieniæ
-const unsigned int SCR_HEIGHT = 1080;//zmieniæ
+//const unsigned int SCR_HEIGHT = 768;
+const unsigned int SCR_HEIGHT = 1080;
 
 Clumsy::GameObject* object1;
 Clumsy::RenderModelComponent* rmc;
@@ -174,6 +174,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 			if (screenX > (centerButton.x - (scale1.x / 2)) && screenX < (centerButton.x + (scale1.x / 2))
 				&& screenY < (centerButton.y + scale1.y) && screenY > centerButton.y)
 			{
+				//Clumsy::RenderEngine::GetInstance()->isPlayed = true;
 				Clumsy::RenderEngine::GetInstance()->GetCenterButton()->OnClick();
 				Clumsy::Player* player = dynamic_cast<Clumsy::Player*>(Clumsy::TurnSystem::GetInstance()->GetActivePlayer());
 				if (player)
@@ -194,7 +195,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 				&& screenY < (restartButton.y + scale3.y) && screenY > restartButton.y)
 			{
 				Clumsy::RenderEngine::GetInstance()->GetRestartButton()->OnClick();
-				Clumsy::RenderEngine::GetInstance()->isPlayed = false;
+				//Clumsy::RenderEngine::GetInstance()->isPlayed = false;
 			}
 			else
 			{

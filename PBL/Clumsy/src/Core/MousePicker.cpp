@@ -209,10 +209,7 @@ namespace Clumsy
 						Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
 						Clumsy::RenderEngine::GetInstance()->m_Movement = true;
 						player->IncrementActionCount();
-
 						//AudioMaster::GetInstance()->PlayWalk();
-						
-
 
 						if (player->getCanBurn() == false) {
 							RenderEngine::GetInstance()->wasCut = true;
@@ -220,12 +217,15 @@ namespace Clumsy
 							RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
 							AudioMaster::GetInstance()->PlayChainsaw();
 						}
-
 						else if (player->getCanBurn() == true) 
 						{
 							RenderEngine::GetInstance()->wasCut = true;
 							RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
+
+							Clumsy::RenderEngine::GetInstance()->SetFireTreePosition(*destination); //FIRE
+							Clumsy::RenderEngine::GetInstance()->isPlayed = true;
 							AudioMaster::GetInstance()->PlayFire();
+
 							if ((RenderEngine::GetInstance()->GetBackgroundBar()->GetScale().x - 0.0001) > RenderEngine::GetInstance()->GetDestructionBar()->GetScale().x)
 							{
 								RenderEngine::GetInstance()->IncreaseScaleUp();
@@ -240,14 +240,14 @@ namespace Clumsy
 							}
 						}
 
-						if (Clumsy::RenderEngine::GetInstance()->enemy->GetIsDead() == true &&
-							Clumsy::RenderEngine::GetInstance()->enemy->GetCondition() == true)
+						if (RenderEngine::GetInstance()->enemy->GetIsDead() == true &&
+							RenderEngine::GetInstance()->enemy->GetCondition() == true)
 						{
 							countTrees = 0;
-							Clumsy::RenderEngine::GetInstance()->enemy->SetCondition(false);
+							RenderEngine::GetInstance()->enemy->SetCondition(false);
 						}
 						countTrees++;
-						Clumsy::RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
+						RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
 						player->IncrementWoodCount();
 					}
 					else if (isThereATree && !player->IsIncrementingWoodCountPossible())
@@ -258,7 +258,7 @@ namespace Clumsy
 					}
 					else if (isThereEnemy)
 					{
-						Clumsy::RenderEngine::GetInstance()->enemy->Fight();
+						RenderEngine::GetInstance()->enemy->Fight();
 						AudioMaster::GetInstance()->PlayShout();
 						AudioMaster::GetInstance()->PlayChainsaw();
 

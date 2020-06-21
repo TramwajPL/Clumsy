@@ -42,7 +42,7 @@ namespace Clumsy
 					int randomNumber = (rand() % 5) + 1;
 					for (int i = 0; i < randomNumber ; i++)
 					{
-						SpawnOneTree();
+						SpawnOneTreeEnemy();
 					}
                 }
 
@@ -86,6 +86,30 @@ namespace Clumsy
                 }
             }
         }
+
+		void SpawnOneTreeEnemy() {
+
+			if (RenderEngine::GetInstance()->cutTreesTransforms.size() > 0) {
+				int RandomTreeToSpawn = rand() % RenderEngine::GetInstance()->cutTreesTransforms.size();
+				bool burned = false;
+				for (int i = 0; i < RenderEngine::GetInstance()->groundBurned.size(); i++)
+				{
+					if (glm::length(RenderEngine::GetInstance()->cutTreesTransforms[RandomTreeToSpawn].GetPos() -
+						RenderEngine::GetInstance()->groundBurned[i].GetPos()) < 0.1f )
+					{
+						burned = true;
+					}
+				}
+				if (!burned)
+				{
+					RenderEngine::GetInstance()->treeTransforms.push_back(RenderEngine::GetInstance()->cutTreesTransforms.at(RandomTreeToSpawn));
+					RenderEngine::GetInstance()->SetSpawnTreePosition(RenderEngine::GetInstance()->cutTreesTransforms.at(RandomTreeToSpawn));
+					RenderEngine::GetInstance()->enemySpawn = true;
+					RenderEngine::GetInstance()->cutTreesTransforms.erase(RenderEngine::GetInstance()->cutTreesTransforms.begin() + RandomTreeToSpawn);
+				}
+				
+			}
+		}
 
         void EntMovement()
         {

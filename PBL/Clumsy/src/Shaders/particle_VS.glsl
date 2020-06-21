@@ -1,18 +1,27 @@
 #version 330 core
-layout (location = 0) in vec4 vertex; 
+layout(location = 0) in vec3 squareVertices;
+layout(location = 1) in vec4 xyzs; // Position of the center of the particule and size of the square
+layout(location = 2) in vec4 color; // Position of the center of the particule and size of the square
 
-out vec2 TexCoords;
-out vec4 ParticleColor;
+out vec2 UV;
+out vec4 particlecolor;
 
-uniform mat4 projection;
-uniform vec2 offset;
-uniform vec4 color;
+uniform vec3 CameraRight_worldspace;
+uniform vec3 CameraUp_worldspace;
+uniform mat4 VP; 
 
 void main()
 {
-    float scale = 50.0f;
-    TexCoords = vertex.zw;
-    ParticleColor = color;
-    
-    gl_Position = projection * vec4((vertex.xy * scale) + offset, 0.0, 1.0);
+	float particleSize = xyzs.w; // because we encoded it this way.
+	vec3 particleCenter_wordspace = xyzs.xyz;
+	
+	vec3 vertexPosition_worldspace = 
+		particleCenter_wordspace
+		+ CameraRight_worldspace * squareVertices.x * particleSize
+		+ CameraUp_worldspace * squareVertices.y * particleSize;
+
+	gl_Position = VP * vec4(vertexPosition_worldspace, 1.0f);
+
+	UV = squareVertices.xy + vec2(0.5, 0.5);
+	particlecolor = color;
 }

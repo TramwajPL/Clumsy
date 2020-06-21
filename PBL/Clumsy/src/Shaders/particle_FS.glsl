@@ -1,11 +1,12 @@
 #version 330 core
-in vec2 TexCoords;
-in vec4 ParticleColor;
+in vec2 UV;
+in vec4 particlecolor;
+
 out vec4 color;
 
-uniform sampler2D sprite;
+uniform sampler2D myTextureSampler;
 
-void main()
-{
-    color = (texture(sprite, TexCoords) * ParticleColor);
-}  
+void main(){
+	color = texture( myTextureSampler, UV ) * particlecolor;
+
+}

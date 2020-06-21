@@ -29,14 +29,14 @@
 #include "../PhysicsEngine/Aabb.h"
 #include "../Core/EntityComponent.h"
 #include "../Components/RenderModelComponent.h"
-#include "../Particles/ParticleGenerator.h"
+#include "ParticleSystem.h"
 #include "../GUI/DestructionBar.h"
 
 const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1080;
 
-/*const unsigned int SCR_WIDTH = 1366;
-const unsigned int SCR_HEIGHT = 768;//zmienic*/
+//const unsigned int SCR_WIDTH = 1366;
+//const unsigned int SCR_HEIGHT = 768;
 
 namespace Clumsy
 {
@@ -53,6 +53,7 @@ namespace Clumsy
 		debugDepthQuadShader = new Shader("../Clumsy/src/Shaders/debug_depth_quad_VS.glsl", "../Clumsy/src/Shaders/debug_depth_quad_FS.glsl");
 		particleShader = new Shader("../Clumsy/src/Shaders/particle_VS.glsl", "../Clumsy/src/Shaders/particle_FS.glsl");
 		particleTexture = loadTextureFromFile("../Clumsy/src/models/flame.png", GL_TRUE);
+		greenParticleTexture = loadTextureFromFile("../Clumsy/src/models/greenParticle.png", GL_TRUE);
 		textShader = new Shader("../Clumsy/src/Shaders/text_VS.glsl", "../Clumsy/src/Shaders/text_FS.glsl");
 		buttonShader = new Shader("../Clumsy/src/Shaders/button_VS.glsl", "../Clumsy/src/Shaders/button_FS.glsl");
 
@@ -78,8 +79,8 @@ namespace Clumsy
 		debugDepthQuadShader->use();
 		debugDepthQuadShader->setInt("depthMap", 0);
 
-		particles = new ParticleGenerator(particleShader, particleTexture, 500, 780.0f, 100.0f);
-		particles1 = new ParticleGenerator(particleShader, particleTexture, 500, 650.0f, 100.0f);
+		particleSystem = new ParticleSystem(particleShader, particleTexture);
+		greenParticle = new ParticleSystem(particleShader, greenParticleTexture);
 
 		gui = new GUI();
 		m_ButtonCameraOnPlayer = new Button(glm::vec2(-0.88f, 0.65f), "Find Player", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.2f, 0.08f));
@@ -103,14 +104,8 @@ namespace Clumsy
 	    m_PokemonPlayer = new TexturedRect("../Clumsy/src/models/lumberjack.jpg", glm::vec3(-0.6f, 0.4f, 0.0f), glm::vec3(-0.6f, 0.0f, 0.0f), glm::vec3(-0.8f, 0.0f, 0.0f), glm::vec3(-0.8f, 0.4f, 0.0f));
 
 
-
-	
-
-		//enemy = new Enemy();
-		//enemy->SetM_Tag("enemy");
-
-		background = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), buttonShader);
-		destructionBar = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), buttonShader);
+		/*background = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), buttonShader);
+		destructionBar = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), buttonShader);*/
 
 		background = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.14f, 0.52f, 0.25f), buttonShader);
 		destructionBar = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.52f, 0.18f, 0.14f), buttonShader);
@@ -316,16 +311,32 @@ namespace Clumsy
 		}
 
 		if (isPlayed == true) {
-			glm::mat4 projectionParticles = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), static_cast<float>(SCR_HEIGHT), 0.0f, -1.0f, 1.0f);
-			particleShader->use();
-			particleShader->SetInteger("sprite", 0, GL_TRUE);
-			particleShader->setMat4("projection", projectionParticles);
-			particles->Update(timestep.GetSeconds(), 2);
-			particles->Draw();
-
-			particles1->Update(timestep.GetSeconds(), 2);
-			particles1->Draw();
+			particleSystem->GenerateNewParticles(timestep.GetSeconds(), m_TreePosition);
+			fireTime += timestep.GetSeconds();
+			if (fireTime >= fireMaxTime)
+			{
+				isPlayed = false;
+				fireTime = 0;
+			}
 		}
+		particleSystem->Update(timestep.GetSeconds(), view, projection);
+		particleSystem->Render(view, projection);
+
+		if (enemySpawn == true && isPlayed == false) {
+			for (int i = 0; i < m_TreeSpawnPosition.size(); i++)
+			{
+				greenParticle->GenerateNewParticles(timestep.GetSeconds(), m_TreeSpawnPosition[i]);
+			}
+			particleTime += timestep.GetSeconds();
+			if (particleTime >= particleMaxTime)
+			{
+				enemySpawn = false;
+				particleTime = 0;
+			}
+		}
+
+		greenParticle->Update(timestep.GetSeconds(), view, projection);
+		greenParticle->Render(view, projection); //?
 	}
 
 	void RenderEngine::RenderGUI()

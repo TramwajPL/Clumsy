@@ -28,6 +28,7 @@ namespace Clumsy
 	class MenuGUI;
 	class PokemonGUI;
 	class ParticleGenerator;
+	class ParticleSystem;
 	class RenderModelComponent;
 	class Instruction;
 	class DestructionBar;
@@ -39,10 +40,10 @@ namespace Clumsy
 	{
 	public:
 		static RenderEngine* GetInstance();
+		~RenderEngine() { delete particleSystem;  }
 		static void CreateInstance(GLFWwindow* window, Window* window2, Camera* camera);
 		TextureClass loadTextureFromFile(const char* file, bool alpha);
-		//void Start();
-		//void Stop();
+
 		void processInput(float deltaTime);
 		Camera GetCamera() { return *m_Camera; }
 		void Render(GameObject object);
@@ -86,8 +87,6 @@ namespace Clumsy
 			return view;
 		}
 
-		//fields for objects for easier access
-		//GameObject* map = new GameObject();
 		GameObject* map = new GameObject();
 		Enemy* enemy;
 		std::vector<Transform> treeTransforms;
@@ -121,6 +120,7 @@ namespace Clumsy
 		}
 
 		bool isPlayed = false;
+		bool enemySpawn = false;
 
 		float m_MoveFailTime;
 		bool m_MoveTooFar = false;
@@ -156,13 +156,26 @@ namespace Clumsy
 			m_XScaleBackground = newScale; 
 		}
 
-
+		void SetFireTreePosition(Transform newTreePosition) { m_TreePosition = newTreePosition; }
+		void SetSpawnTreePosition(Transform newTreePosition) { m_TreeSpawnPosition.push_back(newTreePosition); }
+		ParticleSystem* particleSystem;
+		ParticleSystem* greenParticle;
 	private:
 		//Bar
 		DestructionBar* background;
 		DestructionBar* destructionBar;
 		float m_ScaleUp = 0.0f;
 		float m_XScaleBackground = 1.0f; //default
+
+		//Fire tree
+		Transform m_TreePosition;
+		std::vector<Transform> m_TreeSpawnPosition;
+		float fireTime; 
+		float fireMaxTime = 1.5f;
+
+		//Enemy spawn particles
+		float particleTime;
+		float particleMaxTime = 1.5f;
 
 		//void Run();
 		void CleanUp();
@@ -187,6 +200,7 @@ namespace Clumsy
 		glm::mat4 view;
 		Cube* Cube1;
 		TextureClass particleTexture;
+		TextureClass greenParticleTexture;
 		ParticleGenerator* particles;
 		ParticleGenerator* particles1;
 

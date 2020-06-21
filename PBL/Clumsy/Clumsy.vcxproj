@@ -40,7 +40,6 @@
     <ClCompile Include="src\GUI\StoreGUI.cpp" />
     <ClCompile Include="src\GUI\WarehouseGUI.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Particles\ParticleGenerator.cpp" />
     <ClCompile Include="src\PhysicsEngine\Aabb.cpp" />
     <ClCompile Include="src\PhysicsEngine\BoundingSphere.cpp" />
     <ClCompile Include="src\PhysicsEngine\Collider.cpp" />
@@ -51,6 +50,7 @@
     <ClCompile Include="src\RenderEngine\Lighting.cpp" />
     <ClCompile Include="src\RenderEngine\Mesh.cpp" />
     <ClCompile Include="src\RenderEngine\Model.cpp" />
+    <ClCompile Include="src\RenderEngine\ParticleSystem.cpp" />
     <ClCompile Include="src\RenderEngine\PostProcessor.cpp" />
     <ClCompile Include="src\RenderEngine\RenderEngine.cpp" />
     <ClCompile Include="src\RenderEngine\RenderUtil.cpp" />
@@ -97,7 +97,6 @@
     <ClInclude Include="src\GUI\PokemonGUI.h" />
     <ClInclude Include="src\GUI\StoreGUI.h" />
     <ClInclude Include="src\GUI\WarehouseGUI.h" />
-    <ClInclude Include="src\Particles\ParticleGenerator.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\PhysicsEngine\Aabb.h" />
     <ClInclude Include="src\PhysicsEngine\BoundingSphere.h" />
@@ -112,6 +111,7 @@
     <ClInclude Include="src\RenderEngine\Lighting.h" />
     <ClInclude Include="src\RenderEngine\Mesh.h" />
     <ClInclude Include="src\RenderEngine\Model.h" />
+    <ClInclude Include="src\RenderEngine\ParticleSystem.h" />
     <ClInclude Include="src\RenderEngine\PostProcessor.h" />
     <ClInclude Include="src\RenderEngine\RenderEngine.h" />
     <ClInclude Include="src\RenderEngine\RenderUtil.h" />
