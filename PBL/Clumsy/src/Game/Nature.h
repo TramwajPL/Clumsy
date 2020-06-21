@@ -91,6 +91,21 @@ namespace Clumsy
 
 			if (RenderEngine::GetInstance()->cutTreesTransforms.size() > 0) {
 				int RandomTreeToSpawn = rand() % RenderEngine::GetInstance()->cutTreesTransforms.size();
+                bool occupied = false;
+                for (int i = 0; i < TurnSystem::GetInstance()->GetPlayers().size(); i++)
+                {
+                    Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetPlayers()[i]->GetGameObject());
+                    if (player)
+                    {
+                        if (glm::length(player->m_Rmc->m_Transform.GetPos() - RenderEngine::GetInstance()->cutTreesTransforms[RandomTreeToSpawn].GetPos()) < 0.1f
+                            || glm::length(RenderEngine::GetInstance()->GetDestination() - RenderEngine::GetInstance()->cutTreesTransforms[RandomTreeToSpawn].GetPos()) < 0.1f)
+                        {
+                            occupied = true;
+                            std::cout << "bez drzewa!" << std::endl;
+                            break;
+                        }
+                    }
+                }
 				bool burned = false;
 				for (int i = 0; i < RenderEngine::GetInstance()->groundBurned.size(); i++)
 				{
@@ -100,7 +115,7 @@ namespace Clumsy
 						burned = true;
 					}
 				}
-				if (!burned)
+				if (!burned && !occupied)
 				{
 					RenderEngine::GetInstance()->treeTransforms.push_back(RenderEngine::GetInstance()->cutTreesTransforms.at(RandomTreeToSpawn));
 					RenderEngine::GetInstance()->SetSpawnTreePosition(RenderEngine::GetInstance()->cutTreesTransforms.at(RandomTreeToSpawn));

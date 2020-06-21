@@ -227,12 +227,15 @@ namespace Clumsy
 							Clumsy::RenderEngine::GetInstance()->isPlayed = true;
 							AudioMaster::GetInstance()->PlayFire();
 
-							if ((RenderEngine::GetInstance()->GetBackgroundBar()->GetScale().x) > RenderEngine::GetInstance()->GetDestructionBar()->GetScale().x)
-							{
-
-								RenderEngine::GetInstance()->IncreaseScaleUp();
-								if (RenderEngine::GetInstance()->GetBurntTrees() == 10) {
-									EventSystem::GetInstance()->SendEvent("Level2");
+							if (RenderEngine::GetInstance()->GetFirstLevel() == true) {
+								if ((RenderEngine::GetInstance()->GetBackgroundBar()->GetScale().x) > RenderEngine::GetInstance()->GetDestructionBar()->GetScale().x)
+								{
+									RenderEngine::GetInstance()->IncreaseScaleUp();
+									if (RenderEngine::GetInstance()->GetBurntTrees() == 10) {
+										countTrees = 0;
+										EventSystem::GetInstance()->SendEvent("Level2");
+									}
+									
 								}
 							}
 							for (int k = 0; k < RenderEngine::GetInstance()->ground.size(); k++)

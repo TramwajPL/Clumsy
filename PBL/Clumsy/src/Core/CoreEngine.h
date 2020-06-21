@@ -2,6 +2,7 @@
 
 #include "Game.h"
 #include "../RenderEngine/RenderEngine.h"
+#include "../Game/Enemy.h"
 
 #include "../EventSystem/Listener.h"
 
@@ -25,6 +26,10 @@ namespace Clumsy
 		void Stop();
 
 		void SetGame(Game* game) {
+			RenderEngine::GetInstance()->SetFirstLevel(false);
+			RenderEngine::GetInstance()->SetBurntToZero();
+			TurnSystem::GetInstance()->SetTurnCounter(0);
+			RenderEngine::GetInstance()->enemy->SetIsDead(true);
 			m_Game->getRoot().DeleteAll();
 			RenderEngine::GetInstance()->m_Cubes.clear();
 			TurnSystem::GetInstance()->DeletePlayers();
@@ -35,9 +40,10 @@ namespace Clumsy
 			RenderEngine::GetInstance()->ground.clear();
 			RenderEngine::GetInstance()->groundBurned.clear();
 			RenderEngine::GetInstance()->groundSand.clear();
-			RenderEngine::GetInstance()->GetBackgroundBar().x = 0;
 			m_Game = game;
 			m_Game->Init();
+			RenderEngine::GetInstance()->SetScaleUp(0.0f);
+			RenderEngine::GetInstance()->SetXScaleBackgroundDefault(0.0f);
 
 		}
 
@@ -45,6 +51,7 @@ namespace Clumsy
 
 
 	private:
+		
 		bool m_IsRunning;				//Whether or not the engine is running
 		float m_FrameTime = 0.0f;		//How long, in seconds, one frame should take
 		Window* m_Window;				//Used to display the game

@@ -146,7 +146,8 @@ namespace Clumsy
 		void  SetScaleUp(float newScale) { m_ScaleUp = newScale; }
 		DestructionBar* GetDestructionBar() { return destructionBar; }
 		DestructionBar* GetBackgroundBar() { return background; }
-
+		void SetFirstLevel(bool bool1) { m_FirstLevel = bool1; }
+		bool GetFirstLevel() { return m_FirstLevel; }
 
 		float GetXScaleBackground() {}
 		void  SetXScaleBackground(float newScale) 
@@ -154,6 +155,10 @@ namespace Clumsy
 			newScale /= 10;
 			std::cout << "New Scale: " << newScale << std::endl;
 			m_XScaleBackground = newScale; 
+		}
+		void  SetXScaleBackgroundDefault(float newScale)
+		{
+			m_XScaleBackground = newScale;
 		}
 
 		void TreeBurnt() { burntTrees++; }
@@ -168,6 +173,7 @@ namespace Clumsy
 		std::vector<Cube*> m_Cubes;
 	private:
 		//Bar
+		bool m_FirstLevel = true;
 		int burntTrees = 0;
 		DestructionBar* background;
 		DestructionBar* destructionBar;
