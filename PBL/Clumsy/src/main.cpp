@@ -14,7 +14,6 @@ const unsigned int SCR_HEIGHT = 1080;
 Clumsy::GameObject* object1;
 Clumsy::RenderModelComponent* rmc;
 Clumsy::RenderModelComponent* enemyRmc; //enemy
-Clumsy::GameObject* boy;
 bool isScrolled = false;
 float iter = 0.0f;
 Clumsy::AudioMaster* Clumsy::AudioMaster::m_Instance = 0;
@@ -59,7 +58,7 @@ public:
 		Clumsy::Model* enemyModel = new Clumsy::Model();
 		enemyModel->loadModel("../Clumsy/src/models/enemyModels/Idle/Idle.dae"); //enemy		
 			
-		boy = new Clumsy::Player(boyTransform);
+		Clumsy::GameObject* boy = new Clumsy::Player(boyTransform);
 
 		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(enemyModel, enemyTransform); //enemy change how much we need to collect wood
 		Clumsy::RenderEngine::GetInstance()->enemy->SetM_Tag("enemy"); //ost zmiana

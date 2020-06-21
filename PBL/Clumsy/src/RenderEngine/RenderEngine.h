@@ -160,6 +160,8 @@ namespace Clumsy
 		void SetSpawnTreePosition(Transform newTreePosition) { m_TreeSpawnPosition.push_back(newTreePosition); }
 		ParticleSystem* particleSystem;
 		ParticleSystem* greenParticle;
+
+		std::vector<Cube*> m_Cubes;
 	private:
 		//Bar
 		DestructionBar* background;
@@ -247,6 +249,6 @@ namespace Clumsy
 		glm::vec3 m_EnemyDestination;
 		glm::vec3 m_EnemyDeltaMove;
 
-		std::vector<Cube*> m_Cubes;
+		
 	};
 }

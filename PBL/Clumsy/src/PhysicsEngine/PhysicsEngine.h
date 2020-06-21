@@ -25,9 +25,11 @@ namespace Clumsy
 		{
 			return m_Objects[index];
 		}
+
+		std::vector<PhysicsObject> m_Objects;
 	private:
 		PhysicsEngine() {}
 		static PhysicsEngine* m_Instance;
-		std::vector<PhysicsObject> m_Objects;
+		
 	};
 }
