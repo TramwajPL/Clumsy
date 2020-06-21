@@ -15,7 +15,6 @@ namespace Clumsy
 			m_Game(game)
 		{
 			m_Game->Init();
-		
 		}
 		unsigned int loadCubemap(std::vector<std::string> faces);
 
