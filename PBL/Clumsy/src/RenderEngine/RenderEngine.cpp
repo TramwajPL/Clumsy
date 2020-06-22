@@ -118,6 +118,7 @@ namespace Clumsy
 		
 		m_Instruction2 = new TexturedRect("../Clumsy/src/models/tutek2.jpg", glm::vec3(0.9f, 0.9f, 0.0f), glm::vec3(0.9, 0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, 0.9f, 0.0f));
 		m_Instruction3 = new TexturedRect("../Clumsy/src/models/tutek3.jpg", glm::vec3(0.9f, 0.9f, 0.0f), glm::vec3(0.9, 0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, 0.9f, 0.0f));
+		m_InstructionLevel2 = new TexturedRect("../Clumsy/src/models/tutek4.jpg", glm::vec3(0.9f, 0.9f, 0.0f), glm::vec3(0.9, 0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, 0.9f, 0.0f));
 
 		m_PokemonGUI = new PokemonGUI(buttonShader);
 	   // m_TexturedRect = new TexturedRect("../Clumsy/src/models/tutek1.jpg", glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec3(-0.5f, 0.5f, 0.0f));
@@ -384,6 +385,11 @@ namespace Clumsy
 				m_Instruction3->Render(mainMenuShader);
 			}
 		}
+
+		if (m_SecondLevelInstruction) {
+			m_InstructionLevel2->Render(mainMenuShader);
+		}
+
 		// fail info
 		if (m_MoveTooFar)
 		{

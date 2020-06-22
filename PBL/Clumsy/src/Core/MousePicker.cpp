@@ -108,6 +108,11 @@ namespace Clumsy
 					RenderEngine::GetInstance()->m_ThirdInstructionTime = 20.5f;
 					a = false;
 				}
+				if (b == true && RenderEngine::GetInstance()->GetFirstLevel() == false) {
+					//RenderEngine::GetInstance()->m_FirstInstruction = true;
+					RenderEngine::GetInstance()->m_SecondLevelInstructionTime = 0.5f;
+					b = false;
+				}
 				//vector of collider's position  
 				glm::vec3 vectorGameObject = PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
 				for (int j = 0; j < RenderEngine::GetInstance()->map->GetAllChildren().size(); j++) 
