@@ -153,12 +153,13 @@ namespace Clumsy
 		{
 			glm::vec3 shopPos(RenderEngine::GetInstance()->GetStoreGUI()->GetActiveStore()->GetTransform().GetPos());
 			glm::quat rotBoy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f));
-			Transform transform(shopPos, rotBoy, 0.1f);
+			rotBoy = glm::rotate(rotBoy, glm::radians(180.f), glm::vec3(0.0f, 0.0f, 1.0f) * rotBoy);
+			Transform transform(shopPos, rotBoy, 0.005f);
 			Player* boy = new Player(transform);
 			PhysicsObject* ob = new PhysicsObject(
 				new BoundingSphere(boy->GetTransform().GetPos(), 0.1f), &boy->GetTransform());
 			PhysicsEngine::GetInstance()->AddObject(*ob);
-			RenderModelComponent* rmc = new RenderModelComponent(RenderEngine::GetInstance()->playerModel, boy->GetTransform(), 90.0f);
+			RenderModelComponent* rmc = new RenderModelComponent(RenderEngine::GetInstance()->playerModel, boy->GetTransform(), 360.0f);
 			boy->m_Rmc = rmc;
 			Clumsy::Cube* c1 = new Clumsy::Cube(transform);
 			c1->SetPlayer(rmc);

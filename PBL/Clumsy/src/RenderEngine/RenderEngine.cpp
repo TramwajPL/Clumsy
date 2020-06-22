@@ -68,7 +68,7 @@ namespace Clumsy
 
 		//models
 		playerModel = new Clumsy::Model();
-		playerModel->loadModel("../Clumsy/src/models/man/model.dae");
+		playerModel->loadModel("../Clumsy/src/models/playerModels/Breathing Idle/Breathing Idle.dae");
 
 		enemyModel = new Clumsy::Model();
 		enemyModel->loadModel("../Clumsy/src/models/enemyModels/Idle/Idle.dae"); 

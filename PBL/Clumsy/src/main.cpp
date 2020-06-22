@@ -44,13 +44,14 @@ public:
 		glm::vec3 enemyPos = m_EnemyPos;
 
 		glm::quat rotBoy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f));
+		rotBoy = glm::rotate(rotBoy, glm::radians(180.f), glm::vec3(0.0f, 0.0f, 1.0f) * rotBoy);
 
 		glm::quat rotEnemy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f));
 		rotEnemy = glm::rotate(rotEnemy, glm::radians(180.f), glm::vec3(0.0f, 0.0f, 1.0f) * rotEnemy);
 
 		float scale = 0.0001f;
 
-		Clumsy::Transform boyTransform(pos, rotBoy, 0.1f);
+		Clumsy::Transform boyTransform(pos, rotBoy, 0.005f);
 		Clumsy::Transform enemyTransform(enemyPos, rotEnemy, 0.01); //enemy
 					
 		Clumsy::Player* boy = new Clumsy::Player(boyTransform);
@@ -74,7 +75,7 @@ public:
 		//rmc = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90.0f);
 		enemyRmc = new Clumsy::RenderModelComponent(Clumsy::RenderEngine::GetInstance()->enemyModel, Clumsy::RenderEngine::GetInstance()->enemy->GetTransform(), 360.0f, true); //enemy RMC //ost zmiana
 
-		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(Clumsy::RenderEngine::GetInstance()->playerModel, boy->GetTransform(), 90);
+		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(Clumsy::RenderEngine::GetInstance()->playerModel, boy->GetTransform(), 360);
 		boy->m_Rmc = rmc1;
 		Clumsy::Cube* c1 = new Clumsy::Cube(boyTransform);
 		c1->SetPlayer(rmc1);
