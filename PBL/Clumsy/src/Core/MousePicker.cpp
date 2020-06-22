@@ -136,6 +136,14 @@ namespace Clumsy
 							RenderEngine::GetInstance()->GetWarehouseGUI()->SetEnabled(true);
 						}
 					}
+					if (position == vectorGameObject && RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetM_Tag() == "win")
+					{
+						glm::vec3 destination = RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetPos();
+						if (glm::length(originalPosition - destination) > 0.1f && glm::length(originalPosition - destination) < 1.5f)
+						{
+							std::cout << "you win" << std::endl;
+						}
+					}
 				}
 				return PhysicsEngine::GetInstance()->GetObject(i).GetPosition();
 			}
