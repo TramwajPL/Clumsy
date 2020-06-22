@@ -23,22 +23,19 @@ namespace Clumsy
 {	
 	void Game::Render()
 	{
-
 		if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderPokemonGUI();
 		}
-		if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
+		else if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderMainMenu();
 		}
-		
-		if (RenderEngine::GetInstance()->GetEndGameGUI()->IsEnabled() == true)
+		else if (RenderEngine::GetInstance()->GetEndGameGUI()->IsEnabled() == true)
 		{
 			RenderEngine::GetInstance()->RenderEndGame();
 			//std::cout << "End sie powinno renderowac!!" << std::endl; //tu wesz³o
 		}
 		else if (RenderEngine::GetInstance()->GetBetweenLevelsGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderBetweenLevelsGUI();
-
 		}
 		else {	
 			RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();

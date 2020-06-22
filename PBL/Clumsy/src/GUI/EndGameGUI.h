@@ -29,6 +29,6 @@ namespace Clumsy {
 		unsigned int VBO, VAO, EBO;
 		int width, height, nrChannels;
 		unsigned int texture;
-		bool m_Enabled = true;
+		bool m_Enabled = false;
 	};
 }
