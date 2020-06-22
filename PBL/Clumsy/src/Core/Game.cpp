@@ -3,41 +3,44 @@
 #include <yaml.h>
 
 #include "Game.h"
+#include "../Game/Enemy.h"
+#include "../Game/Warehouse.h"
+#include "../GUI/PokemonGUI.h"
+#include "../GUI/EndGameGUI.h"
+#include "../Game/TurnSystem.h"
+#include "../Game/TreeObject.h"
+#include "../GUI/WarehouseGUI.h"
+#include "../Audio/AudioMaster.h"
+#include "../GUI/BetweenLevelsGUI.h"
 #include "../Components/RenderModelComponent.h"
+#include "../Components/RenderInstancedGround.h"
 #include "../Components/PhysicsObjectComponent.h"
 #include "../Components/RenderInstancedModelComponent.h"
 #include "../Components/RenderInstancedTreesComponent.h"
-#include "../Components/RenderInstancedGround.h"
 #include "../Components/RenderInstancedBurnedGroundComponent.h"
-#include "../Game/TurnSystem.h"
-#include "../Game/TreeObject.h"
-#include "../Game/Enemy.h"
-#include "../Game/Warehouse.h"
-#include "../GUI/WarehouseGUI.h"
-#include "../GUI/PokemonGUI.h"
-#include "../GUI/EndGameGUI.h"
-#include "../GUI/BetweenLevelsGUI.h"
-#include "../Audio/AudioMaster.h"
 
 namespace Clumsy 
 {	
 	void Game::Render()
 	{
-		if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
+		if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) 
+		{
 			RenderEngine::GetInstance()->RenderPokemonGUI();
 		}
-		else if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
+		else if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) 
+		{
 			RenderEngine::GetInstance()->RenderMainMenu();
 		}
 		else if (RenderEngine::GetInstance()->GetEndGameGUI()->IsEnabled() == true)
 		{
 			RenderEngine::GetInstance()->RenderEndGame();
-			//std::cout << "End sie powinno renderowac!!" << std::endl; //tu wesz³o
 		}
-		else if (RenderEngine::GetInstance()->GetBetweenLevelsGUI()->IsEnabled() == true) {
+		else if (RenderEngine::GetInstance()->GetBetweenLevelsGUI()->IsEnabled() == true) 
+		{
 			RenderEngine::GetInstance()->RenderBetweenLevelsGUI();
 		}
-		else {	
+		else 
+		{	
 			RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();
 			RenderEngine::GetInstance()->Render(m_Root); 
 			RenderEngine::GetInstance()->GetPostProcessor()->EndRender();
@@ -46,7 +49,6 @@ namespace Clumsy
 			if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
 				RenderEngine::GetInstance()->RenderPokemonGUI();
 			}
-
 		}
 	}
 
@@ -359,8 +361,6 @@ namespace Clumsy
 		GameObject* landShop = new GameObject(transformShop);
 		shop->SetM_Tag("shop");
 		map->AddChild((shop)->AddComponent(new RenderModelComponent(RenderEngine::GetInstance()->mShop, transformShop, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop)));
-	/*	transformShop.SetScale(0.01f);
-		map->AddChild((landShop)->AddComponent(new RenderModelComponent(m4, transformShop, 90.0f)));*/
 
 		// warehouse
 		glm::vec3 minWood = glm::vec3(transformWoodHouse.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
@@ -418,10 +418,4 @@ namespace Clumsy
 		map->AddComponent(new Clumsy::RenderInstancedTreesComponent(RenderEngine::GetInstance()->m7, allTransformsM7));
 		
     }
-
-	//void Game::ProcessInput(int input) 
-	//{
-	//	//m_Root.ProcessInputAll(input);
-	//}
-
 }

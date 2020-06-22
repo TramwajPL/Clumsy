@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Game.h"
-#include "../RenderEngine/RenderEngine.h"
 #include "../Game/Enemy.h"
+#include "../RenderEngine/RenderEngine.h"
 
 
 namespace Clumsy
@@ -64,6 +64,7 @@ namespace Clumsy
 		}
 
 		bool m_IsRunning;
+
 	private:
 		CoreEngine(float frameRate, Window* window, Game* game, Game* level2) :
 			m_IsRunning(false),
@@ -75,13 +76,12 @@ namespace Clumsy
 		{
 			m_Game->Init();
 		}
-					//Whether or not the engine is running
+
 		float m_FrameTime = 0.0f;		//How long, in seconds, one frame should take
 		Window* m_Window;				//Used to display the game
 		Game* m_Game;					//The game itself. Stored as pointer so the user can pass in a derived class.
 		Game* m_Level2;					
 		Game* m_Level1;
 		static CoreEngine* m_Instance;
-
 	};
 }

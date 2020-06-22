@@ -2,13 +2,13 @@
 
 #include "Input.h"
 #include "GameObject.h"
+#include "../GUI/MenuGUI.h"
+#include "../GUI/StoreGUI.h"
+#include "../GUI/CreditsGUI.h"
+#include "../EventSystem/Listener.h"
 #include "../RenderEngine/RenderEngine.h"
 #include "../RenderEngine/PostProcessor.h"
 #include "../PhysicsEngine/PhysicsEngine.h"
-#include "../GUI/MenuGUI.h"
-#include "../GUI/StoreGUI.h"
-#include "../EventSystem/Listener.h"
-#include "../GUI/CreditsGUI.h"
 
 
 namespace Clumsy 
@@ -22,7 +22,6 @@ namespace Clumsy
 		virtual void Move() {}
 		void Render();
 		void Update(float deltaTime);
-		//void ProcessInput(int input);
 		void AddToScene(GameObject* child);
 
 		void HandleEvent(Event* event);

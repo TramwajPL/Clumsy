@@ -1,13 +1,12 @@
 #pragma once
 
+#include <ctime>
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
+
 #include "../Core/Time.h"
 #include "../Core/Timestep.h"
 #include "../RenderEngine/Window.h"
-#include <ctime>
-
-
 
 namespace Clumsy {
 

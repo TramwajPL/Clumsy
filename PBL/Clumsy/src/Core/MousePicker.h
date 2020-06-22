@@ -30,7 +30,6 @@ namespace Clumsy
 		glm::vec3 ToWorldCoords(glm::vec4 eyeCoords);
 		glm::vec4 ToEyeCoords(glm::vec4 clipCoords);
 		glm::vec2 GetNormalisedDeviceCoordinates(float mouseX, float mouseY);
-		void CutTree();
 
 		float CheckCollision(const Collider* aabb);
 

@@ -4,24 +4,19 @@
 #include <glm/gtx/string_cast.hpp>
 
 #include "MousePicker.h"
-#include "../Audio/AudioMaster.h"
-#include "../GUI/StoreGUI.h"
-#include "../GUI/WarehouseGUI.h"
-#include "../GUI/BetweenLevelsGUI.h"
-#include "../Game/Player.h"
-#include "../Game/TurnSystem.h"
-#include "../Core/CoreEngine.h"
-#include "../Components/RenderModelComponent.h"
 #include "../Game/Enemy.h"
+#include "../Game/Player.h"
+#include "../GUI/StoreGUI.h"
+#include "../Core/CoreEngine.h"
+#include "../Game/TurnSystem.h"
+#include "../GUI/WarehouseGUI.h"
+#include "../Audio/AudioMaster.h"
 #include "../GUI/DestructionBar.h"
+#include "../GUI/BetweenLevelsGUI.h"
+#include "../Components/RenderModelComponent.h"
 
 namespace Clumsy
 {
-	template<typename Base, typename T>
-	inline bool instanceof(const T*) {
-		return std::is_base_of<Base, T>::value;
-	}
-
 	void MousePicker::Update()
 	{
 		m_ViewMatrix = m_Camera->GetViewMatrix();
@@ -101,16 +96,17 @@ namespace Clumsy
 		for (int i = 0; i < PhysicsEngine::GetInstance()->GetNumObjects() ; i++)
 		{
 			checkCollisionResult = CheckCollision(&PhysicsEngine::GetInstance()->GetObject(i).GetCollider());
-			if (checkCollisionResult != -1) {
-				if (a == true) {
-					//RenderEngine::GetInstance()->m_FirstInstruction = true;
+			if (checkCollisionResult != -1) 
+			{
+				if (a == true) 
+				{
 					RenderEngine::GetInstance()->m_FirstInstructionTime = 0.5f;
 					RenderEngine::GetInstance()->m_SecondInstructionTime = 10.5f;
 					RenderEngine::GetInstance()->m_ThirdInstructionTime = 20.5f;
 					a = false;
 				}
-				if (b == true && RenderEngine::GetInstance()->GetFirstLevel() == false) {
-					//RenderEngine::GetInstance()->m_FirstInstruction = true;
+				if (b == true && RenderEngine::GetInstance()->GetFirstLevel() == false) 
+				{
 					RenderEngine::GetInstance()->m_SecondLevelInstructionTime = 0.5f;
 					b = false;
 				}
@@ -225,7 +221,6 @@ namespace Clumsy
 						Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
 						Clumsy::RenderEngine::GetInstance()->m_Movement = true;
 						player->IncrementActionCount();
-						//AudioMaster::GetInstance()->PlayWalk();
 
 						if (player->getCanBurn() == false) {
 							RenderEngine::GetInstance()->wasCut = true;

@@ -11,14 +11,11 @@ namespace Clumsy {
 	{
 	public:
 		RenderModelComponent(Model* model, Transform transform, float angle, bool isEnemy = false) :
-			m_Model(model), m_Transform(transform), m_Angle(angle), m_IsEnemy(isEnemy)
-		{
-		}
+			m_Model(model), m_Transform(transform), m_Angle(angle), m_IsEnemy(isEnemy)	{}
 
 		virtual void Render(Shader& shader) 
 
 		{
-			//shader.use();
 			glm::mat4 model = glm::mat4(1.0f);
 
 			model = glm::translate(model, m_Transform.GetPos());
@@ -51,9 +48,6 @@ namespace Clumsy {
 
 		virtual void Update() 
 		{
-			//glm::vec3 pos = GetParentTransform().GetPos();
-			//m_Transform.SetPos(pos);
-			//SetTransform(GetParentTransform());
 			SetTransform(m_Transform.GetPos());
 		}
 

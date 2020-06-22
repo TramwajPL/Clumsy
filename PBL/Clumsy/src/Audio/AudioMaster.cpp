@@ -54,10 +54,6 @@ namespace Clumsy
 
 	void AudioMaster::HandleEvent(Event* event)
 	{
-		if (event->GetEventId() == "scroll")
-		{
-			PlayBell();
-		}
         if (event->GetEventId() == "move")
         {
             PlayWalk();

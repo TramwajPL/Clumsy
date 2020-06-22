@@ -1,10 +1,11 @@
 
 #include "../pch.h"
 
-#include "CoreEngine.h"
-#include "../EventSystem/EventSystem.h"
 #include <stb_image.h>
+
+#include "CoreEngine.h"
 #include "../RenderEngine/Cube.h"
+#include "../EventSystem/EventSystem.h"
 
 namespace Clumsy
 {
@@ -26,10 +27,8 @@ namespace Clumsy
 			lastFrame = currentFrame;
 
 			EventSystem::GetInstance()->ProcessEvents();
-			//m_Game->ProcessInput(m_Window->GetInput());
 
 			m_Game->Update(m_FrameTime);
-
 
 			glFrontFace(GL_CCW);
 

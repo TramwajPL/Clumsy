@@ -32,26 +32,19 @@ namespace Clumsy
 		std::vector<EntityComponent*> GetComponents();
 		std::vector<GameObject*> GetAllChildren();
 
-		//These guys may need some arguments
-		void Render(Shader& shader); //probably can be private
+		
+		void Render(Shader& shader);
 		void RenderAll(Shader& shader);  
-		bool SetupAabb();
 
 		void Update();
 		void UpdateAll();
 
-		//void ProcessInput(int input);
-		//void ProcessInputAll(int input);
 		std::string GetM_Tag() { return m_Tag; }
-		virtual void SetM_Tag(std::string tag) { m_Tag = tag; }
-	
-		/*bool GetWasCut() { return m_WasCut; }
-		void SetWasCut(bool bool1) { m_WasCut = &bool1; }*/
+		virtual void SetM_Tag(std::string tag) { m_Tag = tag; }	
+
 		virtual bool GetWasCut() { return m_WasCut; }
 		virtual void SetWasCut(bool bool1) { }
 
-		//virtual std::vector<Transform> getTreeTransform() { return m_TreeTransforms; }
-		//virtual void setTreeTransform(std::vector<Transform> newTransform) {}
 		virtual void UpdateTurn() {}
 		virtual void SetTurnClass(TurnClass* tc) {}
 		RenderModelComponent* m_Rmc;

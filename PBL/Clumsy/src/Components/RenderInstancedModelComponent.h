@@ -73,21 +73,7 @@ namespace Clumsy {
 
 		virtual void Render(Shader& shader)
 		{
-
 			m_Model->Draw3(shader, amount);
-
-			//glActiveTexture(GL_TEXTURE0);
-			//std::cout << "Loaded textures: " << m_Model->textures_loaded.size() << std::endl;
-			//glBindTexture(GL_TEXTURE_2D, m_Model->textures_loaded[0].id); // note: we also made the textures_loaded vector public (instead of private) from the model class.
-			//for (unsigned int i = 0; i < m_Model->meshes.size(); i++)
-			//{
-			//	//m_Model->Draw2(shader);
-			//	//glBindVertexArray(m_Model->meshes[i].VAO);
-			//	//glDrawElementsInstanced(GL_TRIANGLES, m_Model->meshes[i].indices.size(), GL_UNSIGNED_INT, 0, amount);
-			//	//glBindVertexArray(0);
-			////	std::cout << "Renderuj sie plox " << std::endl;
-			//}
-
 		}
 
 
