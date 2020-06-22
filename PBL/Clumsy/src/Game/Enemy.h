@@ -3,6 +3,7 @@
 #include "../RenderEngine/Model.h"
 #include "../RenderEngine/RenderEngine.h"
 #include "../GUI/PokemonGUI.h"
+#include "../GUI/EndGameGUI.h"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -59,6 +60,13 @@ namespace Clumsy {
 			}
 		}
 
+		void Loose()
+		{
+			if (RenderEngine::GetInstance()->GetPokemonGUI()->getBattleState() == PokemonGUI::BattleState::LOST)
+			{
+				RenderEngine::GetInstance()->GetEndGameGUI()->SetEnabled(true);
+			}
+		}
 
 		bool GetIsDead() override { return isEnemyDead; }
 		void SetIsDead(bool dead) override { isEnemyDead = dead; }

@@ -49,6 +49,7 @@ namespace Clumsy
 
 		Game* GetGame() { return m_Game; }
 		Game* GetLevel2() { return m_Level2; }
+		Game* GetLevel1() { return m_Level1; }
 		
 		static void CreateInstance(float frameRate, Window* window, Game* game, Game* level2)
 		{
@@ -69,7 +70,8 @@ namespace Clumsy
 			m_FrameTime(1.0f / frameRate),
 			m_Window(window),
 			m_Game(game),
-			m_Level2(level2)
+			m_Level2(level2),
+			m_Level1(game)
 		{
 			m_Game->Init();
 		}
@@ -78,6 +80,7 @@ namespace Clumsy
 		Window* m_Window;				//Used to display the game
 		Game* m_Game;					//The game itself. Stored as pointer so the user can pass in a derived class.
 		Game* m_Level2;					
+		Game* m_Level1;
 		static CoreEngine* m_Instance;
 
 	};

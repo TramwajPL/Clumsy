@@ -154,6 +154,10 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		{
 			Clumsy::RenderEngine::GetInstance()->GetMenuGUI()->HandleButtonClick(screenX, screenY, glfwWindow);
 		}
+		else if (Clumsy::RenderEngine::GetInstance()->GetEndGameGUI()->IsEnabled())
+		{
+			Clumsy::RenderEngine::GetInstance()->GetEndGameGUI()->HandleButtonClick(screenX, screenY, glfwWindow);
+		}
 		else if (Clumsy::RenderEngine::GetInstance()->GetCreditsGUI()->IsEnabled())
 		{
 			Clumsy::RenderEngine::GetInstance()->GetCreditsGUI()->HandleButtonClick(screenX, screenY);

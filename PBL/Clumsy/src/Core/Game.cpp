@@ -15,6 +15,7 @@
 #include "../Game/Warehouse.h"
 #include "../GUI/WarehouseGUI.h"
 #include "../GUI/PokemonGUI.h"
+#include "../GUI/EndGameGUI.h"
 #include "../GUI/BetweenLevelsGUI.h"
 #include "../Audio/AudioMaster.h"
 
@@ -29,9 +30,10 @@ namespace Clumsy
 		if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderMainMenu();
 		}
-		else if (RenderEngine::GetInstance()->GetCreditsGUI()->IsEnabled() == true) {
-			RenderEngine::GetInstance()->GetMenuGUI()->SetEnabled(false);
-			RenderEngine::GetInstance()->RenderCreditsGUI();
+		else if (RenderEngine::GetInstance()->GetEndGameGUI()->IsEnabled() == true)
+		{
+			RenderEngine::GetInstance()->RenderEndGame();
+			//std::cout << "End sie powinno renderowac!!" << std::endl; //tu wesz³o
 		}
 		if (RenderEngine::GetInstance()->GetBetweenLevelsGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderBetweenLevelsGUI();

@@ -36,7 +36,7 @@ namespace Clumsy
 	class TexturedRect;
 	class CreditsGUI;
 	class BetweenLevelsGUI;
-
+	class EndGameGUI;
 
 	class RenderEngine
 	{
@@ -51,6 +51,7 @@ namespace Clumsy
 		void Render(GameObject object);
 		void RenderGUI();
 		void RenderMainMenu();
+		void RenderEndGame();
 		void RenderCreditsGUI();
 		void RenderBetweenLevelsGUI();
 		void RenderPokemonGUI();
@@ -68,6 +69,7 @@ namespace Clumsy
 		StoreGUI* GetStoreGUI() { return m_StoreGUI; }
 		WarehouseGUI* GetWarehouseGUI() { return m_WarehouseGUI; }
 		MenuGUI* GetMenuGUI() { return m_MenuGUI; }
+		EndGameGUI* GetEndGameGUI() { return m_EndGUI; }
 		PokemonGUI* GetPokemonGUI() { return m_PokemonGUI; }
 		CreditsGUI* GetCreditsGUI() { return m_CreditsGUI; }
 		BetweenLevelsGUI* GetBetweenLevelsGUI() { return m_BetweenLevelsGUI; }
@@ -256,6 +258,7 @@ namespace Clumsy
 		StoreGUI* m_StoreGUI;
 		WarehouseGUI* m_WarehouseGUI;
 		MenuGUI* m_MenuGUI;
+		EndGameGUI* m_EndGUI;
 		PokemonGUI* m_PokemonGUI;
 		CreditsGUI* m_CreditsGUI;
 		BetweenLevelsGUI* m_BetweenLevelsGUI;

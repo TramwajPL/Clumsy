@@ -221,13 +221,16 @@ namespace Clumsy {
 				}
 			}
 
-			if (m_BattleState == LOST) 
+			if (m_BattleState == LOST)
 			{
+				RenderEngine::GetInstance()->enemy->Loose();
 				m_textString = "You lost ;(";
 				std::this_thread::sleep_for(std::chrono::seconds(2));
 				m_BattleCommences = false;
 				SetEnabled(false);
 			}
+
+
 
 			if (m_BattleState == WON)
 			{
