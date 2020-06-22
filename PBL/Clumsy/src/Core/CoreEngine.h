@@ -60,6 +60,7 @@ namespace Clumsy
 			return m_Instance;
 		}
 
+		bool m_IsRunning;
 	private:
 		CoreEngine(float frameRate, Window* window, Game* game, Game* level2) :
 			m_IsRunning(false),
@@ -70,7 +71,7 @@ namespace Clumsy
 		{
 			m_Game->Init();
 		}
-		bool m_IsRunning;				//Whether or not the engine is running
+					//Whether or not the engine is running
 		float m_FrameTime = 0.0f;		//How long, in seconds, one frame should take
 		Window* m_Window;				//Used to display the game
 		Game* m_Game;					//The game itself. Stored as pointer so the user can pass in a derived class.

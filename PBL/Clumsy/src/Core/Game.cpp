@@ -352,7 +352,6 @@ namespace Clumsy
 		woodHouse->SetM_Tag("woodHouse");		
 		map->AddChild((woodHouse)->AddComponent(new RenderModelComponent(RenderEngine::GetInstance()->mShop, transformWoodHouse, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop2)));
 
-<<<<<<< HEAD
 		if (RenderEngine::GetInstance()->GetFirstLevel() == false) {
 			Transform transformWin1;
 			Transform transformWin2;
@@ -380,7 +379,7 @@ namespace Clumsy
 			PhysicsEngine::GetInstance()->AddObject(*pOWin1);
 			GameObject* win1 = new GameObject(transformWin1);
 			win1->SetM_Tag("win");
-			map->AddChild((win1)->AddComponent(new RenderModelComponent(mShop, transformWin1, 180.0f))->AddComponent(new PhysicsObjectComponent(pOWin1)));
+			map->AddChild((win1)->AddComponent(new RenderModelComponent(RenderEngine::GetInstance()->mShop, transformWin1, 180.0f))->AddComponent(new PhysicsObjectComponent(pOWin1)));
 
 			glm::vec3 minWood = glm::vec3(transformWin2.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
 			glm::vec3 maxWood = glm::vec3(transformWin2.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
@@ -388,24 +387,16 @@ namespace Clumsy
 			PhysicsEngine::GetInstance()->AddObject(*pOWin2);
 			GameObject* win2 = new GameObject(transformWin2);
 			win2->SetM_Tag("win");
-			map->AddChild((win2)->AddComponent(new RenderModelComponent(mShop, transformWin2, 180.0f))->AddComponent(new PhysicsObjectComponent(pOWin2)));
+			map->AddChild((win2)->AddComponent(new RenderModelComponent(RenderEngine::GetInstance()->mShop, transformWin2, 180.0f))->AddComponent(new PhysicsObjectComponent(pOWin2)));
 
 		}
 
-		map->AddComponent(new Clumsy::RenderInstancedBurnedGroundComponent(mBurned, RenderEngine::GetInstance()->groundBurned));
-		map->AddComponent(new Clumsy::RenderInstancedGround(m3, allTransformsM3));
-		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m4, allTransformsM4));
-		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m5, allTransformsM5));
-		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m6, allTransformsM6));
-		map->AddComponent(new Clumsy::RenderInstancedTreesComponent(m7, allTransformsM7));
-=======
 		map->AddComponent(new Clumsy::RenderInstancedBurnedGroundComponent(RenderEngine::GetInstance()->mBurned, RenderEngine::GetInstance()->groundBurned));
 		map->AddComponent(new Clumsy::RenderInstancedGround(RenderEngine::GetInstance()->m3, allTransformsM3));
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(RenderEngine::GetInstance()->m4, allTransformsM4));
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(RenderEngine::GetInstance()->m5, allTransformsM5));
 		map->AddComponent(new Clumsy::RenderInstancedModelComponent(RenderEngine::GetInstance()->m6, allTransformsM6));
 		map->AddComponent(new Clumsy::RenderInstancedTreesComponent(RenderEngine::GetInstance()->m7, allTransformsM7));
->>>>>>> development
 		
     }
 
