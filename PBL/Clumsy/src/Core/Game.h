@@ -31,10 +31,6 @@ namespace Clumsy
 		void SceneParser(GameObject* map, std::string filename);
 		std::vector<Transform> allTransformsM7;
 
-
-	protected:
-		Model* playerModel;
-
 	private:
 		GameObject m_Root;
 		bool mainMenuControler = true;

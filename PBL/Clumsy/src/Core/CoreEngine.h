@@ -33,7 +33,6 @@ namespace Clumsy
 			m_Game->getRoot().DeleteAll();
 			RenderEngine::GetInstance()->m_Cubes.clear();
 			TurnSystem::GetInstance()->DeletePlayers();
-			RenderEngine::GetInstance()->boys.clear();
 			PhysicsEngine::GetInstance()->m_Objects.clear();
 			RenderEngine::GetInstance()->treeTransforms.clear();
 			RenderEngine::GetInstance()->cutTreesTransforms.clear();

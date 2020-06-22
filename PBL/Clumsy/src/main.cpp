@@ -51,17 +51,11 @@ public:
 
 		Clumsy::Transform boyTransform(pos, rotBoy, 0.1f);
 		Clumsy::Transform enemyTransform(enemyPos, rotEnemy, 0.01); //enemy
-
-		playerModel = new Clumsy::Model();
-		playerModel->loadModel("../Clumsy/src/models/man/model.dae");
-
-		Clumsy::Model* enemyModel = new Clumsy::Model();
-		enemyModel->loadModel("../Clumsy/src/models/enemyModels/Idle/Idle.dae"); //enemy		
-			
+					
 		Clumsy::Player* boy = new Clumsy::Player(boyTransform);
-		Clumsy::RenderEngine::GetInstance()->boys.push_back(boy);
+		//Clumsy::RenderEngine::GetInstance()->boys.push_back(boy);
 
-		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(enemyModel, enemyTransform); //enemy change how much we need to collect wood
+		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(Clumsy::RenderEngine::GetInstance()->enemyModel, enemyTransform); //enemy change how much we need to collect wood
 		Clumsy::RenderEngine::GetInstance()->enemy->SetM_Tag("enemy"); //ost zmiana
 
 		Clumsy::PhysicsObject* ob1 = new Clumsy::PhysicsObject(
@@ -77,9 +71,9 @@ public:
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent();
 		//rmc = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90.0f);
-		enemyRmc = new Clumsy::RenderModelComponent(enemyModel, Clumsy::RenderEngine::GetInstance()->enemy->GetTransform(), 360.0f, true); //enemy RMC //ost zmiana
+		enemyRmc = new Clumsy::RenderModelComponent(Clumsy::RenderEngine::GetInstance()->enemyModel, Clumsy::RenderEngine::GetInstance()->enemy->GetTransform(), 360.0f, true); //enemy RMC //ost zmiana
 
-		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90);
+		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(Clumsy::RenderEngine::GetInstance()->playerModel, boy->GetTransform(), 90);
 		boy->m_Rmc = rmc1;
 		Clumsy::Cube* c1 = new Clumsy::Cube(boyTransform);
 		c1->SetPlayer(rmc1);
@@ -203,7 +197,27 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 				&& screenY < (restartButton.y + scale3.y) && screenY > restartButton.y)
 			{
 				Clumsy::RenderEngine::GetInstance()->GetRestartButton()->OnClick();
-				//Clumsy::RenderEngine::GetInstance()->isPlayed = false;
+				Clumsy::RenderEngine::GetInstance()->SetBurntToZero();
+				Clumsy::TurnSystem::GetInstance()->SetTurnCounter(0);
+				Clumsy::RenderEngine::GetInstance()->enemy->SetIsDead(true);
+				if (Clumsy::RenderEngine::GetInstance()->GetFirstLevel())
+				{
+					game.getRoot().DeleteAll();
+					game.Init();
+				}
+				else
+				{
+					Level2.getRoot().DeleteAll();
+					Level2.Init();
+				}
+				Clumsy::RenderEngine::GetInstance()->m_Cubes.clear();
+				Clumsy::TurnSystem::GetInstance()->DeletePlayers();
+				Clumsy::PhysicsEngine::GetInstance()->m_Objects.clear();
+				Clumsy::RenderEngine::GetInstance()->treeTransforms.clear();
+				Clumsy::RenderEngine::GetInstance()->cutTreesTransforms.clear();
+				Clumsy::RenderEngine::GetInstance()->ground.clear();
+				Clumsy::RenderEngine::GetInstance()->groundBurned.clear();
+				Clumsy::RenderEngine::GetInstance()->groundSand.clear();
 			}
 			else
 			{

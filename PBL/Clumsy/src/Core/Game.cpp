@@ -3,7 +3,6 @@
 #include <yaml.h>
 
 #include "Game.h"
-#include "../RenderEngine/Model.h"
 #include "../Components/RenderModelComponent.h"
 #include "../Components/PhysicsObjectComponent.h"
 #include "../Components/RenderInstancedModelComponent.h"
@@ -43,9 +42,6 @@ namespace Clumsy
 				RenderEngine::GetInstance()->RenderPokemonGUI();
 			}
 		}
-		/*if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
-			RenderEngine::GetInstance()->GetPokemonGUI()->SetEnabled(false);
-		}*/
 	}
 
 	void Game::Update(float deltaTime)
@@ -144,7 +140,7 @@ namespace Clumsy
 			PhysicsObject* ob = new PhysicsObject(
 				new BoundingSphere(boy->GetTransform().GetPos(), 0.1f), &boy->GetTransform());
 			PhysicsEngine::GetInstance()->AddObject(*ob);
-			RenderModelComponent* rmc = new RenderModelComponent(playerModel, boy->GetTransform(), 90.0f);
+			RenderModelComponent* rmc = new RenderModelComponent(RenderEngine::GetInstance()->playerModel, boy->GetTransform(), 90.0f);
 			boy->m_Rmc = rmc;
 			AddToScene((boy)->AddComponent(rmc));
 			boy->AddComponent(new PhysicsObjectComponent(ob));
@@ -170,12 +166,6 @@ namespace Clumsy
 		std::vector<Transform> allTransformsM4;
 		std::vector<Transform> allTransformsM5;
 		std::vector<Transform> allTransformsM6;
-		Model* m3 = new Model();
-		Model* m4 = new Model();
-		Model* m5 = new Model();
-		Model* m6 = new Model();
-		Model* m7 = new Model();
-		Model* mBurned = new Model();
 		bool model3 = false;
 		bool model4 = false;
 		bool model5 = false;
@@ -195,21 +185,15 @@ namespace Clumsy
 								if (it->first.as<std::string>() == "value") {
 									k = it->second.as<std::string>();
 									if (k.find("Pasture") != std::string::npos) {
-										m3->loadModel("../Clumsy/src/models/hexes/groundEarth_base_color.obj");
 										model3 = true;
-										m7->loadModel("../Clumsy/src/models/hexes/tree_Oliwiw.obj");
-										mBurned->loadModel("../Clumsy/src/models/hexes/Burned_ground.obj");
 									}
 									if (k.find("Desert") != std::string::npos) {
-										m4->loadModel("../Clumsy/src/models/hexes/Desert_ground_Albedo.obj");
 										model4 = true;
 									}
 									if (k.find("Stone") != std::string::npos) {
-										m5->loadModel("../Clumsy/src/models/hexes/Stone_Albedo.obj");
 										model5 = true;
 									}
 									if (k.find("Water") != std::string::npos) {
-										m6->loadModel("../Clumsy/src/models/hexes/Water_Albedo.obj");
 										model6 = true;
 									}
 									firstNode = false;
@@ -326,7 +310,6 @@ namespace Clumsy
             }
         }
 
-		Model* mShop = new Model();
 		Transform transformShop;
 		Transform transformWoodHouse;
 
@@ -348,7 +331,6 @@ namespace Clumsy
 		transformWoodHouse.SetRotW(0.0f);//1
 		transformWoodHouse.SetScale(0.07f);
 
-		mShop->loadModel("../Clumsy/src/models/shop/shop.obj");
 		// shop
 		glm::vec3 min2 = glm::vec3(transformShop.GetPos() - glm::vec3(0.4f, 0.1f, 0.4f));
 		glm::vec3 max2 = glm::vec3(transformShop.GetPos() + glm::vec3(0.4f, 0.1f, 0.4f));
@@ -357,7 +339,7 @@ namespace Clumsy
 		Warehouse* shop = new Warehouse(transformShop);
 		GameObject* landShop = new GameObject(transformShop);
 		shop->SetM_Tag("shop");
-		map->AddChild((shop)->AddComponent(new RenderModelComponent(mShop, transformShop, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop)));
+		map->AddChild((shop)->AddComponent(new RenderModelComponent(RenderEngine::GetInstance()->mShop, transformShop, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop)));
 	/*	transformShop.SetScale(0.01f);
 		map->AddChild((landShop)->AddComponent(new RenderModelComponent(m4, transformShop, 90.0f)));*/
 
@@ -368,14 +350,14 @@ namespace Clumsy
 		PhysicsEngine::GetInstance()->AddObject(*pOShop2);
 		Warehouse* woodHouse = new Warehouse(transformWoodHouse);
 		woodHouse->SetM_Tag("woodHouse");		
-		map->AddChild((woodHouse)->AddComponent(new RenderModelComponent(mShop, transformWoodHouse, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop2)));
+		map->AddChild((woodHouse)->AddComponent(new RenderModelComponent(RenderEngine::GetInstance()->mShop, transformWoodHouse, 180.0f))->AddComponent(new PhysicsObjectComponent(pOShop2)));
 
-		map->AddComponent(new Clumsy::RenderInstancedBurnedGroundComponent(mBurned, RenderEngine::GetInstance()->groundBurned));
-		map->AddComponent(new Clumsy::RenderInstancedGround(m3, allTransformsM3));
-		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m4, allTransformsM4));
-		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m5, allTransformsM5));
-		map->AddComponent(new Clumsy::RenderInstancedModelComponent(m6, allTransformsM6));
-		map->AddComponent(new Clumsy::RenderInstancedTreesComponent(m7, allTransformsM7));
+		map->AddComponent(new Clumsy::RenderInstancedBurnedGroundComponent(RenderEngine::GetInstance()->mBurned, RenderEngine::GetInstance()->groundBurned));
+		map->AddComponent(new Clumsy::RenderInstancedGround(RenderEngine::GetInstance()->m3, allTransformsM3));
+		map->AddComponent(new Clumsy::RenderInstancedModelComponent(RenderEngine::GetInstance()->m4, allTransformsM4));
+		map->AddComponent(new Clumsy::RenderInstancedModelComponent(RenderEngine::GetInstance()->m5, allTransformsM5));
+		map->AddComponent(new Clumsy::RenderInstancedModelComponent(RenderEngine::GetInstance()->m6, allTransformsM6));
+		map->AddComponent(new Clumsy::RenderInstancedTreesComponent(RenderEngine::GetInstance()->m7, allTransformsM7));
 		
     }
 
