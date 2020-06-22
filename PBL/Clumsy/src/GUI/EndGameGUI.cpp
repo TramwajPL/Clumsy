@@ -32,7 +32,6 @@ namespace Clumsy {
 	{
 		if (m_Enabled)
 		{
-			//std::cout << "Super renderrrrr: " << std::endl;
 			glEnable(GL_TEXTURE_2D);
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
@@ -46,9 +45,6 @@ namespace Clumsy {
 			glEnable(GL_CULL_FACE);
 
 			theEndText->RenderText(shaderText, "THE END" , SCR_WIDTH - 1250, SCR_HEIGHT - 445 , 2.5f, glm::vec3(1.0f, 1.0f, 1.0f));
-			//(Shader* shader, std::string text, float x, float y, float scale, glm::vec3 color)
-
-			// Render buttons //ZMIENIÆ
 			for (int i = 0; i < m_Buttons.size(); i++)
 			{
 				m_Buttons[i]->Render(shaderButton);
@@ -56,12 +52,6 @@ namespace Clumsy {
 
 			playAginButton->RenderText(shaderText, m_Buttons[0]->GetText(), SCR_WIDTH - 1250 + 140, SCR_HEIGHT - 445 - 168, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
 			quitButton->RenderText(shaderText, m_Buttons[1]->GetText(), SCR_WIDTH - 1250 + 220, SCR_HEIGHT - 445 - 272, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
-			// Render text ZMIENIÆ
-			//for (int i = 1; i < m_Buttons.size(); i++)
-			//{
-			//	//quitButton->RenderText(shaderText, m_Buttons[i]->GetText(), SCR_WIDTH - 1250 + 220, SCR_HEIGHT - 445 - 190, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
-			//}
-
 		}
 	}
 

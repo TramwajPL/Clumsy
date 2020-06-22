@@ -26,7 +26,4 @@ namespace Clumsy {
 		unsigned int texture;
 		bool m_Enabled = false;
 	};
-
-
-
 }
