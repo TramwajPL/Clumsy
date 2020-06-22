@@ -37,12 +37,8 @@ namespace Clumsy
 		glm::vec3 GetPickedObject(glm::vec3 originalPosition);
 		void HandleEvent(Event* event);
 
-		int GetCountTrees() {
-			return countTrees;
-		}
 
 	private:
-		int countTrees = 0;
 		glm::vec3 m_CurrentRay;
 		glm::mat4 m_ProjectionMatrix;
 		glm::mat4 m_ViewMatrix;

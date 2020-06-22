@@ -68,11 +68,18 @@ namespace Clumsy {
 		bool GetShouldBeDead() { return m_ShouldBeDead; }
 
 		bool getIfActive() { return m_IsActive;  }
+		void SetCountTrees(int i) { countTrees = i; }
+		void IncrementCountTrees() { countTrees++; }
+		int GetCountTrees() {
+			return countTrees;
+		}
+
 	private:
 		int m_MaxCollectedTrees;
 		bool m_Condition = false;
 		Model* m_ModelInitial;
 		bool m_ShouldBeDead = false;
 		bool m_IsActive = false;
+		int countTrees = 0;
 	};
 }

@@ -64,6 +64,28 @@ namespace Clumsy
 		
 		mainMenuShader = new Shader("../Clumsy/src/Shaders/main_menu_VS.glsl", "../Clumsy/src/Shaders/main_menu_FS.glsl");
 
+		//models
+		playerModel = new Clumsy::Model();
+		playerModel->loadModel("../Clumsy/src/models/man/model.dae");
+
+		enemyModel = new Clumsy::Model();
+		enemyModel->loadModel("../Clumsy/src/models/enemyModels/Idle/Idle.dae"); 
+
+		m3 = new Model();
+		m4 = new Model();
+		m5 = new Model();
+		m6 = new Model();
+		m7 = new Model();
+		mBurned = new Model();
+		mShop = new Model();
+
+		m3->loadModel("../Clumsy/src/models/hexes/groundEarth_base_color.obj");
+		m4->loadModel("../Clumsy/src/models/hexes/Desert_ground_Albedo.obj");
+		m5->loadModel("../Clumsy/src/models/hexes/Stone_Albedo.obj");
+		m6->loadModel("../Clumsy/src/models/hexes/Water_Albedo.obj");
+		m7->loadModel("../Clumsy/src/models/hexes/tree_Oliwiw.obj");
+		mBurned->loadModel("../Clumsy/src/models/hexes/Burned_ground.obj");
+		mShop->loadModel("../Clumsy/src/models/shop/shop.obj");
 
 		glEnable(GL_DEPTH_TEST);
 
@@ -104,12 +126,8 @@ namespace Clumsy
 	    m_PokemonEnemy = new TexturedRect("../Clumsy/src/models/ent.jpg", glm::vec3(0.7f, 0.8f, 0.0f), glm::vec3(0.7f, 0.4f, 0.0f), glm::vec3(0.5f, 0.4f, 0.0f), glm::vec3(0.5f, 0.8f, 0.0f));
 	    m_PokemonPlayer = new TexturedRect("../Clumsy/src/models/lumberjack.jpg", glm::vec3(-0.6f, 0.4f, 0.0f), glm::vec3(-0.6f, 0.0f, 0.0f), glm::vec3(-0.8f, 0.0f, 0.0f), glm::vec3(-0.8f, 0.4f, 0.0f));
 
-
-		/*background = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), buttonShader);
-		destructionBar = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), buttonShader);*/
-
-		background = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.14f, 0.52f, 0.25f), buttonShader);
-		destructionBar = new DestructionBar(glm::vec3(-0.5f, -0.8f, 0.5f), glm::vec3(0.52f, 0.18f, 0.14f), buttonShader);
+		background = new DestructionBar(glm::vec3(-0.5f, -0.82f, 0.5f), glm::vec3(0.14f, 0.52f, 0.25f), buttonShader);
+		destructionBar = new DestructionBar(glm::vec3(-0.5f, -0.83f, 0.5f), glm::vec3(0.65f, 0.52f, 0.09f), buttonShader);
 
 	}
 
@@ -344,7 +362,7 @@ namespace Clumsy
 	{
 		glDisable(GL_CULL_FACE);
 		buttonShader->use();
-		background->Render(glm::vec3(m_XScaleBackground, 0.13f, 0.3f));
+		background->Render(glm::vec3(m_XScaleBackground, 0.10f, 0.3f)); //zmieniæ Y
 		destructionBar->Render(glm::vec3(m_ScaleUp, 0.13f, 0.3f));
 		glEnable(GL_CULL_FACE);
 

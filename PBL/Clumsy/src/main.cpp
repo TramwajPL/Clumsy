@@ -21,6 +21,7 @@ Clumsy::EventSystem* Clumsy::EventSystem::m_Instance = 0;
 Clumsy::PhysicsEngine* Clumsy::PhysicsEngine::m_Instance = 0;
 Clumsy::RenderEngine* Clumsy::RenderEngine::m_Instance = 0;
 Clumsy::TurnSystem* Clumsy::TurnSystem::m_Instance = 0;
+Clumsy::CoreEngine* Clumsy::CoreEngine::m_Instance = 0;
 
 class TestGame : public Clumsy::Game
 {
@@ -51,17 +52,11 @@ public:
 
 		Clumsy::Transform boyTransform(pos, rotBoy, 0.1f);
 		Clumsy::Transform enemyTransform(enemyPos, rotEnemy, 0.01); //enemy
-
-		playerModel = new Clumsy::Model();
-		playerModel->loadModel("../Clumsy/src/models/man/model.dae");
-
-		Clumsy::Model* enemyModel = new Clumsy::Model();
-		enemyModel->loadModel("../Clumsy/src/models/enemyModels/Idle/Idle.dae"); //enemy		
-			
+					
 		Clumsy::Player* boy = new Clumsy::Player(boyTransform);
-		Clumsy::RenderEngine::GetInstance()->boys.push_back(boy);
+		//Clumsy::RenderEngine::GetInstance()->boys.push_back(boy);
 
-		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(enemyModel, enemyTransform); //enemy change how much we need to collect wood
+		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(Clumsy::RenderEngine::GetInstance()->enemyModel, enemyTransform); //enemy change how much we need to collect wood
 		Clumsy::RenderEngine::GetInstance()->enemy->SetM_Tag("enemy"); //ost zmiana
 
 		Clumsy::PhysicsObject* ob1 = new Clumsy::PhysicsObject(
@@ -77,9 +72,9 @@ public:
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent();
 		//rmc = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90.0f);
-		enemyRmc = new Clumsy::RenderModelComponent(enemyModel, Clumsy::RenderEngine::GetInstance()->enemy->GetTransform(), 360.0f, true); //enemy RMC //ost zmiana
+		enemyRmc = new Clumsy::RenderModelComponent(Clumsy::RenderEngine::GetInstance()->enemyModel, Clumsy::RenderEngine::GetInstance()->enemy->GetTransform(), 360.0f, true); //enemy RMC //ost zmiana
 
-		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90);
+		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(Clumsy::RenderEngine::GetInstance()->playerModel, boy->GetTransform(), 90);
 		boy->m_Rmc = rmc1;
 		Clumsy::Cube* c1 = new Clumsy::Cube(boyTransform);
 		c1->SetPlayer(rmc1);
@@ -126,7 +121,7 @@ Clumsy::Aabb a1(v1, v2);
 
 GLFWwindow* glfwWindow = window->GetGLFWWindow();
 TestGame game(glfwWindow, glm::vec3(0.2f, -1.5f, 0.0f), glm::vec3(-0.5f, 0.0f, 0.0f), "Test.unity");
-TestGame Level2(glfwWindow, glm::vec3(0.2f, -1.5f, 0.0f), glm::vec3(-0.5f, 0.0f, 0.0f), "Lvl2.unity");
+TestGame Level2(glfwWindow, glm::vec3(0.2f, -1.5f, 0.0f), glm::vec3(-0.5f, 0.0f, 0.0f), "Level2.unity");
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
@@ -203,7 +198,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 				&& screenY < (restartButton.y + scale3.y) && screenY > restartButton.y)
 			{
 				Clumsy::RenderEngine::GetInstance()->GetRestartButton()->OnClick();
-				//Clumsy::RenderEngine::GetInstance()->isPlayed = false;
+				Clumsy::CoreEngine::GetInstance()->SetGame(Clumsy::CoreEngine::GetInstance()->GetGame());
 			}
 			else
 			{
@@ -229,13 +224,12 @@ int main()
 	glfwSetScrollCallback(glfwWindow, scroll_callback);
 	glfwSetMouseButtonCallback(glfwWindow, mouse_button_callback);
 
-	Clumsy::CoreEngine coreEngine(60.0f, window, &game, &Level2);
+	Clumsy::CoreEngine::CreateInstance(60.0f, window, &game, &Level2);
 
 	std::cout << game.getRoot().GetAllChildren().size() << std::endl;
-	Clumsy::EventSystem::GetInstance()->SubscribeListener("Level2", &coreEngine);
 
 
-	coreEngine.Start();
+	Clumsy::CoreEngine::GetInstance()->Start();
 
 
 
