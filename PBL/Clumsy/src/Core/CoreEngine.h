@@ -40,7 +40,7 @@ namespace Clumsy
 			}
 			else
 			{
-
+				RenderEngine::GetInstance()->SetScaleUp(0.0f);
 			}
 
 		}
