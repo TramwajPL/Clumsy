@@ -16,14 +16,11 @@ namespace Clumsy
 		void Start();
 		void Stop();
 
-<<<<<<< HEAD
-		void SetGame(Game* game) {
-			RenderEngine::GetInstance()->SetFirstLevel(false);
-			RenderEngine::GetInstance()->m_SecondLevelInstruction = true;
-=======
+
 		void SetGame(Game* game) 
 		{
->>>>>>> development
+			RenderEngine::GetInstance()->SetFirstLevel(false);
+			RenderEngine::GetInstance()->m_SecondLevelInstruction = true;
 			RenderEngine::GetInstance()->SetBurntToZero();
 			TurnSystem::GetInstance()->SetTurnCounter(0);
 			RenderEngine::GetInstance()->enemy->SetIsDead(true);
