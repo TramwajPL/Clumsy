@@ -450,17 +450,7 @@ namespace Clumsy
 
 		m_MenuGUI->Render(mainMenuShader, buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 	}
-	void RenderEngine::RenderEndGame()
-	{
-		glDisable(GL_DEPTH_TEST);
-
-		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
-		textShader->use();
-		textShader->setMat4("projection", projectionGUI);
-
-
-		m_EndGUI->Render(mainMenuShader, buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
-	}
+	
 
 	void RenderEngine::RenderCreditsGUI() {
 		glDisable(GL_DEPTH_TEST);
@@ -473,6 +463,18 @@ namespace Clumsy
 
 		m_CreditsGUI->Render(mainMenuShader, buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 	
+	}
+
+	void RenderEngine::RenderEndGame()
+	{
+		glDisable(GL_DEPTH_TEST);
+
+		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
+		textShader->use();
+		textShader->setMat4("projection", projectionGUI);
+
+
+		m_EndGUI->Render(mainMenuShader, buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 	}
 
 	void RenderEngine::RenderBetweenLevelsGUI() {

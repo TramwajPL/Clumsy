@@ -148,6 +148,7 @@ namespace Clumsy
 						glm::vec3 destination = RenderEngine::GetInstance()->map->GetAllChildren()[j]->GetPos();
 						if (glm::length(originalPosition - destination) > 0.1f && glm::length(originalPosition - destination) < 1.5f)
 						{
+							RenderEngine::GetInstance()->GetEndGameGUI()->SetEnabled(true);
 							std::cout << "you win" << std::endl;
 						}
 					}

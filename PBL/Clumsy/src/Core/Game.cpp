@@ -30,14 +30,15 @@ namespace Clumsy
 		if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderMainMenu();
 		}
-		else if (RenderEngine::GetInstance()->GetEndGameGUI()->IsEnabled() == true)
-		{
-			RenderEngine::GetInstance()->RenderEndGame();
-			//std::cout << "End sie powinno renderowac!!" << std::endl; //tu wesz³o
-		}
+		
 		if (RenderEngine::GetInstance()->GetBetweenLevelsGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderBetweenLevelsGUI();
 
+		}
+		if (RenderEngine::GetInstance()->GetEndGameGUI()->IsEnabled() == true)
+		{
+			RenderEngine::GetInstance()->RenderEndGame();
+			//std::cout << "End sie powinno renderowac!!" << std::endl; //tu wesz³o
 		}
 		else {	
 			RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();

@@ -35,6 +35,7 @@
     <ClCompile Include="src\GUI\Button.cpp" />
     <ClCompile Include="src\GUI\CreditsGUI.cpp" />
     <ClCompile Include="src\GUI\DestructionBar.cpp" />
+    <ClCompile Include="src\GUI\EndGameGUI.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
     <ClCompile Include="src\GUI\MenuGUI.cpp" />
     <ClCompile Include="src\GUI\PokemonGUI.cpp" />
@@ -94,6 +95,7 @@
     <ClInclude Include="src\GUI\Button.h" />
     <ClInclude Include="src\GUI\CreditsGUI.h" />
     <ClInclude Include="src\GUI\DestructionBar.h" />
+    <ClInclude Include="src\GUI\EndGameGUI.h" />
     <ClInclude Include="src\GUI\GUI.h" />
     <ClInclude Include="src\GUI\MenuGUI.h" />
     <ClInclude Include="src\GUI\PokemonGUI.h" />

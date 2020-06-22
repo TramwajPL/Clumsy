@@ -110,6 +110,9 @@
     <ClCompile Include="src\GUI\BetweenLevelsGUI.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\GUI\EndGameGUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -279,6 +282,9 @@
     <ClInclude Include="src\GUI\PokemonGUI.h" />
     <ClInclude Include="src\RenderEngine\TexturedRect.h" />
     <ClInclude Include="src\GUI\BetweenLevelsGUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUI\EndGameGUI.h">
       <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
