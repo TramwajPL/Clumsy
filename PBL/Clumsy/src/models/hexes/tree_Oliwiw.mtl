@@ -12,7 +12,7 @@ newmtl Leafs
 	Kd 0.0314 0.5176 0.0314
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-map_Kd Pasture_ground_Albedo.png
+map_Kd tree_leaves.png
 
 newmtl Material_004
 	Ns 10.0000
@@ -25,4 +25,4 @@ newmtl Material_004
 	Kd 0.3725 0.0980 0.0000
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-map_Kd Clay_ground_Albedo.png
+map_Kd tree_branch.png

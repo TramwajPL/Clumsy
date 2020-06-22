@@ -64,6 +64,28 @@ namespace Clumsy
 		
 		mainMenuShader = new Shader("../Clumsy/src/Shaders/main_menu_VS.glsl", "../Clumsy/src/Shaders/main_menu_FS.glsl");
 
+		//models
+		playerModel = new Clumsy::Model();
+		playerModel->loadModel("../Clumsy/src/models/man/model.dae");
+
+		enemyModel = new Clumsy::Model();
+		enemyModel->loadModel("../Clumsy/src/models/enemyModels/Idle/Idle.dae"); 
+
+		m3 = new Model();
+		m4 = new Model();
+		m5 = new Model();
+		m6 = new Model();
+		m7 = new Model();
+		mBurned = new Model();
+		mShop = new Model();
+
+		m3->loadModel("../Clumsy/src/models/hexes/groundEarth_base_color.obj");
+		m4->loadModel("../Clumsy/src/models/hexes/Desert_ground_Albedo.obj");
+		m5->loadModel("../Clumsy/src/models/hexes/Stone_Albedo.obj");
+		m6->loadModel("../Clumsy/src/models/hexes/Water_Albedo.obj");
+		m7->loadModel("../Clumsy/src/models/hexes/tree_Oliwiw.obj");
+		mBurned->loadModel("../Clumsy/src/models/hexes/Burned_ground.obj");
+		mShop->loadModel("../Clumsy/src/models/shop/shop.obj");
 
 		glEnable(GL_DEPTH_TEST);
 

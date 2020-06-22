@@ -50,14 +50,4 @@ namespace Clumsy
 		m_IsRunning = false;
 	}	
 	
-	void CoreEngine::HandleEvent(Event* event)
-	{
-		if (event->GetEventId() == "Level2")
-		{
-			SetGame(m_Level2);
-
-		}
-
-
-	}
 }

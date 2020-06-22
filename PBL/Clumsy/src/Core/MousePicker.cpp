@@ -9,6 +9,7 @@
 #include "../GUI/WarehouseGUI.h"
 #include "../Game/Player.h"
 #include "../Game/TurnSystem.h"
+#include "../Core/CoreEngine.h"
 #include "../Components/RenderModelComponent.h"
 #include "../Game/Enemy.h"
 #include "../GUI/DestructionBar.h"
@@ -240,8 +241,8 @@ namespace Clumsy
 								{
 									RenderEngine::GetInstance()->IncreaseScaleUp();
 									if (RenderEngine::GetInstance()->GetBurntTrees() == 10) {
-										countTrees = 0;
-										EventSystem::GetInstance()->SendEvent("Level2");
+										RenderEngine::GetInstance()->SetFirstLevel(false);
+										CoreEngine::GetInstance()->SetGame(CoreEngine::GetInstance()->GetLevel2());
 									}
 									
 								}
@@ -259,12 +260,13 @@ namespace Clumsy
 						if (RenderEngine::GetInstance()->enemy->GetIsDead() == true &&
 							RenderEngine::GetInstance()->enemy->GetCondition() == true)
 						{
-							countTrees = 0;
+							RenderEngine::GetInstance()->enemy->SetCountTrees(0);
 							RenderEngine::GetInstance()->enemy->SetCondition(false);
 						}
-						countTrees++;
 
-						RenderEngine::GetInstance()->enemy->checkIfRender(countTrees);
+						RenderEngine::GetInstance()->enemy->IncrementCountTrees();
+
+						RenderEngine::GetInstance()->enemy->checkIfRender(RenderEngine::GetInstance()->enemy->GetCountTrees());
 						player->IncrementWoodCount();
 					}
 					else if (isThereATree && !player->IsIncrementingWoodCountPossible())

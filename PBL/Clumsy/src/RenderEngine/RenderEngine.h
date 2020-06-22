@@ -16,6 +16,7 @@
 #include "../PhysicsEngine/Plane.h"
 #include "../Game/TreeObject.h"
 #include "../RenderEngine/Cube.h"
+#include "../RenderEngine/Model.h"
 
 namespace Clumsy 
 {
@@ -169,8 +170,21 @@ namespace Clumsy
 		ParticleSystem* particleSystem;
 		ParticleSystem* greenParticle;
 
-		std::vector<Player*> boys;
 		std::vector<Cube*> m_Cubes;
+
+		// models
+		Model* playerModel;
+		Model* enemyModel;
+		Model* shopModel;
+
+		Model* m3;
+		Model* m4;
+		Model* m5;
+		Model* m6;
+		Model* m7;
+		Model* mBurned;
+		Model* mShop;
+
 	private:
 		//Bar
 		bool m_FirstLevel = true;
