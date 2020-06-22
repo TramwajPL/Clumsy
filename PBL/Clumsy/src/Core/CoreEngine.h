@@ -19,7 +19,6 @@ namespace Clumsy
 
 		void SetGame(Game* game) 
 		{
-			RenderEngine::GetInstance()->SetFirstLevel(false);
 			RenderEngine::GetInstance()->m_SecondLevelInstruction = true;
 			RenderEngine::GetInstance()->SetBurntToZero();
 			TurnSystem::GetInstance()->SetTurnCounter(0);

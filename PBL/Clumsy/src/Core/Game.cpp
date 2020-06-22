@@ -160,13 +160,13 @@ namespace Clumsy
 			PhysicsEngine::GetInstance()->AddObject(*ob);
 			RenderModelComponent* rmc = new RenderModelComponent(RenderEngine::GetInstance()->playerModel, boy->GetTransform(), 90.0f);
 			boy->m_Rmc = rmc;
-			AddToScene((boy)->AddComponent(rmc));
-			boy->AddComponent(new PhysicsObjectComponent(ob));
-			TurnSystem::GetInstance()->AddPlayer(boy);
-
 			Clumsy::Cube* c1 = new Clumsy::Cube(transform);
 			c1->SetPlayer(rmc);
 			Clumsy::RenderEngine::GetInstance()->AddCube(c1);
+
+			AddToScene((boy)->AddComponent(rmc));
+			boy->AddComponent(new PhysicsObjectComponent(ob));
+			TurnSystem::GetInstance()->AddPlayer(boy);			
 		}
 	}
 
