@@ -126,7 +126,7 @@ Clumsy::Aabb a1(v1, v2);
 
 GLFWwindow* glfwWindow = window->GetGLFWWindow();
 TestGame game(glfwWindow, glm::vec3(0.2f, -1.5f, 0.0f), glm::vec3(-0.5f, 0.0f, 0.0f), "Test.unity");
-TestGame Level2(glfwWindow, glm::vec3(0.2f, -1.5f, 0.0f), glm::vec3(-0.5f, 0.0f, 0.0f), "Lvl2.unity");
+TestGame Level2(glfwWindow, glm::vec3(0.2f, -1.5f, 0.0f), glm::vec3(-0.5f, 0.0f, 0.0f), "Level2.unity");
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
