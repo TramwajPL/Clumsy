@@ -21,6 +21,7 @@ Clumsy::EventSystem* Clumsy::EventSystem::m_Instance = 0;
 Clumsy::PhysicsEngine* Clumsy::PhysicsEngine::m_Instance = 0;
 Clumsy::RenderEngine* Clumsy::RenderEngine::m_Instance = 0;
 Clumsy::TurnSystem* Clumsy::TurnSystem::m_Instance = 0;
+Clumsy::CoreEngine* Clumsy::CoreEngine::m_Instance = 0;
 
 class TestGame : public Clumsy::Game
 {
@@ -197,27 +198,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 				&& screenY < (restartButton.y + scale3.y) && screenY > restartButton.y)
 			{
 				Clumsy::RenderEngine::GetInstance()->GetRestartButton()->OnClick();
-				Clumsy::RenderEngine::GetInstance()->SetBurntToZero();
-				Clumsy::TurnSystem::GetInstance()->SetTurnCounter(0);
-				Clumsy::RenderEngine::GetInstance()->enemy->SetIsDead(true);
-				if (Clumsy::RenderEngine::GetInstance()->GetFirstLevel())
-				{
-					game.getRoot().DeleteAll();
-					game.Init();
-				}
-				else
-				{
-					Level2.getRoot().DeleteAll();
-					Level2.Init();
-				}
-				Clumsy::RenderEngine::GetInstance()->m_Cubes.clear();
-				Clumsy::TurnSystem::GetInstance()->DeletePlayers();
-				Clumsy::PhysicsEngine::GetInstance()->m_Objects.clear();
-				Clumsy::RenderEngine::GetInstance()->treeTransforms.clear();
-				Clumsy::RenderEngine::GetInstance()->cutTreesTransforms.clear();
-				Clumsy::RenderEngine::GetInstance()->ground.clear();
-				Clumsy::RenderEngine::GetInstance()->groundBurned.clear();
-				Clumsy::RenderEngine::GetInstance()->groundSand.clear();
+				Clumsy::CoreEngine::GetInstance()->SetGame(Clumsy::CoreEngine::GetInstance()->GetGame());
 			}
 			else
 			{
@@ -243,13 +224,12 @@ int main()
 	glfwSetScrollCallback(glfwWindow, scroll_callback);
 	glfwSetMouseButtonCallback(glfwWindow, mouse_button_callback);
 
-	Clumsy::CoreEngine coreEngine(60.0f, window, &game, &Level2);
+	Clumsy::CoreEngine::CreateInstance(60.0f, window, &game, &Level2);
 
 	std::cout << game.getRoot().GetAllChildren().size() << std::endl;
-	Clumsy::EventSystem::GetInstance()->SubscribeListener("Level2", &coreEngine);
 
 
-	coreEngine.Start();
+	Clumsy::CoreEngine::GetInstance()->Start();
 
 
 
