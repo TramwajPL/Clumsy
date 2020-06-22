@@ -136,6 +136,10 @@ namespace Clumsy
 		bool m_FirstInstruction = true;
 		float m_FirstInstructionTime;
 
+		bool m_SecondLevelInstruction = false;
+		float m_SecondLevelInstructionTime;
+
+
 
 		void AddCube(Cube* c) { m_Cubes.push_back(c); }
 		void UpdateCubes();
@@ -243,6 +247,7 @@ namespace Clumsy
 
 		TexturedRect* m_Instruction2;
 		TexturedRect* m_Instruction3;
+		TexturedRect* m_InstructionLevel2;
 
 		TexturedRect* m_PokemonRect;
 		TexturedRect* m_PokemonEnemy;

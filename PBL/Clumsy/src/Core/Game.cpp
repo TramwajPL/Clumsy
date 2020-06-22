@@ -84,6 +84,18 @@ namespace Clumsy
 				Clumsy::RenderEngine::GetInstance()->m_ThirdInstruction = false;
 			}
 		}
+
+
+		//Instruction for level 2
+		if (RenderEngine::GetInstance()->m_SecondLevelInstructionTime > 0.0f)
+		{
+			RenderEngine::GetInstance()->m_SecondLevelInstructionTime -= deltaTime;
+			if (RenderEngine::GetInstance()->m_SecondLevelInstructionTime <= 0.0f)
+			{
+				Clumsy::RenderEngine::GetInstance()->m_SecondLevelInstruction = false;
+			}
+		}
+
 		// shake
 		if (RenderEngine::GetInstance()->GetShakeTime() > 0.0f)
 		{
