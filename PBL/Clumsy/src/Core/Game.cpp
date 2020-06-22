@@ -31,14 +31,14 @@ namespace Clumsy
 			RenderEngine::GetInstance()->RenderMainMenu();
 		}
 		
-		if (RenderEngine::GetInstance()->GetBetweenLevelsGUI()->IsEnabled() == true) {
-			RenderEngine::GetInstance()->RenderBetweenLevelsGUI();
-
-		}
 		if (RenderEngine::GetInstance()->GetEndGameGUI()->IsEnabled() == true)
 		{
 			RenderEngine::GetInstance()->RenderEndGame();
 			//std::cout << "End sie powinno renderowac!!" << std::endl; //tu wesz³o
+		}
+		else if (RenderEngine::GetInstance()->GetBetweenLevelsGUI()->IsEnabled() == true) {
+			RenderEngine::GetInstance()->RenderBetweenLevelsGUI();
+
 		}
 		else {	
 			RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();
