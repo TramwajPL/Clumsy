@@ -7,15 +7,13 @@
 #include "Clumsy.h"
 
 const unsigned int SCR_WIDTH = 1920;
+const unsigned int SCR_HEIGHT = 1080;
 //const unsigned int SCR_WIDTH = 1366;
 //const unsigned int SCR_HEIGHT = 768;
-const unsigned int SCR_HEIGHT = 1080;
 
 Clumsy::GameObject* object1;
 Clumsy::RenderModelComponent* rmc;
-Clumsy::RenderModelComponent* enemyRmc; //enemy
-bool isScrolled = false;
-float iter = 0.0f;
+Clumsy::RenderModelComponent* enemyRmc; 
 Clumsy::AudioMaster* Clumsy::AudioMaster::m_Instance = 0;
 Clumsy::EventSystem* Clumsy::EventSystem::m_Instance = 0;
 Clumsy::PhysicsEngine* Clumsy::PhysicsEngine::m_Instance = 0;
@@ -55,7 +53,6 @@ public:
 		Clumsy::Transform enemyTransform(enemyPos, rotEnemy, 0.01); //enemy
 					
 		Clumsy::Player* boy = new Clumsy::Player(boyTransform);
-		//Clumsy::RenderEngine::GetInstance()->boys.push_back(boy);
 
 		Clumsy::RenderEngine::GetInstance()->enemy = new Clumsy::Enemy(Clumsy::RenderEngine::GetInstance()->enemyModel, enemyTransform); //enemy change how much we need to collect wood
 		Clumsy::RenderEngine::GetInstance()->enemy->SetM_Tag("enemy"); //ost zmiana
@@ -72,7 +69,6 @@ public:
 
 		Clumsy::PhysicsEngineComponent* physicsEngineComponent
 			= new Clumsy::PhysicsEngineComponent();
-		//rmc = new Clumsy::RenderModelComponent(playerModel, boy->GetTransform(), 90.0f);
 		enemyRmc = new Clumsy::RenderModelComponent(Clumsy::RenderEngine::GetInstance()->enemyModel, Clumsy::RenderEngine::GetInstance()->enemy->GetTransform(), 360.0f, true); //enemy RMC //ost zmiana
 
 		Clumsy::RenderModelComponent* rmc1 = new Clumsy::RenderModelComponent(Clumsy::RenderEngine::GetInstance()->playerModel, boy->GetTransform(), 360);
@@ -114,11 +110,6 @@ Clumsy::Window* window = new Clumsy::Window(SCR_WIDTH, SCR_HEIGHT);
 glm::mat4 projectionMP = glm::perspective(glm::radians(camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 1.0f, 100.0f);
 
 Clumsy::MousePicker mp(camera, window, projectionMP);
-
-glm::vec3 v1 = glm::vec3(0.0f, 0.0f, -2.0f) - glm::vec3(1.0f, 1.0f, 1.0f);
-glm::vec3 v2 = glm::vec3(0.0f, 0.0f, -2.0f) + glm::vec3(1.0f, 1.0f, 1.0f);
-
-Clumsy::Aabb a1(v1, v2);
 
 GLFWwindow* glfwWindow = window->GetGLFWWindow();
 TestGame game(glfwWindow, glm::vec3(0.2f, -1.5f, 0.0f), glm::vec3(-0.5f, 0.0f, 0.0f), "Test.unity");
@@ -167,7 +158,6 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		{
 			Clumsy::RenderEngine::GetInstance()->GetPokemonGUI()->HandleButtonClick(screenX, screenY);
 		}
-		//else if(Clumsy::RenderEngine::GetInstance()->GetBetweenLevelsGUI())
 		else if (Clumsy::RenderEngine::GetInstance()->GetBetweenLevelsGUI()->IsEnabled())
 		{
 			Clumsy::RenderEngine::GetInstance()->GetBetweenLevelsGUI()->HandleButtonClick(screenX, screenY, glfwWindow);
@@ -187,7 +177,6 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 			if (screenX > (centerButton.x - (scale1.x / 2)) && screenX < (centerButton.x + (scale1.x / 2))
 				&& screenY < (centerButton.y + scale1.y) && screenY > centerButton.y)
 			{
-				//Clumsy::RenderEngine::GetInstance()->isPlayed = true;
 				Clumsy::RenderEngine::GetInstance()->GetCenterButton()->OnClick();
 				Clumsy::Player* player = dynamic_cast<Clumsy::Player*>(Clumsy::TurnSystem::GetInstance()->GetActivePlayer());
 				if (player)
@@ -238,10 +227,7 @@ int main()
 
 	std::cout << game.getRoot().GetAllChildren().size() << std::endl;
 
-
 	Clumsy::CoreEngine::GetInstance()->Start();
-
-
 
 	window->~Window();
 	Clumsy::AudioMaster::GetInstance()->Drop();

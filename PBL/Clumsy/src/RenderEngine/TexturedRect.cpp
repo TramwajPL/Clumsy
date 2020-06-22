@@ -17,17 +17,7 @@ namespace Clumsy
 	{
 		if (m_Enabled)
 		{
-			// Render background
-			//shaderButton->use();
-			//glBindVertexArray(VAO);
-			//glm::mat4 model = glm::mat4(1.0f);
-			//shaderButton->setMat4("model", model);
-			//shaderButton->setVec3("Color", glm::vec3(0.0f, 0.9f, 0.9f));
-			//glDrawArrays(GL_TRIANGLES, 0, 6);
-			
 			glEnable(GL_TEXTURE_2D);
-			//glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-			//glClear(GL_COLOR_BUFFER_BIT);
 
 			// bind Texture
 			glBindTexture(GL_TEXTURE_2D, texture);

@@ -1,9 +1,8 @@
 #include "../pch.h"
 #include "DestructionBar.h"
 
-namespace Clumsy {
-
-
+namespace Clumsy 
+{
 	DestructionBar::DestructionBar(glm::vec3 translate, glm::vec3 color, Shader* shader) :
 		m_Translate(translate), m_Color(color), m_Shader(shader)
 	{
@@ -39,9 +38,6 @@ namespace Clumsy {
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
-
-
-
 	}
 
 	void DestructionBar::Render(glm::vec3 scale, bool destructionBar)
@@ -56,7 +52,4 @@ namespace Clumsy {
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	}
-
-
-
 }

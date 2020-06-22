@@ -1,12 +1,15 @@
 #pragma once
 
-#include "GUI.h"
-#include "Button.h"
 #include "glfw3.h"
 
-namespace Clumsy {
+#include "GUI.h"
+#include "Button.h"
 
-	class CreditsGUI {
+namespace Clumsy 
+{
+
+	class CreditsGUI 
+	{
 
 	public:
 		CreditsGUI();
@@ -27,7 +30,4 @@ namespace Clumsy {
 		unsigned int texture;
 		bool m_Enabled = false;
 	};
-
-
-
 }

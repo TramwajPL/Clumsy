@@ -1,15 +1,16 @@
 #include "../pch.h"
 
+#include <thread>
 #include <glad/glad.h>
 #include <stb_image.h>
 
 #include "PokemonGUI.h"
+#include "../Game/Enemy.h"
 #include "../RenderEngine/RenderEngine.h"
 #include "../RenderEngine/TexturedRect.h"
-#include "../Game/Enemy.h"
-#include <thread>
 
-namespace Clumsy {
+namespace Clumsy 
+{
 	PokemonGUI::PokemonGUI(Shader* buttonShader)
 	{
 		BackgroundInit();
@@ -34,7 +35,6 @@ namespace Clumsy {
 		m_SCRHEIGHT = SCR_HEIGHT;
 		if (m_Enabled)
 		{
-			//std::cout << "nieeeeeee" << std::endl;
 			glDisable(GL_CULL_FACE);
 			RenderEngine::GetInstance()->GetShaderButton()->use();
 			backPlayer->Render(glm::vec3(0.3, 0.03f, 0.3f));
@@ -43,9 +43,7 @@ namespace Clumsy {
 			Enemy->Render(scaleEnemy);
 			glEnable(GL_CULL_FACE);
 
-			glEnable(GL_TEXTURE_2D);/*
-			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);*/
+			glEnable(GL_TEXTURE_2D);
 
 			// bind Texture
 			glBindTexture(GL_TEXTURE_2D, texture);

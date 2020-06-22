@@ -4,9 +4,10 @@
 #include <glad/glad.h>
 #include <stb_image.h>
 
-#include "CreditsGUI.h"
 #include "MenuGUI.h"
+#include "CreditsGUI.h"
 #include "../RenderEngine/RenderEngine.h"
+
 namespace Clumsy
 {
 	CreditsGUI::CreditsGUI()
@@ -66,9 +67,6 @@ namespace Clumsy
 			gui->RenderText(shaderText, "https://i.imgur.com/YrcqG.jpg" , SCR_WIDTH / 2 - 240, SCR_HEIGHT - 480.0f, 0.4f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(shaderText, "Music: ", SCR_WIDTH / 2 - 240, SCR_HEIGHT - 530.0f, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(shaderText, "", SCR_WIDTH / 2 - 240, SCR_HEIGHT - 560.0f, 0.4f, glm::vec3(1.0f, 1.0f, 1.0f));
-
-
-
 		}
 	}
 

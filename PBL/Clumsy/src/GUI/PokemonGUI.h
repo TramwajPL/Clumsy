@@ -1,13 +1,15 @@
 #pragma once
 
+#include <vector>
+#include "glfw3.h"
 #include "GUI.h"
 #include "Button.h"
-#include "glfw3.h"
-#include <vector>
 #include "DestructionBar.h"
 
-namespace Clumsy {
-	class PokemonGUI {
+namespace Clumsy 
+{
+	class PokemonGUI 
+	{
 	public:
 		enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST };
 

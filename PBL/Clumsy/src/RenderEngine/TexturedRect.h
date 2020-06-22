@@ -1,8 +1,12 @@
 #pragma once
 #include "glfw3.h"
+
 #include "Shader.h"
-namespace Clumsy {
-	class TexturedRect {
+
+namespace Clumsy 
+{
+	class TexturedRect 
+	{
 	
 	public:
 		TexturedRect(std::string path, glm::vec3 topRightCorner, glm::vec3 bottomRightCorner, glm::vec3 bottomLeftCorner, glm::vec3 topLeftCorner);
