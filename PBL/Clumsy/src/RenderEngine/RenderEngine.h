@@ -176,6 +176,7 @@ namespace Clumsy
 
 		// models
 		Model* playerModel;
+		Model* playerWalkModel;
 		Model* enemyModel;
 		Model* shopModel;
 

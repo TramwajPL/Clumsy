@@ -34,11 +34,11 @@
 #include "ParticleSystem.h"
 #include "../GUI/DestructionBar.h"
 
-const unsigned int SCR_WIDTH = 1920;
-const unsigned int SCR_HEIGHT = 1080;
+//const unsigned int SCR_WIDTH = 1920;
+//const unsigned int SCR_HEIGHT = 1080;
 
-//const unsigned int SCR_WIDTH = 1366;
-//const unsigned int SCR_HEIGHT = 768;
+const unsigned int SCR_WIDTH = 1366;
+const unsigned int SCR_HEIGHT = 768;
 
 namespace Clumsy
 {
@@ -69,6 +69,8 @@ namespace Clumsy
 		//models
 		playerModel = new Clumsy::Model();
 		playerModel->loadModel("../Clumsy/src/models/playerModels/Breathing Idle/Breathing Idle.dae");
+		playerWalkModel = new Model();
+		playerWalkModel->loadModel("../Clumsy/src/models/playerModels/Dwarf Walk/Dwarf Walk.dae");
 
 		enemyModel = new Clumsy::Model();
 		enemyModel->loadModel("../Clumsy/src/models/enemyModels/Idle/Idle.dae"); 

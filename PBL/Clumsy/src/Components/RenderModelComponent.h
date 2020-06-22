@@ -52,10 +52,10 @@ namespace Clumsy {
 		}
 
 		Transform m_Transform;
+		Model* m_Model;
 
 	private:
 		float m_Angle;
-		Model* m_Model;
 		bool m_IsEnemy;
 	};
 }
