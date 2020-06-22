@@ -73,9 +73,6 @@ namespace Clumsy
             std::string name = "bones[" + std::to_string(i) + "]";// name like in shader
             m_bone_location[i] = glGetUniformLocation(shader.ID, name.c_str());
         }
-
-        // rotate head AND AXIS(y_z) about x !!!!!  Not be gimbal lock
-        //rotate_head_xz *= glm::quat(cos(glm::radians(-45.0f / 2)), sin(glm::radians(-45.0f / 2)) * glm::vec3(1.0f, 0.0f, 0.0f));
     }
 
     // draws the model, and thus all its meshes
@@ -166,28 +163,15 @@ namespace Clumsy
 
         // directoru = container for model.obj and textures and other files
         directory = path.substr(0, path.find_last_of('/'));
-
-        /*std::cout << "scene->HasAnimations() 1: " << scene->HasAnimations() << std::endl;
-        std::cout << "scene->mNumMeshes 1: " << scene->mNumMeshes << std::endl;*/
-        //std::cout << "scene->mAnimations[0]->mNumChannels 1: " << scene->mAnimations[0]->mNumChannels << std::endl;
-       // std::cout << "scene->mAnimations[0]->mDuration 1: " << scene->mAnimations[0]->mDuration << std::endl;
-       // std::cout << "scene->mAnimations[0]->mTicksPerSecond 1: " << scene->mAnimations[0]->mTicksPerSecond << std::endl << std::endl;
-
-       // std::cout << "		name nodes : " << std::endl;
         showNodeName(scene->mRootNode);
-       // std::cout << std::endl;
-
-       // std::cout << "		name bones : " << std::endl;
         processNode(scene->mRootNode, scene);
 
-       // std::cout << "		name nodes animation : " << std::endl;
         if (scene->mAnimations != NULL) {
             for (unsigned int i = 0; i < scene->mAnimations[0]->mNumChannels; i++)
             {
                // std::cout << scene->mAnimations[0]->mChannels[i]->mNodeName.C_Str() << std::endl;
             }
         }
-       // std::cout << std::endl;
     }
 
     void Model::showNodeName(aiNode* node)
@@ -285,7 +269,6 @@ namespace Clumsy
                 }
             }
             if (!exist && diffuse_maps.size() != 0) textures.push_back(diffuse_maps[0]); 
-            //textures.insert(textures.end(), diffuse_maps.begin(), diffuse_maps.end());
 
             std::vector<Texture> specular_maps = LoadMaterialTexture(material, aiTextureType_SPECULAR, "texture_specular");
             exist = false;
@@ -297,7 +280,6 @@ namespace Clumsy
                 }
             }
             if (!exist && specular_maps.size() != 0) textures.push_back(specular_maps[0]); 
-            //textures.insert(textures.end(), specular_maps.begin(), specular_maps.end());
 
         }
 
@@ -318,8 +300,6 @@ namespace Clumsy
                     m_bone_matrices.push_back(bi);
                     m_bone_matrices[bone_index].offset_matrix = mesh->mBones[i]->mOffsetMatrix;
                     m_bone_mapping[bone_name] = bone_index;
-
-                    //cout << "bone_name: " << bone_name << "			 bone_index: " << bone_index << endl;
                 }
                 else
                 {
@@ -332,8 +312,6 @@ namespace Clumsy
                     float weight = mesh->mBones[i]->mWeights[j].mWeight;
                     bones_id_weights_for_each_vertex[vertex_id].addBoneData(bone_index, weight);
 
-
-                    //cout << " vertex_id: " << vertex_id << "	bone_index: " << bone_index << "		weight: " << weight << endl;
                 }
             }
         }
@@ -353,8 +331,6 @@ namespace Clumsy
 
             std::string filename = std::string(ai_str.C_Str());
             filename = directory + '/' + filename;
-
-            //cout << filename << endl;
 
             Texture texture;
             texture.id = Clumsy::TextureFromFile(ai_str.C_Str(), this->directory);; // return prepaired openGL texture
@@ -479,8 +455,6 @@ namespace Clumsy
 
     const aiNodeAnim* Model::findNodeAnim(const aiAnimation* p_animation, const std::string p_node_name)
     {
-        // channel in animation contains aiNodeAnim (aiNodeAnim its transformation for bones)
-        // numChannels == numBones
         for (unsigned int i = 0; i < p_animation->mNumChannels; i++)
         {
             const aiNodeAnim* node_anim = p_animation->mChannels[i]; 

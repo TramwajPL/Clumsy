@@ -117,7 +117,6 @@ namespace Clumsy
 		m_BetweenLevelsGUI = new BetweenLevelsGUI();
 		m_EndGUI = new EndGameGUI();
 
-		//m_PokemonGUI = new PokemonGUI();
 	    m_TexturedRect = new TexturedRect("../Clumsy/src/models/tutek1.jpg", glm::vec3(0.9f, 0.9f, 0.0f), glm::vec3(0.9, 0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, 0.9f, 0.0f));
 		
 		m_Instruction2 = new TexturedRect("../Clumsy/src/models/tutek2.jpg", glm::vec3(0.9f, 0.9f, 0.0f), glm::vec3(0.9, 0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, 0.9f, 0.0f));
@@ -125,8 +124,7 @@ namespace Clumsy
 		m_InstructionLevel2 = new TexturedRect("../Clumsy/src/models/tutek4.jpg", glm::vec3(0.9f, 0.9f, 0.0f), glm::vec3(0.9, 0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, 0.9f, 0.0f));
 
 		m_PokemonGUI = new PokemonGUI(buttonShader);
-	   // m_TexturedRect = new TexturedRect("../Clumsy/src/models/tutek1.jpg", glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec3(-0.5f, 0.5f, 0.0f));
-	    m_PokemonRect = new TexturedRect("../Clumsy/src/models/battle2.jpg", glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(1.0f, -1.0f, 0.0f), glm::vec3(-1.0f, -1.0f, 0.0f), glm::vec3(-1.0f, 1.0f, 0.0f));
+		m_PokemonRect = new TexturedRect("../Clumsy/src/models/battle2.jpg", glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(1.0f, -1.0f, 0.0f), glm::vec3(-1.0f, -1.0f, 0.0f), glm::vec3(-1.0f, 1.0f, 0.0f));
 	    m_PokemonEnemy = new TexturedRect("../Clumsy/src/models/ent.jpg", glm::vec3(0.7f, 0.8f, 0.0f), glm::vec3(0.7f, 0.4f, 0.0f), glm::vec3(0.5f, 0.4f, 0.0f), glm::vec3(0.5f, 0.8f, 0.0f));
 	    m_PokemonPlayer = new TexturedRect("../Clumsy/src/models/lumberjack.jpg", glm::vec3(-0.6f, 0.4f, 0.0f), glm::vec3(-0.6f, 0.0f, 0.0f), glm::vec3(-0.8f, 0.0f, 0.0f), glm::vec3(-0.8f, 0.4f, 0.0f));
 
@@ -164,111 +162,7 @@ namespace Clumsy
 	{
 		assert(m_Instance);
 		return m_Instance;
-	}
-
-	void RenderEngine::setFrustum(glm::mat4 viewProjection)
-	{
-		if (pl.size() > 0) {
-			pl.clear();
-		}
-
-		Plane left(glm::vec3(viewProjection[0][3] + viewProjection[0][0], viewProjection[1][3] + viewProjection[1][0],
-			viewProjection[2][3] + viewProjection[2][0]), viewProjection[3][3] + viewProjection[3][0]);
-		pl.push_back(left);
-
-		Plane right(glm::vec3(viewProjection[0][3] - viewProjection[0][0], viewProjection[1][3] - viewProjection[1][0],
-			viewProjection[2][3] - viewProjection[2][0]), viewProjection[3][3] - viewProjection[3][0]);
-		pl.push_back(right);
-
-		Plane top(glm::vec3(viewProjection[0][3] - viewProjection[0][1], viewProjection[1][3] - viewProjection[1][1],
-			viewProjection[2][3] - viewProjection[2][1]), viewProjection[3][3] - viewProjection[3][1]);
-		pl.push_back(top);
-
-		Plane down(glm::vec3(viewProjection[0][3] + viewProjection[0][1], viewProjection[1][3] + viewProjection[1][1],
-			viewProjection[2][3] + viewProjection[2][1]), viewProjection[3][3] + viewProjection[3][1]);
-		pl.push_back(down);
-
-		Plane near(glm::vec3(viewProjection[0][3] + viewProjection[0][2], viewProjection[1][2] + viewProjection[1][0],
-			viewProjection[2][3] + viewProjection[2][2]), viewProjection[3][3] + viewProjection[3][2]);
-		pl.push_back(near);
-
-		Plane far(glm::vec3(viewProjection[0][3] - viewProjection[0][2], viewProjection[1][2] - viewProjection[1][0],
-			viewProjection[2][3] - viewProjection[2][2]), viewProjection[3][3] - viewProjection[3][2]);
-		pl.push_back(far);
-
-		pl[0].SetNormal(glm::normalize(pl[0].GetNormal()));
-		pl[1].SetNormal(glm::normalize(pl[1].GetNormal()));
-		pl[2].SetNormal(glm::normalize(pl[2].GetNormal()));
-		pl[3].SetNormal(glm::normalize(pl[3].GetNormal()));
-		pl[4].SetNormal(glm::normalize(pl[4].GetNormal()));
-		pl[5].SetNormal(glm::normalize(pl[5].GetNormal()));
-	}
-
-	bool RenderEngine::pointInPlane(Plane p, glm::vec3 point)
-	{
-		bool result;
-		float distance = glm::dot(p.GetNormal(), point) + p.GetDistance();
-		if (distance < 0) {
-			result = true;
-		}
-		else
-		{
-			result = false;
-		}
-		return result;
-	}
-
-	bool RenderEngine::IsInFrustum(const Collider* aabb)
-	{
-		std::vector<glm::vec3> points; // p1, p2, p3, p4, p5, p6, p7, p8;
-
-		glm::vec3 p;
-		p = aabb->GetMinExtends();
-		points.push_back(p);
-
-		p = aabb->GetMaxExtends();
-		points.push_back(p);
-
-		p.x = points[1].x;
-		p.y = points[0].y;
-		p.z = points[0].z;
-		points.push_back(p);
-
-		p.x = points[1].x;
-		p.y = points[1].y;
-		p.z = points[0].z;
-		points.push_back(p);
-
-		p.x = points[0].x;
-		p.y = points[1].y;
-		p.z = points[0].z;
-		points.push_back(p);
-
-		p.x = points[0].x;
-		p.y = points[0].y;
-		p.z = points[1].z;
-		points.push_back(p);
-
-		p.x = points[0].x;
-		p.y = points[1].y;
-		p.z = points[1].z;
-		points.push_back(p);
-
-		p.x = points[1].x;
-		p.y = points[0].y;
-		p.z = points[1].z;
-		points.push_back(p);
-
-		for (int i = 0; i < points.size(); i++)
-		{
-			for (int j = 0; j < pl.size(); j++)
-			{
-				if (pointInPlane(pl[j], points[i]))
-					return false;
-			}
-		}
-		return true;
-	}
+	}	
 
 	void RenderEngine::Render(GameObject object)
 	{
@@ -318,13 +212,6 @@ namespace Clumsy
 		m_Shader->setMat4("view", view);
 		// set light uniforms
 		m_Shader->SetDirectionalLight(0.6, m_Camera->GetPosition(), lightPos, lightSpaceMatrix);
-
-
-		if (isFrustumSet == false) {
-			glm::mat4 comboMatrix = view * glm::transpose(projection);
-			setFrustum(comboMatrix);
-			isFrustumSet = true;
-		}
 
 		object.RenderAll(*m_Shader);
 		
@@ -408,7 +295,6 @@ namespace Clumsy
 			gui->RenderText(textShader, "Tile already occupied!", SCR_WIDTH / 2 - 185.0f, SCR_HEIGHT - 300.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 		}
 
-
 		Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
 		if (player)
 		{
@@ -427,14 +313,11 @@ namespace Clumsy
 			
 			gui->RenderText(textShader, m_ButtonCameraOnPlayer->GetText(), 25.0f, SCR_HEIGHT - 200.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(textShader, m_ButtonEndTurn->GetText(), 25.0f, SCR_HEIGHT - 250.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
-			gui->RenderText(textShader, m_ButtonRestart->GetText(), 25.0f, SCR_HEIGHT - 300.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));
-
-						
+			gui->RenderText(textShader, m_ButtonRestart->GetText(), 25.0f, SCR_HEIGHT - 300.0f, 0.7f, glm::vec3(1.0f, 1.0f, 1.0f));						
 		}
 
 		m_StoreGUI->Render(mainMenuShader ,buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
-		m_WarehouseGUI->Render(mainMenuShader ,buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
-		
+		m_WarehouseGUI->Render(mainMenuShader ,buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);	
 	
 	}
 
@@ -445,8 +328,6 @@ namespace Clumsy
 		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
 		textShader->use();
 		textShader->setMat4("projection", projectionGUI);
-		//mainMenuShader->use();
-
 
 		m_MenuGUI->Render(mainMenuShader, buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 	}
@@ -458,8 +339,6 @@ namespace Clumsy
 		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
 		textShader->use();
 		textShader->setMat4("projection", projectionGUI);
-		//mainMenuShader->use();
-
 
 		m_CreditsGUI->Render(mainMenuShader, buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 	
@@ -473,7 +352,6 @@ namespace Clumsy
 		textShader->use();
 		textShader->setMat4("projection", projectionGUI);
 
-
 		m_EndGUI->Render(mainMenuShader, buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 	}
 
@@ -483,11 +361,8 @@ namespace Clumsy
 		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
 		textShader->use();
 		textShader->setMat4("projection", projectionGUI);
-		//mainMenuShader->use();
-
 
 		m_BetweenLevelsGUI->Render(mainMenuShader, buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
-
 	}
 
 	void RenderEngine::RenderPokemonGUI()
@@ -497,7 +372,6 @@ namespace Clumsy
 		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
 		textShader->use();
 		textShader->setMat4("projection", projectionGUI);
-		//mainMenuShader->use();
 
 		m_PokemonRect->Render(mainMenuShader);
 		m_PokemonPlayer->Render(mainMenuShader);

@@ -20,18 +20,15 @@ namespace Clumsy
         static const unsigned int MAX_BONES = 100;
 		Model();
 		~Model();
-        //Model(std::string const& path, bool gamma = false);
         void processNode(aiNode* node, const aiScene* scene);
         Mesh processMesh(aiMesh* mesh, const aiScene* scene);
         std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 	
         void initShaders(Shader shader);
         void loadModel(const std::string& path);
-        //void update();
         void Draw(Shader shader);
         void Draw2(Shader shader);
 		void Draw3(Shader shader, unsigned int amount);
-        //void playSound();
         void showNodeName(aiNode* node);
 
         glm::mat4 aiToGlm(aiMatrix4x4 ai_matr);

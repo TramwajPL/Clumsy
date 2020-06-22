@@ -57,11 +57,7 @@ namespace Clumsy
 		void RenderPokemonGUI();
 		void AddLights(const BaseLight& light) { m_Lights.push_back(&light); }
 		const BaseLight& GetActiveLight() const { return *m_ActiveLight; }
-		void setFrustum(glm::mat4 viewProjection);
-		bool pointInPlane(Plane p, glm::vec3 point);
-		bool IsInFrustum(const Collider* aabb);
 		int m_Counter = 0;
-		std::vector<Plane> GetPl() { return pl; }
 
 		Button* GetCenterButton() { return m_ButtonCameraOnPlayer; }
 		Button* GetEndTurnButton() { return m_ButtonEndTurn; }
@@ -145,11 +141,8 @@ namespace Clumsy
 		bool m_SecondLevelInstruction = false;
 		float m_SecondLevelInstructionTime;
 
-
-
 		void AddCube(Cube* c) { m_Cubes.push_back(c); }
 		void UpdateCubes();
-
 
 		float GetScaleUp() { return m_ScaleUp; }
 		void  IncreaseScaleUp() { m_ScaleUp += 0.1f; }
@@ -243,11 +236,6 @@ namespace Clumsy
 		std::vector<const BaseLight*> m_Lights;
 		const BaseLight* m_ActiveLight;
 
-		std::vector<Plane> pl;
-
-		//unsigned int depthMapFBO;
-		//unsigned int depthMap;
-
 		static RenderEngine* m_Instance;
 		RenderEngine(GLFWwindow* window, Window* window2, Camera* camera);
 		
@@ -284,8 +272,6 @@ namespace Clumsy
 
 		//enemy movement
 		glm::vec3 m_EnemyDestination;
-		glm::vec3 m_EnemyDeltaMove;
-
-		
+		glm::vec3 m_EnemyDeltaMove;		
 	};
 }

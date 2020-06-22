@@ -61,15 +61,7 @@ namespace Clumsy
 
             glBindTexture(GL_TEXTURE_2D, textures[i].id);
             glUniform1i(glGetUniformLocation(shaders_program, ("material." + name + number).c_str()), i);
-
-            //cout << "added in shader : " << ("material." + name + number).c_str() << endl;
         }
-
-        //glUniform1f(glGetUniformLocation(shaders_program, "material.shininess"), 32.0f);
-
-        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        //glLineWidth(2);
-        //Draw
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
@@ -96,30 +88,18 @@ namespace Clumsy
 			{
 				number = std::to_string(diffuse_nr++);
 			}
-			else if (name == "texture_specular")
-			{
-				number = std::to_string(specular_nr++);
-			}
-			//std::cout << "Textury ziomeczka" <<textures.size() << std::endl;
+            else if (name == "texture_specular")
+            {
+                number = std::to_string(specular_nr++);
+            }
 			glBindTexture(GL_TEXTURE_2D, textures[i].id);
 			glUniform1i(glGetUniformLocation(shaders_program, ("material." + name + number).c_str()), i);
 
-			//cout << "added in shader : " << ("material." + name + number).c_str() << endl;
 		}
-
-		//glUniform1f(glGetUniformLocation(shaders_program, "material.shininess"), 32.0f);
-
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		//glLineWidth(2);
-		//Draw
 
 		glBindVertexArray(VAO);
 		glDrawElementsInstanced(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0, amount);
 		glBindVertexArray(0);
-
-		//glBindVertexArray(VAO);
-		//glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-		//glBindVertexArray(0);
 
 		for (int i = 0; i < textures.size(); i++)
 		{

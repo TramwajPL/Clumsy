@@ -15,7 +15,6 @@ namespace Clumsy {
 		float GetIntensity() { return m_Intensity; }
 
 		virtual void AddToEngine(CoreEngine* engine) const;
-		//Shader* GetShader() { return m_Shader; }
 		inline const Shader& GetShader()         const { return m_Shader; }
 
 		void SetColor(glm::vec3 newColor) { m_Color = newColor; }
