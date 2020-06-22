@@ -107,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="src\GUI\PokemonGUI.cpp" />
     <ClCompile Include="src\RenderEngine\TexturedRect.cpp" />
+    <ClCompile Include="src\GUI\BetweenLevelsGUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Clumsy.h" />
@@ -275,6 +278,9 @@
     </ClInclude>
     <ClInclude Include="src\GUI\PokemonGUI.h" />
     <ClInclude Include="src\RenderEngine\TexturedRect.h" />
+    <ClInclude Include="src\GUI\BetweenLevelsGUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\model_loadingVS.glsl">

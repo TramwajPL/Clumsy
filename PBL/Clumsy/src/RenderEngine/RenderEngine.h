@@ -35,6 +35,7 @@ namespace Clumsy
 	class DestructionBar;
 	class TexturedRect;
 	class CreditsGUI;
+	class BetweenLevelsGUI;
 
 
 	class RenderEngine
@@ -51,6 +52,7 @@ namespace Clumsy
 		void RenderGUI();
 		void RenderMainMenu();
 		void RenderCreditsGUI();
+		void RenderBetweenLevelsGUI();
 		void RenderPokemonGUI();
 		void AddLights(const BaseLight& light) { m_Lights.push_back(&light); }
 		const BaseLight& GetActiveLight() const { return *m_ActiveLight; }
@@ -68,6 +70,7 @@ namespace Clumsy
 		MenuGUI* GetMenuGUI() { return m_MenuGUI; }
 		PokemonGUI* GetPokemonGUI() { return m_PokemonGUI; }
 		CreditsGUI* GetCreditsGUI() { return m_CreditsGUI; }
+		BetweenLevelsGUI* GetBetweenLevelsGUI() { return m_BetweenLevelsGUI; }
 
 		bool isFrustumSet = false;
 		bool wasCameraMoved = true;
@@ -255,6 +258,7 @@ namespace Clumsy
 		MenuGUI* m_MenuGUI;
 		PokemonGUI* m_PokemonGUI;
 		CreditsGUI* m_CreditsGUI;
+		BetweenLevelsGUI* m_BetweenLevelsGUI;
 		
 		Instruction* instruction1;
 		TexturedRect* m_TexturedRect;

@@ -7,6 +7,7 @@
 #include "../Audio/AudioMaster.h"
 #include "../GUI/StoreGUI.h"
 #include "../GUI/WarehouseGUI.h"
+#include "../GUI/BetweenLevelsGUI.h"
 #include "../Game/Player.h"
 #include "../Game/TurnSystem.h"
 #include "../Core/CoreEngine.h"
@@ -246,6 +247,7 @@ namespace Clumsy
 								{
 									RenderEngine::GetInstance()->IncreaseScaleUp();
 									if (RenderEngine::GetInstance()->GetBurntTrees() == 10) {
+										RenderEngine::GetInstance()->GetBetweenLevelsGUI()->SetEnabled(true);
 										RenderEngine::GetInstance()->SetFirstLevel(false);
 										CoreEngine::GetInstance()->SetGame(CoreEngine::GetInstance()->GetLevel2());
 									}

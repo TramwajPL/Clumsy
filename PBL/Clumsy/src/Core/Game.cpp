@@ -15,22 +15,27 @@
 #include "../Game/Warehouse.h"
 #include "../GUI/WarehouseGUI.h"
 #include "../GUI/PokemonGUI.h"
+#include "../GUI/BetweenLevelsGUI.h"
 #include "../Audio/AudioMaster.h"
 
 namespace Clumsy 
 {	
 	void Game::Render()
 	{
+
 		if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderPokemonGUI();
 		}
 		if (RenderEngine::GetInstance()->GetMenuGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->RenderMainMenu();
 		}
-
 		else if (RenderEngine::GetInstance()->GetCreditsGUI()->IsEnabled() == true) {
 			RenderEngine::GetInstance()->GetMenuGUI()->SetEnabled(false);
 			RenderEngine::GetInstance()->RenderCreditsGUI();
+		}
+		if (RenderEngine::GetInstance()->GetBetweenLevelsGUI()->IsEnabled() == true) {
+			RenderEngine::GetInstance()->RenderBetweenLevelsGUI();
+
 		}
 		else {	
 			RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();
@@ -41,6 +46,7 @@ namespace Clumsy
 			if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
 				RenderEngine::GetInstance()->RenderPokemonGUI();
 			}
+
 		}
 	}
 

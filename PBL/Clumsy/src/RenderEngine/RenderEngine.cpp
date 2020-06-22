@@ -16,6 +16,7 @@
 #include "../GUI/PokemonGUI.h"
 #include "../GUI/StoreGUI.h"
 #include "../GUI/WarehouseGUI.h"
+#include "../GUI/BetweenLevelsGUI.h"
 
 
 #include "../GUI/CreditsGUI.h"
@@ -112,6 +113,7 @@ namespace Clumsy
 		m_WarehouseGUI = new WarehouseGUI();
 		m_MenuGUI = new MenuGUI();
 		m_CreditsGUI = new CreditsGUI();
+		m_BetweenLevelsGUI = new BetweenLevelsGUI();
 
 		//m_PokemonGUI = new PokemonGUI();
 	    m_TexturedRect = new TexturedRect("../Clumsy/src/models/tutek1.jpg", glm::vec3(0.9f, 0.9f, 0.0f), glm::vec3(0.9, 0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.5f, 0.9f, 0.0f));
@@ -458,6 +460,19 @@ namespace Clumsy
 
 		m_CreditsGUI->Render(mainMenuShader, buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
 	
+	}
+
+	void RenderEngine::RenderBetweenLevelsGUI() {
+		glDisable(GL_DEPTH_TEST);
+
+		glm::mat4 projectionGUI = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f, static_cast<float>(SCR_HEIGHT));
+		textShader->use();
+		textShader->setMat4("projection", projectionGUI);
+		//mainMenuShader->use();
+
+
+		m_BetweenLevelsGUI->Render(mainMenuShader, buttonShader, textShader, SCR_WIDTH, SCR_HEIGHT);
+
 	}
 
 	void RenderEngine::RenderPokemonGUI()

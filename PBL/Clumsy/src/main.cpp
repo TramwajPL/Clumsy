@@ -162,6 +162,11 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		{
 			Clumsy::RenderEngine::GetInstance()->GetPokemonGUI()->HandleButtonClick(screenX, screenY);
 		}
+		//else if(Clumsy::RenderEngine::GetInstance()->GetBetweenLevelsGUI())
+		else if (Clumsy::RenderEngine::GetInstance()->GetBetweenLevelsGUI()->IsEnabled())
+		{
+			Clumsy::RenderEngine::GetInstance()->GetBetweenLevelsGUI()->HandleButtonClick(screenX, screenY, glfwWindow);
+		}
 		else
 		{
 			float screenX = 2.0f * xpos / SCR_WIDTH - 1.0f;

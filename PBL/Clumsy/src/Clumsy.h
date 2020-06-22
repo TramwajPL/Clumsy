@@ -57,6 +57,7 @@
 #include "GUI/StoreGUI.h"
 #include "GUI/WarehouseGUI.h"
 #include "GUI/PokemonGUI.h"
+#include "GUI/BetweenLevelsGUI.h"
 
 //////////////////
 

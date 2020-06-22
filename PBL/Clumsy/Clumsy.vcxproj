@@ -31,6 +31,7 @@
     <ClCompile Include="src\EventSystem\EventSystem.cpp" />
     <ClCompile Include="src\Game\Enemy.cpp" />
     <ClCompile Include="src\Game\TurnSystem.cpp" />
+    <ClCompile Include="src\GUI\BetweenLevelsGUI.cpp" />
     <ClCompile Include="src\GUI\Button.cpp" />
     <ClCompile Include="src\GUI\CreditsGUI.cpp" />
     <ClCompile Include="src\GUI\DestructionBar.cpp" />
@@ -89,6 +90,7 @@
     <ClInclude Include="src\Game\TurnClass.h" />
     <ClInclude Include="src\Game\TurnSystem.h" />
     <ClInclude Include="src\Game\Warehouse.h" />
+    <ClInclude Include="src\GUI\BetweenLevelsGUI.h" />
     <ClInclude Include="src\GUI\Button.h" />
     <ClInclude Include="src\GUI\CreditsGUI.h" />
     <ClInclude Include="src\GUI\DestructionBar.h" />
