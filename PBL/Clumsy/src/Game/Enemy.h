@@ -4,6 +4,7 @@
 #include "../RenderEngine/RenderEngine.h"
 #include "../GUI/PokemonGUI.h"
 #include "../GUI/EndGameGUI.h"
+#include "../Audio/AudioMaster.h"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -33,12 +34,20 @@ namespace Clumsy {
 				m_IsActive = true;
 				isEnemyDead = false;;
 				m_RenderEnemy = true;
+				if (shouldShoutBePlayed) {
+					AudioMaster::GetInstance()->PlayShout();
+					shouldShoutBePlayed = false;
+				}
 			}
 			else if (collectedTrees > 10 && randomNumber > collectedTrees)
 			{
 				m_IsActive = true;
 				isEnemyDead = false;;
 				m_RenderEnemy = true;
+				if (shouldShoutBePlayed) {
+					AudioMaster::GetInstance()->PlayShout();
+					shouldShoutBePlayed = false;
+				}
 			}
 		}
 
@@ -47,6 +56,7 @@ namespace Clumsy {
 			RenderEngine::GetInstance()->GetPokemonGUI()->SetEnabled(true);
 			RenderEngine::GetInstance()->GetPokemonGUI()->m_BattleCommences = true;
 			std::cout << "FIGHT!" << std::endl;
+			shouldShoutBePlayed = true;
 		}
 
 		void Die()
@@ -89,5 +99,6 @@ namespace Clumsy {
 		bool m_ShouldBeDead = false;
 		bool m_IsActive = false;
 		int countTrees = 0;
+		bool shouldShoutBePlayed = true;
 	};
 }

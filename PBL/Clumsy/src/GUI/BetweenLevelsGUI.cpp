@@ -59,15 +59,15 @@ namespace Clumsy
 			gui->RenderText(shaderText, "Achievements: ", SCR_WIDTH / 2 + 100, SCR_HEIGHT - 300.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
 			if ((RenderEngine::GetInstance()->GetCutTreesCounter() + RenderEngine::GetInstance()->GetBurntTreesCounter()) < 20)
 			{
-				gui->RenderText(shaderText, "Mercy ", SCR_WIDTH / 2 + 100, SCR_HEIGHT - 350.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
+				gui->RenderText(shaderText, "Destroyer", SCR_WIDTH / 2 + 100, SCR_HEIGHT - 350.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
 			}
 			else if ((RenderEngine::GetInstance()->GetCutTreesCounter() + RenderEngine::GetInstance()->GetBurntTreesCounter()) > 20 && (RenderEngine::GetInstance()->GetCutTreesCounter() + RenderEngine::GetInstance()->GetBurntTreesCounter()) < 30)
 			{
-				gui->RenderText(shaderText, "Brutal ", SCR_WIDTH / 2 + 100, SCR_HEIGHT - 350.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
+				gui->RenderText(shaderText, "Advanced destroyer", SCR_WIDTH / 2 + 100, SCR_HEIGHT - 350.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
 			}
 			 else if ((RenderEngine::GetInstance()->GetCutTreesCounter() + RenderEngine::GetInstance()->GetBurntTreesCounter()) > 30)
 			{
-				gui->RenderText(shaderText, "Psycho ", SCR_WIDTH / 2 + 100, SCR_HEIGHT - 350.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
+				gui->RenderText(shaderText, "Ultimate destroyer", SCR_WIDTH / 2 + 100, SCR_HEIGHT - 350.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
 			}
 		}
 	}

@@ -56,6 +56,19 @@ namespace Clumsy {
 			gui->RenderText(shaderText, "Statistics: ", SCR_WIDTH / 2 - 300, SCR_HEIGHT - 300.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(shaderText, "Cut trees: " + std::to_string(RenderEngine::GetInstance()->GetCutTreesCounter()), SCR_WIDTH / 2 - 300, SCR_HEIGHT - 350.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
 			gui->RenderText(shaderText, "Burnt trees: " + std::to_string(RenderEngine::GetInstance()->GetBurntTreesCounter()), SCR_WIDTH / 2 - 300, SCR_HEIGHT - 400.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "Achievements: ", SCR_WIDTH / 2 + 100, SCR_HEIGHT - 300.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+			if ((RenderEngine::GetInstance()->GetBurntTreesCounter()) < 20)
+			{
+				gui->RenderText(shaderText, "Arsonist ", SCR_WIDTH / 2 + 100, SCR_HEIGHT - 350.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
+			}
+			else if ((RenderEngine::GetInstance()->GetBurntTreesCounter()) > 20 && RenderEngine::GetInstance()->GetBurntTreesCounter() < 25)
+			{
+				gui->RenderText(shaderText, "Advanced arsonist ", SCR_WIDTH / 2 + 100, SCR_HEIGHT - 350.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
+			}
+			else if (RenderEngine::GetInstance()->GetBurntTreesCounter() > 30)
+			{
+				gui->RenderText(shaderText, "Ultimate arsonist ", SCR_WIDTH / 2 + 100, SCR_HEIGHT - 350.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
+			}
 
 		}
 	}

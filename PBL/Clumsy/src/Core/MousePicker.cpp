@@ -285,7 +285,6 @@ namespace Clumsy
 					else if (isThereEnemy)
 					{
 						RenderEngine::GetInstance()->enemy->Fight();
-						AudioMaster::GetInstance()->PlayShout();
 						AudioMaster::GetInstance()->PlayChainsaw();
 
 					}
