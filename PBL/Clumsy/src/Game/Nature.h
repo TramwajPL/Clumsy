@@ -132,14 +132,17 @@ namespace Clumsy
            {
                if (EnemyMoved(RenderEngine::GetInstance()->groundSand))
                {
+				   RenderEngine::GetInstance()->m_MoveEnemy = true;
                    return;
                }
                else if (EnemyMoved(RenderEngine::GetInstance()->cutTreesTransforms))
                {
+				   RenderEngine::GetInstance()->m_MoveEnemy = true;
                    return;
                }
                else if (EnemyMoved(RenderEngine::GetInstance()->groundBurned))
                {
+				   RenderEngine::GetInstance()->m_MoveEnemy = true;
                    return;
                }
            }

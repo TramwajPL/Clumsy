@@ -49,8 +49,8 @@ public:
 
 		float scale = 0.0001f;
 
-		Clumsy::Transform boyTransform(pos, rotBoy, 0.005f);
-		Clumsy::Transform enemyTransform(enemyPos, rotEnemy, 0.01); //enemy
+		Clumsy::Transform boyTransform(pos, rotBoy, 0.004f);
+		Clumsy::Transform enemyTransform(enemyPos, rotEnemy, 0.008f); //enemy
 					
 		Clumsy::Player* boy = new Clumsy::Player(boyTransform);
 

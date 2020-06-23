@@ -204,7 +204,7 @@ namespace Clumsy
 					if (!isThereATree)
 					{
 						glm::vec3 delta = ((GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
-						rmc->m_Model = RenderEngine::GetInstance()->playerWalkModel;
+						RenderEngine::GetInstance()->m_MovePlayer = true;
 						Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
 						Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
 						Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
@@ -217,7 +217,7 @@ namespace Clumsy
 					else if (isThereATree && player->IsIncrementingWoodCountPossible())
 					{
 						glm::vec3 delta = ((GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
-						rmc->m_Model = RenderEngine::GetInstance()->playerModel; //fortests
+						RenderEngine::GetInstance()->m_MovePlayer = true;
 						Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
 						Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
 						Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);

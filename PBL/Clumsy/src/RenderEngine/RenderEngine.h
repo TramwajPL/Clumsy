@@ -100,6 +100,8 @@ namespace Clumsy
 		
 		//movement
 		bool m_Movement = false;
+		bool m_MoveEnemy = false;
+		bool m_MovePlayer = false;
 		glm::vec3 GetDestination() { return m_Destination; }
 		RenderModelComponent* GetCurrentPlayer() { return m_CurrentPlayer; }
 		glm::vec3 GetDeltaMove() { return m_DeltaMove; }
@@ -185,7 +187,9 @@ namespace Clumsy
 		Model* playerModel;
 		Model* playerWalkModel;
 		Model* enemyModel;
+		Model* enemyWalkModel;
 		Model* shopModel;
+
 
 		Model* m3;
 		Model* m4;
@@ -214,6 +218,14 @@ namespace Clumsy
 		//Enemy spawn particles
 		float particleTime;
 		float particleMaxTime = 1.5f;
+
+		//enemy Time
+		float enemyTime;
+		float enemymaxTime = 0.5f; //0.6f?
+
+		//player Time
+		float playerTime;
+		float playermaxTime = 0.2f; //0.2?
 
 		//void Run();
 		void CleanUp();

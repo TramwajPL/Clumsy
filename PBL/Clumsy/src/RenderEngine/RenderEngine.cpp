@@ -74,6 +74,9 @@ namespace Clumsy
 
 		enemyModel = new Clumsy::Model();
 		enemyModel->loadModel("../Clumsy/src/models/enemyModels/Idle/Idle.dae"); 
+		enemyWalkModel = new Model();
+		enemyWalkModel->loadModel("../Clumsy/src/models/enemyModels/Mutant Walking/Mutant Walking.dae");
+
 
 		m3 = new Model();
 		m4 = new Model();
@@ -249,6 +252,31 @@ namespace Clumsy
 
 		greenParticle->Update(timestep.GetSeconds(), view, projection);
 		greenParticle->Render(view, projection); //?
+
+		if (m_MoveEnemy == true)
+		{
+			enemy->m_Rmc->m_Model = RenderEngine::GetInstance()->enemyWalkModel;
+			enemyTime += timestep.GetSeconds();
+			if (enemyTime >= enemymaxTime)
+			{
+				enemy->m_Rmc->m_Model = RenderEngine::GetInstance()->enemyModel;
+				m_MoveEnemy = false;
+				enemyTime = 0;
+			}
+		}
+
+
+		if (m_MovePlayer == true && TurnSystem::GetInstance()->GetActivePlayer()->m_Rmc != nullptr)
+		{
+			TurnSystem::GetInstance()->GetActivePlayer()->m_Rmc->m_Model = RenderEngine::GetInstance()->playerWalkModel;
+			playerTime += timestep.GetSeconds();
+			if (playerTime >= enemymaxTime)
+			{
+				TurnSystem::GetInstance()->GetActivePlayer()->m_Rmc->m_Model = RenderEngine::GetInstance()->playerModel;
+				m_MovePlayer = false;
+				playerTime = 0;
+			}
+		}
 	}
 
 	void RenderEngine::RenderGUI()
