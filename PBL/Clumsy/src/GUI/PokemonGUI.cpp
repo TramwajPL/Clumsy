@@ -240,4 +240,13 @@ namespace Clumsy
 			}
 		}
 	}
+
+	void PokemonGUI::Reset()
+	{
+		m_PlayerHP = 100;
+		m_EnemyHp = 100;
+		scaleEnemy = glm::vec3(0.0, 0.03f, 0.3f);
+		scalePlayer = glm::vec3(0.0, 0.03f, 0.3f);
+		StartBattle();
+	}
 }

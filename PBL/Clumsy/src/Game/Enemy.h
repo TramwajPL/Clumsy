@@ -54,6 +54,7 @@ namespace Clumsy {
 		void Fight()
 		{
 			RenderEngine::GetInstance()->GetPokemonGUI()->SetEnabled(true);
+			RenderEngine::GetInstance()->GetPokemonGUI()->Reset();
 			RenderEngine::GetInstance()->GetPokemonGUI()->m_BattleCommences = true;
 			std::cout << "FIGHT!" << std::endl;
 			shouldShoutBePlayed = true;

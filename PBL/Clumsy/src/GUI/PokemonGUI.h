@@ -25,6 +25,8 @@ namespace Clumsy
 		void HandleButtonClick(float screenX, float screenY);
 		void HandleBattle();
 		BattleState getBattleState() { return m_BattleState; }
+		void StartBattle() { m_BattleState = START; }
+		void Reset();
 
 		glm::vec3 scaleEnemy{ 0.0, 0.03f, 0.3f };
 		glm::vec3 scalePlayer{ 0.0, 0.03f, 0.3f };
