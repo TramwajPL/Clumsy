@@ -178,6 +178,7 @@ namespace Clumsy
 		void SetBurntToZero() { burntTrees = 0; }
 		void SetFireTreePosition(Transform newTreePosition) { m_TreePosition = newTreePosition; }
 		void SetSpawnTreePosition(Transform newTreePosition) { m_TreeSpawnPosition.push_back(newTreePosition); }
+		void ClearSpawnTreePositions() { m_TreeSpawnPosition.clear(); }
 		ParticleSystem* particleSystem;
 		ParticleSystem* greenParticle;
 

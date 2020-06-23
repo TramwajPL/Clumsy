@@ -39,11 +39,12 @@ namespace Clumsy
                     // movement
                     EntMovement();
                     // respawn
+                    RenderEngine::GetInstance()->ClearSpawnTreePositions();
 					int randomNumber = (rand() % 5) + 1;
 					for (int i = 0; i < randomNumber ; i++)
 					{
 						SpawnOneTreeEnemy();
-					}
+					}                    
                 }
 
                 if (TurnSystem::GetInstance()->GetTurnCounter() % 2 == 0)
