@@ -53,7 +53,22 @@ namespace Clumsy
 			}
 
 			gui->RenderText(shaderText, "Good Job! ", SCR_WIDTH / 2 - 200, SCR_HEIGHT - 200.0f, 1.3f, glm::vec3(1.0f, 1.0f, 1.0f));
-
+			gui->RenderText(shaderText, "Statistics: ", SCR_WIDTH / 2 - 300, SCR_HEIGHT - 300.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "Cut trees: " + std::to_string(RenderEngine::GetInstance()->GetCutTreesCounter()), SCR_WIDTH / 2 - 300, SCR_HEIGHT - 350.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "Burnt trees: " + std::to_string(RenderEngine::GetInstance()->GetBurntTreesCounter()), SCR_WIDTH / 2 - 300, SCR_HEIGHT - 400.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "Achievements: ", SCR_WIDTH / 2 + 100, SCR_HEIGHT - 300.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+			if ((RenderEngine::GetInstance()->GetCutTreesCounter() + RenderEngine::GetInstance()->GetBurntTreesCounter()) < 20)
+			{
+				gui->RenderText(shaderText, "Mercy ", SCR_WIDTH / 2 + 100, SCR_HEIGHT - 350.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
+			}
+			else if ((RenderEngine::GetInstance()->GetCutTreesCounter() + RenderEngine::GetInstance()->GetBurntTreesCounter()) > 20 && (RenderEngine::GetInstance()->GetCutTreesCounter() + RenderEngine::GetInstance()->GetBurntTreesCounter()) < 30)
+			{
+				gui->RenderText(shaderText, "Brutal ", SCR_WIDTH / 2 + 100, SCR_HEIGHT - 350.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
+			}
+			 else if ((RenderEngine::GetInstance()->GetCutTreesCounter() + RenderEngine::GetInstance()->GetBurntTreesCounter()) > 30)
+			{
+				gui->RenderText(shaderText, "Psycho ", SCR_WIDTH / 2 + 100, SCR_HEIGHT - 350.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
+			}
 		}
 	}
 

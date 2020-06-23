@@ -229,6 +229,7 @@ namespace Clumsy
 							RenderEngine::GetInstance()->cutTreesTransforms.push_back(RenderEngine::GetInstance()->treeTransforms.at(t));
 							RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
 							AudioMaster::GetInstance()->PlayChainsaw();
+							RenderEngine::GetInstance()->SetCutTreesCounter(1);
 						}
 						else if (player->getCanBurn() == true) 
 						{
@@ -239,6 +240,7 @@ namespace Clumsy
 							Clumsy::RenderEngine::GetInstance()->SetFireTreePosition(*destination); //FIRE
 							Clumsy::RenderEngine::GetInstance()->isPlayed = true;
 							AudioMaster::GetInstance()->PlayFire();
+							RenderEngine::GetInstance()->SetBurntTreesCounter(1);
 
 							if (RenderEngine::GetInstance()->GetFirstLevel() == true) {
 								if ((RenderEngine::GetInstance()->GetBackgroundBar()->GetScale().x) > RenderEngine::GetInstance()->GetDestructionBar()->GetScale().x)

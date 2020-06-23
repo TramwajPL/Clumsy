@@ -16,9 +16,10 @@ namespace Clumsy {
 		Button* quit = new Button(glm::vec2(-0.01f, -0.30f), "QUIT", glm::vec3(0.f, 0.0f, 0.0f), glm::vec2(0.2f, 0.12f));
 		m_Buttons.push_back(quit);
 
-		theEndText = new GUI();
-		quitButton = new GUI();
-		playAginButton = new GUI();
+		//theEndText = new GUI();
+		//quitButton = new GUI();
+		//playAginButton = new GUI();
+		gui = new GUI();
 	}
 
 	EndGameGUI::~EndGameGUI()
@@ -44,14 +45,18 @@ namespace Clumsy {
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 			glEnable(GL_CULL_FACE);
 
-			theEndText->RenderText(shaderText, "THE END" , SCR_WIDTH - 1250, SCR_HEIGHT - 445 , 2.5f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "THE END" , SCR_WIDTH - 1250, SCR_HEIGHT - 200 , 2.5f, glm::vec3(1.0f, 1.0f, 1.0f));
 			for (int i = 0; i < m_Buttons.size(); i++)
 			{
 				m_Buttons[i]->Render(shaderButton);
 			}
 
-			playAginButton->RenderText(shaderText, m_Buttons[0]->GetText(), SCR_WIDTH - 1250 + 140, SCR_HEIGHT - 445 - 168, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
-			quitButton->RenderText(shaderText, m_Buttons[1]->GetText(), SCR_WIDTH - 1250 + 220, SCR_HEIGHT - 445 - 272, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, m_Buttons[0]->GetText(), SCR_WIDTH - 1250 + 140, SCR_HEIGHT - 445 - 168, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, m_Buttons[1]->GetText(), SCR_WIDTH - 1250 + 220, SCR_HEIGHT - 445 - 272, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "Statistics: ", SCR_WIDTH / 2 - 300, SCR_HEIGHT - 300.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "Cut trees: " + std::to_string(RenderEngine::GetInstance()->GetCutTreesCounter()), SCR_WIDTH / 2 - 300, SCR_HEIGHT - 350.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
+			gui->RenderText(shaderText, "Burnt trees: " + std::to_string(RenderEngine::GetInstance()->GetBurntTreesCounter()), SCR_WIDTH / 2 - 300, SCR_HEIGHT - 400.0f, 0.8f, glm::vec3(1.0f, 1.0f, 1.0f));
+
 		}
 	}
 

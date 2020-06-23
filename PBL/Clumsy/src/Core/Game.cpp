@@ -35,6 +35,11 @@ namespace Clumsy
 		{
 			RenderEngine::GetInstance()->RenderEndGame();
 		}
+		else if (RenderEngine::GetInstance()->GetCreditsGUI()->IsEnabled() == true) 
+		{
+			RenderEngine::GetInstance()->GetMenuGUI()->SetEnabled(false);
+			RenderEngine::GetInstance()->RenderCreditsGUI();
+		}
 		else if (RenderEngine::GetInstance()->GetBetweenLevelsGUI()->IsEnabled() == true) 
 		{
 			RenderEngine::GetInstance()->RenderBetweenLevelsGUI();

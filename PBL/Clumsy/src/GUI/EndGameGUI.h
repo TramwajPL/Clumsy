@@ -23,9 +23,10 @@ namespace Clumsy {
 
 	private:
 		std::vector<Button*> m_Buttons;
-		GUI* quitButton;
-		GUI* playAginButton;
-		GUI* theEndText;
+		//GUI* quitButton;
+		//GUI* playAginButton;
+		//GUI* theEndText;
+		GUI* gui;
 		unsigned int VBO, VAO, EBO;
 		int width, height, nrChannels;
 		unsigned int texture;

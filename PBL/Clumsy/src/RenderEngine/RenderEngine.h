@@ -164,6 +164,13 @@ namespace Clumsy
 			m_XScaleBackground = newScale;
 		}
 
+
+		int GetCutTreesCounter() { return cutTreesCounter; }
+		int GetBurntTreesCounter() { return burntTreesCounter; }
+
+		void SetCutTreesCounter(int number) { cutTreesCounter += number; }
+		void SetBurntTreesCounter(int number) { burntTreesCounter += number; }
+
 		void TreeBurnt() { burntTrees++; }
 		int GetBurntTrees() { return burntTrees; }
 		void SetBurntToZero() { burntTrees = 0; }
@@ -187,6 +194,7 @@ namespace Clumsy
 		Model* m7;
 		Model* mBurned;
 		Model* mShop;
+
 
 	private:
 		//Bar
@@ -274,5 +282,10 @@ namespace Clumsy
 		//enemy movement
 		glm::vec3 m_EnemyDestination;
 		glm::vec3 m_EnemyDeltaMove;		
+
+		//counters used for statistics 
+		int cutTreesCounter = 0;
+		int burntTreesCounter = 0;
+
 	};
 }
