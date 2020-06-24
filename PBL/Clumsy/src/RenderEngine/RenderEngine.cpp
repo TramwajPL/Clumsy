@@ -57,6 +57,7 @@ namespace Clumsy
 		particleShader = new Shader("../Clumsy/src/Shaders/particle_VS.glsl", "../Clumsy/src/Shaders/particle_FS.glsl");
 		particleTexture = loadTextureFromFile("../Clumsy/src/models/flame.png", GL_TRUE);
 		greenParticleTexture = loadTextureFromFile("../Clumsy/src/models/greenParticle.png", GL_TRUE);
+		violetParticleTexture = loadTextureFromFile("../Clumsy/src/models/violet.png", GL_TRUE);
 		textShader = new Shader("../Clumsy/src/Shaders/text_VS.glsl", "../Clumsy/src/Shaders/text_FS.glsl");
 		buttonShader = new Shader("../Clumsy/src/Shaders/button_VS.glsl", "../Clumsy/src/Shaders/button_FS.glsl");
 
@@ -110,7 +111,7 @@ namespace Clumsy
 		debugDepthQuadShader->setInt("depthMap", 0);
 
 		particleSystem = new ParticleSystem(particleShader, particleTexture);
-		greenParticle = new ParticleSystem(particleShader, greenParticleTexture);
+		greenParticle = new ParticleSystem(particleShader, violetParticleTexture);
 		m_TilesIllumination = new ParticleSystem(particleShader, greenParticleTexture);
 
 		gui = new GUI();

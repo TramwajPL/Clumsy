@@ -261,6 +261,7 @@ namespace Clumsy
 		Cube* Cube1;
 		TextureClass particleTexture;
 		TextureClass greenParticleTexture;
+		TextureClass violetParticleTexture;
 	
 		ParticleSystem* m_TilesIllumination;
 
