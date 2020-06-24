@@ -37,6 +37,8 @@ namespace Clumsy {
 
 		void GenerateNewParticles(GLfloat delta, Transform& position);
 
+		void GenerateTileIllumination(GLfloat delta, Transform& position);
+
 	private:
 		
 		Particle ParticlesContainer[MaxParticles];

@@ -22,6 +22,7 @@
 
 #include "../GUI/CreditsGUI.h"
 #include "../Game/Enemy.h"
+#include "../Game/Player.h"
 
 #include "../Core/Game.h"
 #include "../Core/Timestep.h"
@@ -110,6 +111,7 @@ namespace Clumsy
 
 		particleSystem = new ParticleSystem(particleShader, particleTexture);
 		greenParticle = new ParticleSystem(particleShader, greenParticleTexture);
+		m_TilesIllumination = new ParticleSystem(particleShader, greenParticleTexture);
 
 		gui = new GUI();
 		m_ButtonCameraOnPlayer = new Button(glm::vec2(-0.88f, 0.65f), "Find Player", glm::vec3(0.16f, 0.03f, 0.29f), glm::vec2(0.2f, 0.08f));
@@ -249,17 +251,29 @@ namespace Clumsy
 				particleTime = 0;
 			}
 		}
+		
 
 		greenParticle->Update(timestep.GetSeconds(), view, projection);
 		greenParticle->Render(view, projection); //?
 
+		CreateTilesIllumination();
+
+		for (int i = 0; i < m_ParticlesOnTiles.size(); i++)
+		{
+			m_TilesIllumination->GenerateTileIllumination(timestep.GetSeconds(), m_ParticlesOnTiles[i]);
+		}
+
+		m_TilesIllumination->Update(timestep.GetSeconds(), view, projection);
+		m_TilesIllumination->Render(view, projection);
+
+	
 		if (m_MoveEnemy == true)
 		{
-			enemy->m_Rmc->m_Model = RenderEngine::GetInstance()->enemyWalkModel;
+			enemy->m_Rmc->m_Model = enemyWalkModel;
 			enemyTime += timestep.GetSeconds();
 			if (enemyTime >= enemymaxTime)
 			{
-				enemy->m_Rmc->m_Model = RenderEngine::GetInstance()->enemyModel;
+				enemy->m_Rmc->m_Model = enemyModel;
 				m_MoveEnemy = false;
 				enemyTime = 0;
 			}
@@ -272,13 +286,13 @@ namespace Clumsy
 			{
 				if (TurnSystem::GetInstance()->GetPlayers()[j]->isTurn) 
 				{
-					TurnSystem::GetInstance()->GetActivePlayer()->m_Rmc->m_Model = RenderEngine::GetInstance()->playerWalkModel;
+					TurnSystem::GetInstance()->GetActivePlayer()->m_Rmc->m_Model = playerWalkModel;
 				}
 			}
 			playerTime += timestep.GetSeconds();
 			if (playerTime >= enemymaxTime)
 			{
-				TurnSystem::GetInstance()->GetActivePlayer()->m_Rmc->m_Model = RenderEngine::GetInstance()->playerModel;
+				TurnSystem::GetInstance()->GetActivePlayer()->m_Rmc->m_Model = playerModel;
 				m_MovePlayer = false;
 				playerTime = 0;
 			}
@@ -503,6 +517,72 @@ namespace Clumsy
 	{
 		for (int i = 0; i < m_Cubes.size(); i++)
 			m_Cubes[i]->Update();
+	}
+
+	void RenderEngine::CreateTilesIllumination()
+	{
+		ClearTileIlluminationPositions();
+		//Illuminating tiles
+		Player* player = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetActivePlayer());
+
+		if (player) {
+			glm::vec3 playerPosition = player->m_Rmc->m_Transform.GetPos();
+			for (int i = 0; i < groundSand.size(); i++) {
+				if (glm::length(playerPosition - groundSand[i].GetPos()) < 1.5f) {
+					if (!CheckIfTileOccupied(player, groundSand[i])) {
+						SetTileIlluminationPosition(groundSand[i]);
+					}
+				}
+			}
+			for (int i = 0; i < groundBurned.size(); i++) {
+				if (glm::length(playerPosition - groundBurned[i].GetPos()) < 1.5f) {
+					if (!CheckIfTileOccupied(player, groundBurned[i])) {
+						SetTileIlluminationPosition(groundBurned[i]);
+					}
+				}
+			}
+			for (int i = 0; i < ground.size(); i++) {
+				if (glm::length(playerPosition - ground[i].GetPos()) < 1.5f) {
+					if (!CheckIfTileOccupied(player, ground[i])) {
+						if (!CheckIfTree(ground[i])) {
+							SetTileIlluminationPosition(ground[i]);
+						}
+						else if (CheckIfTree(ground[i]) && player->IsIncrementingWoodCountPossible()) {
+							SetTileIlluminationPosition(ground[i]);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+
+	bool RenderEngine::CheckIfTileOccupied(Player* player, Transform desiredHex)
+	{
+		for (int i = 0; i < TurnSystem::GetInstance()->GetPlayers().size(); i++)
+		{
+			Player* other = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetPlayers()[i]->GetGameObject());
+			if (other)
+			{
+				if (glm::length(other->m_Rmc->m_Transform.GetPos() - desiredHex.GetPos()) < 0.8f)
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	bool RenderEngine::CheckIfTree(Transform desiredHex)
+	{
+		for (int k = 0; k < treeTransforms.size(); k++)
+		{
+			if (desiredHex.GetPos() == treeTransforms[k].GetPos())
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

@@ -37,6 +37,7 @@ namespace Clumsy
 	class CreditsGUI;
 	class BetweenLevelsGUI;
 	class EndGameGUI;
+	class Player;
 
 	class RenderEngine
 	{
@@ -178,9 +179,17 @@ namespace Clumsy
 		void SetBurntToZero() { burntTrees = 0; }
 		void SetFireTreePosition(Transform newTreePosition) { m_TreePosition = newTreePosition; }
 		void SetSpawnTreePosition(Transform newTreePosition) { m_TreeSpawnPosition.push_back(newTreePosition); }
-		void ClearSpawnTreePositions() { m_TreeSpawnPosition.clear(); }
+		void ClearSpawnTreePositions() { m_TreeSpawnPosition.clear(); }		
+		
+		void SetTileIlluminationPosition(Transform newPosition) { m_ParticlesOnTiles.push_back(newPosition); }
+		void ClearTileIlluminationPositions() { m_ParticlesOnTiles.clear(); }
 		ParticleSystem* particleSystem;
 		ParticleSystem* greenParticle;
+
+		void CreateTilesIllumination();
+		bool CheckIfTileOccupied(Player* player, Transform desiredHex);
+		bool CheckIfTree(Transform desiredHex);
+
 
 		std::vector<Cube*> m_Cubes;
 
@@ -252,8 +261,8 @@ namespace Clumsy
 		Cube* Cube1;
 		TextureClass particleTexture;
 		TextureClass greenParticleTexture;
-		ParticleGenerator* particles;
-		ParticleGenerator* particles1;
+	
+		ParticleSystem* m_TilesIllumination;
 
 		std::vector<const BaseLight*> m_Lights;
 		const BaseLight* m_ActiveLight;
@@ -299,6 +308,9 @@ namespace Clumsy
 		//counters used for statistics 
 		int cutTreesCounter = 0;
 		int burntTreesCounter = 0;
+
+		//Vector used for illuminating tiles
+		std::vector<Transform> m_ParticlesOnTiles;
 
 	};
 }

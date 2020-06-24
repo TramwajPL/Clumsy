@@ -62,6 +62,7 @@ namespace Clumsy
 			canBurn = true;
 		}
 
+	
 	private:
 		int maxActions = 3;
 		int actionsCount = 0;

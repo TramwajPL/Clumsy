@@ -202,11 +202,7 @@ namespace Clumsy {
 
 	void ParticleSystem::GenerateNewParticles(GLfloat delta, Transform& position)
 	{
-		int newparticles = (int)(delta * 10000.0);
-		if (newparticles > (int)(0.016f * 10000.0))
-			newparticles = (int)(0.016f * 10000.0);
-
-		newparticles = 4;
+		int newparticles = 4;
 
 		for (int i = 0; i < newparticles; i++) {
 			int particleIndex = FindUnusedParticle();
@@ -237,4 +233,39 @@ namespace Clumsy {
 
 		}
 	}
+
+	void ParticleSystem::GenerateTileIllumination(GLfloat delta, Transform& position)
+	{
+		int newparticles = 1;
+
+		for (int i = 0; i < newparticles; i++) {
+			int particleIndex = FindUnusedParticle();
+			ParticlesContainer[particleIndex].life = 1.7f;
+			ParticlesContainer[particleIndex].startLife = ParticlesContainer[particleIndex].life;
+			ParticlesContainer[particleIndex].pos = position.GetPos() + glm::vec3((rand() % 2000 - 1000.0f) / 20000.0f, 0.0f, 0.0f);
+
+			float spread = 1.5f;
+			glm::vec3 maindir = glm::vec3(0.0f, 0.8f, 0.0f);
+			glm::vec3 randomdir = glm::vec3(
+				(rand() % 2000 - 1000.0f) / 1000.0f,
+				(rand() % 2000 - 1000.0f) / 1000.0f,
+				(rand() % 2000 - 1000.0f) / 1000.0f
+			);
+
+			ParticlesContainer[particleIndex].speed = maindir;
+
+			GLfloat rColor = 0.5 + ((rand() % 100) / 200.0f);
+			rColor *= 255.0f;
+
+			ParticlesContainer[particleIndex].r = rColor;
+			ParticlesContainer[particleIndex].g = rColor;
+			ParticlesContainer[particleIndex].b = rColor;
+			ParticlesContainer[particleIndex].a = 255.0f;
+
+			ParticlesContainer[particleIndex].size = (rand() % 1000) / 2000.0f + 0.0f;
+			ParticlesContainer[particleIndex].startSize = ParticlesContainer[particleIndex].size;
+
+		}
+	}
+
 }

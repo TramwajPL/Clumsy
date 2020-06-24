@@ -195,6 +195,7 @@ namespace Clumsy
 							RenderEngine::GetInstance()->m_TileOccupied = true;
 							RenderEngine::GetInstance()->m_MoveFailTime = 0.8f;
 							std::cout << "tile occupied" << std::endl;
+
 							break;
 						}
 					}
