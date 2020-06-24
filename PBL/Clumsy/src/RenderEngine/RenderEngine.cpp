@@ -268,7 +268,13 @@ namespace Clumsy
 
 		if (m_MovePlayer == true && TurnSystem::GetInstance()->GetActivePlayer()->m_Rmc != nullptr)
 		{
-			TurnSystem::GetInstance()->GetActivePlayer()->m_Rmc->m_Model = RenderEngine::GetInstance()->playerWalkModel;
+			for (int j = 0; j < TurnSystem::GetInstance()->GetPlayers().size(); j++)
+			{
+				if (TurnSystem::GetInstance()->GetPlayers()[j]->isTurn) 
+				{
+					TurnSystem::GetInstance()->GetActivePlayer()->m_Rmc->m_Model = RenderEngine::GetInstance()->playerWalkModel;
+				}
+			}
 			playerTime += timestep.GetSeconds();
 			if (playerTime >= enemymaxTime)
 			{

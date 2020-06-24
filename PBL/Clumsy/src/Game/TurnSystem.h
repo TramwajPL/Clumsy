@@ -20,7 +20,6 @@ namespace Clumsy
 		void DeletePlayers();
 		static TurnSystem* GetInstance();
 		void SetTurnCounter(int wyjebane) { m_TurnCounter = wyjebane; }
-
 	private:
 		std::vector<TurnClass*> players;
 		GameObject* m_ActivePlayer;
