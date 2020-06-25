@@ -563,7 +563,7 @@ namespace Clumsy
 		for (int i = 0; i < TurnSystem::GetInstance()->GetPlayers().size(); i++)
 		{
 			Player* other = dynamic_cast<Player*>(TurnSystem::GetInstance()->GetPlayers()[i]->GetGameObject());
-			if (other)
+			if (other && other != player)
 			{
 				if (glm::length(other->m_Rmc->m_Transform.GetPos() - desiredHex.GetPos()) < 0.8f)
 				{
