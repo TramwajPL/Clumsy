@@ -178,7 +178,7 @@ namespace Clumsy
 						break;
 					}
 				}
-				if (glm::length(RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.GetPos() - *destination) < 1.5f && Clumsy::RenderEngine::GetInstance()->enemy->getIfActive())
+				if (glm::length(RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.GetPos() - *destination) < 1.5f && RenderEngine::GetInstance()->enemy->getIfActive())
 				{
 					RenderEngine::GetInstance()->enemy->Fight();
 				}
@@ -206,10 +206,10 @@ namespace Clumsy
 					{
 						glm::vec3 delta = ((GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
 						RenderEngine::GetInstance()->m_MovePlayer = true;
-						Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
-						Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
-						Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
-						Clumsy::RenderEngine::GetInstance()->m_Movement = true;
+						RenderEngine::GetInstance()->SetDestination(*destination);
+						RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
+						RenderEngine::GetInstance()->SetDeltaMove(delta);
+						RenderEngine::GetInstance()->m_Movement = true;
 						if (!RenderEngine::GetInstance()->GetWarehouseGUI()->IsEnabled() && !RenderEngine::GetInstance()->GetStoreGUI()->IsEnabled())
 							player->IncrementActionCount();
 
@@ -219,10 +219,14 @@ namespace Clumsy
 					{
 						glm::vec3 delta = ((GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
 						RenderEngine::GetInstance()->m_MovePlayer = true;
-						Clumsy::RenderEngine::GetInstance()->SetDestination(*destination);
-						Clumsy::RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
-						Clumsy::RenderEngine::GetInstance()->SetDeltaMove(delta);
-						Clumsy::RenderEngine::GetInstance()->m_Movement = true;
+						RenderEngine::GetInstance()->SetDestination(*destination);
+						RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
+						RenderEngine::GetInstance()->SetDeltaMove(delta);
+						RenderEngine::GetInstance()->m_Movement = true;
+
+						RenderEngine::GetInstance()->SetShakeTime(0.2f);
+						RenderEngine::GetInstance()->GetPostProcessor()->m_Shake = true;
+
 						player->IncrementActionCount();
 
 						if (player->getCanBurn() == false) {
@@ -238,8 +242,8 @@ namespace Clumsy
 							RenderEngine::GetInstance()->wasCut = true;
 							RenderEngine::GetInstance()->treeTransforms.erase(RenderEngine::GetInstance()->treeTransforms.begin() + t);
 
-							Clumsy::RenderEngine::GetInstance()->SetFireTreePosition(*destination); //FIRE
-							Clumsy::RenderEngine::GetInstance()->isPlayed = true;
+							RenderEngine::GetInstance()->SetFireTreePosition(*destination); //FIRE
+							RenderEngine::GetInstance()->isPlayed = true;
 							AudioMaster::GetInstance()->PlayFire();
 							RenderEngine::GetInstance()->SetBurntTreesCounter(1);
 

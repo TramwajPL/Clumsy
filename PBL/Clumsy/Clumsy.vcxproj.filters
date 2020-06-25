@@ -99,18 +99,26 @@
     <ClCompile Include="src\Game\Enemy.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\GUI\CreditsGUI.cpp" />
-    <ClCompile Include="src\GUI\DestructionBar.cpp" />
-    <ClCompile Include="src\RenderEngine\TexturedRect.cpp" />
     <ClCompile Include="src\RenderEngine\ParticleSystem.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
-    <ClCompile Include="src\GUI\PokemonGUI.cpp" />
     <ClCompile Include="src\RenderEngine\TexturedRect.cpp" />
     <ClCompile Include="src\GUI\BetweenLevelsGUI.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI\EndGameGUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GUI\PokemonGUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderEngine\TexturedRect.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GUI\CreditsGUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GUI\DestructionBar.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -273,18 +281,26 @@
     <ClInclude Include="src\Components\RenderInstancedBurnedGroundComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="src\GUI\CreditsGUI.h" />
-    <ClInclude Include="src\GUI\DestructionBar.h" />
-    <ClInclude Include="src\RenderEngine\TexturedRect.h" />
     <ClInclude Include="src\RenderEngine\ParticleSystem.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\GUI\PokemonGUI.h" />
     <ClInclude Include="src\RenderEngine\TexturedRect.h" />
     <ClInclude Include="src\GUI\BetweenLevelsGUI.h">
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="src\GUI\EndGameGUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUI\PokemonGUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\TexturedRect.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUI\CreditsGUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUI\DestructionBar.h">
       <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>

@@ -201,9 +201,6 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 			}
 			else
 			{
-				Clumsy::RenderEngine::GetInstance()->SetShakeTime(0.2f);
-				Clumsy::RenderEngine::GetInstance()->GetPostProcessor()->m_Shake = true;
-
 				// movement
 				Clumsy::GameObject* player = Clumsy::TurnSystem::GetInstance()->GetActivePlayer();
 				Clumsy::EventSystem::GetInstance()->SendEvent("move", (void*)player);
