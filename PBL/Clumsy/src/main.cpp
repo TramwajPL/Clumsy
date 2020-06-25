@@ -215,7 +215,6 @@ int main()
 	Clumsy::RenderEngine::CreateInstance(glfwWindow, window, camera);
 	Clumsy::EventSystem::GetInstance()->SubscribeListener("scroll", Clumsy::AudioMaster::GetInstance());
 	Clumsy::EventSystem::GetInstance()->SubscribeListener("move", &mp);
-	//Clumsy::EventSystem::GetInstance()->SubscribeListener("hire", &game);
 
 	glfwSetScrollCallback(glfwWindow, scroll_callback);
 	glfwSetMouseButtonCallback(glfwWindow, mouse_button_callback);
