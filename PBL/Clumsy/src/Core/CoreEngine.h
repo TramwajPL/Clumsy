@@ -2,6 +2,7 @@
 
 #include "Game.h"
 #include "../Game/Enemy.h"
+#include "../EventSystem/EventSystem.h"
 #include "../RenderEngine/RenderEngine.h"
 
 
@@ -10,9 +11,6 @@ namespace Clumsy
 	class CoreEngine
 	{
 	public:
-		
-		unsigned int loadCubemap(std::vector<std::string> faces);
-
 		void Start();
 		void Stop();
 
@@ -33,16 +31,24 @@ namespace Clumsy
 			RenderEngine::GetInstance()->groundBurned.clear();
 			RenderEngine::GetInstance()->groundSand.clear();
 			RenderEngine::GetInstance()->enemy->SetCountTrees(0);
+			EventSystem::GetInstance()->UnsubscribeListener("hire", m_Game);
+			EventSystem::GetInstance()->SubscribeListener("hire", game);
 			m_Game = game;
 			m_Game->Init();
 			if (!RenderEngine::GetInstance()->GetFirstLevel())
 			{
 				RenderEngine::GetInstance()->SetScaleUp(0.0f);
 				RenderEngine::GetInstance()->SetXScaleBackgroundDefault(0.0f);
+
+				//EventSystem::GetInstance()->UnsubscribeListener("hire", m_Level2);
+				//EventSystem::GetInstance()->SubscribeListener("hire", m_Level1);
 			}
 			else
 			{
 				RenderEngine::GetInstance()->SetScaleUp(0.0f);
+
+				//EventSystem::GetInstance()->UnsubscribeListener("hire", m_Level1);
+				//Clumsy::EventSystem::GetInstance()->SubscribeListener("hire", m_Level2);
 			}
 
 		}
@@ -75,6 +81,7 @@ namespace Clumsy
 			m_Level1(game)
 		{
 			m_Game->Init();
+			EventSystem::GetInstance()->SubscribeListener("hire", m_Game);
 		}
 
 		float m_FrameTime = 0.0f;		//How long, in seconds, one frame should take

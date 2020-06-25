@@ -158,6 +158,8 @@ namespace Clumsy
 	{
 		if (event->GetEventId() == "hire")
 		{
+			Model* boyModel = new Model();
+			boyModel->loadModel("../Clumsy/src/models/playerModels/Breathing Idle/Breathing Idle.dae");
 			glm::vec3 shopPos(RenderEngine::GetInstance()->GetStoreGUI()->GetActiveStore()->GetTransform().GetPos());
 			glm::quat rotBoy = glm::angleAxis(glm::radians(-180.f), glm::vec3(1.0f, 0.0f, 0.0f));
 			rotBoy = glm::rotate(rotBoy, glm::radians(180.f), glm::vec3(0.0f, 0.0f, 1.0f) * rotBoy);
@@ -166,11 +168,11 @@ namespace Clumsy
 			PhysicsObject* ob = new PhysicsObject(
 				new BoundingSphere(boy->GetTransform().GetPos(), 0.1f), &boy->GetTransform());
 			PhysicsEngine::GetInstance()->AddObject(*ob);
-			RenderModelComponent* rmc = new RenderModelComponent(RenderEngine::GetInstance()->playerModel, boy->GetTransform(), 360.0f);
+			RenderModelComponent* rmc = new RenderModelComponent(boyModel, boy->GetTransform(), 360.0f);
 			boy->m_Rmc = rmc;
 			Clumsy::Cube* c1 = new Clumsy::Cube(transform);
 			c1->SetPlayer(rmc);
-			Clumsy::RenderEngine::GetInstance()->AddCube(c1);
+			RenderEngine::GetInstance()->AddCube(c1);
 
 			AddToScene((boy)->AddComponent(rmc));
 			boy->AddComponent(new PhysicsObjectComponent(ob));
