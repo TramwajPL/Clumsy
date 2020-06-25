@@ -20,7 +20,8 @@ namespace Clumsy
 			RenderEngine::GetInstance()->m_SecondLevelInstruction = true;
 			RenderEngine::GetInstance()->SetBurntToZero();
 			TurnSystem::GetInstance()->SetTurnCounter(0);
-			RenderEngine::GetInstance()->enemy->SetIsDead(true);
+			RenderEngine::GetInstance()->enemy->SetIsDead(false);
+			RenderEngine::GetInstance()->enemy->SetRenderEnemy(false);
 			m_Game->getRoot().DeleteAll();
 			RenderEngine::GetInstance()->m_Cubes.clear();
 			TurnSystem::GetInstance()->DeletePlayers();

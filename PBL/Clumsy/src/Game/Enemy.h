@@ -27,8 +27,6 @@ namespace Clumsy {
 		void checkIfRender(int collectedTrees) override
 		{
 			int randomNumber = (rand() % 20) + 1; 
-			//std::cout << "Collected Trees: " << collectedTrees << std::endl;
-			//std::cout << "Random number: " << randomNumber << std::endl;
 			if (collectedTrees > randomNumber && collectedTrees > 10)
 			{
 				m_IsActive = true;
