@@ -205,6 +205,23 @@ namespace Clumsy
 					if (!isThereATree)
 					{
 						glm::vec3 delta = ((GetPickedObject(rmc->m_Transform.GetPos()) - rmc->m_Transform.GetPos()) * glm::vec3(0.1f));
+						float angle = 90.0f;
+						glm::vec2 diff(destination->x - rmc->m_Transform.GetPos().x, destination->z - rmc->m_Transform.GetPos().z);
+						float epsilon = 0.4f;
+						if (diff.x > epsilon)
+						{
+							angle = -90.0f;
+						}
+						if (diff.y > epsilon)
+						{
+							angle -= 90.0f / angle * 45.0f;
+						}
+						else if (diff.y < -epsilon )
+						{
+							angle += 90.0f / angle * 45.0f;
+						}
+						rmc->SetAngle(angle);
+						
 						RenderEngine::GetInstance()->m_MovePlayer = true;
 						RenderEngine::GetInstance()->SetDestination(*destination);
 						RenderEngine::GetInstance()->SetCurrentPlayer(rmc);
@@ -280,6 +297,22 @@ namespace Clumsy
 
 						RenderEngine::GetInstance()->enemy->checkIfRender(RenderEngine::GetInstance()->enemy->GetCountTrees());
 						player->IncrementWoodCount();
+						float angle = 90.0f;
+						glm::vec2 diff(destination->x - rmc->m_Transform.GetPos().x, destination->z - rmc->m_Transform.GetPos().z);
+						float epsilon = 0.4f;
+						if (diff.x > epsilon)
+						{
+							angle = -90.0f;
+						}
+						if (diff.y > epsilon)
+						{
+							angle -= 90.0f / angle * 45.0f;
+						}
+						else if (diff.y < -epsilon)
+						{
+							angle += 90.0f / angle * 45.0f;
+						}
+						rmc->SetAngle(angle);
 					}
 					else if (isThereATree && !player->IsIncrementingWoodCountPossible())
 					{

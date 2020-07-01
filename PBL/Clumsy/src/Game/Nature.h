@@ -162,6 +162,26 @@ namespace Clumsy
                 {
                     // move
                     glm::vec3 delta = (*destination - *currentpos) * glm::vec3(0.1f);
+					float angle = 90.0f;
+					glm::vec2 diff(destination->x - RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.GetPos().x, 
+						destination->z - RenderEngine::GetInstance()->enemy->m_Rmc->m_Transform.GetPos().z);
+					float epsilon = 0.1f;
+					if (diff.x > epsilon)
+					{
+						angle = -90.0f;
+						std::cout << "Weszlo 1" << std::endl;
+					}
+					if (diff.y > epsilon)
+					{
+						angle -= 90.0f / angle * 45.0f;
+						std::cout << "Weszlo 2" << std::endl;
+					}
+					else if (diff.y < -epsilon)
+					{
+						angle += 90.0f / angle * 45.0f;
+						std::cout << "Weszlo 3" << std::endl;
+					}
+					RenderEngine::GetInstance()->enemy->m_Rmc->SetAngle(angle);
                     Clumsy::RenderEngine::GetInstance()->SetEnemyDestination(*destination);
                     Clumsy::RenderEngine::GetInstance()->SetEnemyDeltaMove(delta);
                     Clumsy::RenderEngine::GetInstance()->m_EnemyMovement = true;

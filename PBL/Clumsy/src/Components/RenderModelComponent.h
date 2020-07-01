@@ -24,11 +24,11 @@ namespace Clumsy {
 			vec.y = m_Transform.GetRot()->y;
 			vec.z = m_Transform.GetRot()->z;
 			model = glm::rotate(model, glm::radians(m_Angle), vec);
-			if (m_IsEnemy == true)
+			/*if (m_IsEnemy == true) //remove
 			{
 				model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f,1.0f,0.0f));
 				model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f,1.0f,0.0f));
-			}
+			}*/
 			model = glm::scale(model, glm::vec3(m_Transform.GetScale()));
 
 			shader.setMat4("model", model);
@@ -53,6 +53,8 @@ namespace Clumsy {
 
 		Transform m_Transform;
 		Model* m_Model;
+		void SetAngle(float newAngle) { m_Angle = newAngle; }
+		float GetAngle() { return m_Angle; }
 
 	private:
 		float m_Angle;
