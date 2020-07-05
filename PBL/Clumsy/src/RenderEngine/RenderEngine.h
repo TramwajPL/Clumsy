@@ -256,6 +256,8 @@ namespace Clumsy
 		Shader* shaderCube;
 		Shader* mainMenuShader;
 
+		unsigned int depthMapFBO;
+		unsigned int depthMap;
 		glm::mat4 projection;
 		glm::mat4 view;
 		Cube* Cube1;

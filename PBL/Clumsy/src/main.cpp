@@ -112,8 +112,8 @@ glm::mat4 projectionMP = glm::perspective(glm::radians(camera->GetZoom()), (floa
 Clumsy::MousePicker mp(camera, window, projectionMP);
 
 GLFWwindow* glfwWindow = window->GetGLFWWindow();
-TestGame game(glfwWindow, glm::vec3(0.2f, -1.5f, 0.0f), glm::vec3(-0.5f, 0.0f, 0.0f), "Test.unity");
-TestGame Level2(glfwWindow, glm::vec3(0.2f, -1.5f, 0.0f), glm::vec3(-0.5f, 0.0f, 0.0f), "Level2.unity");
+TestGame game(glfwWindow, glm::vec3(0.2f, -0.5f, 0.0f), glm::vec3(-0.5f, 0.0f, 0.0f), "Test.unity");
+TestGame Level2(glfwWindow, glm::vec3(0.2f, -0.5f, 0.0f), glm::vec3(-0.5f, 0.0f, 0.0f), "Level2.unity");
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {

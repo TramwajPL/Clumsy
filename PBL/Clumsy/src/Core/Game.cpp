@@ -46,10 +46,10 @@ namespace Clumsy
 		}
 		else 
 		{	
-			RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();
+			//RenderEngine::GetInstance()->GetPostProcessor()->BeginRender();
 			RenderEngine::GetInstance()->Render(m_Root); 
-			RenderEngine::GetInstance()->GetPostProcessor()->EndRender();
-			RenderEngine::GetInstance()->GetPostProcessor()->Render(glfwGetTime());
+			//RenderEngine::GetInstance()->GetPostProcessor()->EndRender();
+			//RenderEngine::GetInstance()->GetPostProcessor()->Render(glfwGetTime());
 			RenderEngine::GetInstance()->RenderGUI();
 			if (RenderEngine::GetInstance()->GetPokemonGUI()->IsEnabled() == true) {
 				RenderEngine::GetInstance()->RenderPokemonGUI();

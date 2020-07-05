@@ -103,12 +103,29 @@ namespace Clumsy
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+		/*debugDepthQuadShader->use();
+		debugDepthQuadShader->setInt("depthMap", 0);*/
 
+		glGenFramebuffers(1, &depthMapFBO);
+		// create depth texture
+		glGenTextures(1, &depthMap);
+		glBindTexture(GL_TEXTURE_2D, depthMap);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SCR_WIDTH, SCR_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+		float borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
+		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+		// attach depth texture as FBO's depth buffer
+		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
+		glDrawBuffer(GL_NONE);
+		glReadBuffer(GL_NONE);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		m_Shader->use();
 		m_Shader->setInt("diffuseTexture", 0);
 		m_Shader->setInt("shadowMap", 1);
-		debugDepthQuadShader->use();
-		debugDepthQuadShader->setInt("depthMap", 0);
 
 		particleSystem = new ParticleSystem(particleShader, particleTexture);
 		greenParticle = new ParticleSystem(particleShader, violetParticleTexture);
@@ -175,9 +192,9 @@ namespace Clumsy
 	void RenderEngine::Render(GameObject object)
 	{
 		glEnable(GL_DEPTH_TEST);
-		glDepthMask(GL_TRUE);
+		/*glDepthMask(GL_TRUE);
 		glDepthFunc(GL_ALWAYS);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);*/
 
 		m_Counter = 0;
 
@@ -192,8 +209,8 @@ namespace Clumsy
 		glm::mat4 lightProjection, lightView;
 		glm::mat4 lightSpaceMatrix;
 
-		float near_plane = 100.1f, far_plane = 1050.0f;
-		lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+		float near_plane = 30.1f, far_plane = 1050.0f;
+		lightProjection = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, near_plane, far_plane);
 		lightView = glm::lookAt(glm::vec3(20.0f, 40.0f, -20.0f), glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
 		lightSpaceMatrix = lightProjection * lightView;
 
@@ -201,18 +218,18 @@ namespace Clumsy
 		simpleDepthShader->use();
 		simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
 
-		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT );
+		//glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT );
+		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 		object.RenderAll(*simpleDepthShader);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-		glBindFramebuffer(GL_READ_FRAMEBUFFER, Effects->DepthFBO);
-		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, Effects->MSFBO);
+		/*glBindFramebuffer(GL_READ_FRAMEBUFFER, Effects->DepthFBO);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, Effects->MSFBO);*/
 		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-		view = m_Camera->GetViewMatrix();
+		/*projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		view = m_Camera->GetViewMatrix();*/
 
-
-		m_Shader->use();
 		m_Shader->use();
 		glm::mat4 projection = glm::perspective(glm::radians(m_Camera->GetZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = m_Camera->GetViewMatrix();
@@ -221,6 +238,8 @@ namespace Clumsy
 		// set light uniforms
 		m_Shader->SetDirectionalLight(0.6, m_Camera->GetPosition(), lightPos, lightSpaceMatrix);
 
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, depthMap);
 		object.RenderAll(*m_Shader);
 		
 		for (int i = 0; i < m_Cubes.size(); i++)
@@ -302,6 +321,8 @@ namespace Clumsy
 
 	void RenderEngine::RenderGUI()
 	{
+		glDisable(GL_DEPTH_TEST);
+
 		glDisable(GL_CULL_FACE);
 		buttonShader->use();
 		background->Render(glm::vec3(m_XScaleBackground, 0.10f, 0.3f)); //zmieniæ Y
