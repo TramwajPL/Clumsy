@@ -218,10 +218,10 @@ namespace Clumsy
 		simpleDepthShader->use();
 		simpleDepthShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
 
-		glViewport(0, 0, 1024, 1024);
+		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 		glClear(GL_DEPTH_BUFFER_BIT);
-		glActiveTexture(GL_TEXTURE0);
+		//glActiveTexture(GL_TEXTURE0);
 		object.RenderAll(*simpleDepthShader);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
